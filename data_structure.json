@@ -1,0 +1,140 @@
+
+// Product
+{
+  "_id": "audshaud000123",
+  "name": "Colorblock Logo Hoodie",
+  "type": "T-shirt",
+  "categories": [ "Tops", "Polyester", "Cotton" ],    // Tops, Bottom, Casual
+  "price": 34.59,
+  "discountPercentage": null,
+  "description": "",
+  "items": [
+    {
+      "color": "Gray",
+      "colorImage": "imggray.jpg",
+      "productImages": [ "imgGray1.jpg", "imgGray2.jpg" ],
+      "size": [
+        {
+          "sizeTag": "XS",
+          "quantity": 2
+        },
+        {
+          "sizeTag": "M",
+          "quantity": 5
+        },
+        {
+          "sizeTag": "L",
+          "quantity": null
+        }
+      ]
+    },
+    { 
+      "color": "Blue",
+      "colorImage": "imgBlue.jpg",
+      "productImages": [ "imgBlue1.jpg", "imgBlue2.jpg" ],
+      "size": [
+        {
+          "sizeTag": "XS",
+          "quantity": 2
+        },
+        {
+          "sizeTag": "M",
+          "quantity": 5
+        },
+        {
+          "sizeTag": "L",
+          "quantity": null
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "comment": "",
+      "likes": 6,
+      "dislikes": 8,
+      "createdAt": "",
+      "user": {
+        "userId": "23013",
+        "firstName": "Tiago",
+        "lastName": "Soriano",
+        "address": "Scarbourough, ON. CA"
+      }
+    }
+  ],
+  "createdAt": "",
+  "createdBy": "",
+  "updatedAt": "",
+  "updatedBy": ""
+}
+
+// Users
+{
+  "_id": "aosudhaiuso41231",
+  "fistName": "",
+  "lastName": "",
+  "email": "",
+  "phone": "",
+  "password": "",
+  "avatar_url": "user.jpeg",
+  "avatar": "http://localhost/files/user.jpeg",
+  "shippingAddress": [ 
+    {
+      "address": "",
+      "country": "",
+      "state": "",
+      "city": "",
+      "main": true
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "00123123",
+      "productId": "0123012",
+      "status": "shipped",
+      "received": false
+    },
+    {
+      "orderId": "4812948",
+      "productId": "59134000",
+      "status": "waiting card confirmation",
+      "received": false
+    }
+  ],
+  "createdAt": "",
+  "updatedAt": ""
+}
+
+// Orders
+{
+  "orderId": "00123123",
+  "userId": "ye1232131",
+  "products": [
+    {
+      "productId": "0123012",
+      "productName": "Colorblock Logo Hoodie"
+    },
+    {
+      "productId": "313123",
+      "productName": "Logo Hoodie"
+    }
+  ],
+  "status": "shipped",
+  "received": false,
+  "shippingAddress": {
+      "address": "",
+      "country": "",
+      "state": "",
+      "city": "",
+      "main": true
+    },
+  "billingAddress": {
+      "address": "",
+      "country": "",
+      "state": "",
+      "city": "",
+      "main": true
+    },
+  "createdAt": "",
+  "updatedAt": ""
+}
