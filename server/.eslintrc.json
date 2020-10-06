@@ -8,6 +8,10 @@
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -23,6 +27,11 @@
     "prettier"
   ],
   "rules": {
+    "no-shadow": "warn",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/no-object-literal-type-assertion": "off",
+    "@typescript-eslint/array-type": "off",
+    "@typescript-eslint/indent": "off",
     "prettier/prettier": "error",
     "import/extensions": [
       "error",
