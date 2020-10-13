@@ -8,11 +8,11 @@
     "strictPropertyInitialization": false,
     "baseUrl": "./src",
     "paths": {
-      "@modules/": [
-        "modules/"
+      "@modules/*": [
+        "modules/*"
       ],
-      "@shared/": [
-        "shared/"
+      "@shared/*": [
+        "shared/*"
       ]
     },
     "allowJs": true,
