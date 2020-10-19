@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from "express";
 
-import AppError from './AppErrors';
+import AppError from './AppError';
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof AppError) {
