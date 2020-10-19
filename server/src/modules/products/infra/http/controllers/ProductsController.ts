@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import CreateProductService from "../../services/CreateProductService"
+import CreateProductService from "@modules/products/services/CreateProductService";
 
 const createProduct = new CreateProductService();
 
