@@ -1,18 +1,25 @@
 import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
 import IUpdateOrderDeliveredDTO from '@modules/orders/dtos/IUpdateOrderDeliveredDTO';
 import IUpdateOrderStatusDTO from '@modules/orders/dtos/IUpdateOrderStatusDTO';
-import Order, { IOrder } from '../models/Order';
+import Order, { IOrder, User } from '../models/Order';
 
 export default class OrdersRepository {
   public async findById(id: string): Promise<IOrder | null> {
-    const order = await Order.findById(id);
+    const order = await Order.findById(id).populate("products").populate('userId');
 
     return order;
   }
 
   public async findAllByUserId(id: string): Promise<IOrder[] | null> {
-    const orders = await Order.find({ 'userId._id': id });
-    // const orders2 = await Order.find().where('userId._id').equals(id);
+    const user = await User.findById(id);
+
+    if (!user)
+      return null;
+
+    const orders = await Order.find({ userId: user });
+
+    for (let i = 0; i < orders.length; i++)
+      await orders[i].populate("products").populate("userId").execPopulate();
 
     return orders;
   }
@@ -43,7 +50,8 @@ export default class OrdersRepository {
     id,
     status,
   }: IUpdateOrderStatusDTO): Promise<IOrder | null> {
-    const order = await Order.findByIdAndUpdate(id, { status });
+    const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
+
     return order;
   }
 
@@ -51,7 +59,8 @@ export default class OrdersRepository {
     id,
     delivered,
   }: IUpdateOrderDeliveredDTO): Promise<IOrder | null> {
-    const order = await Order.findByIdAndUpdate(id, { delivered });
+    const order = await Order.findByIdAndUpdate(id, { delivered }, { new: true });
+
     return order;
   }
 }

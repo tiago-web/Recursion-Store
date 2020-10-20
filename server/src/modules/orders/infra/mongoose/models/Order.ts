@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document } from 'mongoose';
-
 import { IAddress } from '@modules/orders/dtos/IAddressDTO';
 import { IProduct } from '@modules/products/infra/mongoose/models/Product';
 
@@ -30,7 +29,7 @@ const UserSchema: Schema = new Schema({
   },
 });
 
-mongoose.model<IUser>('User', UserSchema);
+export const User = mongoose.model<IUser>('User', UserSchema);
 
 const OrderSchema: Schema = new Schema(
   {
