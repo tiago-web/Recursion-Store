@@ -1,21 +1,19 @@
-interface User {
-  name: string;
-  type: string;
-  categories: string;
-  price: string;
-  description: string;
-}
+import { IProduct, IItem } from "../infra/mongoose/models/Product";
+import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
 
 interface IRequest {
   name: string;
   type: string;
-  categories: string;
-  price: string;
+  categories: string[];
+  price: number;
   description: string;
+  items: IItem[];
 }
 
 class CreateProductService {
-  public async execute({ name, type, categories, price, description }: IRequest): Promise<User> {
+  public async execute({ name, type, categories, price, description, items }: IRequest): Promise<IProduct> {
+    const productsRepository = new ProductsRepository();
+
     // TODO
     // Check if the product already exists in the database
     // if exists throw new AppError
@@ -23,13 +21,14 @@ class CreateProductService {
     // create it with an id and date
     // save in the database
 
-    const product = {
+    const product = productsRepository.create({
       name,
       type,
       categories,
       price,
-      description
-    };
+      description,
+      items
+    });
 
     return product;
   }
