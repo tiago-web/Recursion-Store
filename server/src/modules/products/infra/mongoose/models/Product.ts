@@ -16,7 +16,7 @@ export interface IProduct extends Document {
   categories: string;
   price: string;
   description: string;
-  item: IItem[];
+  items: IItem[];
 }
 
 const ProductSchema: Schema = new Schema({
