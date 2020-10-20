@@ -1,12 +1,13 @@
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
+import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
 import Product, { IProduct } from '../models/Product';
 
 export default class ProductsRepository {
-  // public async findById(id: string): Promise<IOrder | null> {
-  //   const order = await Order.findById(id);
+  public async findById(id: string): Promise<IProduct | null> {
+    const product = await Product.findById(id).populate("reviews");
 
-  //   return order;
-  // }
+    return product;
+  }
 
   public async create({
     name,
@@ -15,7 +16,7 @@ export default class ProductsRepository {
     price,
     description,
     items
-  }: ICreateProductDTO): Promise<IProduct> {
+  }: ICreateProductDTO): Promise<IProduct | null> {
     const product = new Product({
       name,
       type,
@@ -26,6 +27,12 @@ export default class ProductsRepository {
     });
 
     await product.save();
+
+    return product;
+  }
+
+  public async updateById(id: string, data: IUpdateProductDTO): Promise<IProduct | null> {
+    const product = await Product.findByIdAndUpdate(id, { data }, { new: true });
 
     return product;
   }

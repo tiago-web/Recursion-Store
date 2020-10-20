@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 
-// import CreateProductService from "@modules/products/services/CreateProductService";
+import CreateReviewService from "@modules/products/services/CreateReviewService";
 
-// const createProduct = new CreateProductService();
+const createReviewService = new CreateReviewService();
 
 export default class ReviewsController {
   public async create(req: Request, res: Response): Promise<Response> {
+    // const user_id = req.user.id;
     const { product_id } = req.params;
-    const { comment, likes, dislikes, userId } = req.body;
+
+    // const { comment, likes, dislikes, userId } = req.body;
 
     try {
       // const product = await createProduct.execute({

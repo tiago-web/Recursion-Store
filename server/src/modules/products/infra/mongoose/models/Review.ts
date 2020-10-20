@@ -1,29 +1,42 @@
+import { IUser } from '@modules/orders/infra/mongoose/models/Order';
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IReview extends Document {
-  comment: string;
-  likes: number;
-  dislikes: number;
+  title: string;
+  body: string;
+  userIntercations: Array<{
+    userId: IUser;
+    action: "like" | "dislike";
+  }>;
+  createdBy: IUser;
 }
 
 const ReviewSchema: Schema = new Schema({
-  comment: {
+  title: {
     type: String,
     required: true,
   },
-  likes: {
-    type: Number,
-  },
-  dislikes: {
-    type: Number,
-  },
-  user: {
+  body: {
+    type: String,
     required: true,
-    type: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'User'
-    }
+  },
+  userIntercations: {
+    type: [{
+      userId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+      },
+      action: {
+        type: String,
+        required: true
+      }
+    }],
+  },
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
   }
 
 }, { timestamps: { createdAt: 'createdAt' } });
