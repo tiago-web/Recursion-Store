@@ -49,6 +49,19 @@
     }
   ],
   "reviews": [
+    "Object_Id(Review)",
+    "Object_Id(Review)",
+    "Object_Id(Review)"
+  ],
+  "createdAt": "",
+  "createdBy": "",
+  "updatedAt": "",
+  "updatedBy": ""
+}
+
+// Reviews
+{
+  "reviews": [
     {
       "comment": "",
       "likes": 6,
@@ -62,10 +75,6 @@
       }
     }
   ],
-  "createdAt": "",
-  "createdBy": "",
-  "updatedAt": "",
-  "updatedBy": ""
 }
 
 // Users
@@ -108,24 +117,20 @@
 // Orders
 {
   "orderId": "00123123",
-  "userId": "ye1232131",
+  "userId": Object_Id(User),
   "products": [
-    {
-      "productId": "0123012",
-      "productName": "Colorblock Logo Hoodie"
-    },
-    {
-      "productId": "313123",
-      "productName": "Logo Hoodie"
-    }
+     "Object_Id(Product)",
+     "Object_Id(Product)",
+     "Object_Id(Product)"
   ],
   "status": "shipped",
-  "received": false,
+  "delivered": false,
   "shippingAddress": {
       "address": "",
       "country": "",
       "state": "",
       "city": "",
+	  "postalCode": "",
       "main": true
     },
   "billingAddress": {
@@ -133,7 +138,8 @@
       "country": "",
       "state": "",
       "city": "",
-      "main": true
+	  "postalCode": "",
+      "main": false
     },
   "createdAt": "",
   "updatedAt": ""
