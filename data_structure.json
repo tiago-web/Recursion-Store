@@ -58,6 +58,19 @@
     }
   ],
   "reviews": [
+    "Object_Id(Review)",
+    "Object_Id(Review)",
+    "Object_Id(Review)"
+  ],
+  "createdAt": "",
+  "createdBy": "",
+  "updatedAt": "",
+  "updatedBy": ""
+}
+
+// Reviews
+{
+  "reviews": [
     {
       "comment": "",
       "likes": 6,
@@ -66,10 +79,6 @@
       "createdBy": "user23013"
     }
   ],
-  "createdAt": "",
-  "createdBy": "",
-  "updatedAt": "",
-  "updatedBy": ""
 }
 // Users
 {
@@ -110,31 +119,30 @@
 // Orders
 {
   "orderId": "00123123",
-  "userId": "ye1232131",
+  "userId": Object_Id(User),
   "products": [
-    {
-      "productId": "0123012"
-    },
-    {
-      "productId": "313123"
-    }
+     "Object_Id(Product)",
+     "Object_Id(Product)",
+     "Object_Id(Product)"
   ],
   "status": "shipped",
-  "received": false,
+  "delivered": false,
   "shippingAddress": {
-    "address": "",
-    "country": "",
-    "state": "",
-    "city": "",
-    "main": true
-  },
+      "address": "",
+      "country": "",
+      "state": "",
+      "city": "",
+	  "postalCode": "",
+      "main": true
+    },
   "billingAddress": {
-    "address": "",
-    "country": "",
-    "state": "",
-    "city": "",
-    "main": true
-  },
+      "address": "",
+      "country": "",
+      "state": "",
+      "city": "",
+	  "postalCode": "",
+      "main": false
+    },
   "createdAt": "",
   "updatedAt": ""
 }
