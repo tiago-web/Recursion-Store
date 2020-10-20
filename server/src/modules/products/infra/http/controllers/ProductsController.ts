@@ -6,16 +6,22 @@ const createProduct = new CreateProductService();
 
 export default class ProductsController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, type, categories, price, description } = req.body;
+    const { name, type, categories, price, description, items } = req.body;
 
-    const product = createProduct.execute({
-      name,
-      type,
-      categories,
-      price,
-      description
-    });
+    try {
+      const product = await createProduct.execute({
+        name,
+        type,
+        categories,
+        price,
+        description,
+        items
+      });
 
-    return res.status(201).json(product);
+      return res.status(201).json(product);
+    } catch (err) {
+      return res.status(err.statusCode).json(err.message);
+    }
+
   }
 }
