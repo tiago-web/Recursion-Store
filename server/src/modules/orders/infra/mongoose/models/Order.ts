@@ -1,15 +1,12 @@
-import { IAddress } from '@modules/orders/dtos/IAddressDTO';
 import mongoose, { Schema, Document } from 'mongoose';
+
+import { IAddress } from '@modules/orders/dtos/IAddressDTO';
+import { IProduct } from '@modules/products/infra/mongoose/models/Product';
 
 export interface IUser extends Document {
   email: string;
   firstName: string;
   lastName: string;
-}
-
-export interface IProduct extends Document {
-  name: string;
-  price: number;
 }
 
 export interface IOrder extends Document {
@@ -19,8 +16,6 @@ export interface IOrder extends Document {
   products: IProduct[];
   shippingAddress: IAddress;
   billingAddress: IAddress;
-  // createdAt: number;
-  // updatedAt: number;
 }
 
 const UserSchema: Schema = new Schema({
@@ -36,17 +31,6 @@ const UserSchema: Schema = new Schema({
 });
 
 mongoose.model<IUser>('User', UserSchema);
-
-const ProductSchema: Schema = new Schema({
-  name: {
-    type: String,
-  },
-  price: {
-    type: Number,
-  },
-});
-
-mongoose.model<IProduct>('Product', ProductSchema);
 
 const OrderSchema: Schema = new Schema(
   {

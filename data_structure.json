@@ -1,10 +1,13 @@
-
 // Product
 {
-  "_id": "audshaud000123",
+  "_id": "product000123",
   "name": "Colorblock Logo Hoodie",
   "type": "T-shirt",
-  "categories": [ "Tops", "Polyester", "Cotton" ],    // Tops, Bottom, Casual
+  "categories": [
+    "Tops",
+    "Polyester",
+    "Cotton"
+  ], // Tops, Bottom, Casual
   "price": 34.59,
   "discountPercentage": null,
   "description": "",
@@ -12,7 +15,10 @@
     {
       "color": "Gray",
       "colorImage": "imggray.jpg",
-      "productImages": [ "imgGray1.jpg", "imgGray2.jpg" ],
+      "productImages": [
+        "imgGray1.jpg",
+        "imgGray2.jpg"
+      ],
       "size": [
         {
           "sizeTag": "XS",
@@ -28,10 +34,13 @@
         }
       ]
     },
-    { 
+    {
       "color": "Blue",
       "colorImage": "imgBlue.jpg",
-      "productImages": [ "imgBlue1.jpg", "imgBlue2.jpg" ],
+      "productImages": [
+        "imgBlue1.jpg",
+        "imgBlue2.jpg"
+      ],
       "size": [
         {
           "sizeTag": "XS",
@@ -67,16 +76,10 @@
       "likes": 6,
       "dislikes": 8,
       "createdAt": "",
-      "user": {
-        "userId": "23013",
-        "firstName": "Tiago",
-        "lastName": "Soriano",
-        "address": "Scarbourough, ON. CA"
-      }
+      "createdBy": "user23013"
     }
   ],
 }
-
 // Users
 {
   "_id": "aosudhaiuso41231",
@@ -87,7 +90,7 @@
   "password": "",
   "avatar_url": "user.jpeg",
   "avatar": "http://localhost/files/user.jpeg",
-  "shippingAddress": [ 
+  "shippingAddress": [
     {
       "address": "",
       "country": "",
@@ -113,7 +116,6 @@
   "createdAt": "",
   "updatedAt": ""
 }
-
 // Orders
 {
   "orderId": "00123123",
