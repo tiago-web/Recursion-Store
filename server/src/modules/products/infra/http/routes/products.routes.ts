@@ -8,7 +8,7 @@ const reviewsController = new ReviewsController();
 
 productRoute.post("/", productsController.create);
 
-productRoute.put("/", productsController.update);
+productRoute.put("/:product_id", productsController.update);
 
 productRoute.get("/", productsController.index);
 
