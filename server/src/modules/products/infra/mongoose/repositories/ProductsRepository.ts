@@ -9,22 +9,8 @@ export default class ProductsRepository {
     return product;
   }
 
-  public async create({
-    name,
-    type,
-    categories,
-    price,
-    description,
-    items
-  }: ICreateProductDTO): Promise<IProduct | null> {
-    const product = new Product({
-      name,
-      type,
-      categories,
-      price,
-      description,
-      items
-    });
+  public async create(productData: ICreateProductDTO): Promise<IProduct | null> {
+    const product = new Product(productData);
 
     await product.save();
 

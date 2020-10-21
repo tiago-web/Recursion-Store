@@ -10,9 +10,10 @@ interface IRequest {
   items: IItem[];
 }
 
+const productsRepository = new ProductsRepository();
+
 class CreateProductService {
   public async execute({ name, type, categories, price, description, items }: IRequest): Promise<IProduct> {
-    const productsRepository = new ProductsRepository();
 
     // TODO
     // Check if the product already exists in the database

@@ -67,16 +67,24 @@
   "updatedAt": "",
   "updatedBy": ""
 }
-
 // Reviews
 {
   "reviews": [
     {
-      "comment": "",
-      "likes": 6,
-      "dislikes": 8,
+      "title": "",
+      "body": "",
+      "usersInteractions": [
+        {
+          "userId": "Object_Id(User)",
+          "action": "like" | "dislike",
+        },
+        {
+          "userId": "Object_Id(User)",
+          "action": "like" | "dislike",
+        },
+      ],
       "createdAt": "",
-      "createdBy": "user23013"
+      "createdBy": "Object_Id(User)"
     }
   ],
 }
@@ -121,28 +129,28 @@
   "orderId": "00123123",
   "userId": Object_Id(User),
   "products": [
-     "Object_Id(Product)",
-     "Object_Id(Product)",
-     "Object_Id(Product)"
+    "Object_Id(Product)",
+    "Object_Id(Product)",
+    "Object_Id(Product)"
   ],
   "status": "shipped",
   "delivered": false,
   "shippingAddress": {
-      "address": "",
-      "country": "",
-      "state": "",
-      "city": "",
-	  "postalCode": "",
-      "main": true
-    },
+    "address": "",
+    "country": "",
+    "state": "",
+    "city": "",
+    "postalCode": "",
+    "main": true
+  },
   "billingAddress": {
-      "address": "",
-      "country": "",
-      "state": "",
-      "city": "",
-	  "postalCode": "",
-      "main": false
-    },
+    "address": "",
+    "country": "",
+    "state": "",
+    "city": "",
+    "postalCode": "",
+    "main": false
+  },
   "createdAt": "",
   "updatedAt": ""
 }
