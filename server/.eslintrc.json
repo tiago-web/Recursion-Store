@@ -28,6 +28,12 @@
   ],
   "rules": {
     "no-shadow": "warn",
+    "no-underscore-dangle": "off",
+    "prettier/prettier": "error",
+    "camelcase": "off",
+    "class-methods-use-this": "off",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/no-object-literal-type-assertion": "off",
     "@typescript-eslint/array-type": "off",
