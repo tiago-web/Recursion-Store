@@ -1,4 +1,4 @@
-import { IUser } from '@modules/orders/infra/mongoose/models/Order';
+import { IUser } from '@modules/users/infra/mongoose/models/User';
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IReview extends Document {

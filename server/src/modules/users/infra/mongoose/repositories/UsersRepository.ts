@@ -1,7 +1,9 @@
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 import User, { IUser } from '../models/User';
 
-export default class ProductsRepository {
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+
+export default class ProductsRepository implements IUsersRepository {
   public async findById(id: string): Promise<IUser | null> {
     const user = await User.findById(id);
 
@@ -16,20 +18,8 @@ export default class ProductsRepository {
     return user;
   }
 
-  public async create({
-    firstName,
-    lastName,
-    email,
-    phone,
-    password,
-  }: ICreateUserDTO): Promise<IUser | null> {
-    const user = new User({
-      firstName,
-      lastName,
-      email,
-      phone,
-      password,
-    });
+  public async create(userData: ICreateUserDTO): Promise<IUser> {
+    const user = new User(userData);
 
     await user.save();
 

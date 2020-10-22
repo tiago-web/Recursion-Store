@@ -1,4 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import IAddressDTO from '@shared/dtos/IAddressDTO';
+import IUserOrderDTO from '@modules/users/dtos/IUserOrderDTO';
 
 export interface IUser extends Document {
   firstName: string,
@@ -8,19 +10,8 @@ export interface IUser extends Document {
   password: string,
   avatar_url: string,
   avatar: string,
-  shippingAddress: Array<{
-    address: string,
-    country: string,
-    province: string,
-    city: string,
-    main: boolean,
-  }>,
-  orders: Array<{
-    orderId: string,
-    productId: number,
-    status: string,
-    received: boolean,
-  }>,
+  shippingAddress: IAddressDTO[],
+  orders: IUserOrderDTO[],
 
 }
 
@@ -42,7 +33,7 @@ const UserSchema: Schema = new Schema({
     required: true,
   },
   phone: {
-    type: Number,
+    type: String,
     required: true,
   },
   avatar: {
@@ -54,6 +45,7 @@ const UserSchema: Schema = new Schema({
     required: true,
   },
   shippingAddress: {
+    required: true,
     type: [{
       address: {
         type: String,
@@ -73,33 +65,19 @@ const UserSchema: Schema = new Schema({
       },
       main: {
         type: Boolean,
-        required: true
+        required: false
       },
     }],
-    required: true,
   },
-  orders: {
-    type: [{
-      orderId: {
-        type: String,
-        required: true
-      },
-      productId: {
-        type: String,
-        required: true
-      },
-      status: {
-        type: String,
-        required: true
-      },
-      received: {
-        type: Boolean,
-        required: true
-      }
-    }],
-    required: true,
-  },
+  orders: [
+    {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'Order',
+    }
+  ],
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
+
 
 export default mongoose.model<IUser>('User', UserSchema);

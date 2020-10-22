@@ -1,4 +1,4 @@
-export interface IAddress {
+export default interface IAddress {
   address: string;
   country: string;
   state: string;
