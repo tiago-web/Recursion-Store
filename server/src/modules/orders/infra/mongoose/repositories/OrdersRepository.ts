@@ -1,7 +1,9 @@
+import Order, { IOrder } from '../models/Order';
+import User from '@modules/users/infra/mongoose/models/User';
+
 import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
 import IUpdateOrderDeliveredDTO from '@modules/orders/dtos/IUpdateOrderDeliveredDTO';
 import IUpdateOrderStatusDTO from '@modules/orders/dtos/IUpdateOrderStatusDTO';
-import Order, { IOrder, User } from '../models/Order';
 
 export default class OrdersRepository {
   public async findById(id: string): Promise<IOrder | null> {

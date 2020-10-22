@@ -1,3 +1,6 @@
+import IUsersRepository from '../repositories/IUsersRepository';
+import AppError from '@shared/errors/AppError';
+
 interface User {
   name: string;
   email: string;
@@ -11,7 +14,16 @@ interface IRequest {
 }
 
 class CreateUserService {
+  constructor(
+    private usersRepository: IUsersRepository,
+  ) { }
+
   public async execute({ name, email, password }: IRequest): Promise<User> {
+    const userExists = await this.usersRepository.findByEmail(email);
+
+    if (userExists)
+      throw new AppError('Email address already used.', 403);
+
     // TODO
     // Check if the user already exists in the database
     // if exists throw new AppError

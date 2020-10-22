@@ -1,6 +1,7 @@
-import { IAddress } from '../dtos/IAddressDTO';
-import { IOrder } from '../infra/mongoose/models/Order';
 import OrdersRepository from '../infra/mongoose/repositories/OrdersRepository';
+
+import IAddress from '@shared/dtos/IAddressDTO';
+import { IOrder } from '../infra/mongoose/models/Order';
 
 interface IRequest {
   userId: string;

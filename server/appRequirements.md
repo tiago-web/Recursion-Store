@@ -10,3 +10,8 @@
 # Products
 
 -
+
+
+# Payment
+
+- Set status to in process while payment is not completed
