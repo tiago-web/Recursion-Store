@@ -1,25 +1,17 @@
-import IUsersRepository from '../repositories/IUsersRepository';
+import UsersRepository from "../infra/mongoose/repositories/UsersRepository";
+import { IUser } from "../infra/mongoose/models/User";
+
 import AppError from '@shared/errors/AppError';
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
+interface IRequest {
+  firsName: string;
 }
 
-interface IRequest {
-  name: string;
-  email: string;
-  password: string;
-}
+const usersRepository = new UsersRepository();
 
 class CreateUserService {
-  constructor(
-    private usersRepository: IUsersRepository,
-  ) { }
-
-  public async execute({ name, email, password }: IRequest): Promise<User> {
-    const userExists = await this.usersRepository.findByEmail(email);
+  public async execute({ firstName, email }: IRequest): Promise<IUser> {
+    const userExists = await usersRepository.findByEmail(email);
 
     if (userExists)
       throw new AppError('Email address already used.', 403);
@@ -31,11 +23,9 @@ class CreateUserService {
     // hash password
     // save in the database
 
-    const user = {
-      name,
-      email,
-      password,
-    };
+    const user = usersRepository.create({
+      firstName,
+    });
 
     return user;
   }
