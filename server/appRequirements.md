@@ -11,6 +11,10 @@
 
 -
 
+# Users
+
+- The user must have only one main address, if they don't select any, then the first one will be the main.
+
 
 # Payment
 

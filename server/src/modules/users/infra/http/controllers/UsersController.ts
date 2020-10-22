@@ -6,12 +6,21 @@ const createUser = new CreateUserService();
 
 export default class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, phone, password, shippingAddresses: { address, country, province, city, main } } = req.body;
 
     const user = await createUser.execute({
-      name,
+      firstName,
+      lastName,
       email,
+      phone,
       password,
+      shippingAddresses: {
+        address,
+        country,
+        province,
+        city,
+        main
+      }
     });
 
     return res.json(user);
