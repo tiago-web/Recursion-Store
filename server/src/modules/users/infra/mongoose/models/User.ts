@@ -3,16 +3,15 @@ import IAddressDTO from '@shared/dtos/IAddressDTO';
 import IUserOrderDTO from '@modules/users/dtos/IUserOrderDTO';
 
 export interface IUser extends Document {
-  firstName: string,
-  lastName: string,
-  email: string,
-  phone: string,
-  password: string,
-  avatar_url: string,
-  avatar: string,
-  shippingAddress: IAddressDTO[],
-  orders: IUserOrderDTO[],
-
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+  avatar_url?: string;
+  avatar?: string;
+  shippingAddress: IAddressDTO[];
+  orders: IUserOrderDTO[];
 }
 
 const UserSchema: Schema = new Schema({
@@ -38,11 +37,11 @@ const UserSchema: Schema = new Schema({
   },
   avatar: {
     type: String,
-    required: true,
+    required: false,
   },
   avatar_url: {
     type: String,
-    required: true,
+    required: false,
   },
   shippingAddress: {
     required: true,
