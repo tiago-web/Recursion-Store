@@ -1,4 +1,4 @@
-import { IAddress } from './IAddressDTO';
+import IAddress from "@shared/dtos/IAddressDTO";
 
 export default interface ICreateOrderDTO {
   userId: string;

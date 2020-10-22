@@ -1,6 +1,7 @@
+import Product, { IProduct } from '../models/Product';
+
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
-import Product, { IProduct } from '../models/Product';
 
 export default class ProductsRepository {
   public async findById(id: string): Promise<IProduct | null> {
