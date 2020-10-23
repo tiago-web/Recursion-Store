@@ -18,4 +18,4 @@
 
 # Payment
 
-- Set status to in process while payment is not completed
+- Set order status to in process while payment is not completed

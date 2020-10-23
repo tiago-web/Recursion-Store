@@ -4,11 +4,4 @@ export default interface ICreateUserDTO {
   email: string;
   phone: string;
   password: string;
-  shippingAddresses: [{
-    address: string;
-    country: string;
-    province: string;
-    city: string;
-    main?: boolean;
-  }];
 }

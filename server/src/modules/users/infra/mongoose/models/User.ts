@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
+
 import IAddressDTO from '@shared/dtos/IAddressDTO';
-import IUserOrderDTO from '@modules/users/dtos/IUserOrderDTO';
+import { IOrder } from "@modules/orders/infra/mongoose/models/Order";
 
 export interface IUser extends Document {
   firstName: string;
@@ -10,8 +11,9 @@ export interface IUser extends Document {
   password: string;
   avatar_url?: string;
   avatar?: string;
-  shippingAddress: IAddressDTO[];
-  orders: IUserOrderDTO[];
+  shippingAddresses?: IAddressDTO[];
+  orders?: IOrder[];
+  permission?: "Master" | "Admin";
 }
 
 const UserSchema: Schema = new Schema({
@@ -43,8 +45,8 @@ const UserSchema: Schema = new Schema({
     type: String,
     required: false,
   },
-  shippingAddress: {
-    required: true,
+  shippingAddresses: {
+    required: false,
     type: [{
       address: {
         type: String,
@@ -68,13 +70,20 @@ const UserSchema: Schema = new Schema({
       },
     }],
   },
-  orders: [
-    {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'Order',
-    }
-  ],
+  orders: {
+    required: false,
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Order',
+      }
+    ]
+  },
+  permission: {
+    type: String,
+    required: false,
+  },
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
