@@ -9,6 +9,9 @@ export default class OrdersRepository {
   public async findAllOrders(): Promise<IOrder[]>{
     const orders = await Order.find({}).sort({ createdAt: 1 });
 
+    for (let i = 0; i < orders.length; i++)
+      await orders[i].populate("userId").execPopulate();
+
     return orders;
   }
 
