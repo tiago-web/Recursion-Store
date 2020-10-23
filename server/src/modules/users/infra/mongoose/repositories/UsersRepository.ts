@@ -3,7 +3,7 @@ import User, { IUser } from '../models/User';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
-export default class ProductsRepository implements IUsersRepository {
+export default class UsersRepository implements IUsersRepository {
   public async findById(id: string): Promise<IUser | null> {
     const user = await User.findById(id);
 

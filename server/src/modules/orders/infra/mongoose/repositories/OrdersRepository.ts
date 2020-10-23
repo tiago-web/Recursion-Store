@@ -29,7 +29,6 @@ export default class OrdersRepository {
   public async create({
     userId,
     status,
-    delivered,
     products,
     shippingAddress,
     billingAddress,
@@ -37,7 +36,6 @@ export default class OrdersRepository {
     const order = new Order({
       userId,
       status,
-      delivered,
       products,
       shippingAddress,
       billingAddress,

@@ -8,7 +8,6 @@ export default class OrdersController {
     const {
       userId,
       status,
-      delivered,
       products,
       shippingAddress,
       billingAddress,
@@ -18,7 +17,6 @@ export default class OrdersController {
       const order = await createOrder.execute({
         userId,
         status,
-        delivered,
         products,
         shippingAddress,
         billingAddress,
