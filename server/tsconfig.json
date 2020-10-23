@@ -13,6 +13,9 @@
       ],
       "@shared/*": [
         "shared/*"
+      ],
+      "@config/*": [
+        "config/*"
       ]
     },
     "allowJs": true,
