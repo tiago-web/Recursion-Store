@@ -1,7 +1,8 @@
 import UsersRepository from "../infra/mongoose/repositories/UsersRepository";
 import { IUser } from "../infra/mongoose/models/User";
 
-import IAddressDTO from '@shared/dtos/IAddressDTO';
+import BCryptHashProvider from '@modules/users/providers/HashProvider/implementations/BCryptHashProvider';
+
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
@@ -14,6 +15,7 @@ interface IRequest {
 }
 
 const usersRepository = new UsersRepository();
+const hashProvider = new BCryptHashProvider();
 
 class CreateUserService {
   public async execute(
@@ -26,18 +28,20 @@ class CreateUserService {
     if (permission)
       throw new AppError('Unauthorized permission set.', 403);
 
+    const hashedPassword = await hashProvider.generateHash(password);
+
     // TODO
     // Check if the user already exists in the database ✅
     // if exists throw new AppError ✅
-    // hash password
-    // save in the database
+    // hash password ✅
+    // save in the database ✅
 
     const user = usersRepository.create({
       firstName,
       lastName,
       email,
       phone,
-      password
+      password: hashedPassword,
     });
 
     return user;
