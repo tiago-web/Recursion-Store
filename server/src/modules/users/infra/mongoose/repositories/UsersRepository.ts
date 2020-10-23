@@ -11,15 +11,20 @@ export default class ProductsRepository implements IUsersRepository {
   }
 
   public async findByEmail(email: string): Promise<IUser | null> {
-    const user = await User.findOne({
-      where: { email },
-    });
+    const user = await User.findOne({ email });
 
     return user;
   }
 
   public async create(userData: ICreateUserDTO): Promise<IUser> {
     const user = new User(userData);
+
+    await user.save();
+
+    return user;
+  }
+
+  public async save(user: IUser): Promise<IUser> {
 
     await user.save();
 
