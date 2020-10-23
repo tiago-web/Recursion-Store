@@ -10,6 +10,6 @@ const userPermissionController = new UserPermissionController();
 
 usersRouter.post('/', usersController.create);
 
-usersRouter.post('/:userId', ensureAuthenticated, userPermissionController.update);
+usersRouter.put('/:userId', ensureAuthenticated, userPermissionController.update);
 
 export default usersRouter;

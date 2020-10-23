@@ -5,7 +5,7 @@ import AppError from '@shared/errors/AppError';
 interface IRequest {
   masterUserId: string;
   userId: string;
-  permission: "Admin" | null;
+  permission: "Admin" | "User";
 }
 
 const usersRepository = new UsersRepository();
@@ -28,11 +28,11 @@ class UpdateUserPermissionService {
       throw new AppError("User not found.");
     }
 
-    if (permission !== "Admin" || permission !== null) {
+    if (permission === "Admin" || permission === "User") {
+      user.permission = permission;
+    } else {
       throw new AppError("Assigned permissions invalid.");
     }
-
-    user.permission = permission;
 
     await usersRepository.save(user);
 

@@ -24,9 +24,6 @@ class CreateOrderService {
     shippingAddress,
     billingAddress,
   }: IRequest): Promise<IOrder> {
-
-
-
     // TODO
     // Check if the product ids exist in the database ✅
     // Check if the order already exists in the database
@@ -43,7 +40,7 @@ class CreateOrderService {
         throw new AppError("One product doesn't exists in the database.");
     }
 
-    const order = ordersRepository.create({
+    const order = await ordersRepository.create({
       userId,
       status,
       products,

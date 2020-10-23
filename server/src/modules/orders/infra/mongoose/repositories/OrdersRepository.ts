@@ -6,14 +6,21 @@ import IUpdateOrderDeliveredDTO from '@modules/orders/dtos/IUpdateOrderDelivered
 import IUpdateOrderStatusDTO from '@modules/orders/dtos/IUpdateOrderStatusDTO';
 
 export default class OrdersRepository {
+  public async findAllOrders(): Promise<IOrder[]>{
+    const orders = await Order.find({}).sort({ createdAt: 1 });
+
+    return orders;
+  }
+
+
   public async findById(id: string): Promise<IOrder | null> {
     const order = await Order.findById(id).populate("products").populate('userId');
 
     return order;
   }
 
-  public async findAllByUserId(id: string): Promise<IOrder[] | null> {
-    const user = await User.findById(id);
+  public async findAllByUserId(userId: string): Promise<IOrder[] | null> {
+    const user = await User.findById(userId);
 
     if (!user)
       return null;

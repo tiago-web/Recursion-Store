@@ -1,31 +1,14 @@
-import CreateOrderService from '@modules/orders/services/CreateOrderService';
+import ListOrdersService from '@modules/orders/services/ListOrdersService';
 import { Request, Response } from 'express';
 
-const createOrder = new CreateOrderService();
+const listOrders = new ListOrdersService();
 
 export default class OrdersController {
-  public async create(req: Request, res: Response): Promise<Response> {
-    const {
-      userId,
-      status,
-      products,
-      shippingAddress,
-      billingAddress,
-    } = req.body;
+  public async index(req: Request, res: Response): Promise<Response> {
+    const userId = req.user.id;
 
-    try {
-      const order = await createOrder.execute({
-        userId,
-        status,
-        products,
-        shippingAddress,
-        billingAddress,
-      });
+    const orders = await listOrders.execute(userId);
 
-      return res.status(201).json(order);
-    } catch (err) {
-
-      return res.status(err.statusCode).json(err.message);
-    }
+    return res.status(201).json(orders);
   }
 }

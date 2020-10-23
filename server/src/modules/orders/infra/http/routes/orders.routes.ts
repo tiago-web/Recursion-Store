@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from "celebrate";
 
-import OrdersController from '@modules/orders/infra/http/controllers/OrdersController';
+import OrderController from '@modules/orders/infra/http/controllers/OrderController';
+import OrdersController from '../controllers/OrdersController';
 import OrderByIdController from '../controllers/OrderByIdController';
 import OrderDeliveredController from '../controllers/OrderDeliveredController';
 import OrdersByUserController from '../controllers/OrdersByUserController';
@@ -11,6 +12,7 @@ import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObje
 import ensureAuthenticated from '@modules/users/infra/http/middleware/ensureAuthenticated';
 
 const ordersRouter = Router();
+const orderController = new OrderController();
 const ordersController = new OrdersController();
 const orderByIdController = new OrderByIdController();
 const orderDeliveredController = new OrderDeliveredController();
@@ -19,9 +21,11 @@ const orderStatusController = new OrderStatusController();
 
 ordersRouter.use(ensureAuthenticated);
 
-ordersRouter.post('/', ordersController.create);
+ordersRouter.post('/', orderController.create);
 
-ordersRouter.get('/:id', checkIsValidMongoId, orderByIdController.index);
+ordersRouter.get('/', ordersController.index);
+
+ordersRouter.get('/:orderId', orderByIdController.index);
 
 ordersRouter.get('/user/:id', checkIsValidMongoId, ordersByUserController.index);
 

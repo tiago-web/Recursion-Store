@@ -25,7 +25,6 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   public async save(user: IUser): Promise<IUser> {
-
     await user.save();
 
     return user;

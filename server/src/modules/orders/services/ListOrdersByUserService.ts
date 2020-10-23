@@ -5,7 +5,7 @@ const ordersRepository = new OrdersRepository();
 
 class ListOrdersByUserService {
   public async execute(userId: string): Promise<IOrder[] | null> {
-    const orders = ordersRepository.findAllByUserId(userId);
+    const orders = await ordersRepository.findAllByUserId(userId);
 
     return orders;
   }

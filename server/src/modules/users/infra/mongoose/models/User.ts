@@ -13,7 +13,7 @@ export interface IUser extends Document {
   avatar?: string;
   shippingAddresses?: IAddressDTO[];
   orders?: IOrder[];
-  permission?: "Master" | "Admin";
+  permission: "Master" | "Admin" | "User";
 }
 
 const UserSchema: Schema = new Schema({
@@ -82,7 +82,8 @@ const UserSchema: Schema = new Schema({
   },
   permission: {
     type: String,
-    required: false,
+    default: "User",
+    required: true,
   },
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );

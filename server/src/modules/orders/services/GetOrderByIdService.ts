@@ -8,7 +8,7 @@ class GetOrderByIdService {
   public async execute(id: string): Promise<IOrder | null> {
     // TODO
     // Check if the order already exists in the database ✅
-    const order = ordersRepository.findById(id);
+    const order = await ordersRepository.findById(id);
 
     if (order)
       throw new AppError("The order doesn't exist in the database.")
