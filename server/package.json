@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@types/cors": "^2.8.7",
+    "bcryptjs": "^2.4.3",
     "celebrate": "^13.0.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -17,6 +18,7 @@
     "uuid": "^8.3.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.8",
     "@types/mongoose": "^5.7.36",
     "@types/uuid": "^8.3.0",
