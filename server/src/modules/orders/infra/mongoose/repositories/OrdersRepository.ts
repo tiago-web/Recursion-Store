@@ -6,14 +6,24 @@ import IUpdateOrderDeliveredDTO from '@modules/orders/dtos/IUpdateOrderDelivered
 import IUpdateOrderStatusDTO from '@modules/orders/dtos/IUpdateOrderStatusDTO';
 
 export default class OrdersRepository {
+  public async findAllOrders(): Promise<IOrder[]>{
+    const orders = await Order.find({}).sort({ createdAt: 1 });
+
+    for (let i = 0; i < orders.length; i++)
+      await orders[i].populate("userId").execPopulate();
+
+    return orders;
+  }
+
+
   public async findById(id: string): Promise<IOrder | null> {
     const order = await Order.findById(id).populate("products").populate('userId');
 
     return order;
   }
 
-  public async findAllByUserId(id: string): Promise<IOrder[] | null> {
-    const user = await User.findById(id);
+  public async findAllByUserId(userId: string): Promise<IOrder[] | null> {
+    const user = await User.findById(userId);
 
     if (!user)
       return null;
@@ -29,7 +39,6 @@ export default class OrdersRepository {
   public async create({
     userId,
     status,
-    delivered,
     products,
     shippingAddress,
     billingAddress,
@@ -37,7 +46,6 @@ export default class OrdersRepository {
     const order = new Order({
       userId,
       status,
-      delivered,
       products,
       shippingAddress,
       billingAddress,

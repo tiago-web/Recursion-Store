@@ -5,15 +5,10 @@ const listOrdersByUser = new ListOrdersByUserService();
 
 export default class OrdersByUserController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const userId = req.user.id;
 
-    try {
-      const orders = await listOrdersByUser.execute(id);
+    const orders = await listOrdersByUser.execute(userId);
 
-      return res.status(201).json(orders);
-    } catch (err) {
-
-      return res.status(err.statusCode).json(err.message);
-    }
+    return res.status(201).json(orders);
   }
 }

@@ -16,6 +16,8 @@ export default class UserController {
       password
     });
 
+    user.password = "";
+
     return res.json(user);
   }
 }

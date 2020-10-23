@@ -26,6 +26,7 @@ const OrderSchema: Schema = new Schema(
     },
     delivered: {
       type: Boolean,
+      default: false,
       required: true,
     },
     products: [

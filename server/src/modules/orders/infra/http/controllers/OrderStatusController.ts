@@ -8,13 +8,8 @@ export default class OrderStatusController {
     const { id } = req.params;
     const { status } = req.body;
 
-    try {
-      const order = await ordersStatus.execute({ id, status });
+    const order = await ordersStatus.execute({ id, status });
 
-      return res.status(201).json(order);
-    } catch (err) {
-
-      return res.status(err.statusCode).json(err.message);
-    }
+    return res.status(201).json(order);
   }
 }

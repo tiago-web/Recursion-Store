@@ -1,21 +1,16 @@
 import IUpdateOrderStatusDTO from '../dtos/IUpdateOrderStatusDTO';
+import AppError from '@shared/errors/AppError';
 import { IOrder } from '../infra/mongoose/models/Order';
 import OrdersRepository from '../infra/mongoose/repositories/OrdersRepository';
 
+const ordersRepository = new OrdersRepository();
+
 class UpdateOrderStatusService {
   public async execute({ id, status }: IUpdateOrderStatusDTO): Promise<IOrder | null> {
-    const ordersRepository = new OrdersRepository();
+    const order = await ordersRepository.updateStatus({ id, status });
 
-    // TODO
-    // Check if the userId exist in the databasse
-    // Check if the product ids exist in the database
-    // Check if the order already exists in the database
-    // if exists throw new AppError
-    // Else
-    // create it with an id and date
-    // save in the database
-
-    const order = ordersRepository.updateStatus({ id, status });
+    if (order)
+      throw new AppError("The order doesn't exist in the database.");
 
     return order;
   }

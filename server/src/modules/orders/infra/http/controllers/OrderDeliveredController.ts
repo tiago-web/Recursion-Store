@@ -8,13 +8,8 @@ export default class OrderDeliveredController {
     const { id } = req.params;
     const { delivered } = req.body;
 
-    try {
-      const order = await orderDelivered.execute({ id, delivered });
+    const order = await orderDelivered.execute({ id, delivered });
 
-      return res.status(201).json(order);
-    } catch (err) {
-
-      return res.status(err.statusCode).json(err.message);
-    }
+    return res.status(201).json(order);
   }
 }
