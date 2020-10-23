@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from "celebrate";
-import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 
 import OrdersController from '@modules/orders/infra/http/controllers/OrdersController';
 import OrderByIdController from '../controllers/OrderByIdController';
@@ -8,12 +7,17 @@ import OrderDeliveredController from '../controllers/OrderDeliveredController';
 import OrdersByUserController from '../controllers/OrdersByUserController';
 import OrderStatusController from '../controllers/OrderStatusController';
 
+import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
+import ensureAuthenticated from '@modules/users/infra/http/middleware/ensureAuthenticated';
+
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 const orderByIdController = new OrderByIdController();
 const orderDeliveredController = new OrderDeliveredController();
 const ordersByUserController = new OrdersByUserController();
 const orderStatusController = new OrderStatusController();
+
+ordersRouter.use(ensureAuthenticated);
 
 ordersRouter.post('/', ordersController.create);
 

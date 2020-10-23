@@ -1,17 +1,22 @@
 import { Router } from "express";
+
 import ProductsController from "../controllers/ProductController";
 import ReviewsController from "../controllers/ReviewsController";
 
-const productRoute = Router();
+import ensureAuthenticated from "@modules/users/infra/http/middleware/ensureAuthenticated";
+
+const productsRouter = Router();
 const productsController = new ProductsController();
 const reviewsController = new ReviewsController();
 
-productRoute.post("/", productsController.create);
+productsRouter.use(ensureAuthenticated);
 
-productRoute.put("/:product_id", productsController.update);
+productsRouter.post("/", productsController.create);
 
-productRoute.get("/", productsController.index);
+productsRouter.put("/:product_id", productsController.update);
 
-productRoute.post("/:product_id/review", reviewsController.create);
+productsRouter.get("/", productsController.index);
 
-export default productRoute;
+productsRouter.post("/:product_id/review", reviewsController.create);
+
+export default productsRouter;
