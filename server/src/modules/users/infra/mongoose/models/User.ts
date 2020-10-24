@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 import IAddressDTO from '@shared/dtos/IAddressDTO';
-import { IOrder } from "@modules/orders/infra/mongoose/models/Order";
+import { IOrder } from '@modules/orders/infra/mongoose/models/Order';
 
 export interface IUser extends Document {
   firstName: string;
@@ -13,7 +13,7 @@ export interface IUser extends Document {
   avatar?: string;
   shippingAddresses?: IAddressDTO[];
   orders?: IOrder[];
-  permission: "Master" | "Admin" | "User";
+  permission: 'Master' | 'Admin' | 'User';
 }
 
 const UserSchema: Schema = new Schema({
@@ -82,7 +82,7 @@ const UserSchema: Schema = new Schema({
   },
   permission: {
     type: String,
-    default: "User",
+    default: 'User',
     required: true,
   },
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }

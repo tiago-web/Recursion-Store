@@ -30,12 +30,6 @@ class CreateUserService {
 
     const hashedPassword = await hashProvider.generateHash(password);
 
-    // TODO
-    // Check if the user already exists in the database ✅
-    // if exists throw new AppError ✅
-    // hash password ✅
-    // save in the database ✅
-
     const user = usersRepository.create({
       firstName,
       lastName,

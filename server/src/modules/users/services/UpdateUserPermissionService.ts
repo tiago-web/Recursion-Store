@@ -1,11 +1,11 @@
-import UsersRepository from "../infra/mongoose/repositories/UsersRepository";
-import { IUser } from "../infra/mongoose/models/User";
+import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
+import { IUser } from '../infra/mongoose/models/User';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
   masterUserId: string;
   userId: string;
-  permission: "Admin" | "User";
+  permission: 'Admin' | 'User';
 }
 
 const usersRepository = new UsersRepository();
@@ -15,23 +15,23 @@ class UpdateUserPermissionService {
     const masterUser = await usersRepository.findById(masterUserId);
 
     if (!masterUser) {
-      throw new AppError("Master user not found.");
+      throw new AppError('Master user not found.');
     }
 
-    if (masterUser.permission !== "Master") {
-      throw new AppError("Master user must have master permission.", 403);
+    if (masterUser.permission !== 'Master') {
+      throw new AppError('Master user must have master permission.', 403);
     }
 
     const user = await usersRepository.findById(userId);
 
     if (!user) {
-      throw new AppError("User not found.");
+      throw new AppError('User not found.');
     }
 
-    if (permission === "Admin" || permission === "User") {
+    if (permission === 'Admin' || permission === 'User') {
       user.permission = permission;
     } else {
-      throw new AppError("Assigned permissions invalid.");
+      throw new AppError('Assigned permissions invalid.');
     }
 
     await usersRepository.save(user);
