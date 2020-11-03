@@ -1,5 +1,5 @@
 interface IUpdateOrderStatusDTO {
-  id: string;
+  orderId: string;
   status: string;
 }
 

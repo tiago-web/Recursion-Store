@@ -5,10 +5,10 @@ const orderDelivered = new UpdateOrderDeliveredService();
 
 class OrderDeliveredController {
   public async update(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const { id: orderId } = req.params;
     const { delivered } = req.body;
 
-    const order = await orderDelivered.execute({ id, delivered });
+    const order = await orderDelivered.execute({ orderId, delivered });
 
     return res.status(201).json(order);
   }

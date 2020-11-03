@@ -8,6 +8,7 @@ interface IRequest {
   userId: string;
   firstName: string;
   lastName: string;
+  phone: string;
   email: string;
   oldPassword?: string;
   password?: string;
@@ -21,6 +22,7 @@ class UpdateUserProfileService {
     userId,
     firstName,
     lastName,
+    phone,
     email,
     oldPassword,
     password,
@@ -38,6 +40,7 @@ class UpdateUserProfileService {
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
+    user.phone = phone;
 
     if (password && !oldPassword)
       throw new AppError('Old password is required to set a new one');

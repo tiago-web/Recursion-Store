@@ -6,8 +6,12 @@ import UsersRepository from '@modules/users/infra/mongoose/repositories/UsersRep
 const ordersRepository = new OrdersRepository();
 const usersRepository = new UsersRepository();
 
+interface IRequest {
+  userId: string;
+}
+
 class ListOrdersService {
-  public async execute(userId: string): Promise<IOrder[] | null> {
+  public async execute({ userId }: IRequest): Promise<IOrder[] | null> {
     const user = await usersRepository.findById(userId);
 
     if (!user)

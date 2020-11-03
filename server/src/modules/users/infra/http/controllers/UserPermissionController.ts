@@ -16,7 +16,7 @@ class UserPermissionController {
       permission
     });
 
-    user.password = "";
+    user.password = '';
 
     return res.json(user);
   }

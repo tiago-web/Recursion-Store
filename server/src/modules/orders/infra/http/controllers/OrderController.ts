@@ -25,10 +25,10 @@ class OrderController {
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const { id: orderId } = req.params;
 
     const order = await updateOrderStatus.execute({
-      id,
+      orderId,
       status: "Canceled"
     });
 

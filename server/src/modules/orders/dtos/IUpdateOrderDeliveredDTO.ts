@@ -1,5 +1,5 @@
 interface IUpdateOrderDeliveredDTO {
-  id: string;
+  orderId: string;
   delivered: boolean;
 }
 
