@@ -6,7 +6,7 @@ import IUpdateOrderDeliveredDTO from '@modules/orders/dtos/IUpdateOrderDelivered
 import IUpdateOrderStatusDTO from '@modules/orders/dtos/IUpdateOrderStatusDTO';
 
 export default class OrdersRepository {
-  public async findAllOrders(): Promise<IOrder[]>{
+  public async findAllOrders(): Promise<IOrder[]> {
     const orders = await Order.find({}).sort({ createdAt: 1 });
 
     for (let i = 0; i < orders.length; i++)
@@ -38,14 +38,12 @@ export default class OrdersRepository {
 
   public async create({
     userId,
-    status,
     products,
     shippingAddress,
     billingAddress,
   }: ICreateOrderDTO): Promise<IOrder> {
     const order = new Order({
       userId,
-      status,
       products,
       shippingAddress,
       billingAddress,

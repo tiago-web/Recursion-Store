@@ -9,6 +9,11 @@
 - Create a JWT strategy to mantain the user logged in.
 - Create a Wish List and store in Cache.
 
-# Maybe
+# Maybe 
 
 - Email: Send emails to users. Forget password, account creation, promotions.
+
+- Show User Profile
+- Reset Password
+- Update User Profile
+- Update User Avatar

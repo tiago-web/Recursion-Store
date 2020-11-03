@@ -7,7 +7,6 @@ import ProductsRepository from '@modules/products/infra/mongoose/repositories/Pr
 
 interface IRequest {
   userId: string;
-  status: string;
   products: string[];
   shippingAddress: IAddress;
   billingAddress: IAddress;
@@ -19,21 +18,12 @@ const productsRepository = new ProductsRepository();
 class CreateOrderService {
   public async execute({
     userId,
-    status,
     products,
     shippingAddress,
     billingAddress,
   }: IRequest): Promise<IOrder> {
-    // TODO
-    // Check if the product ids exist in the database ✅
-    // Check if the order already exists in the database
-    // if exists throw new AppError
-    // Else
-    // create it with an id and date
-    // save in the database
-
     let checkProductExists;
-    for(let i = 0; i < products.length; i++){
+    for (let i = 0; i < products.length; i++) {
       checkProductExists = await productsRepository.findById(products[i]);
 
       if (!checkProductExists)
@@ -42,7 +32,6 @@ class CreateOrderService {
 
     const order = await ordersRepository.create({
       userId,
-      status,
       products,
       shippingAddress,
       billingAddress,

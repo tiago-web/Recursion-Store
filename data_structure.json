@@ -121,6 +121,7 @@
       "received": false
     }
   ],
+  "permissions": "Master | Admin | null",
   "createdAt": "",
   "updatedAt": ""
 }

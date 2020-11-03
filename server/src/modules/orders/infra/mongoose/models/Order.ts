@@ -22,6 +22,7 @@ const OrderSchema: Schema = new Schema(
     },
     status: {
       type: String,
+      default: 'In-Process',
       required: true,
     },
     delivered: {
