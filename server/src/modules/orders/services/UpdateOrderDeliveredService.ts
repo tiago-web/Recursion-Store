@@ -9,7 +9,7 @@ class UpdateOrderDeliveredService {
   public async execute({ id, delivered }: IUpdateOrderDeliveredDTO): Promise<IOrder | null> {
     const order = await ordersRepository.updateDelivered({ id, delivered });
 
-    if (order)
+    if (!order)
       throw new AppError("The order doesn't exist in the database.");
 
     return order;

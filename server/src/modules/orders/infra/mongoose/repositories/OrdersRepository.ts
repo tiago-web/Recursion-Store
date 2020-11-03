@@ -15,7 +15,6 @@ export default class OrdersRepository {
     return orders;
   }
 
-
   public async findById(id: string): Promise<IOrder | null> {
     const order = await Order.findById(id).populate("products").populate('userId');
 

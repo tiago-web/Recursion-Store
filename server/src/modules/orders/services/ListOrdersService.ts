@@ -11,11 +11,11 @@ class ListOrdersService {
     const user = await usersRepository.findById(userId);
 
     if (!user)
-      throw new AppError("The user must have the required permissions", 403);
+      throw new AppError('User not found', 404);
 
     let orders: IOrder[];
 
-    if (user.permission === "Admin" || user.permission === "Master"){
+    if (user.permission === "Admin" || user.permission === "Master") {
       orders = await ordersRepository.findAllOrders();
     } else {
       throw new AppError("The user must have the required permissions", 403);

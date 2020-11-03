@@ -1,3 +1,5 @@
+import AppError from '@shared/errors/AppError';
+
 import { IOrder } from '../infra/mongoose/models/Order';
 import OrdersRepository from '../infra/mongoose/repositories/OrdersRepository';
 

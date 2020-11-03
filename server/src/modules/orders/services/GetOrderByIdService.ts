@@ -8,7 +8,7 @@ class GetOrderByIdService {
   public async execute(id: string): Promise<IOrder | null> {
     const order = await ordersRepository.findById(id);
 
-    if (order)
+    if (!order)
       throw new AppError("The order doesn't exist in the database.")
 
     return order;
