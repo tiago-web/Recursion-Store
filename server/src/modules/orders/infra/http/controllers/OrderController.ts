@@ -32,6 +32,6 @@ export default class OrderController {
       status: "Canceled"
     });
 
-    return res.status(201).json(order);
+    return res.status(202).json(order);
   }
 }
