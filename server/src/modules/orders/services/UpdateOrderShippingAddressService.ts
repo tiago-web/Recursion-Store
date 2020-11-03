@@ -1,7 +1,8 @@
-import AppError from '@shared/errors/AppError';
-import { IOrder } from '../infra/mongoose/models/Order';
 import OrdersRepository from '../infra/mongoose/repositories/OrdersRepository';
+import { IOrder } from '../infra/mongoose/models/Order';
 import IAddress from '@shared/dtos/IAddressDTO';
+
+import AppError from '@shared/errors/AppError';
 
 const ordersRepository = new OrdersRepository();
 

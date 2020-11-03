@@ -10,7 +10,7 @@ class SessionsController {
 
     const { user, token } = await authenticateUser.execute({ email, password });
 
-    user.password = "";
+    user.password = '';
 
     return res.json({ user, token });
   }

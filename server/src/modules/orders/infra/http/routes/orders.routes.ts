@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { celebrate, Segments, Joi } from "celebrate";
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import OrderController from '@modules/orders/infra/http/controllers/OrderController';
 import OrdersController from '../controllers/OrdersController';

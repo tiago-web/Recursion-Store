@@ -7,7 +7,7 @@ class OrdersByIdController {
   public async index(req: Request, res: Response): Promise<Response> {
     const { orderId } = req.params;
 
-    const order = await getOrderById.execute(orderId);
+    const order = await getOrderById.execute({ orderId });
 
     return res.status(201).json(order);
   }

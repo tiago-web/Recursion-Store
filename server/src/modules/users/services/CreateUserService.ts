@@ -8,8 +8,8 @@ import AppError from '@shared/errors/AppError';
 interface IRequest {
   firstName: string;
   lastName: string;
-  email: string;
   phone: string;
+  email: string;
   password: string;
   permission?: string;
 }
@@ -18,8 +18,14 @@ const usersRepository = new UsersRepository();
 const hashProvider = new BCryptHashProvider();
 
 class CreateUserService {
-  public async execute(
-    { firstName, lastName, email, phone, password, permission }: IRequest): Promise<IUser> {
+  public async execute({
+    firstName,
+    lastName,
+    phone,
+    email,
+    password,
+    permission
+  }: IRequest): Promise<IUser> {
     const userExists = await usersRepository.findByEmail(email);
 
     if (userExists)
@@ -33,8 +39,8 @@ class CreateUserService {
     const user = usersRepository.create({
       firstName,
       lastName,
-      email,
       phone,
+      email,
       password: hashedPassword,
     });
 

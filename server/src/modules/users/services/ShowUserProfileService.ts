@@ -9,7 +9,7 @@ interface IRequest {
 
 const usersRepository = new UsersRepository();
 
-export default class ShowUserProfileService {
+class ShowUserProfileService {
   public async execute({ userId }: IRequest): Promise<IUser> {
     const user = await usersRepository.findById(userId);
 
@@ -20,3 +20,5 @@ export default class ShowUserProfileService {
     return user;
   }
 }
+
+export default ShowUserProfileService;

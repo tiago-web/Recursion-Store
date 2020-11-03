@@ -5,15 +5,15 @@ import IAddress from '@shared/dtos/IAddressDTO';
 import { IOrder } from '../infra/mongoose/models/Order';
 import ProductsRepository from '@modules/products/infra/mongoose/repositories/ProductsRepository';
 
+const ordersRepository = new OrdersRepository();
+const productsRepository = new ProductsRepository();
+
 interface IRequest {
   userId: string;
   products: string[];
   shippingAddress: IAddress;
   billingAddress: IAddress;
 }
-
-const ordersRepository = new OrdersRepository();
-const productsRepository = new ProductsRepository();
 
 class CreateOrderService {
   public async execute({

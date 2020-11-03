@@ -54,19 +54,19 @@ class OrdersRepository {
   }
 
   public async updateStatus({
-    id,
+    orderId,
     status,
   }: IUpdateOrderStatusDTO): Promise<IOrder | null> {
-    const order = await Order.findByIdAndUpdate(id, { status }, { new: true });
+    const order = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
 
     return order;
   }
 
   public async updateDelivered({
-    id,
+    orderId,
     delivered,
   }: IUpdateOrderDeliveredDTO): Promise<IOrder | null> {
-    const order = await Order.findByIdAndUpdate(id, { delivered }, { new: true });
+    const order = await Order.findByIdAndUpdate(orderId, { delivered }, { new: true });
 
     return order;
   }

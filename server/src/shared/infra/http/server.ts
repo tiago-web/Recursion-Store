@@ -7,12 +7,14 @@ import "express-async-errors";
 
 import routes from './routes';
 import errorHandler from '../../errors/errorHandler';
+import uploadConfig from "@config/upload";
 import { connectDB } from '@shared/infra/mongoose';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/files', express.static(uploadConfig.uploadsFolder))
 app.use(routes);
 
 app.use(errors());
