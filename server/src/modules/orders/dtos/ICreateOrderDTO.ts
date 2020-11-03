@@ -1,8 +1,10 @@
 import IAddress from "@shared/dtos/IAddressDTO";
 
-export default interface ICreateOrderDTO {
+interface ICreateOrderDTO {
   userId: string;
   products: string[];
   shippingAddress: IAddress;
   billingAddress: IAddress;
 }
+
+export default ICreateOrderDTO;

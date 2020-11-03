@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 const listOrders = new ListOrdersService();
 
-export default class OrdersController {
+class OrdersController {
   public async index(req: Request, res: Response): Promise<Response> {
     const userId = req.user.id;
 
@@ -12,3 +12,5 @@ export default class OrdersController {
     return res.status(201).json(orders);
   }
 }
+
+export default OrdersController;

@@ -1,6 +1,6 @@
 import { IItem } from '../infra/mongoose/models/Product';
 
-export default interface IUpdateProductDTO {
+interface IUpdateProductDTO {
   name?: string;
   type?: string;
   categories?: string[];
@@ -8,3 +8,5 @@ export default interface IUpdateProductDTO {
   description?: String;
   items?: IItem[];
 }
+
+export default IUpdateProductDTO;

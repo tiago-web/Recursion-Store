@@ -5,7 +5,7 @@ import { Request, Response } from 'express';
 const createOrder = new CreateOrderService();
 const updateOrderStatus = new UpdateOrderStatusService();
 
-export default class OrderController {
+class OrderController {
   public async create(req: Request, res: Response): Promise<Response> {
     const userId = req.user.id;
     const {
@@ -35,3 +35,5 @@ export default class OrderController {
     return res.status(202).json(order);
   }
 }
+
+export default OrderController;

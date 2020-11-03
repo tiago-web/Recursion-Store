@@ -1,4 +1,6 @@
-export default interface IUpdateOrderStatusDTO {
+interface IUpdateOrderStatusDTO {
   id: string;
   status: string;
 }
+
+export default IUpdateOrderStatusDTO;

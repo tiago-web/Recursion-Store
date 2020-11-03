@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 const getOrderById = new GetOrderByIdService();
 
-export default class OrdersByIdController {
+class OrdersByIdController {
   public async index(req: Request, res: Response): Promise<Response> {
     const { orderId } = req.params;
 
@@ -12,3 +12,5 @@ export default class OrdersByIdController {
     return res.status(201).json(order);
   }
 }
+
+export default OrdersByIdController;

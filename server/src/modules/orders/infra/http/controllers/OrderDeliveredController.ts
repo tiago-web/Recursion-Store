@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 const orderDelivered = new UpdateOrderDeliveredService();
 
-export default class OrderDeliveredController {
+class OrderDeliveredController {
   public async update(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
     const { delivered } = req.body;
@@ -13,3 +13,5 @@ export default class OrderDeliveredController {
     return res.status(201).json(order);
   }
 }
+
+export default OrderDeliveredController;

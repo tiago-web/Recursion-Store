@@ -3,7 +3,7 @@ import Product, { IProduct } from '../models/Product';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
 
-export default class ProductsRepository {
+class ProductsRepository {
   public async findById(id: string): Promise<IProduct | null> {
     const product = await Product.findById(id).populate("reviews");
 
@@ -24,3 +24,5 @@ export default class ProductsRepository {
     return product;
   }
 }
+
+export default ProductsRepository;

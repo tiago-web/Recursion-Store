@@ -6,7 +6,7 @@ import UpdateProductService from "@modules/products/services/UpdateProductServic
 const createProduct = new CreateProductService();
 const updateProduct = new UpdateProductService();
 
-export default class ProductController {
+class ProductController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { name, type, categories, price, description, items } = req.body;
 
@@ -52,3 +52,5 @@ export default class ProductController {
 
   }
 }
+
+export default ProductController;

@@ -5,7 +5,7 @@ import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
 import IUpdateOrderDeliveredDTO from '@modules/orders/dtos/IUpdateOrderDeliveredDTO';
 import IUpdateOrderStatusDTO from '@modules/orders/dtos/IUpdateOrderStatusDTO';
 
-export default class OrdersRepository {
+class OrdersRepository {
   public async findAllOrders(): Promise<IOrder[]> {
     const orders = await Order.find({}).sort({ createdAt: 1 });
 
@@ -71,3 +71,5 @@ export default class OrdersRepository {
     return order;
   }
 }
+
+export default OrdersRepository;
