@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 const listOrdersByUser = new ListOrdersByUserService();
 
-export default class OrdersByUserController {
+class OrdersByUserController {
   public async index(req: Request, res: Response): Promise<Response> {
     const userId = req.user.id;
 
@@ -12,3 +12,5 @@ export default class OrdersByUserController {
     return res.status(201).json(orders);
   }
 }
+
+export default OrdersByUserController;

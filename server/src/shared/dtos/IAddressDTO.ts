@@ -1,4 +1,4 @@
-export default interface IAddress {
+interface IAddress {
   address: string;
   country: string;
   state: string;
@@ -6,3 +6,5 @@ export default interface IAddress {
   postalCode: string;
   main?: boolean | undefined;
 }
+
+export default IAddress;

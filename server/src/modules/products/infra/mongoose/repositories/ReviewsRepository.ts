@@ -1,7 +1,7 @@
 import ICreateReviewDTO from "@modules/products/dtos/ICreateReviewDTO";
 import Review, { IReview } from "../models/Review";
 
-export default class ReviewsRepository {
+class ReviewsRepository {
   public async create({
     comment,
     likes,
@@ -20,3 +20,5 @@ export default class ReviewsRepository {
     return review;
   }
 }
+
+export default ReviewsRepository;

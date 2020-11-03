@@ -4,7 +4,7 @@ import AuthenticateUserService from '@modules/users/services/AuthenticateUserSer
 
 const authenticateUser = new AuthenticateUserService();
 
-export default class SessionsController {
+class SessionsController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
 
@@ -15,3 +15,5 @@ export default class SessionsController {
     return res.json({ user, token });
   }
 }
+
+export default SessionsController;

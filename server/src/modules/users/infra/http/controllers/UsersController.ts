@@ -4,7 +4,7 @@ import CreateUserService from '../../../services/CreateUserService';
 
 const createUser = new CreateUserService();
 
-export default class UserController {
+class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { firstName, lastName, email, phone, password } = req.body;
 
@@ -21,3 +21,5 @@ export default class UserController {
     return res.json(user);
   }
 }
+
+export default UserController;

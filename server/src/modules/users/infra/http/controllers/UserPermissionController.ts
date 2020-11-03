@@ -4,7 +4,7 @@ import UpdateUserPermissionService from '@modules/users/services/UpdateUserPermi
 
 const updateUserPermission = new UpdateUserPermissionService();
 
-export default class UserPermissionController {
+class UserPermissionController {
   public async update(req: Request, res: Response): Promise<Response> {
     const masterUserId = req.user.id;
     const { userId } = req.params;
@@ -21,3 +21,5 @@ export default class UserPermissionController {
     return res.json(user);
   }
 }
+
+export default UserPermissionController;

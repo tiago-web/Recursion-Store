@@ -4,7 +4,7 @@ import CreateReviewService from "@modules/products/services/CreateReviewService"
 
 const createReviewService = new CreateReviewService();
 
-export default class ReviewsController {
+class ReviewsController {
   public async create(req: Request, res: Response): Promise<Response> {
     // const user_id = req.user.id;
     const { product_id } = req.params;
@@ -28,3 +28,5 @@ export default class ReviewsController {
 
   }
 }
+
+export default ReviewsController;

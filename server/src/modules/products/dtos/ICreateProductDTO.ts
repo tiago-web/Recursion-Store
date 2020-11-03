@@ -1,6 +1,6 @@
 import { IItem } from '../infra/mongoose/models/Product';
 
-export default interface ICreateProductDTO {
+interface ICreateProductDTO {
   name: string;
   type: string;
   categories: string[];
@@ -8,3 +8,5 @@ export default interface ICreateProductDTO {
   description: String;
   items: IItem[];
 }
+
+export default ICreateProductDTO;
