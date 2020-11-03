@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 export interface IUserToken extends Document {
   token: string;
   userId: string;
+  createdAt: Date;
 };
 
 const UserTokenSchema: Schema = new Schema({

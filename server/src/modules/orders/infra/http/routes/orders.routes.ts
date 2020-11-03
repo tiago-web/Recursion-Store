@@ -5,6 +5,7 @@ import OrderController from '@modules/orders/infra/http/controllers/OrderControl
 import OrdersController from '../controllers/OrdersController';
 import OrderByIdController from '../controllers/OrderByIdController';
 import OrderDeliveredController from '../controllers/OrderDeliveredController';
+import OrderShippingAddressController from '../controllers/OrderShippingAddressController';
 import OrdersByUserController from '../controllers/OrdersByUserController';
 import OrderStatusController from '../controllers/OrderStatusController';
 
@@ -18,10 +19,13 @@ const orderByIdController = new OrderByIdController();
 const orderDeliveredController = new OrderDeliveredController();
 const ordersByUserController = new OrdersByUserController();
 const orderStatusController = new OrderStatusController();
+const orderShippingAddressController = new OrderShippingAddressController();
 
 ordersRouter.use(ensureAuthenticated);
 
 ordersRouter.post('/', orderController.create);
+
+ordersRouter.delete('/:id', checkIsValidMongoId, orderController.delete);
 
 ordersRouter.get('/', ordersController.index);
 
@@ -48,4 +52,22 @@ ordersRouter.put('/:id/delivered',
   }),
   orderDeliveredController.update
 );
+
+ordersRouter.put('/:id/shippingAddress',
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      shippingAddress: {
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      },
+    },
+  }),
+  orderShippingAddressController.update
+);
+
+
 export default ordersRouter;
