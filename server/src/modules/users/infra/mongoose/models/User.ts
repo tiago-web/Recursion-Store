@@ -9,7 +9,7 @@ export interface IUser extends Document {
   email: string;
   phone: string;
   password: string;
-  avatar_url?: string;
+  avatarUrl?: string;
   avatar?: string;
   shippingAddresses?: IAddressDTO[];
   orders?: IOrder[];
@@ -41,7 +41,7 @@ const UserSchema: Schema = new Schema({
     type: String,
     required: false,
   },
-  avatar_url: {
+  avatarUrl: {
     type: String,
     required: false,
   },
@@ -88,5 +88,13 @@ const UserSchema: Schema = new Schema({
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
+// UserSchema.post('save', function (doc: IUser) {
+
+//   console.log(doc);
+
+//   doc.avatarUrl = `${process.env.APP_API_URL}/files/${doc.avatar}`;
+
+//   doc.save();
+// });
 
 export default mongoose.model<IUser>('User', UserSchema);
