@@ -11,7 +11,6 @@ interface IRequest {
 
 const productsRepository = new ProductsRepository();
 
-// TODO: Check if it's working
 class DeleteProductItemSizeService {
   public async execute({ productId, color, sizeTag }: IRequest): Promise<IProduct | null> {
     const product = await productsRepository.findById(productId);
@@ -23,6 +22,11 @@ class DeleteProductItemSizeService {
 
     if (!item)
       throw new AppError("Item not found", 404);
+
+    const size = item.sizes.find(size => size.sizeTag === sizeTag);
+
+    if (!size)
+      throw new AppError("Size not found", 404);
 
     item.sizes = item.sizes.filter(size => size.sizeTag !== sizeTag);
 

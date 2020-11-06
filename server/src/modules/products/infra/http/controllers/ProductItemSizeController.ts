@@ -25,11 +25,12 @@ class ProductItemSizeController {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const { id: productId } = req.params;
-    const { color, sizeTag, quantity } = req.body;
+    const { color, oldSizeTag, sizeTag, quantity } = req.body;
 
     const product = await updateProductItemSize.execute({
       productId,
       color,
+      oldSizeTag,
       sizeTag,
       quantity
     });

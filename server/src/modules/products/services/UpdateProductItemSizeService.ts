@@ -6,17 +6,18 @@ import AppError from "@shared/errors/AppError";
 interface IRequest {
   productId: string;
   color: string;
+  oldSizeTag: string;
   sizeTag?: string;
   quantity?: number;
 };
 
 const productsRepository = new ProductsRepository();
 
-// TODO: Check if it's working
 class UpdateProductItemSizeService {
   public async execute({
     productId,
     color,
+    oldSizeTag,
     sizeTag,
     quantity
   }: IRequest): Promise<IProduct> {
@@ -30,7 +31,7 @@ class UpdateProductItemSizeService {
     if (!item)
       throw new AppError("Item doesn't exists", 404);
 
-    const size = item.sizes.find(size => size.sizeTag === sizeTag);
+    const size = item.sizes.find(size => size.sizeTag === oldSizeTag);
 
     if (!size)
       throw new AppError("Size doesn't exists", 404);

@@ -5,10 +5,12 @@ import ProductItemController from "../controllers/ProductItemController";
 import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/ensureAdminUserAuthenticated";
 import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObjectId";
 
+import sizesRouter from "./sizes.routes";
+
 const productItemRouter = Router();
 const productItemController = new ProductItemController();
 
-// productItemRouter.use('/sizes', sizesRouter);
+productItemRouter.use('/sizes', sizesRouter);
 
 productItemRouter.post("/:id", ensureAdminUserAuthenticated, checkIsValidMongoId, productItemController.create);
 

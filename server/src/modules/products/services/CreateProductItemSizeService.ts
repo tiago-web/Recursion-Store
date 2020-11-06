@@ -12,7 +12,6 @@ interface IRequest {
 
 const productsRepository = new ProductsRepository();
 
-// TODO: Check if it's working
 class CreateProductItemSizeService {
   public async execute({ productId, color, sizeTag, quantity }: IRequest): Promise<IProduct | null> {
     const product = await productsRepository.findById(productId);
@@ -23,7 +22,7 @@ class CreateProductItemSizeService {
     const item = product.items.find(item => item.color === color);
 
     if (!item)
-      throw new AppError("Item not found", 404);
+      throw new AppError("Item color not found", 404);
 
     const checkSizeAlreadyExists = item.sizes.find(size => size.sizeTag === sizeTag);
 
