@@ -5,7 +5,7 @@ export interface IItem {
   color: string;
   imageColor: string;
   productImages: string[];
-  size: Array<{
+  sizes: Array<{
     sizeTag: string;
     quantity: number;
   }>;
@@ -46,8 +46,8 @@ const ProductSchema: Schema = new Schema({
     required: true,
   },
   items: {
-    _id: false,
     required: true,
+    _id: false,
     type: [{
       color: {
         type: String,
@@ -61,7 +61,7 @@ const ProductSchema: Schema = new Schema({
         type: [String],
         required: true,
       },
-      size: {
+      sizes: {
         type: [{
           _id: false,
           sizeTag: String,
