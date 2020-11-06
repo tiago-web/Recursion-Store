@@ -1,22 +1,25 @@
 import { Router } from "express";
 
-import ProductsController from "../controllers/ProductController";
+import ProductController from "../controllers/ProductController";
+import ProductsController from "../controllers/ProductsController";
 import ReviewsController from "../controllers/ReviewsController";
 
 import ensureAuthenticated from "@modules/users/infra/http/middleware/ensureAuthenticated";
+import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObjectId";
 
 const productsRouter = Router();
+const productController = new ProductController();
 const productsController = new ProductsController();
 const reviewsController = new ReviewsController();
 
-productsRouter.use(ensureAuthenticated);
+productsRouter.post("/", ensureAuthenticated, productController.create);
 
-productsRouter.post("/", productsController.create);
+productsRouter.put("/:id", ensureAuthenticated, checkIsValidMongoId, productController.update);
 
-productsRouter.put("/:product_id", productsController.update);
+productsRouter.get("/:id", checkIsValidMongoId, productController.index);
+
+productsRouter.post("/:id/review", ensureAuthenticated, checkIsValidMongoId, reviewsController.create);
 
 productsRouter.get("/", productsController.index);
-
-productsRouter.post("/:product_id/review", reviewsController.create);
 
 export default productsRouter;

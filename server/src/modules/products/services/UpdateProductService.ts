@@ -25,18 +25,23 @@ class UpdateProductService {
 
     const product = await productsRepository.findById(productId);
 
-    if (!product) {
+    if (!product)
       throw new AppError("Product doesn't exists", 404);
-    }
 
     // TODO: Check if "rest" is working
+    console.log(rest);
     if (!rest) {
-      throw new AppError("Update fields are missing", 400);
+      throw new AppError("Update fields are missing");
     }
 
-    await productsRepository.updateById(productId, rest);
+    const updatedProduct = await productsRepository.updateById(productId, rest);
 
-    return product;
+    console.log(updatedProduct);
+
+    if (!updatedProduct)
+      throw new AppError("Failed to update the product.", 404);
+
+    return updatedProduct;
   }
 }
 
