@@ -30,7 +30,7 @@
         },
         {
           "sizeTag": "L",
-          "quantity": null
+          "quantity": 0
         }
       ]
     },
@@ -53,7 +53,7 @@
         },
         {
           "sizeTag": "L",
-          "quantity": null
+          "quantity": 0
         }
       ]
     }

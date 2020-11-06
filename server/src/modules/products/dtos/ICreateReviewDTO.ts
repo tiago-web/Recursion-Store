@@ -1,8 +1,7 @@
 interface ICreateReviewDTO {
   title: string;
   body: string;
-  userId: string;
-  productId: string;
+  createdBy: string;
 }
 
 export default ICreateReviewDTO;

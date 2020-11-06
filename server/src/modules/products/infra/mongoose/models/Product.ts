@@ -1,3 +1,4 @@
+import { IUser } from '@modules/users/infra/mongoose/models/User';
 import mongoose, { Schema, Document } from 'mongoose';
 import { IReview } from './Review';
 
@@ -20,6 +21,7 @@ export interface IProduct extends Document {
   items: IItem[];
   reviews?: IReview[];
   discountPercentage?: number;
+  createdBy: IUser;
 }
 
 const ProductSchema: Schema = new Schema({
@@ -79,6 +81,11 @@ const ProductSchema: Schema = new Schema({
         ref: 'Review'
       }
     ]
+  },
+  createdBy: {
+    required: true,
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, { timestamps: { createdAt: 'createdAt' } });
 

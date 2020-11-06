@@ -5,9 +5,7 @@ const listOrders = new ListOrdersService();
 
 class OrdersController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const userId = req.user.id;
-
-    const orders = await listOrders.execute({ userId });
+    const orders = await listOrders.execute();
 
     return res.status(201).json(orders);
   }

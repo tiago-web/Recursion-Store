@@ -9,8 +9,8 @@ class OrdersRepository {
   public async findAllOrders(): Promise<IOrder[]> {
     const orders = await Order.find({}).sort({ createdAt: 1 });
 
-    for (let i = 0; i < orders.length; i++)
-      await orders[i].populate("userId").execPopulate();
+    // for (let i = 0; i < orders.length; i++)
+    //   await orders[i].populate("userId").execPopulate();
 
     return orders;
   }
@@ -73,6 +73,12 @@ class OrdersRepository {
     delivered,
   }: IUpdateOrderDeliveredDTO): Promise<IOrder | null> {
     const order = await Order.findByIdAndUpdate(orderId, { delivered }, { new: true });
+
+    return order;
+  }
+
+  public async save(order: IOrder): Promise<IOrder> {
+    await order.save();
 
     return order;
   }

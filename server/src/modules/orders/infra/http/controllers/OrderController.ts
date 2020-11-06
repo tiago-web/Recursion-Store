@@ -1,11 +1,21 @@
+import GetOrderByIdService from '@modules/orders/services/GetOrderByIdService';
 import CreateOrderService from '@modules/orders/services/CreateOrderService';
 import UpdateOrderStatusService from '@modules/orders/services/UpdateOrderStatusService';
 import { Request, Response } from 'express';
 
 const createOrder = new CreateOrderService();
 const updateOrderStatus = new UpdateOrderStatusService();
+const getOrderById = new GetOrderByIdService();
 
 class OrderController {
+  public async index(req: Request, res: Response): Promise<Response> {
+    const { orderId } = req.params;
+
+    const order = await getOrderById.execute({ orderId });
+
+    return res.status(201).json(order);
+  }
+
   public async create(req: Request, res: Response): Promise<Response> {
     const userId = req.user.id;
     const {

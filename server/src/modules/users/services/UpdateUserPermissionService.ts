@@ -28,11 +28,7 @@ class UpdateUserPermissionService {
       throw new AppError('User not found.');
     }
 
-    if (permission === 'Admin' || permission === 'User') {
-      user.permission = permission;
-    } else {
-      throw new AppError('Assigned permissions invalid.');
-    }
+    user.permission = permission;
 
     await usersRepository.save(user);
 

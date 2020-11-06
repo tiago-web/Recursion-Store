@@ -26,7 +26,7 @@ class UpdateOrderShippingAddressService {
 
     order.shippingAddress = shippingAddress;
 
-    order.save();
+    await ordersRepository.save(order);
 
     return order;
   }

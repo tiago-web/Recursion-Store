@@ -5,6 +5,8 @@
 
 # Reviews
 
+- Return review field populated on get a single product route
+- Create a service to handdle the user interactions
 - The same user cannot like twice
 - The user cannot like and dislike at the same time
 
@@ -18,13 +20,12 @@
 
 # Products
 
-- Cannot allow creating 2 products with the same name
-- Add/ Remove items to the product
-- The Admin should be able to set a discountPercentage
-- Allow the Admin to set products images
-- make sure we can access the image
-- return createdBy populated on Get one product route
-- Create a service to handdle the user interactions
+- Cannot allow creating 2 products with the same name ✅
+- Add / Update / Remove items to the product ✅
+- Add / Update / Remove sizes to the item ✅
+- Allow the Admin to set products images 🛑
+- Make sure we can access the image 🛑
+- Check if update has a body content else return another status code ✅
 
 
 # Users
@@ -34,4 +35,8 @@
 
 # Payment
 
-- Set order status to in process while payment is not completed
+- Set order status to in process while payment is not completed 🛑
+
+# Coupom
+
+- Create a coupom for discont in some specific products 🛑

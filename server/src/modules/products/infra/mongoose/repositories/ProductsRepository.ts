@@ -1,4 +1,4 @@
-import Product, { IProduct } from '../models/Product';
+import Product, { IItem, IProduct } from '../models/Product';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDTO';

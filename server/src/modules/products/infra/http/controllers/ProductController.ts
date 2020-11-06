@@ -10,9 +10,11 @@ const showProduct = new ShowProductService();
 
 class ProductController {
   public async create(req: Request, res: Response): Promise<Response> {
+    const { id: adminId } = req.user;
     const { name, type, categories, price, description, items } = req.body;
 
     const product = await createProduct.execute({
+      adminId,
       name,
       type,
       categories,
@@ -25,19 +27,16 @@ class ProductController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    const { id: userId } = req.user;
     const { id: productId } = req.params;
-    const { name, type, categories, price, description, items } = req.body;
+    const { name, type, categories, price, description } = req.body;
 
     const product = await updateProduct.execute({
-      userId,
       productId,
       name,
       type,
       categories,
       price,
       description,
-      items
     });
 
     return res.status(202).json(product);
