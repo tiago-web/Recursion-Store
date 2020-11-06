@@ -25,6 +25,7 @@
 - make sure we can access the image
 - return createdBy populated on Get one product route
 - Create a service to handdle the user interactions
+- Check if update has a body content else return another status code
 
 
 # Users

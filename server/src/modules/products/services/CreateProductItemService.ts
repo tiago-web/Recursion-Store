@@ -12,7 +12,7 @@ interface IRequest {
     sizeTag: string;
     quantity: number;
   }>;
-}
+};
 
 const productsRepository = new ProductsRepository();
 
@@ -21,7 +21,7 @@ class CreateProductService {
     const product = await productsRepository.findById(productId);
 
     if (!product)
-      throw new AppError("Product not found");
+      throw new AppError("Product not found", 404);
 
     product.items.push({ color, imageColor, productImages, sizes });
 
@@ -29,6 +29,6 @@ class CreateProductService {
 
     return product;
   }
-}
+};
 
 export default CreateProductService;

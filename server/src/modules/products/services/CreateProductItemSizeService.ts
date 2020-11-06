@@ -6,12 +6,15 @@ import AppError from '@shared/errors/AppError';
 interface IRequest {
   productId: string;
   color: string;
+  sizeTag: string;
+  quantity: number;
 };
 
 const productsRepository = new ProductsRepository();
 
-class DeleteProductItemService {
-  public async execute({ productId, color }: IRequest): Promise<IProduct | null> {
+// TODO: Check if it's working
+class CreateProductItemSizeService {
+  public async execute({ productId, color, sizeTag, quantity }: IRequest): Promise<IProduct | null> {
     const product = await productsRepository.findById(productId);
 
     if (!product)
@@ -22,7 +25,12 @@ class DeleteProductItemService {
     if (!item)
       throw new AppError("Item not found", 404);
 
-    product.items = product.items.filter(item => item.color !== color);
+    const checkSizeAlreadyExists = item.sizes.find(size => size.sizeTag === sizeTag);
+
+    if (checkSizeAlreadyExists)
+      throw new AppError("Item sizeTag already exists");
+
+    item.sizes.push({ sizeTag, quantity });
 
     await productsRepository.save(product);
 
@@ -30,4 +38,4 @@ class DeleteProductItemService {
   }
 };
 
-export default DeleteProductItemService;
+export default CreateProductItemSizeService;

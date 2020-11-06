@@ -50,6 +50,6 @@ class CreateReviewService {
 
     return review;
   }
-}
+};
 
 export default CreateReviewService;

@@ -6,12 +6,14 @@ import AppError from '@shared/errors/AppError';
 interface IRequest {
   productId: string;
   color: string;
+  sizeTag: string;
 };
 
 const productsRepository = new ProductsRepository();
 
-class DeleteProductItemService {
-  public async execute({ productId, color }: IRequest): Promise<IProduct | null> {
+// TODO: Check if it's working
+class DeleteProductItemSizeService {
+  public async execute({ productId, color, sizeTag }: IRequest): Promise<IProduct | null> {
     const product = await productsRepository.findById(productId);
 
     if (!product)
@@ -22,12 +24,12 @@ class DeleteProductItemService {
     if (!item)
       throw new AppError("Item not found", 404);
 
-    product.items = product.items.filter(item => item.color !== color);
+    item.sizes = item.sizes.filter(size => size.sizeTag !== sizeTag);
 
     await productsRepository.save(product);
 
     return product;
   }
-};
+}
 
-export default DeleteProductItemService;
+export default DeleteProductItemSizeService;

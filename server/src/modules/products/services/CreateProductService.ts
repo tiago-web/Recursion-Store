@@ -10,7 +10,7 @@ interface IRequest {
   price: number;
   description: string;
   items: IItem[];
-}
+};
 
 const productsRepository = new ProductsRepository();
 
@@ -32,6 +32,6 @@ class CreateProductService {
 
     return product;
   }
-}
+};
 
 export default CreateProductService;

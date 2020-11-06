@@ -5,35 +5,38 @@ import AppError from "@shared/errors/AppError";
 
 interface IRequest {
   productId: string;
-  oldColor: string;
-  color?: string;
-  imageColor?: string;
-  productImages?: string[];
+  color: string;
+  sizeTag?: string;
+  quantity?: number;
 };
 
 const productsRepository = new ProductsRepository();
 
-class UpdateProductItemService {
+// TODO: Check if it's working
+class UpdateProductItemSizeService {
   public async execute({
     productId,
-    oldColor,
     color,
-    imageColor,
-    productImages,
+    sizeTag,
+    quantity
   }: IRequest): Promise<IProduct> {
     let product = await productsRepository.findById(productId);
 
     if (!product)
       throw new AppError("Product doesn't exists", 404);
 
-    const item = product.items.find(item => item.color === oldColor);
+    const item = product.items.find(item => item.color === color);
 
     if (!item)
       throw new AppError("Item doesn't exists", 404);
 
-    item.color = color ?? item.color;
-    item.imageColor = imageColor ?? item.imageColor;
-    item.productImages = productImages ?? item.productImages;
+    const size = item.sizes.find(size => size.sizeTag === sizeTag);
+
+    if (!size)
+      throw new AppError("Size doesn't exists", 404);
+
+    size.sizeTag = sizeTag ?? size.sizeTag;
+    size.quantity = quantity ?? size.quantity;
 
     await productsRepository.save(product);
 
@@ -41,4 +44,4 @@ class UpdateProductItemService {
   }
 }
 
-export default UpdateProductItemService;
+export default UpdateProductItemSizeService;
