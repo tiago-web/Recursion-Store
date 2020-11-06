@@ -13,11 +13,11 @@ const productsRepository = new ProductsRepository();
 
 interface IRequestProduct {
   productId: string;
-  items: {
+  items: Array<{
     color: string;
     sizeTag: string;
     quantity: number;
-  }
+  }>;
 }
 
 interface IRequest {
@@ -41,25 +41,35 @@ class CreateOrderService {
 
       if (!checkProductExists)
         throw new AppError("One of the products doesn't exists in the database.");
-
-      const productMatchColor = checkProductExists.items.find(item => item.color === products[i].items.color);
-
-      if (!productMatchColor)
-        throw new AppError("One of the items colors doesn't exists in the database.");
-
-      const size = productMatchColor.size.find(size => size.sizeTag === products[i].items.sizeTag);
-
-      if (!size)
-        throw new AppError("One of the sizes doesn't exists in the database.");
-
-      if (products[i].items.quantity > size.quantity)
-        throw new AppError("The quantity exceed the number of items available in the database.");
-
-      // update the item quantity in the database
-
     }
 
+    let stockQuantity;
 
+    for (let i = 0; i < products.length; i++) {
+      for (let j = 0; j < products[i].items.length; j++) {
+        stockQuantity = await productsRepository.findQuantity({
+          productId: products[i].productId,
+          color: products[i].items[j].color,
+          sizeTag: products[i].items[j].sizeTag,
+        });
+
+        if (stockQuantity === 0)
+          throw new AppError("The product is out of stock.")
+
+        if (!stockQuantity)
+          throw new AppError("The product was not found.", 404);
+
+        if (products[i].items[j].quantity > stockQuantity)
+          throw new AppError("The requested quantity is not available in stock.")
+
+        await productsRepository.updateSizeQuantity({
+          productId: products[i].productId,
+          color: products[i].items[j].color,
+          sizeTag: products[i].items[j].sizeTag,
+          quantity: products[i].items[j].quantity,
+        })
+      }
+    }
 
     const order = await ordersRepository.create({
       userId,

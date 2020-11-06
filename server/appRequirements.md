@@ -12,10 +12,12 @@
 - The user must be able to edit the order when it isn't sent
 - Remove product quantity when a new order is created
 - Prevent the user to buy a color that has no quantity
+- The order must contain the totalPrice
 
 
 # Products
 
+- Cannot allow creating 2 products with the same name
 - Add/ Remove items to the product
 - The Admin should be able to set a discountPercentage
 - make sure we can access the image

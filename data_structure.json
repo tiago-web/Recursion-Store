@@ -19,7 +19,7 @@
         "imgGray1.jpg",
         "imgGray2.jpg"
       ],
-      "size": [
+      "sizes": [
         {
           "sizeTag": "XS",
           "quantity": 2
@@ -35,13 +35,14 @@
       ]
     },
     {
+      "_id": "Object_Id(Item)",
       "color": "Blue",
       "colorImage": "imgBlue.jpg",
       "productImages": [
         "imgBlue1.jpg",
         "imgBlue2.jpg"
       ],
-      "size": [
+      "sizes": [
         {
           "sizeTag": "XS",
           "quantity": 2
@@ -134,7 +135,7 @@
       "productId": "Object_Id(Product)",
       "items": [
         {
-          "color": "Blue",
+          "itemId": "Object_Id(Item)",
           "sizeTag": "S",
           "quantity": 2
         },

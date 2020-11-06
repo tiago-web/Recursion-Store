@@ -2,11 +2,11 @@ import IAddress from "@shared/dtos/IAddressDTO";
 
 interface ICreateOrderProduct {
   productId: string;
-  items: {
+  items: Array<{
     color: string;
     sizeTag: string;
     quantity: number;
-  }
+  }>;
 }
 
 interface ICreateOrderDTO {

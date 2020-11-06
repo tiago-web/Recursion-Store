@@ -47,7 +47,7 @@ const OrderSchema: Schema = new Schema(
           ref: 'Product',
         },
         items: [
-            {
+          {
             color: {
               type: String,
               required: true
