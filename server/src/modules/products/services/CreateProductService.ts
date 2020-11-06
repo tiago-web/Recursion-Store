@@ -1,6 +1,8 @@
 import { IProduct, IItem } from "../infra/mongoose/models/Product";
 import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
 
+import AppError from '@shared/errors/AppError';
+
 interface IRequest {
   name: string;
   type: string;
@@ -14,15 +16,12 @@ const productsRepository = new ProductsRepository();
 
 class CreateProductService {
   public async execute({ name, type, categories, price, description, items }: IRequest): Promise<IProduct | null> {
+    const checkProductExists = await productsRepository.findByName(name);
 
-    // TODO
-    // Check if the product already exists in the database
-    // if exists throw new AppError
-    // Else
-    // create it with an id and date
-    // save in the database
+    if (checkProductExists)
+      throw new AppError("Product name already exists in the database");
 
-    const product = productsRepository.create({
+    const product = await productsRepository.create({
       name,
       type,
       categories,

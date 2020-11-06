@@ -38,12 +38,18 @@ class OrdersRepository {
   public async create({
     userId,
     products,
+    total,
+    subTotal,
+    shippingPrice,
     shippingAddress,
     billingAddress,
   }: ICreateOrderDTO): Promise<IOrder> {
     const order = new Order({
       userId,
       products,
+      total,
+      subTotal,
+      shippingPrice,
       shippingAddress,
       billingAddress,
     });

@@ -1,4 +1,4 @@
-import Product, { IItem, IProduct } from '../models/Product';
+import Product, { IProduct } from '../models/Product';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
@@ -6,6 +6,12 @@ import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDT
 import IFindQuantityDTO from '@modules/products/dtos/IFindQuantityDTO';
 
 class ProductsRepository {
+  public async findByName(productName: string): Promise<IProduct | null> {
+    const product = await Product.findOne({ name: productName });
+
+    return product;
+  }
+
   public async findAll(): Promise<IProduct[]> {
     const products = await Product.find({});
 
