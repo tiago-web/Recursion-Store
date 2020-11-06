@@ -1,8 +1,9 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { IReview } from './Review';
 
 export interface IItem {
   color: string;
-  colorImage: string;
+  imageColor: string;
   productImages: string[];
   size: Array<{
     sizeTag: string;
@@ -17,6 +18,7 @@ export interface IProduct extends Document {
   price: string;
   description: string;
   items: IItem[];
+  reviews?: IReview[];
 }
 
 const ProductSchema: Schema = new Schema({
@@ -44,12 +46,14 @@ const ProductSchema: Schema = new Schema({
     required: true,
   },
   items: {
+    _id: false,
+    required: true,
     type: [{
       color: {
         type: String,
         required: true,
       },
-      colorImage: {
+      imageColor: {
         type: String,
         required: true,
       },
@@ -59,6 +63,7 @@ const ProductSchema: Schema = new Schema({
       },
       size: {
         type: [{
+          _id: false,
           sizeTag: String,
           quantity: Number
         }],
@@ -66,12 +71,14 @@ const ProductSchema: Schema = new Schema({
       }
     }]
   },
-  reviews: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Review'
-    }
-  ]
+  reviews: {
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Review'
+      }
+    ]
+  }
 }, { timestamps: { createdAt: 'createdAt' } });
 
 export default mongoose.model<IProduct>('Product', ProductSchema);

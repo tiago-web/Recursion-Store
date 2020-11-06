@@ -1,8 +1,8 @@
 interface ICreateReviewDTO {
-  comment: string;
-  likes: number;
-  dislikes: number;
-  userId: number;
+  title: string;
+  body: string;
+  userId: string;
+  productId: string;
 }
 
 export default ICreateReviewDTO;

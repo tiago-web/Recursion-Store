@@ -14,7 +14,7 @@
   "items": [
     {
       "color": "Gray",
-      "colorImage": "imggray.jpg",
+      "imageColor": "#32171",
       "productImages": [
         "imgGray1.jpg",
         "imgGray2.jpg"
@@ -128,11 +128,28 @@
 // Orders
 {
   "orderId": "00123123",
-  "userId": Object_Id(User),
+  "userId": "Object_Id(User)",
   "products": [
-    "Object_Id(Product)",
-    "Object_Id(Product)",
-    "Object_Id(Product)"
+    {
+      "productId": "Object_Id(Product)",
+      "items": [
+        {
+          "color": "Blue",
+          "sizeTag": "S",
+          "quantity": 2
+        },
+        {
+          "color": "Blue",
+          "sizeTag": "M",
+          "quantity": 1
+        }
+        {
+          "color": "Gray",
+          "sizeTag": "S",
+          "quantity": 1
+        }
+      ]
+    }
   ],
   "status": "shipped",
   "delivered": false,

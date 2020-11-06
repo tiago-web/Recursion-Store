@@ -4,11 +4,20 @@ import { IProduct } from '@modules/products/infra/mongoose/models/Product';
 import { IUser } from '@modules/users/infra/mongoose/models/User';
 import IAddress from '@shared/dtos/IAddressDTO';
 
+interface IOrderProduct {
+  productId: IProduct;
+  items: Array<{
+    color: string;
+    sizeTag: string;
+    quantity: number;
+  }>;
+}
+
 export interface IOrder extends Document {
   userId: IUser;
   status: string;
   delivered: boolean;
-  products: IProduct[];
+  products: IOrderProduct[];
   shippingAddress: IAddress;
   billingAddress: IAddress;
 }
@@ -32,9 +41,27 @@ const OrderSchema: Schema = new Schema(
     },
     products: [
       {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: 'Product',
+        productId: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: 'Product',
+        },
+        items: [
+            {
+            color: {
+              type: String,
+              required: true
+            },
+            sizeTag: {
+              type: String,
+              required: true,
+            },
+            quantity: {
+              type: Number,
+              required: true
+            }
+          }
+        ]
       },
     ],
     shippingAddress: {

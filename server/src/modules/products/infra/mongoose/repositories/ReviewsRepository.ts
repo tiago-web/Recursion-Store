@@ -3,16 +3,16 @@ import Review, { IReview } from "../models/Review";
 
 class ReviewsRepository {
   public async create({
-    comment,
-    likes,
-    dislikes,
-    userId
+    userId,
+    productId,
+    title,
+    body,
   }: ICreateReviewDTO): Promise<IReview> {
     const review = new Review({
-      comment,
-      likes,
-      dislikes,
-      userId
+      createdBy: userId,
+      productId,
+      title,
+      body,
     });
 
     await review.save();

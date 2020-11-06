@@ -36,7 +36,7 @@ const ReviewSchema: Schema = new Schema({
   createdBy: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: "User"
+    ref: 'User'
   }
 
 }, { timestamps: { createdAt: 'createdAt' } });
