@@ -6,24 +6,23 @@ import AppError from '@shared/errors/AppError';
 interface IRequest {
   productId: string;
   color: string;
-  imageColor: string;
-  productImages: string[];
-  sizes: Array<{
-    sizeTag: string;
-    quantity: number;
-  }>;
 }
 
 const productsRepository = new ProductsRepository();
 
-class CreateProductService {
-  public async execute({ productId, color, imageColor, productImages, sizes }: IRequest): Promise<IProduct | null> {
+class DeleteProductItemService {
+  public async execute({ productId, color }: IRequest): Promise<IProduct | null> {
     const product = await productsRepository.findById(productId);
 
     if (!product)
       throw new AppError("Product not found");
 
-    product.items.push({ color, imageColor, productImages, sizes });
+    const item = product.items.find(item => item.color === color);
+
+    if (!item)
+      throw new AppError("Item not found");
+
+    product.items = product.items.filter(item => item.color !== color);
 
     await productsRepository.save(product);
 
@@ -31,4 +30,4 @@ class CreateProductService {
   }
 }
 
-export default CreateProductService;
+export default DeleteProductItemService;

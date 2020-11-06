@@ -1,19 +1,19 @@
 import { Request, Response } from 'express';
 
+import CreateProductItemService from "@modules/products/services/CreateProductItemService";
 import UpdateProductItemService from "@modules/products/services/UpdateProductItemService";
+import DeleteProductItemService from "@modules/products/services/DeleteProductItemService";
 
-
+const createProductItem = new CreateProductItemService();
 const updateProductItem = new UpdateProductItemService();
-
+const deleteProductItem = new DeleteProductItemService();
 
 class ProductItemController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { id: userId } = req.body;
     const { id: productId } = req.params;
     const { color, imageColor, productImages, sizes } = req.body;
 
-    const product = await updateProductItem.execute({
-      userId,
+    const product = await createProductItem.execute({
       productId,
       color,
       imageColor,
@@ -25,29 +25,30 @@ class ProductItemController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    const { id: userId } = req.user;
     const { id: productId } = req.params;
-    const { name, type, categories, price, description } = req.body;
+    const { color, oldColor, imageColor, productImages } = req.body;
 
-    const product = await updateProduct.execute({
-      userId,
+    const product = await updateProductItem.execute({
       productId,
-      name,
-      type,
-      categories,
-      price,
-      description,
+      color,
+      oldColor,
+      imageColor,
+      productImages
     });
 
     return res.status(202).json(product);
   }
 
-  public async index(req: Request, res: Response): Promise<Response> {
+  public async delete(req: Request, res: Response): Promise<Response> {
     const { id: productId } = req.params;
+    const { color } = req.body;
 
-    const product = await showProduct.execute({ productId });
+    const product = await deleteProductItem.execute({
+      productId,
+      color
+    });
 
-    return res.status(200).json(product);
+    return res.status(202).json(product);
   }
 }
 

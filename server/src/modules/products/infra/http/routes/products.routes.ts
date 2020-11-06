@@ -1,4 +1,5 @@
 import { Router } from "express";
+import productItemRouter from "./items.routes";
 
 import ProductController from "../controllers/ProductController";
 import ProductsController from "../controllers/ProductsController";
@@ -12,6 +13,8 @@ const productsRouter = Router();
 const productController = new ProductController();
 const productsController = new ProductsController();
 const reviewsController = new ReviewsController();
+
+productsRouter.use('/items', productItemRouter);
 
 productsRouter.post("/", ensureAdminUserAuthenticated, productController.create);
 
