@@ -2,6 +2,7 @@ import IAddress from "@shared/dtos/IAddressDTO";
 
 interface ICreateOrderProduct {
   productId: string;
+  productPrice: number;
   items: Array<{
     color: string;
     sizeTag: string;
@@ -12,6 +13,9 @@ interface ICreateOrderProduct {
 interface ICreateOrderDTO {
   userId: string;
   products: ICreateOrderProduct[];
+  total: number;
+  subTotal: number;
+  shippingPrice: number;
   shippingAddress: IAddress;
   billingAddress: IAddress;
 }

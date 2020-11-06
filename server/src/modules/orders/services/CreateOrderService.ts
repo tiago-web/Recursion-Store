@@ -11,6 +11,16 @@ const usersRepository = new UsersRepository();
 const ordersRepository = new OrdersRepository();
 const productsRepository = new ProductsRepository();
 
+interface IOrderProduct {
+  productId: string;
+  productPrice: number;
+  items: Array<{
+    color: string;
+    sizeTag: string;
+    quantity: number;
+  }>;
+}
+
 interface IRequestProduct {
   productId: string;
   items: Array<{
@@ -22,6 +32,7 @@ interface IRequestProduct {
 
 interface IRequest {
   userId: string;
+  shippingPrice: number;
   products: IRequestProduct[];
   shippingAddress: IAddress;
   billingAddress: IAddress;
@@ -31,21 +42,30 @@ class CreateOrderService {
   public async execute({
     userId,
     products,
+    shippingPrice,
     shippingAddress,
     billingAddress,
   }: IRequest): Promise<IOrder> {
-    let checkProductExists;
+    let currentProduct, currentProductPrice, stockQuantity;
+    let subTotal = 0;
+    let quantityOfItemsForCurrentProduct = 0;
+
+    const orderProducts: IOrderProduct[] = [];
 
     for (let i = 0; i < products.length; i++) {
-      checkProductExists = await productsRepository.findById(products[i].productId);
+      quantityOfItemsForCurrentProduct = 0;
+      currentProduct = await productsRepository.findById(products[i].productId);
 
-      if (!checkProductExists)
+      if (!currentProduct)
         throw new AppError("One of the products doesn't exists in the database.");
-    }
 
-    let stockQuantity;
+      currentProductPrice = currentProduct.price;
 
-    for (let i = 0; i < products.length; i++) {
+      orderProducts.push({
+        ...products[i],
+        productPrice: currentProductPrice
+      });
+
       for (let j = 0; j < products[i].items.length; j++) {
         stockQuantity = await productsRepository.findQuantity({
           productId: products[i].productId,
@@ -54,26 +74,37 @@ class CreateOrderService {
         });
 
         if (stockQuantity === 0)
-          throw new AppError("The product is out of stock.")
+          throw new AppError(`The product '${products[i].productId}' is out of stock.`);
 
         if (!stockQuantity)
           throw new AppError("The product was not found.", 404);
 
         if (products[i].items[j].quantity > stockQuantity)
-          throw new AppError("The requested quantity is not available in stock.")
+          throw new AppError(`The requested quantity is for the product '${products[i].productId}' not available in stock.`);
 
         await productsRepository.updateSizeQuantity({
           productId: products[i].productId,
           color: products[i].items[j].color,
           sizeTag: products[i].items[j].sizeTag,
           quantity: products[i].items[j].quantity,
-        })
+        });
+
+        quantityOfItemsForCurrentProduct += products[i].items[j].quantity;
       }
+
+      subTotal += (currentProductPrice * quantityOfItemsForCurrentProduct);
     }
+
+    const tax = 0.13;
+
+    const total = (subTotal + shippingPrice) * (1 + tax);
 
     const order = await ordersRepository.create({
       userId,
-      products,
+      products: orderProducts,
+      total,
+      subTotal,
+      shippingPrice,
       shippingAddress,
       billingAddress,
     });

@@ -10,6 +10,7 @@ class OrderController {
     const userId = req.user.id;
     const {
       products,
+      shippingPrice,
       shippingAddress,
       billingAddress,
     } = req.body;
@@ -17,6 +18,7 @@ class OrderController {
     const order = await createOrder.execute({
       userId,
       products,
+      shippingPrice,
       shippingAddress,
       billingAddress,
     });

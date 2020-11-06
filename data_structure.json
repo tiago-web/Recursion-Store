@@ -133,16 +133,17 @@
   "products": [
     {
       "productId": "Object_Id(Product)",
+      "productPrice": 12.50,
       "items": [
         {
           "itemId": "Object_Id(Item)",
           "sizeTag": "S",
-          "quantity": 2
+          "quantity": 2,
         },
         {
           "color": "Blue",
           "sizeTag": "M",
-          "quantity": 1
+          "quantity": 1,
         }
         {
           "color": "Gray",
@@ -152,6 +153,9 @@
       ]
     }
   ],
+  "subTotal": 123.12,
+  "shippingPrice": 12.51,
+  "total": 156.84,
   "status": "shipped",
   "delivered": false,
   "shippingAddress": {

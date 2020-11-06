@@ -6,6 +6,7 @@ import IAddress from '@shared/dtos/IAddressDTO';
 
 interface IOrderProduct {
   productId: IProduct;
+  productPrice: number;
   items: Array<{
     color: string;
     sizeTag: string;
@@ -15,6 +16,9 @@ interface IOrderProduct {
 
 export interface IOrder extends Document {
   userId: IUser;
+  total: number;
+  subTotal: number;
+  shippingPrice: number;
   status: string;
   delivered: boolean;
   products: IOrderProduct[];
@@ -28,6 +32,18 @@ const OrderSchema: Schema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User',
+    },
+    total: {
+      type: Number,
+      required: true,
+    },
+    subTotal: {
+      type: Number,
+      required: true,
+    },
+    shippingPrice: {
+      type: Number,
+      required: true,
     },
     status: {
       type: String,
@@ -45,6 +61,10 @@ const OrderSchema: Schema = new Schema(
           type: Schema.Types.ObjectId,
           required: true,
           ref: 'Product',
+        },
+        productPrice: {
+          type: Number,
+          required: true
         },
         items: [
           {

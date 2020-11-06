@@ -14,11 +14,12 @@ export interface IItem {
 export interface IProduct extends Document {
   name: string;
   type: string;
-  categories: string;
-  price: string;
+  categories: string[];
+  price: number;
   description: string;
   items: IItem[];
   reviews?: IReview[];
+  discountPercentage?: number;
 }
 
 const ProductSchema: Schema = new Schema({
