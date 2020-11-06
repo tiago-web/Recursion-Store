@@ -25,10 +25,12 @@ class ProductController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
+    const { id: userId } = req.user;
     const { id: productId } = req.params;
     const { name, type, categories, price, description, items } = req.body;
 
     const product = await updateProduct.execute({
+      userId,
       productId,
       name,
       type,

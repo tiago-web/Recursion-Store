@@ -1,7 +1,6 @@
 import Product, { IProduct } from '../models/Product';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
-import IUpdateProductDTO from '@modules/products/dtos/IUpdateProductDTO';
 import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDTO';
 import IFindQuantityDTO from '@modules/products/dtos/IFindQuantityDTO';
 
@@ -72,12 +71,6 @@ class ProductsRepository {
     const product = new Product(productData);
 
     await product.save();
-
-    return product;
-  }
-
-  public async updateById(id: string, data: IUpdateProductDTO): Promise<IProduct | null> {
-    const product = await Product.findByIdAndUpdate(id, { data }, { new: true });
 
     return product;
   }
