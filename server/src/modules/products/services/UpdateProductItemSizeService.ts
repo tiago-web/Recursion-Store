@@ -36,6 +36,9 @@ class UpdateProductItemSizeService {
     if (!size)
       throw new AppError("Size doesn't exists", 404);
 
+    if (!sizeTag && !quantity)
+      throw new AppError("Bad Request.")
+
     size.sizeTag = sizeTag ?? size.sizeTag;
     size.quantity = quantity ?? size.quantity;
 

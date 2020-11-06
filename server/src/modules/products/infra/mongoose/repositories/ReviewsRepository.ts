@@ -3,19 +3,35 @@ import Review, { IReview } from "../models/Review";
 
 class ReviewsRepository {
   public async create({
-    userId,
-    productId,
+    createdBy,
     title,
     body,
   }: ICreateReviewDTO): Promise<IReview> {
     const review = new Review({
-      createdBy: userId,
-      productId,
+      createdBy,
       title,
       body,
     });
 
+    await this.save(review);
+
+    return review;
+  }
+
+  public async findById(id: string): Promise<IReview | null> {
+    const review = await Review.findById(id);
+
+    return review;
+  }
+
+  public async save(review: IReview): Promise<IReview> {
     await review.save();
+
+    return review;
+  }
+
+  public async deleteById(reviewId: string): Promise<IReview | null> {
+    const review = await Review.findByIdAndDelete(reviewId);
 
     return review;
   }

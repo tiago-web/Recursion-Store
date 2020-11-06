@@ -5,13 +5,15 @@ import ProductItemSizeController from "../controllers/ProductItemSizeController"
 import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/ensureAdminUserAuthenticated";
 import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObjectId";
 
-const itemSizeRouter = Router();
 const productItemSizeController = new ProductItemSizeController();
+const productItemRouter = Router();
 
-itemSizeRouter.post("/:id", ensureAdminUserAuthenticated, checkIsValidMongoId, productItemSizeController.create);
+productItemRouter.use(ensureAdminUserAuthenticated);
 
-itemSizeRouter.put("/:id", ensureAdminUserAuthenticated, checkIsValidMongoId, productItemSizeController.update);
+productItemRouter.post("/:id", checkIsValidMongoId, productItemSizeController.create);
 
-itemSizeRouter.delete("/:id", ensureAdminUserAuthenticated, checkIsValidMongoId, productItemSizeController.delete);
+productItemRouter.put("/:id", checkIsValidMongoId, productItemSizeController.update);
 
-export default itemSizeRouter;
+productItemRouter.delete("/:id", checkIsValidMongoId, productItemSizeController.delete);
+
+export default productItemRouter;

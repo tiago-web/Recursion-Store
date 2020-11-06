@@ -10,9 +10,11 @@ const showProduct = new ShowProductService();
 
 class ProductController {
   public async create(req: Request, res: Response): Promise<Response> {
+    const { id: adminId } = req.user;
     const { name, type, categories, price, description, items } = req.body;
 
     const product = await createProduct.execute({
+      adminId,
       name,
       type,
       categories,

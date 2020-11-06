@@ -23,30 +23,32 @@ class CreateReviewService {
     if (!product)
       throw new AppError("Product not found.", 404);
 
-
     const user = await usersRepository.findById(userId);
 
     if (!user)
       throw new AppError("User not found.", 404);
 
     if (product.reviews) {
-      const userWhoHasAlreadyReviewed = product.reviews.find(review => String(review.createdBy) === userId);
+      const userWhoHasAlreadyReviewed = product.reviews.find(review => review.createdBy === user);
 
       if (userWhoHasAlreadyReviewed)
         throw new AppError("This user has already made a comment to the product", 403);
     }
 
-
     const review = await reviewsRepository.create({
       title,
       body,
-      userId,
-      productId
+      createdBy: userId
     });
 
-    product.reviews = review._id;
+    if (product.reviews)
+      product.reviews.push(review);
+    else
+      product.reviews = [review];
 
     await productsRepository.save(product);
+
+    await reviewsRepository.save(review);
 
     return review;
   }

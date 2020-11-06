@@ -31,6 +31,9 @@ class UpdateProductItemService {
     if (!item)
       throw new AppError("Item doesn't exists", 404);
 
+    if (!color && !imageColor && !productImages)
+      throw new AppError('Bad Request.')
+
     item.color = color ?? item.color;
     item.imageColor = imageColor ?? item.imageColor;
     item.productImages = productImages ?? item.productImages;

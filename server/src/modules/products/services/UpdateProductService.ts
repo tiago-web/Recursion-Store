@@ -30,6 +30,9 @@ class UpdateProductService {
     if (!product)
       throw new AppError("Product doesn't exists", 404);
 
+    if (!name && !type && !categories && !price && !description && !discountPercentage)
+      throw new AppError('Bad Request.')
+
     product.name = name ?? product.name;
     product.type = type ?? product.type;
     product.categories = categories ?? product.categories;
