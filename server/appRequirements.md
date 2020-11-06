@@ -18,7 +18,7 @@
 
 # Products
 
-- Cannot allow creating 2 products with the same name
+- Cannot allow creating 2 products with the same name ✅
 - Add/ Remove items to the product
 - The Admin should be able to set a discountPercentage
 - Allow the Admin to set products images

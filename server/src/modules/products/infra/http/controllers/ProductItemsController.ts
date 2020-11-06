@@ -1,24 +1,24 @@
 import { Request, Response } from 'express';
 
-import CreateProductService from "@modules/products/services/CreateProductService";
-import UpdateProductService from "@modules/products/services/UpdateProductService";
-import ShowProductService from "@modules/products/services/ShowProductService";
+import UpdateProductItemService from "@modules/products/services/UpdateProductItemService";
 
-const createProduct = new CreateProductService();
-const updateProduct = new UpdateProductService();
-const showProduct = new ShowProductService();
 
-class ProductController {
+const updateProductItem = new UpdateProductItemService();
+
+
+class ProductItemController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, type, categories, price, description, items } = req.body;
+    const { id: userId } = req.body;
+    const { id: productId } = req.params;
+    const { color, imageColor, productImages, sizes } = req.body;
 
-    const product = await createProduct.execute({
-      name,
-      type,
-      categories,
-      price,
-      description,
-      items
+    const product = await updateProductItem.execute({
+      userId,
+      productId,
+      color,
+      imageColor,
+      productImages,
+      sizes
     });
 
     return res.status(201).json(product);
@@ -51,4 +51,4 @@ class ProductController {
   }
 }
 
-export default ProductController;
+export default ProductItemController;

@@ -8,6 +8,7 @@ import UserPermissionController from '../controllers/UserPermissionController';
 import UserAvatarController from '../controllers/UserAvatarController';
 
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
+import ensureAdminUserAuthenticated from '../middleware/ensureAdminUserAuthenticated';
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -30,7 +31,7 @@ usersRouter.post(
   usersController.create,
 );
 
-usersRouter.put('/:userId', ensureAuthenticated, userPermissionController.update);
+usersRouter.put('/:userId', ensureAdminUserAuthenticated, userPermissionController.update);
 
 usersRouter.patch(
   '/avatar',

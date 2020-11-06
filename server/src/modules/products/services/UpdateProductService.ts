@@ -12,16 +12,11 @@ interface IRequest {
   categories?: string[];
   price?: number;
   description?: string;
-  items?: IItem[];
   discountPercentage?: number;
 }
 
 const productsRepository = new ProductsRepository();
 const usersRepository = new UsersRepository();
-
-// TODO
-// Update the fields of the product
-// Check if productId exists in the database
 
 class UpdateProductService {
   public async execute({
@@ -32,7 +27,6 @@ class UpdateProductService {
     categories,
     price,
     description,
-    items,
     discountPercentage
   }: IRequest): Promise<IProduct> {
     const user = await usersRepository.findById(userId);
@@ -52,7 +46,6 @@ class UpdateProductService {
       product.categories = categories ?? product.categories;
       product.price = price ?? product.price;
       product.description = description ?? product.description;
-      product.items = items ?? product.items;
       product.discountPercentage = discountPercentage ?? product.discountPercentage;
 
       await productsRepository.save(product);
