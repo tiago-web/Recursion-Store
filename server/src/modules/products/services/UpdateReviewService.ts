@@ -14,7 +14,6 @@ interface IRequest {
 const reviewsRepository = new ReviewsRepository();
 const usersRepository = new UsersRepository();
 
-// TODO: Check if the populated review in the products table is beeing updated as well
 class UpdateReviewService {
   public async execute({
     userId,

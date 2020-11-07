@@ -3,7 +3,7 @@ import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRep
 
 import AppError from '@shared/errors/AppError';
 import ReviewsRepository from "../infra/mongoose/repositories/ReviewsRepository";
-import { IReview } from "../infra/mongoose/models/Review";
+import Review, { IReview } from "../infra/mongoose/models/Review";
 
 interface IRequest {
   reviewId: string;
@@ -41,13 +41,11 @@ class DeleteReviewService {
 
     await reviewsRepository.deleteById(reviewId);
 
+    product.reviews = product.reviews.filter(review => String(review._id) !== String(reviewId));
 
-    // TODO: Check why these lines are not working properly (the removed review is not been
-    // updated in the products table)
-    product.reviews = product.reviews.filter(review => review._id !== reviewId);
+    await productsRepository.markModified(product);
+
     await productsRepository.save(product);
-
-
 
     return reviewToDelete;
   }
