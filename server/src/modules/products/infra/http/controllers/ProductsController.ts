@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import ListProductsService from "@modules/products/services/ListProductsService";
+import ListProductsService from "@modules/products/services/Products/ListProductsService";
 
 const listProducts = new ListProductsService();
 

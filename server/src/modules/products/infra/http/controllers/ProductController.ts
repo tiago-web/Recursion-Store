@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
-import CreateProductService from "@modules/products/services/CreateProductService";
-import UpdateProductService from "@modules/products/services/UpdateProductService";
-import ShowProductService from "@modules/products/services/ShowProductService";
+import CreateProductService from "@modules/products/services/Product/CreateProductService";
+import UpdateProductService from "@modules/products/services/Product/UpdateProductService";
+import ShowProductService from "@modules/products/services/Product/ShowProductService";
 
 const createProduct = new CreateProductService();
 const updateProduct = new UpdateProductService();

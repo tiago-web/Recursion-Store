@@ -6,14 +6,14 @@ import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/e
 import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObjectId";
 
 const productItemSizeController = new ProductItemSizeController();
-const productItemRouter = Router();
+const sizeRouter = Router();
 
-productItemRouter.use(ensureAdminUserAuthenticated);
+sizeRouter.use(ensureAdminUserAuthenticated);
 
-productItemRouter.post("/:id", checkIsValidMongoId, productItemSizeController.create);
+sizeRouter.post("/:id", checkIsValidMongoId, productItemSizeController.create);
 
-productItemRouter.put("/:id", checkIsValidMongoId, productItemSizeController.update);
+sizeRouter.put("/:id", checkIsValidMongoId, productItemSizeController.update);
 
-productItemRouter.delete("/:id", checkIsValidMongoId, productItemSizeController.delete);
+sizeRouter.delete("/:id", checkIsValidMongoId, productItemSizeController.delete);
 
-export default productItemRouter;
+export default sizeRouter;

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
-import CreateReviewService from "@modules/products/services/CreateReviewService";
-import UpdateReviewService from "@modules/products/services/UpdateReviewService";
-import DeleteReviewService from "@modules/products/services/DeleteReviewService";
+import CreateReviewService from "@modules/products/services/Reviews/CreateReviewService";
+import UpdateReviewService from "@modules/products/services/Reviews/UpdateReviewService";
+import DeleteReviewService from "@modules/products/services/Reviews/DeleteReviewService";
 
 const createReview = new CreateReviewService();
 const updateReview = new UpdateReviewService();

@@ -1,5 +1,5 @@
-import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
-import { IProduct } from "../infra/mongoose/models/Product";
+import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
+import { IProduct } from "../../infra/mongoose/models/Product";
 
 const productsRepository = new ProductsRepository();
 

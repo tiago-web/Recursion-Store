@@ -1,6 +1,6 @@
-import { IReview } from "../infra/mongoose/models/Review";
-import ReviewsRepository from "../infra/mongoose/repositories/ReviewsRepository";
-import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
+import { IReview } from "../../infra/mongoose/models/Review";
+import ReviewsRepository from "../../infra/mongoose/repositories/ReviewsRepository";
+import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
 import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRepository";
 
 import AppError from '@shared/errors/AppError';

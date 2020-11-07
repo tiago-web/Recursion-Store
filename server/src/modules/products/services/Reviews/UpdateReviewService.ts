@@ -1,7 +1,7 @@
-import ReviewsRepository from "../infra/mongoose/repositories/ReviewsRepository";
+import ReviewsRepository from "../../infra/mongoose/repositories/ReviewsRepository";
 
 import AppError from "@shared/errors/AppError";
-import { IReview } from "../infra/mongoose/models/Review";
+import { IReview } from "../../infra/mongoose/models/Review";
 import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRepository";
 
 interface IRequest {

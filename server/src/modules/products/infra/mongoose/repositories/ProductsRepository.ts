@@ -1,9 +1,8 @@
-import Product, { IItem, IProduct } from '../models/Product';
+import Product, { IProduct } from '../models/Product';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDTO';
 import IFindQuantityDTO from '@modules/products/dtos/IFindQuantityDTO';
-import usersRouter from '@modules/users/infra/http/routes/users.routes';
 
 class ProductsRepository {
   public async findByName(productName: string): Promise<IProduct | null> {

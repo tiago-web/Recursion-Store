@@ -1,5 +1,5 @@
-import { IProduct, IItem } from "../infra/mongoose/models/Product";
-import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
+import { IProduct, IItem } from "../../infra/mongoose/models/Product";
+import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
 
 import AppError from '@shared/errors/AppError';
 

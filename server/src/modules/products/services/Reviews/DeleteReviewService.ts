@@ -1,9 +1,9 @@
-import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
+import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
 import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRepository";
 
 import AppError from '@shared/errors/AppError';
-import ReviewsRepository from "../infra/mongoose/repositories/ReviewsRepository";
-import Review, { IReview } from "../infra/mongoose/models/Review";
+import ReviewsRepository from "../../infra/mongoose/repositories/ReviewsRepository";
+import { IReview } from "../../infra/mongoose/models/Review";
 
 interface IRequest {
   reviewId: string;
@@ -34,7 +34,7 @@ class DeleteReviewService {
     const reviewToDelete = await reviewsRepository.findById(reviewId);
 
     if (reviewToDelete && reviewToDelete.createdBy !== user && user.permission === "User")
-      throw new AppError("Only the user who create the review and an Admin can delete a review.", 403);
+      throw new AppError("Only the user who created the review and an Admin can delete this review.", 403);
 
     if (!reviewToDelete)
       throw new AppError("Review not found", 404);

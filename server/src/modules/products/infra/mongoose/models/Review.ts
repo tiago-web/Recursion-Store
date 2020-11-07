@@ -4,7 +4,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IReview extends Document {
   title: string;
   body: string;
-  userIntercations?: Array<{
+  userInteractions?: Array<{
     userId: IUser;
     action: "like" | "dislike";
   }>;
@@ -20,8 +20,9 @@ const ReviewSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  userIntercations: {
+  userInteractions: {
     type: [{
+      _id: false,
       userId: {
         type: Schema.Types.ObjectId,
         required: true,
