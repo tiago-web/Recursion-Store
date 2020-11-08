@@ -1,5 +1,6 @@
-import { IUser } from '@modules/users/infra/mongoose/models/User';
 import mongoose, { Schema, Document } from 'mongoose';
+
+import { IUser } from '@modules/users/infra/mongoose/models/User';
 
 export interface IReview extends Document {
   title: string;

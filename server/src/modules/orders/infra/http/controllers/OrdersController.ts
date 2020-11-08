@@ -1,6 +1,7 @@
-import ListOrdersService from '@modules/orders/services/ListOrdersService';
-import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
+
+import ListOrdersService from '@modules/orders/services/Orders/ListOrdersService';
 
 const listOrders = new ListOrdersService();
 

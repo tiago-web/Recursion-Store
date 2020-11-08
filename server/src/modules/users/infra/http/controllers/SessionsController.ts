@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import statusCodes from "@config/statusCodes";
 
-import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
+import AuthenticateUserService from '@modules/users/services/Sessions/AuthenticateUserService';
 
 const authenticateUser = new AuthenticateUserService();
 

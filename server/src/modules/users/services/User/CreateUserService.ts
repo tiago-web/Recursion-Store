@@ -1,5 +1,5 @@
-import UsersRepository from "../infra/mongoose/repositories/UsersRepository";
-import { IUser } from "../infra/mongoose/models/User";
+import UsersRepository from "../../infra/mongoose/repositories/UsersRepository";
+import { IUser } from "../../infra/mongoose/models/User";
 import statusCodes from "@config/statusCodes";
 
 import BCryptHashProvider from '@modules/users/providers/HashProvider/implementations/BCryptHashProvider';

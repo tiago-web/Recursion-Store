@@ -1,5 +1,5 @@
-import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
-import { IUser } from '../infra/mongoose/models/User';
+import UsersRepository from '../../infra/mongoose/repositories/UsersRepository';
+import { IUser } from '../../infra/mongoose/models/User';
 import DiskStorageProvider from '@shared/container/providers/StorageProvider/implementations/DiskStorageProvider';
 
 import AppError from '@shared/errors/AppError';

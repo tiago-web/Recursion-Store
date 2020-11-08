@@ -1,5 +1,6 @@
-import ICreateReviewDTO from "@modules/products/dtos/ICreateReviewDTO";
 import Review, { IReview } from "../models/Review";
+
+import ICreateReviewDTO from "@modules/products/dtos/ICreateReviewDTO";
 
 class ReviewsRepository {
   public async create({

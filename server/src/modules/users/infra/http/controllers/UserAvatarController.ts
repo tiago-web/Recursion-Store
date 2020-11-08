@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import statusCodes from "@config/statusCodes";
 
-import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
+import UpdateUserAvatarService from '@modules/users/services/UserAvatar/UpdateUserAvatarService';
 
 const updateAvatar = new UpdateUserAvatarService();
 

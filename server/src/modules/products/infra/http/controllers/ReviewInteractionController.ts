@@ -1,5 +1,5 @@
-import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
 
 import CreateReviewInteractionService from "@modules/products/services/ReviewInteraction/CreateReviewInteractionService";
 import UpdateReviewInteractionService from "@modules/products/services/ReviewInteraction/UpdateReviewInteractionService";

@@ -1,9 +1,10 @@
+import statusCodes from "@config/statusCodes";
 import AppError from '@shared/errors/AppError';
 
 import IAddress from '@shared/dtos/IAddressDTO';
-import { IOrder } from '../infra/mongoose/models/Order';
+import { IOrder } from '../../infra/mongoose/models/Order';
 
-import OrdersRepository from '../infra/mongoose/repositories/OrdersRepository';
+import OrdersRepository from '../../infra/mongoose/repositories/OrdersRepository';
 import ProductsRepository from '@modules/products/infra/mongoose/repositories/ProductsRepository';
 import UsersRepository from '@modules/users/infra/mongoose/repositories/UsersRepository';
 
@@ -77,7 +78,7 @@ class CreateOrderService {
           throw new AppError(`The product '${products[i].productId}' is out of stock.`);
 
         if (!stockQuantity)
-          throw new AppError("The product was not found.", 404);
+          throw new AppError("The product was not found.", statusCodes.notFound);
 
         if (products[i].items[j].quantity > stockQuantity)
           throw new AppError(`The requested quantity is for the product '${products[i].productId}' not available in stock.`);
@@ -112,7 +113,7 @@ class CreateOrderService {
     const user = await usersRepository.findById(userId);
 
     if (!user)
-      throw new AppError("User not found.", 404);
+      throw new AppError("User not found.", statusCodes.notFound);
 
     user.orders?.push(order);
 

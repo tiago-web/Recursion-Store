@@ -1,5 +1,5 @@
-import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
 
 import ListProductsService from "@modules/products/services/Products/ListProductsService";
 

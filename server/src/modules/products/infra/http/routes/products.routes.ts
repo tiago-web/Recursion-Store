@@ -1,11 +1,12 @@
 import { Router } from "express";
-import productItemRouter from "./items.routes";
 
 import ProductController from "../controllers/ProductController";
 import ProductsController from "../controllers/ProductsController";
 
 import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/ensureAdminUserAuthenticated";
 import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObjectId";
+
+import productItemRouter from "./items.routes";
 
 const productController = new ProductController();
 const productsController = new ProductsController();

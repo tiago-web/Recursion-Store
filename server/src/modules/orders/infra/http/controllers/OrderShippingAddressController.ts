@@ -1,6 +1,7 @@
-import UpdateOrderShippingAddressService from '@modules/orders/services/UpdateOrderShippingAddressService';
-import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
+
+import UpdateOrderShippingAddressService from '@modules/orders/services/Order/UpdateOrderShippingAddressService';
 
 const UpdateOrderShippingAddress = new UpdateOrderShippingAddressService();
 

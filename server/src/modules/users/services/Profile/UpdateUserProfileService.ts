@@ -1,6 +1,6 @@
-import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
-import { IUser } from '../infra/mongoose/models/User';
-import BCryptHashProvider from '../providers/HashProvider/implementations/BCryptHashProvider';
+import UsersRepository from '../../infra/mongoose/repositories/UsersRepository';
+import { IUser } from '../../infra/mongoose/models/User';
+import BCryptHashProvider from '../../providers/HashProvider/implementations/BCryptHashProvider';
 
 import AppError from '@shared/errors/AppError';
 import statusCodes from "@config/statusCodes";
