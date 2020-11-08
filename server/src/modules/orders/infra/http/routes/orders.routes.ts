@@ -22,13 +22,9 @@ const orderShippingAddressController = new OrderShippingAddressController();
 
 ordersRouter.use(ensureAuthenticated);
 
-ordersRouter.post('/', orderController.create);
-
-ordersRouter.delete('/:id', checkIsValidMongoId, orderController.delete);
-
 ordersRouter.get('/', ensureAdminUserAuthenticated, ordersController.index);
 
-ordersRouter.get('/:orderId', orderController.index);
+ordersRouter.get('/:id', orderController.index);
 
 ordersRouter.get('/user/:id', checkIsValidMongoId, ordersByUserController.index);
 
@@ -58,17 +54,40 @@ ordersRouter.put('/:id/shippingAddress',
   checkIsValidMongoId,
   celebrate({
     [Segments.BODY]: {
-      shippingAddress: {
-        address: Joi.string().required(),
-        country: Joi.string().required(),
-        state: Joi.string().required(),
-        city: Joi.string().required(),
-        postalCode: Joi.string().required(),
-      },
+      address: Joi.string(),
+      country: Joi.string(),
+      state: Joi.string(),
+      city: Joi.string(),
+      postalCode: Joi.string(),
     },
   }),
   orderShippingAddressController.update
 );
 
+ordersRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      products: Joi.string().required(),
+      shippingPrice: Joi.number().required(),
+      shippingAddress: Joi.object({
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      }).required(),
+      billingAddress: Joi.object({
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      }).required(),
+    },
+  }),
+  orderController.create);
+
+ordersRouter.delete('/:id', checkIsValidMongoId, orderController.delete);
 
 export default ordersRouter;

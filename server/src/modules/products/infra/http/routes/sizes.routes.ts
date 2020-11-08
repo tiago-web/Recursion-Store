@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { celebrate, Joi, Segments } from 'celebrate';
 
 import ProductItemSizeController from "../controllers/ProductItemSizeController";
 
@@ -10,10 +11,40 @@ const sizeRouter = Router();
 
 sizeRouter.use(ensureAdminUserAuthenticated);
 
-sizeRouter.post("/:id", checkIsValidMongoId, productItemSizeController.create);
+sizeRouter.post(
+  "/:id",
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      color: Joi.string().required(),
+      sizeTag: Joi.string().required(),
+      quantity: Joi.number().required()
+    }
+  }),
+  productItemSizeController.create);
 
-sizeRouter.put("/:id", checkIsValidMongoId, productItemSizeController.update);
+sizeRouter.put(
+  "/:id",
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      color: Joi.string().required(),
+      oldSizeTag: Joi.string().required(),
+      sizeTag: Joi.string(),
+      quantity: Joi.number()
+    }
+  }),
+  productItemSizeController.update);
 
-sizeRouter.delete("/:id", checkIsValidMongoId, productItemSizeController.delete);
+sizeRouter.delete(
+  "/:id",
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      color: Joi.string().required(),
+      sizeTag: Joi.string().required(),
+    }
+  }),
+  productItemSizeController.delete);
 
 export default sizeRouter;

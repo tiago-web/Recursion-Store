@@ -1,8 +1,9 @@
+import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
+
 import GetOrderByIdService from '@modules/orders/services/Order/GetOrderByIdService';
 import CreateOrderService from '@modules/orders/services/Order/CreateOrderService';
 import UpdateOrderStatusService from '@modules/orders/services/Order/UpdateOrderStatusService';
-import statusCodes from "@config/statusCodes";
-import { Request, Response } from 'express';
 
 const createOrder = new CreateOrderService();
 const updateOrderStatus = new UpdateOrderStatusService();
@@ -10,7 +11,7 @@ const getOrderById = new GetOrderByIdService();
 
 class OrderController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const { orderId } = req.params;
+    const { id: orderId } = req.params;
 
     const order = await getOrderById.execute({ orderId });
 
@@ -18,7 +19,7 @@ class OrderController {
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
-    const userId = req.user.id;
+    const { id: userId } = req.user;
     const {
       products,
       shippingPrice,

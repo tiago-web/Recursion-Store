@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { celebrate, Joi, Segments } from 'celebrate';
 
 import ProductItemController from "../controllers/ProductItemController";
 
@@ -14,10 +15,44 @@ itemRouter.use(ensureAdminUserAuthenticated);
 
 itemRouter.use('/sizes', sizesRouter);
 
-itemRouter.post("/:id", checkIsValidMongoId, productItemController.create);
+itemRouter.post(
+  "/:id",
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      color: Joi.string().required(),
+      imageColor: Joi.string().required(),
+      sizes: Joi.array().items(Joi.object({
+        sizeTag: Joi.string().required(),
+        quantity: Joi.number().required(),
+      }))
+    }
+  }),
+  productItemController.create
+);
 
-itemRouter.put("/:id", checkIsValidMongoId, productItemController.update);
+itemRouter.put(
+  "/:id",
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      color: Joi.string(),
+      imageColor: Joi.string(),
+      olColor: Joi.string(),
+    }
+  }),
+  productItemController.update
+);
 
-itemRouter.delete("/:id", checkIsValidMongoId, productItemController.delete);
+itemRouter.delete(
+  "/:id",
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      color: Joi.string().required(),
+    }
+  }),
+  productItemController.delete
+);
 
 export default itemRouter;

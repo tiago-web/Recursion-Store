@@ -7,10 +7,10 @@ import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   userId: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
   oldPassword?: string;
   password?: string;
 }
@@ -33,15 +33,20 @@ class UpdateUserProfileService {
     if (!user)
       throw new AppError('User not found', statusCodes.notFound);
 
-    const userWithUpdatedEmail = await usersRepository.findByEmail(email);
+    if (email) {
+      const userWithUpdatedEmail = await usersRepository.findByEmail(email);
 
-    if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user.id)
-      throw new AppError('Email already in use');
+      if (userWithUpdatedEmail && userWithUpdatedEmail.id !== user.id)
+        throw new AppError('Email already in use');
+    }
 
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.email = email;
-    user.phone = phone;
+    if (!firstName && !lastName && !email && !phone && !password)
+      throw new AppError('Bad Request.')
+
+    user.firstName = firstName ?? user.firstName;
+    user.lastName = lastName ?? user.lastName;
+    user.email = email ?? user.email;
+    user.phone = phone ?? user.phone;
 
     if (password && !oldPassword)
       throw new AppError('Old password is required to set a new one');

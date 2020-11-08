@@ -7,7 +7,7 @@ const listOrdersByUser = new ListOrdersByUserService();
 
 class OrdersByUserController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const userId = req.user.id;
+    const { id: userId } = req.user;
 
     const orders = await listOrdersByUser.execute({ userId });
 
