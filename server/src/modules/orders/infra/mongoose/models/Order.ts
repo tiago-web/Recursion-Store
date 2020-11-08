@@ -4,7 +4,7 @@ import { IProduct } from '@modules/products/infra/mongoose/models/Product';
 import { IUser } from '@modules/users/infra/mongoose/models/User';
 import IAddress from '@shared/dtos/IAddressDTO';
 
-interface IOrderProduct {
+export interface IOrderProduct {
   productId: IProduct;
   productPrice: number;
   items: Array<{

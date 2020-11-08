@@ -15,10 +15,10 @@ profileRouter.put(
   "/",
   celebrate({
     [Segments.BODY]: {
-      firstName: Joi.string().required(),
-      lastName: Joi.string().required(),
-      phone: Joi.string().required(),
-      email: Joi.string().required().email(),
+      firstName: Joi.string(),
+      lastName: Joi.string(),
+      phone: Joi.string(),
+      email: Joi.string().email(),
       oldPassword: Joi.string(),
       password: Joi.string(),
       passwordConfirmation: Joi.string().valid(Joi.ref("password")),

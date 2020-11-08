@@ -1,7 +1,9 @@
 # All
 
-- Make sure we are using celebrate correctly on every route
+- Make sure we are using celebrate correctly on every route ✅
 - Correct status code in the controllers and services for (CRUD) ✅
+
+- See a way to check multform data with celebrate or another package 🛑
 
 # Reviews
 
@@ -12,11 +14,14 @@
 
 # Orders
 
-- The user must be able to edit the order when it isn't sent 🛑
 - Remove product quantity when a new order is created ✅
 - Prevent the user to buy a color that has no quantity ✅
 - The order must contain the totalPrice ✅
-
+- The user must be able to edit the order when it isn't sent 🛑
+- Updating the shipping address must be able to provide only one field
+- Modify orders Serivices to update in just one service
+- The order was created by the user who is trying to modify
+- Update total and subTotal when products array is modified
 
 # Products
 
@@ -31,6 +36,7 @@
 # Users
 
 - The user must have only one main address, if they don't select any, then the first one will be the main.
+- Create a Route and Service to handle shippingAddresses
 
 
 # Payment

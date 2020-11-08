@@ -3,10 +3,9 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import OrderController from '@modules/orders/infra/http/controllers/OrderController';
 import OrdersController from '../controllers/OrdersController';
-import OrderDeliveredController from '../controllers/OrderDeliveredController';
-import OrderShippingAddressController from '../controllers/OrderShippingAddressController';
 import OrdersByUserController from '../controllers/OrdersByUserController';
-import OrderStatusController from '../controllers/OrderStatusController';
+import AdminOrderController from '../controllers/AdminOrderController';
+import UserOrderController from '../controllers/UserOrderController';
 
 import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 import ensureAuthenticated from '@modules/users/infra/http/middleware/ensureAuthenticated';
@@ -15,60 +14,109 @@ import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/e
 const ordersRouter = Router();
 const orderController = new OrderController();
 const ordersController = new OrdersController();
-const orderDeliveredController = new OrderDeliveredController();
 const ordersByUserController = new OrdersByUserController();
-const orderStatusController = new OrderStatusController();
-const orderShippingAddressController = new OrderShippingAddressController();
+const adminOrderController = new AdminOrderController();
+const userOrderController = new UserOrderController();
 
 ordersRouter.use(ensureAuthenticated);
 
-ordersRouter.post('/', orderController.create);
-
-ordersRouter.delete('/:id', checkIsValidMongoId, orderController.delete);
-
 ordersRouter.get('/', ensureAdminUserAuthenticated, ordersController.index);
 
-ordersRouter.get('/:orderId', orderController.index);
+ordersRouter.get('/:id', orderController.index);
 
 ordersRouter.get('/user/:id', checkIsValidMongoId, ordersByUserController.index);
 
-ordersRouter.put('/:id/status',
+ordersRouter.put(
+  '/admin/:id',
+  checkIsValidMongoId,
   ensureAdminUserAuthenticated,
-  checkIsValidMongoId,
   celebrate({
     [Segments.BODY]: {
-      status: Joi.string().required(),
-    },
-  }),
-  orderStatusController.update
-);
-
-ordersRouter.put('/:id/delivered',
-  ensureAdminUserAuthenticated,
-  checkIsValidMongoId,
-  celebrate({
-    [Segments.BODY]: {
-      delivered: Joi.boolean().required(),
-    },
-  }),
-  orderDeliveredController.update
-);
-
-ordersRouter.put('/:id/shippingAddress',
-  checkIsValidMongoId,
-  celebrate({
-    [Segments.BODY]: {
-      shippingAddress: {
+      delivered: Joi.boolean(),
+      status: Joi.string(),
+      products: Joi.array().items(Joi.object({
+        productId: Joi.string().required(),
+        items: Joi.array().items(Joi.object({
+          color: Joi.string().required(),
+          sizeTag: Joi.string().required(),
+          quantity: Joi.number().required(),
+        }))
+      })),
+      shippingAddress: Joi.object({
         address: Joi.string().required(),
         country: Joi.string().required(),
         state: Joi.string().required(),
         city: Joi.string().required(),
         postalCode: Joi.string().required(),
-      },
+      }),
+      billingAddress: Joi.object({
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      }),
     },
   }),
-  orderShippingAddressController.update
+  adminOrderController.update
 );
 
+ordersRouter.put(
+  '/user/:id',
+  checkIsValidMongoId,
+  celebrate({
+    [Segments.BODY]: {
+      products: Joi.array().items(Joi.object({
+        productId: Joi.string().required(),
+        items: Joi.array().items(Joi.object({
+          color: Joi.string().required(),
+          sizeTag: Joi.string().required(),
+          quantity: Joi.number().required(),
+        }))
+      })),
+      shippingAddress: Joi.object({
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      }),
+      billingAddress: Joi.object({
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      }),
+    },
+  }),
+  userOrderController.update
+);
+
+ordersRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      products: Joi.string().required(),
+      shippingPrice: Joi.number().required(),
+      shippingAddress: Joi.object({
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      }).required(),
+      billingAddress: Joi.object({
+        address: Joi.string().required(),
+        country: Joi.string().required(),
+        state: Joi.string().required(),
+        city: Joi.string().required(),
+        postalCode: Joi.string().required(),
+      }).required(),
+    },
+  }),
+  orderController.create);
+
+ordersRouter.delete('/:id', checkIsValidMongoId, ensureAdminUserAuthenticated, orderController.delete);
 
 export default ordersRouter;

@@ -59,24 +59,6 @@ class OrdersRepository {
     return order;
   }
 
-  public async updateStatus({
-    orderId,
-    status,
-  }: IUpdateOrderStatusDTO): Promise<IOrder | null> {
-    const order = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
-
-    return order;
-  }
-
-  public async updateDelivered({
-    orderId,
-    delivered,
-  }: IUpdateOrderDeliveredDTO): Promise<IOrder | null> {
-    const order = await Order.findByIdAndUpdate(orderId, { delivered }, { new: true });
-
-    return order;
-  }
-
   public async save(order: IOrder): Promise<IOrder> {
     await order.save();
 
