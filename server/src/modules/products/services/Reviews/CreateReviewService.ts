@@ -1,9 +1,10 @@
-import { IReview } from "../infra/mongoose/models/Review";
-import ReviewsRepository from "../infra/mongoose/repositories/ReviewsRepository";
-import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
+import { IReview } from "../../infra/mongoose/models/Review";
+import ReviewsRepository from "../../infra/mongoose/repositories/ReviewsRepository";
+import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
 import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRepository";
 
 import AppError from '@shared/errors/AppError';
+import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   title: string;
@@ -21,18 +22,18 @@ class CreateReviewService {
     const product = await productsRepository.findById(productId);
 
     if (!product)
-      throw new AppError("Product not found.", 404);
+      throw new AppError("Product not found.", statusCodes.notFound);
 
     const user = await usersRepository.findById(userId);
 
     if (!user)
-      throw new AppError("User not found.", 404);
+      throw new AppError("User not found.", statusCodes.notFound);
 
     if (product.reviews) {
       const userWhoHasAlreadyReviewed = product.reviews.find(review => review.createdBy === user);
 
       if (userWhoHasAlreadyReviewed)
-        throw new AppError("This user has already made a comment to the product", 403);
+        throw new AppError("This user has already made a comment to the product", statusCodes.forbidden);
     }
 
     const review = await reviewsRepository.create({

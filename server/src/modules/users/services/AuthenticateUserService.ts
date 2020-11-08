@@ -1,6 +1,7 @@
 import { sign } from 'jsonwebtoken';
-
+import statusCodes from "@config/statusCodes";
 import authConfig from '../../../config/auth';
+
 import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
 import BCryptHashProvider from '../providers/HashProvider/implementations/BCryptHashProvider';
 
@@ -24,15 +25,13 @@ class AuthenticateUserService {
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await usersRepository.findByEmail(email);
 
-    if (!user) {
-      throw new AppError('Incorrect email/password combination.', 401)
-    }
+    if (!user)
+      throw new AppError('Incorrect email/password combination.', statusCodes.unAuthorized)
 
     const passwordMatched = await hashProvider.compareHash(password, user.password);
 
-    if (!passwordMatched) {
-      throw new AppError('Incorrect email/password combination.', 401)
-    }
+    if (!passwordMatched)
+      throw new AppError('Incorrect email/password combination.', statusCodes.unAuthorized)
 
     const { secret, expiresIn } = authConfig.jwt;
 

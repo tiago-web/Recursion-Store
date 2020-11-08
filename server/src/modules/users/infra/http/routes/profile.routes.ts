@@ -9,7 +9,7 @@ const profileController = new ProfileController();
 
 profileRouter.use(ensureAuthenticated);
 
-profileRouter.get("/", profileController.show);
+profileRouter.get("/", profileController.index);
 
 profileRouter.put(
   "/",

@@ -1,6 +1,7 @@
 import GetOrderByIdService from '@modules/orders/services/GetOrderByIdService';
 import CreateOrderService from '@modules/orders/services/CreateOrderService';
 import UpdateOrderStatusService from '@modules/orders/services/UpdateOrderStatusService';
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 const createOrder = new CreateOrderService();
@@ -13,7 +14,7 @@ class OrderController {
 
     const order = await getOrderById.execute({ orderId });
 
-    return res.status(201).json(order);
+    return res.status(statusCodes.ok).json(order);
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
@@ -33,7 +34,7 @@ class OrderController {
       billingAddress,
     });
 
-    return res.status(201).json(order);
+    return res.status(statusCodes.created).json(order);
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
@@ -44,7 +45,7 @@ class OrderController {
       status: "Canceled"
     });
 
-    return res.status(202).json(order);
+    return res.status(statusCodes.accepted).json(order);
   }
 }
 

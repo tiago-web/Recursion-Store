@@ -10,7 +10,7 @@ import OrderStatusController from '../controllers/OrderStatusController';
 
 import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 import ensureAuthenticated from '@modules/users/infra/http/middleware/ensureAuthenticated';
-import ensureAdminUserAuthenticated from '@modules/users/infra/http/middleware/ensureAdminUserAuthenticated';
+import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/ensureAdminUserAuthenticated";
 
 const ordersRouter = Router();
 const orderController = new OrderController();

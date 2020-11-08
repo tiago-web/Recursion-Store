@@ -1,4 +1,5 @@
 import UpdateOrderShippingAddressService from '@modules/orders/services/UpdateOrderShippingAddressService';
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 const UpdateOrderShippingAddress = new UpdateOrderShippingAddressService();
@@ -10,7 +11,7 @@ class OrderShippingAddressController {
 
     const order = await UpdateOrderShippingAddress.execute({ orderId, shippingAddress });
 
-    return res.status(201).json(order);
+    return res.status(statusCodes.ok).json(order);
   }
 }
 

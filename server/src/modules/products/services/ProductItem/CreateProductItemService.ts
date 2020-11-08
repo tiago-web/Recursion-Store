@@ -1,7 +1,8 @@
-import { IProduct } from "../infra/mongoose/models/Product";
-import ProductsRepository from "../infra/mongoose/repositories/ProductsRepository";
+import { IProduct } from "../../infra/mongoose/models/Product";
+import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
 
 import AppError from '@shared/errors/AppError';
+import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   productId: string;
@@ -21,7 +22,7 @@ class CreateProductService {
     const product = await productsRepository.findById(productId);
 
     if (!product)
-      throw new AppError("Product not found", 404);
+      throw new AppError("Product not found", statusCodes.notFound);
 
     product.items.push({ color, imageColor, productImages, sizes });
 

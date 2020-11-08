@@ -8,16 +8,16 @@ import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObje
 import sizesRouter from "./sizes.routes";
 
 const productItemController = new ProductItemController();
-const productItemRouter = Router();
+const itemRouter = Router();
 
-productItemRouter.use(ensureAdminUserAuthenticated);
+itemRouter.use(ensureAdminUserAuthenticated);
 
-productItemRouter.use('/sizes', sizesRouter);
+itemRouter.use('/sizes', sizesRouter);
 
-productItemRouter.post("/:id", checkIsValidMongoId, productItemController.create);
+itemRouter.post("/:id", checkIsValidMongoId, productItemController.create);
 
-productItemRouter.put("/:id", checkIsValidMongoId, productItemController.update);
+itemRouter.put("/:id", checkIsValidMongoId, productItemController.update);
 
-productItemRouter.delete("/:id", checkIsValidMongoId, productItemController.delete);
+itemRouter.delete("/:id", checkIsValidMongoId, productItemController.delete);
 
-export default productItemRouter;
+export default itemRouter;

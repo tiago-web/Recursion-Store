@@ -1,4 +1,5 @@
 import { ErrorRequestHandler } from "express";
+import statusCodes from "@config/statusCodes";
 
 import AppError from './AppError';
 
@@ -12,7 +13,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
   console.log(err);
 
-  return res.status(500).json({
+  return res.status(statusCodes.internalError).json({
     status: 'error',
     message: 'Internal server error',
   });

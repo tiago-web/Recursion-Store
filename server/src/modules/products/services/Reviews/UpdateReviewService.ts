@@ -1,8 +1,10 @@
-import ReviewsRepository from "../infra/mongoose/repositories/ReviewsRepository";
+import ReviewsRepository from "../../infra/mongoose/repositories/ReviewsRepository";
+import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRepository";
+import { IReview } from "../../infra/mongoose/models/Review";
 
 import AppError from "@shared/errors/AppError";
-import { IReview } from "../infra/mongoose/models/Review";
-import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRepository";
+import statusCodes from "@config/statusCodes";
+
 
 interface IRequest {
   userId: string;
@@ -14,7 +16,6 @@ interface IRequest {
 const reviewsRepository = new ReviewsRepository();
 const usersRepository = new UsersRepository();
 
-// TODO: Check if the populated review in the products table is beeing updated as well
 class UpdateReviewService {
   public async execute({
     userId,
@@ -25,18 +26,18 @@ class UpdateReviewService {
     const user = await usersRepository.findById(userId);
 
     if (!user)
-      throw new AppError("User not found.", 404);
+      throw new AppError("User not found.", statusCodes.notFound);
 
     const review = await reviewsRepository.findById(reviewId);
 
     if (!review)
-      throw new AppError("Review doesn't exists", 404);
+      throw new AppError("Review doesn't exists", statusCodes.notFound);
 
     if (!title && !body)
       throw new AppError("Bad Request.")
 
     if (review.createdBy !== user && user.permission === "User")
-      throw new AppError("Only the user who create the review and an Admin can edit a review.", 403);
+      throw new AppError("Only the user who create the review and an Admin can edit a review.", statusCodes.forbidden);
 
     review.title = title ?? review.title;
     review.body = body ?? review.body;

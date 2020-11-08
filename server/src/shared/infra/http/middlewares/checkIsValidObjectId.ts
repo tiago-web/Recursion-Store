@@ -6,7 +6,7 @@ const checkIsValidMongoId = (req: Request, res: Response, next: NextFunction): v
   const { id } = req.params;
 
   if (!id) {
-    throw new AppError("ObjectId is missing", 400);
+    throw new AppError("ObjectId is missing");
   }
 
   try {
@@ -15,7 +15,7 @@ const checkIsValidMongoId = (req: Request, res: Response, next: NextFunction): v
     }
     return next();
   } catch {
-    throw new AppError("Invalid ObjectId", 400);
+    throw new AppError("Invalid ObjectId");
   }
 
 }

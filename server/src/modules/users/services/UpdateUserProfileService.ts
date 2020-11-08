@@ -3,6 +3,7 @@ import { IUser } from '../infra/mongoose/models/User';
 import BCryptHashProvider from '../providers/HashProvider/implementations/BCryptHashProvider';
 
 import AppError from '@shared/errors/AppError';
+import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   userId: string;
@@ -30,7 +31,7 @@ class UpdateUserProfileService {
     const user = await usersRepository.findById(userId);
 
     if (!user)
-      throw new AppError('User not found', 404);
+      throw new AppError('User not found', statusCodes.notFound);
 
     const userWithUpdatedEmail = await usersRepository.findByEmail(email);
 

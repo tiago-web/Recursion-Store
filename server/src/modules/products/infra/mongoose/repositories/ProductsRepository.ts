@@ -1,4 +1,4 @@
-import Product, { IItem, IProduct } from '../models/Product';
+import Product, { IProduct } from '../models/Product';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDTO';
@@ -79,6 +79,10 @@ class ProductsRepository {
     await product.save();
 
     return product;
+  }
+
+  public async markModified(product: IProduct): Promise<void> {
+    await product.markModified('reviews');
   }
 }
 

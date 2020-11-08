@@ -1,8 +1,9 @@
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
-import CreateProductService from "@modules/products/services/CreateProductService";
-import UpdateProductService from "@modules/products/services/UpdateProductService";
-import ShowProductService from "@modules/products/services/ShowProductService";
+import CreateProductService from "@modules/products/services/Product/CreateProductService";
+import UpdateProductService from "@modules/products/services/Product/UpdateProductService";
+import ShowProductService from "@modules/products/services/Product/ShowProductService";
 
 const createProduct = new CreateProductService();
 const updateProduct = new UpdateProductService();
@@ -23,7 +24,7 @@ class ProductController {
       items
     });
 
-    return res.status(201).json(product);
+    return res.status(statusCodes.created).json(product);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
@@ -39,7 +40,7 @@ class ProductController {
       description,
     });
 
-    return res.status(202).json(product);
+    return res.status(statusCodes.ok).json(product);
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
@@ -47,7 +48,7 @@ class ProductController {
 
     const product = await showProduct.execute({ productId });
 
-    return res.status(200).json(product);
+    return res.status(statusCodes.ok).json(product);
   }
 }
 

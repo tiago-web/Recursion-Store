@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
 import authConfig from '@config/auth';
+import statusCodes from "@config/statusCodes";
 
 import AppError from '@shared/errors/AppError';
 import UsersRepository from '../../mongoose/repositories/UsersRepository';
@@ -18,7 +19,7 @@ const ensureAdminUserAuthenticated = async (req: Request, res: Response, next: N
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    throw new AppError('JWT token is missing', 401);
+    throw new AppError('JWT token is missing', statusCodes.unAuthorized);
   }
 
   const [, token] = authHeader.split(' ');
@@ -35,16 +36,16 @@ const ensureAdminUserAuthenticated = async (req: Request, res: Response, next: N
     const user = await userRepository.findById(sub);
 
     if (!user)
-      throw new AppError("User not found", 404);
+      throw new AppError("User not found", statusCodes.notFound);
 
     if (user.permission === "Admin" || user.permission === "Master")
       return next();
     else
-      throw new AppError('Invalid Permission', 403);
+      throw new AppError('Invalid Permission', statusCodes.forbidden);
   } catch (err) {
     if (err instanceof AppError)
       throw new AppError(err.message, err.statusCode);
-    throw new AppError('Invalid JWT token', 401);
+    throw new AppError('Invalid JWT token', statusCodes.unAuthorized);
   }
 }
 
