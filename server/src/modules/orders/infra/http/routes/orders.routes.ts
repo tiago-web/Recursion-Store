@@ -97,14 +97,7 @@ ordersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      products: Joi.array().items(Joi.object({
-        productId: Joi.string().required(),
-        items: Joi.array().items(Joi.object({
-          color: Joi.string().required(),
-          sizeTag: Joi.string().required(),
-          quantity: Joi.number().required(),
-        }))
-      })).required(),
+      products: Joi.string().required(),
       shippingPrice: Joi.number().required(),
       shippingAddress: Joi.object({
         address: Joi.string().required(),

@@ -5,7 +5,6 @@
 
 - See a way to check multform data with celebrate or another package 🛑
 
-
 # Reviews
 
 - Return review field populated on get a single product route ✅
@@ -13,30 +12,25 @@
 - The same user cannot like twice ✅
 - The user cannot like and dislike at the same time ✅
 
-
 # Orders
 
 - Remove product quantity when a new order is created ✅
 - Prevent the user to buy a color that has no quantity ✅
 - The order must contain the totalPrice ✅
-- The order was created by the user who is trying to modify ✅
-- Modify orders Services to update in just one service ✅
-- The user must be able to edit the order when it isn't sent ✅
-
+- The user must be able to edit the order when it isn't sent 🛑
 - Updating the shipping address must be able to provide only one field
+- Modify orders Serivices to update in just one service
+- The order was created by the user who is trying to modify
 - Update total and subTotal when products array is modified
-
 
 # Products
 
 - Cannot allow creating 2 products with the same name ✅
 - Add / Update / Remove items to the product ✅
 - Add / Update / Remove sizes to the item ✅
-- Check if update has a body content else return another status code ✅
-
 - Allow the Admin to set products images 🛑
 - Make sure we can access the image 🛑
-- Remember to set image as multpartform and not send it in the json body
+- Check if update has a body content else return another status code ✅
 
 
 # Users
@@ -48,7 +42,6 @@
 # Payment
 
 - Set order status to in process while payment is not completed 🛑
-
 
 # Coupom
 
