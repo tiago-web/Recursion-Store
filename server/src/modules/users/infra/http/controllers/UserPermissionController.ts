@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
 
 import UpdateUserPermissionService from '@modules/users/services/UpdateUserPermissionService';
 
@@ -18,7 +19,7 @@ class UserPermissionController {
 
     user.password = '';
 
-    return res.json(user);
+    return res.status(statusCodes.ok).json(user);
   }
 }
 

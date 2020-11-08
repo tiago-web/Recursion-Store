@@ -1,3 +1,4 @@
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 import CreateProductItemSizeService from "@modules/products/services/ProductItemSize/CreateProductItemSizeService";
@@ -20,7 +21,7 @@ class ProductItemSizeController {
       quantity
     });
 
-    return res.status(201).json(product);
+    return res.status(statusCodes.created).json(product);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
@@ -35,7 +36,7 @@ class ProductItemSizeController {
       quantity
     });
 
-    return res.status(202).json(product);
+    return res.status(statusCodes.ok).json(product);
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
@@ -48,7 +49,7 @@ class ProductItemSizeController {
       sizeTag
     });
 
-    return res.status(202).json(product);
+    return res.status(statusCodes.accepted).json(product);
   }
 }
 

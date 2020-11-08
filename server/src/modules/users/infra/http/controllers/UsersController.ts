@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
 
 import CreateUserService from '../../../services/CreateUserService';
 
@@ -18,7 +19,7 @@ class UserController {
 
     user.password = '';
 
-    return res.json(user);
+    return res.status(statusCodes.created).json(user);
   }
 }
 

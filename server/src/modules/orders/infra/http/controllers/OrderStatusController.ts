@@ -1,4 +1,5 @@
 import UpdateOrderStatusService from '@modules/orders/services/UpdateOrderStatusService';
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 const ordersStatus = new UpdateOrderStatusService();
@@ -10,7 +11,7 @@ class OrderStatusController {
 
     const order = await ordersStatus.execute({ orderId, status });
 
-    return res.status(201).json(order);
+    return res.status(statusCodes.ok).json(order);
   }
 }
 

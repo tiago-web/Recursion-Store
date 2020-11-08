@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
 
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 
@@ -16,7 +17,7 @@ class ProfileController {
 
     user.password = '';
 
-    return res.json(user);
+    return res.status(statusCodes.ok).json(user);
   }
 }
 

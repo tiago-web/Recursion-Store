@@ -1,7 +1,9 @@
 import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
 import { IUser } from '../infra/mongoose/models/User';
 import DiskStorageProvider from '@shared/container/providers/StorageProvider/implementations/DiskStorageProvider';
+
 import AppError from '@shared/errors/AppError';
+import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   userId: string;
@@ -16,7 +18,7 @@ class UpdateUserAvatarService {
     const user = await usersRepository.findById(userId);
 
     if (!user)
-      throw new AppError('User not found', 404);
+      throw new AppError('User not found', statusCodes.notFound);
 
     if (user.avatar)
       await storageProvider.deleteFile(user.avatar);

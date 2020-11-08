@@ -2,6 +2,8 @@ import ProductsRepository from "../../infra/mongoose/repositories/ProductsReposi
 import { IProduct } from "../../infra/mongoose/models/Product";
 
 import AppError from '@shared/errors/AppError';
+import statusCodes from "@config/statusCodes";
+
 
 interface IRequest {
   productId: string;
@@ -14,7 +16,7 @@ class ShowProductService {
     const product = await productsRepository.findById(productId);
 
     if (!product)
-      throw new AppError("Product not found.", 404);
+      throw new AppError("Product not found.", statusCodes.notFound);
 
     return product;
   }

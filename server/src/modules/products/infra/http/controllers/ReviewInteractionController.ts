@@ -1,3 +1,4 @@
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 import CreateReviewInteractionService from "@modules/products/services/ReviewInteraction/CreateReviewInteractionService";
@@ -20,7 +21,7 @@ class ReviewInteractionController {
         action
     });
 
-    return res.status(201).json(review);
+    return res.status(statusCodes.created).json(review);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
@@ -32,7 +33,7 @@ class ReviewInteractionController {
         reviewId
     });
 
-    return res.status(202).json(review);
+    return res.status(statusCodes.ok).json(review);
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
@@ -44,7 +45,7 @@ class ReviewInteractionController {
       userId
     });
 
-    return res.status(202).json(review);
+    return res.status(statusCodes.accepted).json(review);
   }
 }
 

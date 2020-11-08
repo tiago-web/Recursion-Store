@@ -5,7 +5,7 @@ import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObje
 import ReviewInteractionController from "../controllers/ReviewInteractionController";
 
 const reviewInteractionController = new ReviewInteractionController();
-const interactionRouter = Router();
+const interactionRouter = Router();4
 
 interactionRouter.use(ensureAuthenticated);
 

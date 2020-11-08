@@ -1,4 +1,5 @@
 import ListOrdersByUserService from '@modules/orders/services/ListOrdersByUserService';
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 const listOrdersByUser = new ListOrdersByUserService();
@@ -9,7 +10,7 @@ class OrdersByUserController {
 
     const orders = await listOrdersByUser.execute({ userId });
 
-    return res.status(201).json(orders);
+    return res.status(statusCodes.ok).json(orders);
   }
 }
 

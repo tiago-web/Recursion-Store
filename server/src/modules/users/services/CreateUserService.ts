@@ -1,5 +1,6 @@
 import UsersRepository from "../infra/mongoose/repositories/UsersRepository";
 import { IUser } from "../infra/mongoose/models/User";
+import statusCodes from "@config/statusCodes";
 
 import BCryptHashProvider from '@modules/users/providers/HashProvider/implementations/BCryptHashProvider';
 
@@ -29,10 +30,10 @@ class CreateUserService {
     const userExists = await usersRepository.findByEmail(email);
 
     if (userExists)
-      throw new AppError('Email address already used.', 403);
+      throw new AppError('Email address already used.', statusCodes.forbidden);
 
     if (permission)
-      throw new AppError('Unauthorized permission set.', 403);
+      throw new AppError('Unauthorized permission set.', statusCodes.forbidden);
 
     const hashedPassword = await hashProvider.generateHash(password);
 

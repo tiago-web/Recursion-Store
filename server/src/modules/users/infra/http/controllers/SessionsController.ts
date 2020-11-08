@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import statusCodes from "@config/statusCodes";
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
 
@@ -12,7 +13,7 @@ class SessionsController {
 
     user.password = '';
 
-    return res.json({ user, token });
+    return res.status(statusCodes.created).json({ user, token });
   }
 }
 

@@ -2,6 +2,7 @@ import { IProduct } from "../../infra/mongoose/models/Product";
 import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
 
 import AppError from "@shared/errors/AppError";
+import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   productId: string;
@@ -24,12 +25,12 @@ class UpdateProductItemService {
     let product = await productsRepository.findById(productId);
 
     if (!product)
-      throw new AppError("Product doesn't exists", 404);
+      throw new AppError("Product doesn't exists", statusCodes.notFound);
 
     const item = product.items.find(item => item.color === oldColor);
 
     if (!item)
-      throw new AppError("Item doesn't exists", 404);
+      throw new AppError("Item doesn't exists", statusCodes.notFound);
 
     if (!color && !imageColor && !productImages)
       throw new AppError('Bad Request.')

@@ -1,3 +1,4 @@
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 import CreateReviewService from "@modules/products/services/Reviews/CreateReviewService";
@@ -21,7 +22,7 @@ class ReviewsController {
       body
     });
 
-    return res.status(201).json(review);
+    return res.status(statusCodes.created).json(review);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
@@ -36,7 +37,7 @@ class ReviewsController {
       body
     });
 
-    return res.status(201).json(review);
+    return res.status(statusCodes.ok).json(review);
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
@@ -51,7 +52,7 @@ class ReviewsController {
       productId,
     });
 
-    return res.status(201).json(review);
+    return res.status(statusCodes.accepted).json(review);
   }
 }
 

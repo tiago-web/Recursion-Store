@@ -1,4 +1,5 @@
 import ListOrdersService from '@modules/orders/services/ListOrdersService';
+import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 
 const listOrders = new ListOrdersService();
@@ -7,7 +8,7 @@ class OrdersController {
   public async index(req: Request, res: Response): Promise<Response> {
     const orders = await listOrders.execute();
 
-    return res.status(201).json(orders);
+    return res.status(statusCodes.ok).json(orders);
   }
 }
 

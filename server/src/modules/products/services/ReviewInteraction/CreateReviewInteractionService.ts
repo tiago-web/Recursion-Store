@@ -3,6 +3,7 @@ import ReviewsRepository from "../../infra/mongoose/repositories/ReviewsReposito
 import UsersRepository from "@modules/users/infra/mongoose/repositories/UsersRepository";
 
 import AppError from '@shared/errors/AppError';
+import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   reviewId: string;
@@ -18,12 +19,12 @@ class CreateReviewInteractionService {
     const review = await reviewsRepository.findById(reviewId);
 
     if (!review)
-      throw new AppError("Review not found.", 404);
+      throw new AppError("Review not found.", statusCodes.notFound);
 
     const user = await usersRepository.findById(userId);
 
     if (!user)
-      throw new AppError("User not found.", 404);
+      throw new AppError("User not found.", statusCodes.notFound);
 
     const newUserInteraction = { action, userId: user._id };
 
@@ -33,7 +34,7 @@ class CreateReviewInteractionService {
       const checkIfUserAlreadyInteracted = review.userInteractions.find(interaction => String(interaction.userId) === userId);
 
       if (checkIfUserAlreadyInteracted)
-        throw new AppError('A user cannot interact twice to the same comment.', 403);
+        throw new AppError('A user cannot interact twice to the same comment.', statusCodes.forbidden);
 
       review.userInteractions.push(newUserInteraction);
 

@@ -1,6 +1,8 @@
 import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
 import { IUser } from '../infra/mongoose/models/User';
+
 import AppError from '@shared/errors/AppError';
+import statusCodes from "@config/statusCodes";
 
 interface IRequest {
   masterUserId: string;
@@ -19,7 +21,7 @@ class UpdateUserPermissionService {
     }
 
     if (masterUser.permission !== 'Master') {
-      throw new AppError('Master user must have master permission.', 403);
+      throw new AppError('Master user must have master permission.', statusCodes.forbidden);
     }
 
     const user = await usersRepository.findById(userId);
