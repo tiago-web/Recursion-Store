@@ -117,4 +117,4 @@ dist
 
 # Temp
 tmp/*
-!tmp/.gitkeep
+!tmp/uploads/.gitkeep
