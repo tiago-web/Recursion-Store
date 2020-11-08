@@ -99,12 +99,13 @@
   "password": "",
   "avatar_url": "user.jpeg",
   "avatar": "http://localhost/files/user.jpeg",
-  "shippingAddress": [
+  "shippingAddresses": [
     {
       "address": "",
       "country": "",
       "state": "",
       "city": "",
+      "postalCode": "",
       "main": true
     }
   ],
@@ -163,16 +164,14 @@
     "country": "",
     "state": "",
     "city": "",
-    "postalCode": "",
-    "main": true
+    "postalCode": ""
   },
   "billingAddress": {
     "address": "",
     "country": "",
     "state": "",
     "city": "",
-    "postalCode": "",
-    "main": false
+    "postalCode": ""
   },
   "createdAt": "",
   "updatedAt": ""
