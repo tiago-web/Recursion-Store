@@ -1,11 +1,11 @@
 import { sign } from 'jsonwebtoken';
 import statusCodes from "@config/statusCodes";
-import authConfig from '../../../config/auth';
+import authConfig from '@config/auth';
 
-import UsersRepository from '../infra/mongoose/repositories/UsersRepository';
-import BCryptHashProvider from '../providers/HashProvider/implementations/BCryptHashProvider';
+import UsersRepository from '../../infra/mongoose/repositories/UsersRepository';
+import BCryptHashProvider from '../../providers/HashProvider/implementations/BCryptHashProvider';
 
-import { IUser } from '../infra/mongoose/models/User';
+import { IUser } from '../../infra/mongoose/models/User';
 import AppError from '@shared/errors/AppError'
 
 const usersRepository = new UsersRepository();

@@ -1,7 +1,7 @@
-import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import User, { IUser } from '../models/User';
 
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 export default class UsersRepository implements IUsersRepository {
   public async findById(id: string): Promise<IUser | null> {

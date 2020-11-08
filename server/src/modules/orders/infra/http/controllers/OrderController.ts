@@ -1,6 +1,6 @@
-import GetOrderByIdService from '@modules/orders/services/GetOrderByIdService';
-import CreateOrderService from '@modules/orders/services/CreateOrderService';
-import UpdateOrderStatusService from '@modules/orders/services/UpdateOrderStatusService';
+import GetOrderByIdService from '@modules/orders/services/Order/GetOrderByIdService';
+import CreateOrderService from '@modules/orders/services/Order/CreateOrderService';
+import UpdateOrderStatusService from '@modules/orders/services/Order/UpdateOrderStatusService';
 import statusCodes from "@config/statusCodes";
 import { Request, Response } from 'express';
 

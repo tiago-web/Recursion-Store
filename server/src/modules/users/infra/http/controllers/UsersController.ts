@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import statusCodes from "@config/statusCodes";
 
-import CreateUserService from '../../../services/CreateUserService';
+import CreateUserService from '@modules/users/services/User/CreateUserService';
 
 const createUser = new CreateUserService();
 

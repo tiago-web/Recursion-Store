@@ -1,15 +1,14 @@
 # All
 
 - Make sure we are using celebrate correctly on every route
-- Correct status code in the controllers for (CRUD)
-
+- Correct status code in the controllers and services for (CRUD) ✅
 
 # Reviews
 
 - Return review field populated on get a single product route ✅
-- Create a service to handdle the user interactions
-- The same user cannot like twice
-- The user cannot like and dislike at the same time
+- Create a service to handdle the user interactions ✅
+- The same user cannot like twice ✅
+- The user cannot like and dislike at the same time ✅
 
 # Orders
 

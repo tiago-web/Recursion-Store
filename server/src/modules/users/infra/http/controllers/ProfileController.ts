@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import statusCodes from "@config/statusCodes";
 
-import ShowUserProfileService from '@modules/users/services/ShowUserProfileService';
-import UpdateUserProfileService from '@modules/users/services/UpdateUserProfileService';
+import ShowUserProfileService from '@modules/users/services/Profile/ShowUserProfileService';
+import UpdateUserProfileService from '@modules/users/services/Profile/UpdateUserProfileService';
 
 const showProfile = new ShowUserProfileService();
 const updateProfile = new UpdateUserProfileService();

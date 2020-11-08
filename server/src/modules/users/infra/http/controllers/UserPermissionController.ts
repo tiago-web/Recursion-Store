@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import statusCodes from "@config/statusCodes";
 
-import UpdateUserPermissionService from '@modules/users/services/UpdateUserPermissionService';
+import UpdateUserPermissionService from '@modules/users/services/UserPermission/UpdateUserPermissionService';
 
 const updateUserPermission = new UpdateUserPermissionService();
 
