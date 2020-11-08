@@ -1,26 +1,24 @@
-import { Request, Response } from 'express';
-import statusCodes from "@config/statusCodes";
-
-import GetOrderService from '@modules/orders/services/Order/GetOrderService';
+import GetOrderByIdService from '@modules/orders/services/Order/GetOrderByIdService';
 import CreateOrderService from '@modules/orders/services/Order/CreateOrderService';
-import UpdateOrderByAdminService from '@modules/orders/services/Admin/UpdateOrderByAdminService';
+import UpdateOrderStatusService from '@modules/orders/services/Order/UpdateOrderStatusService';
+import statusCodes from "@config/statusCodes";
+import { Request, Response } from 'express';
 
 const createOrder = new CreateOrderService();
-const updateOrderByAdmin = new UpdateOrderByAdminService();
-const getOrder = new GetOrderService();
+const updateOrderStatus = new UpdateOrderStatusService();
+const getOrderById = new GetOrderByIdService();
 
 class OrderController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const { id: userId } = req.params;
-    const { id: orderId } = req.params;
+    const { orderId } = req.params;
 
-    const order = await getOrder.execute({ userId, orderId });
+    const order = await getOrderById.execute({ orderId });
 
     return res.status(statusCodes.ok).json(order);
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
-    const { id: userId } = req.user;
+    const userId = req.user.id;
     const {
       products,
       shippingPrice,
@@ -40,11 +38,9 @@ class OrderController {
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
-    const { id: adminId } = req.user;
     const { id: orderId } = req.params;
 
-    const order = await updateOrderByAdmin.execute({
-      adminId,
+    const order = await updateOrderStatus.execute({
       orderId,
       status: "Canceled"
     });

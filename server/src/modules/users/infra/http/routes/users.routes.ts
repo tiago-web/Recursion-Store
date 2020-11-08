@@ -10,7 +10,6 @@ import UserAvatarController from '../controllers/UserAvatarController';
 
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
 import ensureAdminUserAuthenticated from '../middleware/ensureAdminUserAuthenticated';
-import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 
 const usersRouter = Router();
 const usersController = new UsersController();
@@ -33,17 +32,7 @@ usersRouter.post(
   usersController.create,
 );
 
-usersRouter.put(
-  '/:id',
-  checkIsValidMongoId,
-  ensureAdminUserAuthenticated,
-  celebrate({
-    [Segments.BODY]: {
-      permission: Joi.string().required()
-    },
-  }),
-  userPermissionController.update
-);
+usersRouter.put('/:userId', ensureAdminUserAuthenticated, userPermissionController.update);
 
 usersRouter.patch(
   '/avatar',

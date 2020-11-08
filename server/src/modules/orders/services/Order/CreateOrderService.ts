@@ -115,10 +115,7 @@ class CreateOrderService {
     if (!user)
       throw new AppError("User not found.", statusCodes.notFound);
 
-    if (!user.orders)
-      user.orders = [order];
-    else
-      user.orders.push(order);
+    user.orders?.push(order);
 
     await usersRepository.save(user);
 
