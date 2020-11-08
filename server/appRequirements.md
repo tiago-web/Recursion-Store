@@ -1,6 +1,6 @@
 # All
 
-- Make sure we are using celebrate correctly on every route
+- Make sure we are using celebrate correctly on every route ✅
 - Correct status code in the controllers and services for (CRUD) ✅
 
 - See a way to check multform data with celebrate or another package 🛑
@@ -21,6 +21,7 @@
 - Updating the shipping address must be able to provide only one field
 - Modify orders Serivices to update in just one service
 - The order was created by the user who is trying to modify
+- Update total and subTotal when products array is modified
 
 # Products
 
