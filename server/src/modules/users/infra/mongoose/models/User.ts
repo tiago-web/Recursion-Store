@@ -47,6 +47,7 @@ const UserSchema: Schema = new Schema({
   },
   shippingAddresses: {
     required: false,
+    _id: false,
     type: [{
       address: {
         type: String,
@@ -56,7 +57,7 @@ const UserSchema: Schema = new Schema({
         type: String,
         required: true
       },
-      province: {
+      state: {
         type: String,
         required: true
       },
@@ -64,9 +65,13 @@ const UserSchema: Schema = new Schema({
         type: String,
         required: true
       },
+      postalCode: {
+        type: String,
+        required: true
+      },
       main: {
         type: Boolean,
-        required: false
+        required: true
       },
     }],
   },
@@ -87,14 +92,5 @@ const UserSchema: Schema = new Schema({
   },
 }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
-
-// UserSchema.post('save', function (doc: IUser) {
-
-//   console.log(doc);
-
-//   doc.avatarUrl = `${process.env.APP_API_URL}/files/${doc.avatar}`;
-
-//   doc.save();
-// });
 
 export default mongoose.model<IUser>('User', UserSchema);

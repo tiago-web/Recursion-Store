@@ -3,7 +3,7 @@
 - Make sure we are using celebrate correctly on every route ✅
 - Correct status code in the controllers and services for (CRUD) ✅
 
-- See a way to check multform data with celebrate or another package 🛑
+- See a way to check multiform data with celebrate or another package 🛑
 
 
 # Reviews
@@ -41,8 +41,8 @@
 
 # Users
 
-- The user must have only one main address, if they don't select any, then the first one will be the main.
-- Create a Route and Service to handle shippingAddresses
+- The user must have only one main address, if they don't select any, then the first one will be the main. ✅
+- Create / Update / Delete a Route and Service to handle shippingAddresses ✅
 
 
 # Payment
