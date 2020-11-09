@@ -2,10 +2,13 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
+import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 import ProfileController from '../controllers/ProfileController';
+import UserShippingAddressController from '../controllers/UserShippingAddressController';
 
 const profileRouter = Router();
 const profileController = new ProfileController();
+const userShippingAddress = new UserShippingAddressController();
 
 profileRouter.use(ensureAuthenticated);
 
@@ -25,6 +28,50 @@ profileRouter.put(
     },
   }),
   profileController.update
+);
+
+profileRouter.post(
+  '/shippingAddress',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      address: Joi.string().required(),
+      country: Joi.string().required(),
+      state: Joi.string().required(),
+      city: Joi.string().required(),
+      postalCode: Joi.string().required(),
+      main: Joi.boolean(),
+    },
+  }),
+  userShippingAddress.create
+);
+
+profileRouter.put(
+  '/shippingAddress',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      address: Joi.string(),
+      country: Joi.string(),
+      state: Joi.string(),
+      city: Joi.string(),
+      oldPostalCode: Joi.string().required(),
+      postalCode: Joi.string(),
+      main: Joi.boolean(),
+    },
+  }),
+  userShippingAddress.update
+);
+
+profileRouter.delete(
+  '/shippingAddress',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      postalCode: Joi.string().required()
+    },
+  }),
+  userShippingAddress.delete
 );
 
 export default profileRouter;
