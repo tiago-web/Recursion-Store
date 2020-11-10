@@ -29,7 +29,7 @@ interface IRequest {
   billingAddress?: IAddress,
 }
 
-class UpdateOrderByAdminService {
+class UpdateOrderByUserService {
   public async execute({
     userId,
     orderId,
@@ -118,7 +118,8 @@ class UpdateOrderByAdminService {
 
       const tax = 0.13;
 
-      const total = (subTotal + order.shippingPrice) * (1 + tax);
+      let total = (subTotal + order.shippingPrice) * (1 + tax);
+      total = Math.round(((total + Number.EPSILON) * 100) / 100);
 
       order.products = orderProducts;
       order.subTotal = subTotal;
@@ -134,4 +135,4 @@ class UpdateOrderByAdminService {
   }
 }
 
-export default UpdateOrderByAdminService;
+export default UpdateOrderByUserService;

@@ -24,7 +24,7 @@
 - The user must be able to edit the order when it isn't sent ✅
 
 - Updating the shipping address must be able to provide only one field
-- Update total and subTotal when products array is modified
+- Update total and subTotal when products array is modified ✅
 
 
 # Products

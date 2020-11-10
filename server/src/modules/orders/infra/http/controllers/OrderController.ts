@@ -11,7 +11,7 @@ const getOrder = new GetOrderService();
 
 class OrderController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const { id: userId } = req.params;
+    const { id: userId } = req.user;
     const { id: orderId } = req.params;
 
     const order = await getOrder.execute({ userId, orderId });
