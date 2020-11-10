@@ -23,8 +23,8 @@
 - Modify orders Services to update in just one service ✅
 - The user must be able to edit the order when it isn't sent ✅
 
-- Updating the shipping address must be able to provide only one field
-- Update total and subTotal when products array is modified
+- Updating the shipping address must be able to provide only one field 🎯
+- Update total and subTotal when products array is modified 🎯
 
 
 # Products
@@ -36,7 +36,7 @@
 
 - Allow the Admin to set products images 🛑
 - Make sure we can access the image 🛑
-- Remember to set image as multpartform and not send it in the json body
+- Remember to set image as multpartform and not send it in the json body 🎯
 
 
 # Users
