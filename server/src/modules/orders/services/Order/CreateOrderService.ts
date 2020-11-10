@@ -88,6 +88,7 @@ class CreateOrderService {
           color: products[i].items[j].color,
           sizeTag: products[i].items[j].sizeTag,
           quantity: products[i].items[j].quantity,
+          operator: 'sub'
         });
 
         quantityOfItemsForCurrentProduct += products[i].items[j].quantity;

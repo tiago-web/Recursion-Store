@@ -54,23 +54,75 @@ class UpdateOrderByAdminService {
       throw new AppError('Bad request.', statusCodes.notFound);
 
     if (products) {
+      for (let i = 0; i < order.products.length; i++) {
+        for (let j = 0; j < order.products[i].items.length; j++) {
+          await productsRepository.updateSizeQuantity({
+            productId: String(order.products[i].productId),
+            color: order.products[i].items[j].color,
+            sizeTag: order.products[i].items[j].sizeTag,
+            quantity: order.products[i].items[j].quantity,
+            operator: 'add'
+          });
+        }
+      }
+
       const orderProducts: IOrderProduct[] = [];
-      let currentProduct;
+      let currentProduct, currentProductPrice;
+      let subTotal = 0;
+      let quantityOfItemsForCurrentProduct = 0;
 
       for (let i = 0; i < products.length; i++) {
+        quantityOfItemsForCurrentProduct = 0;
         currentProduct = await productsRepository.findById(products[i].productId);
 
         if (!currentProduct)
           throw new AppError("One of the products doesn't exists in the database.");
+
+        currentProductPrice = currentProduct.price;
 
         orderProducts.push({
           ...products[i],
           productId: currentProduct,
           productPrice: currentProduct.price
         });
+
+        for (let j = 0; j < products[i].items.length; j++) {
+          const stockQuantity = await productsRepository.findQuantity({
+            productId: products[i].productId,
+            color: products[i].items[j].color,
+            sizeTag: products[i].items[j].sizeTag,
+          });
+
+          if (stockQuantity === 0)
+            throw new AppError(`The product '${products[i].productId}' is out of stock.`);
+
+          if (!stockQuantity)
+            throw new AppError("The product was not found.", statusCodes.notFound);
+
+          if (products[i].items[j].quantity > stockQuantity)
+            throw new AppError(`The requested quantity is for the product '${products[i].productId}' not available in stock.`);
+
+          await productsRepository.updateSizeQuantity({
+            productId: products[i].productId,
+            color: products[i].items[j].color,
+            sizeTag: products[i].items[j].sizeTag,
+            quantity: products[i].items[j].quantity,
+            operator: 'sub'
+          });
+
+          quantityOfItemsForCurrentProduct += products[i].items[j].quantity;
+        }
+
+        subTotal += (currentProductPrice * quantityOfItemsForCurrentProduct);
       }
 
+      const tax = 0.13;
+
+      const total = (subTotal + order.shippingPrice) * (1 + tax);
+
       order.products = orderProducts;
+      order.subTotal = subTotal;
+      order.total = total;
     }
 
     order.shippingAddress = shippingAddress ?? order.shippingAddress;
