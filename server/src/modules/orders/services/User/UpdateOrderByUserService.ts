@@ -126,8 +126,32 @@ class UpdateOrderByUserService {
       order.total = total;
     }
 
-    order.shippingAddress = shippingAddress ?? order.shippingAddress;
-    order.billingAddress = billingAddress ?? order.billingAddress;
+    if (shippingAddress) {
+
+      if (!shippingAddress.address && !shippingAddress.country && !shippingAddress.state && !shippingAddress.city && !shippingAddress.postalCode)
+        throw new AppError("Bad Request.")
+
+      order.shippingAddress.address = shippingAddress.address ?? order.shippingAddress.address;
+      order.shippingAddress.country = shippingAddress.country ?? order.shippingAddress.country;
+      order.shippingAddress.state = shippingAddress.state ?? order.shippingAddress.state;
+      order.shippingAddress.city = shippingAddress.city ?? order.shippingAddress.city;
+      order.shippingAddress.postalCode = shippingAddress.postalCode ?? order.shippingAddress.postalCode;
+    }
+
+    if (billingAddress) {
+
+      if (!billingAddress.address && !billingAddress.country && !billingAddress.state && !billingAddress.city && !billingAddress.postalCode)
+        throw new AppError("Bad Request.")
+
+      order.billingAddress.address = billingAddress.address ?? order.billingAddress.address;
+      order.billingAddress.country = billingAddress.country ?? order.billingAddress.country;
+      order.billingAddress.state = billingAddress.state ?? order.billingAddress.state;
+      order.billingAddress.city = billingAddress.city ?? order.billingAddress.city;
+      order.billingAddress.postalCode = billingAddress.postalCode ?? order.billingAddress.postalCode;
+    }
+
+    // order.shippingAddress = shippingAddress ?? order.shippingAddress;
+    // order.billingAddress = billingAddress ?? order.billingAddress;
 
     await ordersRepository.save(order);
 

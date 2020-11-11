@@ -1,26 +1,23 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import ensureAuthenticated from '@modules/users/infra/http/middleware/ensureAuthenticated';
 import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
+import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/ensureAdminUserAuthenticated";
 
-import OrdersByUserController from '../controllers/OrdersByUserController';
-import UserOrderController from '../controllers/UserOrderController';
+import AdminOrderController from '../controllers/AdminOrderController';
 
-const ordersByUserController = new OrdersByUserController();
-const userOrderController = new UserOrderController();
+const adminOrderController = new AdminOrderController();
 
-const userRouter = Router();
+const adminRouter = Router();
 
-userRouter.use(ensureAuthenticated);
-
-userRouter.get('/', ordersByUserController.index);
-
-userRouter.put(
+adminRouter.put(
   '/:id',
   checkIsValidMongoId,
+  ensureAdminUserAuthenticated,
   celebrate({
-    [Segments.BODY]: {
+    [Segments.BODY]: Joi.object().keys({
+      delivered: Joi.boolean(),
+      status: Joi.string(),
       products: Joi.array().items(Joi.object({
         productId: Joi.string().required(),
         items: Joi.array().items(Joi.object({
@@ -43,9 +40,9 @@ userRouter.put(
         city: Joi.string(),
         postalCode: Joi.string(),
       }),
-    },
+    }),
   }),
-  userOrderController.update
+  adminOrderController.update
 );
 
-export default userRouter;
+export default adminRouter;
