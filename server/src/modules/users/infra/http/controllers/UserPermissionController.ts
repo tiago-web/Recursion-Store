@@ -17,8 +17,6 @@ class UserPermissionController {
       permission
     });
 
-    user.password = '';
-
     return res.status(statusCodes.ok).json(user);
   }
 }

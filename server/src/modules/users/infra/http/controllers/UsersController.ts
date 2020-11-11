@@ -17,8 +17,6 @@ class UserController {
       password
     });
 
-    user.password = '';
-
     return res.status(statusCodes.created).json(user);
   }
 }
