@@ -1,5 +1,5 @@
 import { IOrder, IOrderProduct } from '../../infra/mongoose/models/Order';
-import IAddress from '@shared/dtos/IAddressDTO';
+// import IAddress from '@shared/dtos/IAddressDTO';
 
 import AppError from '@shared/errors/AppError';
 import statusCodes from "@config/statusCodes";
@@ -11,6 +11,14 @@ import UsersRepository from '@modules/users/infra/mongoose/repositories/UsersRep
 const ordersRepository = new OrdersRepository();
 const productsRepository = new ProductsRepository();
 const usersRepository = new UsersRepository();
+
+interface IRequestAddress {
+  address?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  postalCode?: string;
+}
 
 interface IRequestProduct {
   productId: string;
@@ -27,8 +35,8 @@ interface IRequest {
   delivered?: boolean;
   status?: string;
   products?: IRequestProduct[];
-  shippingAddress?: IAddress;
-  billingAddress?: IAddress;
+  shippingAddress?: IRequestAddress;
+  billingAddress?: IRequestAddress;
 }
 
 class UpdateOrderByAdminService {
@@ -40,7 +48,7 @@ class UpdateOrderByAdminService {
     status,
     shippingAddress,
     billingAddress
-  }: IRequest): Promise<IOrder | null> {
+  }: IRequest): Promise<IOrder> {
     const admin = await usersRepository.findById(adminId);
 
     if (!admin)
@@ -131,27 +139,30 @@ class UpdateOrderByAdminService {
     order.status = status ?? order.status;
 
     if (shippingAddress) {
+      const { address, country, state, city, postalCode } = shippingAddress;
 
-      if (!shippingAddress.address && !shippingAddress.country && !shippingAddress.state && !shippingAddress.city && !shippingAddress.postalCode)
+      if (!address && !country && !state && !city && !postalCode)
         throw new AppError("Bad Request.")
 
-      order.shippingAddress.address = shippingAddress.address ?? order.shippingAddress.address;
-      order.shippingAddress.country = shippingAddress.country ?? order.shippingAddress.country;
-      order.shippingAddress.state = shippingAddress.state ?? order.shippingAddress.state;
-      order.shippingAddress.city = shippingAddress.city ?? order.shippingAddress.city;
-      order.shippingAddress.postalCode = shippingAddress.postalCode ?? order.shippingAddress.postalCode;
+      order.shippingAddress.address = address ?? order.shippingAddress.address;
+      order.shippingAddress.country = country ?? order.shippingAddress.country;
+      order.shippingAddress.state = state ?? order.shippingAddress.state;
+      order.shippingAddress.city = city ?? order.shippingAddress.city;
+      order.shippingAddress.postalCode = postalCode ?? order.shippingAddress.postalCode;
     }
 
     if (billingAddress) {
 
-      if (!billingAddress.address && !billingAddress.country && !billingAddress.state && !billingAddress.city && !billingAddress.postalCode)
+      const { address, country, state, city, postalCode } = billingAddress;
+
+      if (!address && !country && !state && !city && !postalCode)
         throw new AppError("Bad Request.")
 
-      order.billingAddress.address = billingAddress.address ?? order.billingAddress.address;
-      order.billingAddress.country = billingAddress.country ?? order.billingAddress.country;
-      order.billingAddress.state = billingAddress.state ?? order.billingAddress.state;
-      order.billingAddress.city = billingAddress.city ?? order.billingAddress.city;
-      order.billingAddress.postalCode = billingAddress.postalCode ?? order.billingAddress.postalCode;
+      order.billingAddress.address = address ?? order.billingAddress.address;
+      order.billingAddress.country = country ?? order.billingAddress.country;
+      order.billingAddress.state = state ?? order.billingAddress.state;
+      order.billingAddress.city = city ?? order.billingAddress.city;
+      order.billingAddress.postalCode = postalCode ?? order.billingAddress.postalCode;
     }
 
     await ordersRepository.save(order);

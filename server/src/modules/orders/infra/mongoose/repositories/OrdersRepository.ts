@@ -17,10 +17,10 @@ class OrdersRepository {
   }
 
   public async findById(id: string): Promise<IOrder | null> {
-    const order = await Order.findById(id).populate("products").populate('userId');
+    const order = await Order.findById(id).populate("products").populate("userId", "-password");
 
-    if (order)
-      order.userId.password = "";
+    // if (order)
+    //   order.userId.password = "";
 
     return order;
   }
@@ -36,7 +36,7 @@ class OrdersRepository {
     const orders = await Order.find({ userId: user });
 
     for (let i = 0; i < orders.length; i++)
-      await orders[i].populate("products").populate("userId").execPopulate();
+      await orders[i].populate("products").populate("userId", "-password").execPopulate();
 
     return orders;
   }

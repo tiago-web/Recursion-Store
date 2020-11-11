@@ -14,7 +14,7 @@ interface IRequest {
 }
 
 class GetOrderService {
-  public async execute({ userId, orderId }: IRequest): Promise<IOrder | null> {
+  public async execute({ userId, orderId }: IRequest): Promise<IOrder> {
     const user = await usersRepository.findById(userId);
 
     if (!user)
@@ -25,7 +25,7 @@ class GetOrderService {
     if (!order)
       throw new AppError("Order not found.", statusCodes.notFound);
 
-    if (user.permission === "Master" || user.permission === "Admin" || order.userId === user) {
+    if (user.permission === "Master" || user.permission === "Admin" || String(order.userId._id) === userId) {
       return order;
     } else {
       throw new AppError("The user doesn't have access to this order.", statusCodes.forbidden);

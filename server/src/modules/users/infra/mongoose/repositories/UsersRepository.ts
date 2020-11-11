@@ -11,7 +11,7 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   public async findByEmail(email: string): Promise<IUser | null> {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
 
     return user;
   }

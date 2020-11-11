@@ -13,8 +13,6 @@ class ProfileController {
 
     const user = await showProfile.execute({ userId });
 
-    user.password = '';
-
     return res.status(statusCodes.ok).json(user);
   }
 
@@ -31,8 +29,6 @@ class ProfileController {
       oldPassword,
       password,
     });
-
-    user.password = '';
 
     return res.status(statusCodes.ok).json(user);
   }

@@ -15,8 +15,6 @@ class ProfileController {
       avatarFileName,
     });
 
-    user.password = '';
-
     return res.status(statusCodes.ok).json(user);
   }
 }
