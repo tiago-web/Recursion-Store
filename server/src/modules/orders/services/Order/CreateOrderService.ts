@@ -88,6 +88,7 @@ class CreateOrderService {
           color: products[i].items[j].color,
           sizeTag: products[i].items[j].sizeTag,
           quantity: products[i].items[j].quantity,
+          operator: 'sub'
         });
 
         quantityOfItemsForCurrentProduct += products[i].items[j].quantity;
@@ -98,7 +99,8 @@ class CreateOrderService {
 
     const tax = 0.13;
 
-    const total = (subTotal + shippingPrice) * (1 + tax);
+    let total = (subTotal + shippingPrice) * (1 + tax);
+    total = Math.round(((total + Number.EPSILON) * 100) / 100);
 
     const order = await ordersRepository.create({
       userId,

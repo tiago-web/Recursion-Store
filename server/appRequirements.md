@@ -23,8 +23,11 @@
 - Modify orders Services to update in just one service ✅
 - The user must be able to edit the order when it isn't sent ✅
 
-- Updating the shipping address must be able to provide only one field 🎯
-- Update total and subTotal when products array is modified 🎯
+<<<<<<< HEAD
+=======
+- Updating the shipping and billing address must be able to provide only one field ✅
+- Update total, subTotal, quantities when products array is modified ✅
+>>>>>>> master
 
 
 # Products

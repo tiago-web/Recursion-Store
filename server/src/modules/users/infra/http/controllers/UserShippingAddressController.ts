@@ -25,8 +25,6 @@ class UserShippingAdressesController {
       main,
     });
 
-    user.password = '';
-
     return res.status(statusCodes.ok).json(user);
   }
 
@@ -45,8 +43,6 @@ class UserShippingAdressesController {
       main,
     });
 
-    user.password = '';
-
     return res.status(statusCodes.ok).json(user);
   }
 
@@ -58,8 +54,6 @@ class UserShippingAdressesController {
       userId,
       postalCode,
     });
-
-    user.password = '';
 
     return res.status(statusCodes.ok).json(user);
   }

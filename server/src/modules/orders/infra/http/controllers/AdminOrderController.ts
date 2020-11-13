@@ -13,7 +13,6 @@ class AdminOrderController {
       products,
       delivered,
       status,
-      shippingPrice,
       shippingAddress,
       billingAddress,
     } = req.body;
@@ -24,7 +23,6 @@ class AdminOrderController {
       products,
       delivered,
       status,
-      shippingPrice,
       shippingAddress,
       billingAddress,
     });

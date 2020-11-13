@@ -38,7 +38,7 @@ class ProductsRepository {
     return quantity;
   }
 
-  public async updateSizeQuantity({ productId, color, sizeTag, quantity }: IUpdateSizeQuantityDTO): Promise<IProduct | null> {
+  public async updateSizeQuantity({ productId, color, sizeTag, quantity, operator }: IUpdateSizeQuantityDTO): Promise<IProduct | null> {
     const product = await this.findById(productId);
 
     if (!product)
@@ -54,7 +54,9 @@ class ProductsRepository {
     if (!sizeToUpdate)
       return null;
 
-    sizeToUpdate.quantity = sizeToUpdate.quantity - quantity;
+    const newQuantity = operator === 'add' ? sizeToUpdate.quantity + quantity : sizeToUpdate.quantity - quantity;
+
+    sizeToUpdate.quantity = newQuantity;
 
     await this.save(product);
 

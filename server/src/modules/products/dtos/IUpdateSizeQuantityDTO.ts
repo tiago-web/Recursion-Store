@@ -3,6 +3,7 @@ interface IUpdateSizeQuantityDTO {
   color: string,
   sizeTag: string,
   quantity: number,
+  operator: 'add' | 'sub',
 }
 
 export default IUpdateSizeQuantityDTO;
