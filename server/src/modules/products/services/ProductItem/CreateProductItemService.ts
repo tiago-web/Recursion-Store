@@ -1,5 +1,6 @@
 import { IProduct } from "../../infra/mongoose/models/Product";
 import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
+import DiskStorageProvider from "@shared/container/providers/StorageProvider/implementations/DiskStorageProvider";
 
 import AppError from '@shared/errors/AppError';
 import statusCodes from "@config/statusCodes";
@@ -8,7 +9,10 @@ interface IRequest {
   productId: string;
   color: string;
   imageColor: string;
-  productImages: string[];
+  productImages: Array<{
+    image: string;
+    imageUrl: string;
+  }>;
   sizes: Array<{
     sizeTag: string;
     quantity: number;
@@ -16,6 +20,7 @@ interface IRequest {
 };
 
 const productsRepository = new ProductsRepository();
+const storageProvider = new DiskStorageProvider();
 
 class CreateProductService {
   public async execute({ productId, color, imageColor, productImages, sizes }: IRequest): Promise<IProduct | null> {
@@ -24,7 +29,15 @@ class CreateProductService {
     if (!product)
       throw new AppError("Product not found", statusCodes.notFound);
 
-    product.items.push({ color, imageColor, productImages, sizes });
+    for (let i = 0; i < productImages.length; i++)
+      await storageProvider.saveFile(productImages[i].image);
+
+    const newProductItem = { color, imageColor, productImages, sizes };
+
+    if (!product.items)
+      product.items = [newProductItem];
+    else
+      product.items.push(newProductItem);
 
     await productsRepository.save(product);
 

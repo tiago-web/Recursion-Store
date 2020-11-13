@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { celebrate, Joi, Segments } from 'celebrate';
+// import multer from "multer";
+// import uploadConfig from "@config/upload";
 
 import ProductController from "../controllers/ProductController";
 import ProductsController from "../controllers/ProductsController";
@@ -13,6 +15,8 @@ const productController = new ProductController();
 const productsController = new ProductsController();
 
 const productsRouter = Router();
+// const upload = multer(uploadConfig.multer);
+
 
 productsRouter.use('/items', productItemRouter);
 
@@ -23,6 +27,7 @@ productsRouter.get("/:id", checkIsValidMongoId, productController.index);
 productsRouter.post(
   "/",
   ensureAdminUserAuthenticated,
+  // upload.array("images"),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -30,17 +35,17 @@ productsRouter.post(
       categories: Joi.array().items(Joi.string().required()).required(),
       price: Joi.number().required(),
       description: Joi.string().required(),
-      items: Joi.array().items(
-        Joi.object({
-          color: Joi.string().required(),
-          imageColor: Joi.string().required(),
-          productImages: Joi.array().items(Joi.string().required()).required(),
-          sizes: Joi.array().items(
-            Joi.object({
-              sizeTag: Joi.string().required(),
-              quantity: Joi.number().required(),
-            })),
-        })),
+      // items: Joi.array().items(
+      //   Joi.object({
+      //     color: Joi.string().required(),
+      //     imageColor: Joi.string().required(),
+      //     productImages: Joi.array().items(Joi.string().required()).required(),
+      //     sizes: Joi.array().items(
+      //       Joi.object({
+      //         sizeTag: Joi.string().required(),
+      //         quantity: Joi.number().required(),
+      //       })),
+      // })),
     }
   }),
   productController.create

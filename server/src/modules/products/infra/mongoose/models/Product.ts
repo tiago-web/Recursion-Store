@@ -6,7 +6,10 @@ import { IReview } from './Review';
 export interface IItem {
   color: string;
   imageColor: string;
-  productImages: string[];
+  productImages: Array<{
+    image: string;
+    imageUrl: string;
+  }>;
   sizes: Array<{
     sizeTag: string;
     quantity: number;
@@ -19,7 +22,7 @@ export interface IProduct extends Document {
   categories: string[];
   price: number;
   description: string;
-  items: IItem[];
+  items?: IItem[];
   reviews?: IReview[];
   discountPercentage?: number;
   createdBy: IUser;
@@ -50,7 +53,7 @@ const ProductSchema: Schema = new Schema({
     required: true,
   },
   items: {
-    required: true,
+    required: false,
     _id: false,
     type: [{
       color: {
@@ -62,8 +65,18 @@ const ProductSchema: Schema = new Schema({
         required: true,
       },
       productImages: {
-        type: [String],
         required: true,
+        type: [{
+          _id: false,
+          image: {
+            type: String,
+            required: true,
+          },
+          imageUrl: {
+            type: String,
+            required: true,
+          },
+        }],
       },
       sizes: {
         type: [{
