@@ -30,17 +30,6 @@ productsRouter.post(
       categories: Joi.array().items(Joi.string().required()).required(),
       price: Joi.number().required(),
       description: Joi.string().required(),
-      items: Joi.array().items(
-        Joi.object({
-          color: Joi.string().required(),
-          imageColor: Joi.string().required(),
-          productImages: Joi.array().items(Joi.string().required()).required(),
-          sizes: Joi.array().items(
-            Joi.object({
-              sizeTag: Joi.string().required(),
-              quantity: Joi.number().required(),
-            })),
-        })),
     }
   }),
   productController.create

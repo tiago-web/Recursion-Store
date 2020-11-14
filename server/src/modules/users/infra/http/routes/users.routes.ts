@@ -4,7 +4,7 @@ import { celebrate, Segments, Joi } from "celebrate";
 
 import uploadConfig from '@config/upload';
 
-import UsersController from '../controllers/UsersController';
+import UserController from '../controllers/UserController';
 import UserPermissionController from '../controllers/UserPermissionController';
 import UserAvatarController from '../controllers/UserAvatarController';
 
@@ -13,7 +13,7 @@ import ensureAdminUserAuthenticated from '../middleware/ensureAdminUserAuthentic
 import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 
 const usersRouter = Router();
-const usersController = new UsersController();
+const userController = new UserController();
 const userPermissionController = new UserPermissionController();
 const userAvatarController = new UserAvatarController();
 
@@ -30,7 +30,7 @@ usersRouter.post(
       password: Joi.string().required(),
     },
   }),
-  usersController.create,
+  userController.create,
 );
 
 usersRouter.put(

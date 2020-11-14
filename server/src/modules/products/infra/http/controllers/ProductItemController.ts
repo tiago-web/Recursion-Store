@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import statusCodes from "@config/statusCodes";
+import * as Yup from "yup";
 
 import CreateProductItemService from "@modules/products/services/ProductItem/CreateProductItemService";
 import UpdateProductItemService from "@modules/products/services/ProductItem/UpdateProductItemService";
@@ -12,7 +13,43 @@ const deleteProductItem = new DeleteProductItemService();
 class ProductItemController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { id: productId } = req.params;
-    const { color, imageColor, productImages, sizes } = req.body;
+    const { color, imageColor } = req.body;
+    let { sizes } = req.body;
+
+    sizes = JSON.parse(sizes);
+
+    const requestImages = req.files as Express.Multer.File[];
+
+    const productImages = requestImages.map(image => {
+      return ({
+        image: image.filename,
+        imageUrl: `${req.protocol}://${req.get('host')}/files/${image.filename}`,
+      });
+    });
+
+    const data = {
+      color,
+      imageColor,
+      sizes,
+      productImages
+    };
+
+    const schema = Yup.object().shape({
+      color: Yup.string().required(),
+      imageColor: Yup.string().required(),
+      sizes: Yup.array(Yup.object().shape({
+        sizeTag: Yup.string().required(),
+        quantity: Yup.number().required(),
+      })),
+      productImages: Yup.array(Yup.object().shape({
+        image: Yup.string().required(),
+        imageUrl: Yup.string().required(),
+      })).max(4)
+    });
+
+    await schema.validate(data, {
+      abortEarly: false,
+    });
 
     const product = await createProductItem.execute({
       productId,
@@ -27,7 +64,27 @@ class ProductItemController {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const { id: productId } = req.params;
-    const { color, oldColor, imageColor, productImages } = req.body;
+    const { color, oldColor, imageColor } = req.body;
+
+    const requestImages = req.files as Express.Multer.File[];
+
+    const productImages = requestImages.map(image => {
+      return ({
+        image: image.filename,
+        imageUrl: `${req.protocol}://${req.get('host')}/files/${image.filename}`,
+      });
+    });
+
+    const schema = Yup.object().shape({
+      productImages: Yup.array(Yup.object().shape({
+        image: Yup.string().required(),
+        imageUrl: Yup.string().required(),
+      })).max(4)
+    });
+
+    await schema.validate(productImages, {
+      abortEarly: false,
+    });
 
     const product = await updateProductItem.execute({
       productId,

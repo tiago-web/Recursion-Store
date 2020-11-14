@@ -1,6 +1,6 @@
-import { sign } from 'jsonwebtoken';
 import statusCodes from "@config/statusCodes";
 import authConfig from '@config/auth';
+import { sign } from 'jsonwebtoken';
 
 import UsersRepository from '../../infra/mongoose/repositories/UsersRepository';
 import BCryptHashProvider from '../../providers/HashProvider/implementations/BCryptHashProvider';

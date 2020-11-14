@@ -23,6 +23,9 @@ class ProductsRepository {
     if (!product)
       return null;
 
+    if (!product.items)
+      return null;
+
     const item = product.items.find(item => item.color === color);
 
     if (!item)
@@ -42,6 +45,9 @@ class ProductsRepository {
     const product = await this.findById(productId);
 
     if (!product)
+      return null;
+
+    if (!product.items)
       return null;
 
     const item = product.items.find(item => item.color === color);

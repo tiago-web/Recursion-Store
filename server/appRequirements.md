@@ -2,8 +2,7 @@
 
 - Make sure we are using celebrate correctly on every route ✅
 - Correct status code in the controllers and services for (CRUD) ✅
-
-- See a way to check multiform data with celebrate or another package 🛑
+- See a way to check multiform data with celebrate or another package ✅
 
 
 # Reviews
@@ -33,14 +32,14 @@
 - Add / Update / Remove items to the product ✅
 - Add / Update / Remove sizes to the item ✅
 - Check if update has a body content else return another status code ✅
-
-- Allow the Admin to set products images 🛑
-- Make sure we can access the image 🛑
-- Remember to set image as multpartform and not send it in the json body
+- Allow the Admin to set products images ✅
+- Make sure we can access the image ✅
+- Remember to set image as multpartform and not send it in the json body ✅
 
 
 # Users
 
+- Make sure when create user not return password. ✅
 - The user must have only one main address, if they don't select any, then the first one will be the main. ✅
 - Create / Update / Delete a Route and Service to handle shippingAddresses ✅
 
@@ -53,3 +52,12 @@
 # Coupom
 
 - Create a coupom for discont in some specific products 🛑
+
+
+
+# Last Updates
+
+- updateProfile not working when password is being updated
+- should not return user populated on List Order By User
+- should not return user & products populated on PUT Order By User
+- should not return user populated on PUT Order By Admin

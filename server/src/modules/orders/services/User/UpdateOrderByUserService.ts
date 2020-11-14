@@ -1,5 +1,4 @@
 import { IOrder, IOrderProduct } from '../../infra/mongoose/models/Order';
-// import IAddress from '@shared/dtos/IAddressDTO';
 
 import AppError from '@shared/errors/AppError';
 import statusCodes from "@config/statusCodes";

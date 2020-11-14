@@ -12,7 +12,7 @@ const showProduct = new ShowProductService();
 class ProductController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { id: adminId } = req.user;
-    const { name, type, categories, price, description, items } = req.body;
+    const { name, type, categories, price, description } = req.body;
 
     const product = await createProduct.execute({
       adminId,
@@ -20,8 +20,7 @@ class ProductController {
       type,
       categories,
       price,
-      description,
-      items
+      description
     });
 
     return res.status(statusCodes.created).json(product);

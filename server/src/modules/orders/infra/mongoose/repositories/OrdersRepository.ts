@@ -2,7 +2,7 @@ import Order, { IOrder } from '../models/Order';
 import UsersRepository from '@modules/users/infra/mongoose/repositories/UsersRepository';
 
 import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
-import User from '@modules/users/infra/mongoose/models/User';
+import { IUser } from '@modules/users/infra/mongoose/models/User';
 
 const usersRepository = new UsersRepository();
 
@@ -19,20 +19,10 @@ class OrdersRepository {
   public async findById(id: string): Promise<IOrder | null> {
     const order = await Order.findById(id).populate("products").populate("userId", "-password");
 
-    // if (order)
-    //   order.userId.password = "";
-
     return order;
   }
 
-  public async findAllByUserId(userId: string): Promise<IOrder[] | null> {
-    // const user = await User.findById(userId);
-
-    const user = await usersRepository.findById(userId);
-
-    if (!user)
-      return null;
-
+  public async findAllByUser(user: IUser): Promise<IOrder[] | null> {
     const orders = await Order.find({ userId: user });
 
     for (let i = 0; i < orders.length; i++)

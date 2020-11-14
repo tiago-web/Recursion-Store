@@ -9,7 +9,10 @@ interface IRequest {
   oldColor: string;
   color?: string;
   imageColor?: string;
-  productImages?: string[];
+  productImages?: Array<{
+    image: string;
+    imageUrl: string;
+  }>;
 };
 
 const productsRepository = new ProductsRepository();
@@ -26,6 +29,9 @@ class UpdateProductItemService {
 
     if (!product)
       throw new AppError("Product doesn't exists", statusCodes.notFound);
+
+    if (!product.items)
+      throw new AppError("Product doesn't contain items", statusCodes.notFound);
 
     const item = product.items.find(item => item.color === oldColor);
 

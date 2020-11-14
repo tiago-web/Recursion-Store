@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
-import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 import ProfileController from '../controllers/ProfileController';
 import UserShippingAddressController from '../controllers/UserShippingAddressController';
 
