@@ -44,13 +44,12 @@ class ProductItemController {
       productImages: Yup.array(Yup.object().shape({
         image: Yup.string().required(),
         imageUrl: Yup.string().required(),
-      }))
+      })).max(4)
     });
 
     await schema.validate(data, {
       abortEarly: false,
     });
-
 
     const product = await createProductItem.execute({
       productId,
@@ -76,23 +75,14 @@ class ProductItemController {
       });
     });
 
-    const data = {
-      color,
-      imageColor,
-      productImages
-    };
-
     const schema = Yup.object().shape({
-      color: Yup.string().required(),
-      oldColor: Yup.string().required(),
-      imageColor: Yup.string().required(),
       productImages: Yup.array(Yup.object().shape({
         image: Yup.string().required(),
         imageUrl: Yup.string().required(),
-      }))
+      })).max(4)
     });
 
-    await schema.validate(data, {
+    await schema.validate(productImages, {
       abortEarly: false,
     });
 

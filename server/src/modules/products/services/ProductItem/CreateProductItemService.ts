@@ -29,6 +29,13 @@ class CreateProductService {
     if (!product)
       throw new AppError("Product not found", statusCodes.notFound);
 
+    if (product.items) {
+      const itemWithSameColor = product.items.find(item => item.color === color)
+
+      if (itemWithSameColor)
+        throw new AppError("An item with the same name already exists for this product", statusCodes.badRequest);
+    }
+
     for (let i = 0; i < productImages.length; i++)
       await storageProvider.saveFile(productImages[i].image);
 

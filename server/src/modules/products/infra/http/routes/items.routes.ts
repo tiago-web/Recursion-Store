@@ -22,21 +22,21 @@ itemRouter.use('/sizes', sizesRouter);
 itemRouter.post(
   "/:id",
   checkIsValidMongoId,
-  upload.array("images"),
+  upload.array("productImages"),
   productItemController.create
 );
 
 itemRouter.put(
   "/:id",
   checkIsValidMongoId,
-  upload.array("images"),
-  // celebrate({
-  //   [Segments.BODY]: {
-  //     color: Joi.string(),
-  //     imageColor: Joi.string(),
-  //     olColor: Joi.string(),
-  //   }
-  // }),
+  upload.array("productImages"),
+  celebrate({
+    [Segments.BODY]: {
+      color: Joi.string(),
+      imageColor: Joi.string(),
+      olColor: Joi.string(),
+    }
+  }),
   productItemController.update
 );
 

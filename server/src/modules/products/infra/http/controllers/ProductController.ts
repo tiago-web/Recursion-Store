@@ -14,14 +14,6 @@ class ProductController {
     const { id: adminId } = req.user;
     const { name, type, categories, price, description } = req.body;
 
-    // const requestImages = req.files as Express.Multer.File[];
-
-    // const productImages = requestImages.map(image => {
-    //   return { image: image.filename }
-    // });
-
-    // items.productImages = productImages;
-
     const product = await createProduct.execute({
       adminId,
       name,
