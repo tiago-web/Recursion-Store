@@ -46,6 +46,7 @@
 
 # Payment
 
+- Set a payment provider 🛑
 - Set order status to in process while payment is not completed 🛑
 
 
@@ -57,7 +58,8 @@
 
 # Last Updates
 
+- should not return user populated on List Order By User ✅
+
 - updateProfile not working when password is being updated
-- should not return user populated on List Order By User
-- should not return user & products populated on PUT Order By User
-- should not return user populated on PUT Order By Admin
+- Check the images sizes () and array lenght on update product Images
+- On update images, remove and save images from diskStorage
