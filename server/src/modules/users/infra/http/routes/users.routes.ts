@@ -11,6 +11,7 @@ import UserAvatarController from '../controllers/UserAvatarController';
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
 import ensureAdminUserAuthenticated from '../middleware/ensureAdminUserAuthenticated';
 import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
+import checkIsBodyEmpty from '../middleware/checkIsBodyEmpty';
 
 const usersRouter = Router();
 const userController = new UserController();
@@ -48,6 +49,7 @@ usersRouter.put(
 usersRouter.patch(
   '/avatar',
   ensureAuthenticated,
+  // checkIsBodyEmpty,
   upload.single('avatar'),
   userAvatarController.update
 )

@@ -18,12 +18,12 @@ class DeleteProductItemService {
     if (!product)
       throw new AppError("Product not found", statusCodes.notFound);
 
-    const item = product.items.find(item => item.color === color);
+    const item = product.items?.find(item => item.color === color);
 
     if (!item)
       throw new AppError("Item not found", statusCodes.notFound);
 
-    product.items = product.items.filter(item => item.color !== color);
+    product.items = product.items?.filter(item => item.color !== color);
 
     await productsRepository.save(product);
 

@@ -79,12 +79,12 @@ const ProductSchema: Schema = new Schema({
         }],
       },
       sizes: {
+        required: true,
         type: [{
           _id: false,
           sizeTag: String,
           quantity: Number
         }],
-        required: true,
       }
     }]
   },

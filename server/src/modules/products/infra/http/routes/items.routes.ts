@@ -34,7 +34,7 @@ itemRouter.put(
     [Segments.BODY]: {
       color: Joi.string(),
       imageColor: Joi.string(),
-      olColor: Joi.string(),
+      oldColor: Joi.string().required(),
     }
   }),
   productItemController.update

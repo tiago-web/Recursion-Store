@@ -5,7 +5,31 @@ import statusCodes from "@config/statusCodes";
 import AppError from './AppError';
 import yupErrorHandler from "./yupErrorHandler";
 
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+import fs from 'fs';
+import path from 'path';
+import uploadConfig from '@config/upload';
+
+const errorHandler: ErrorRequestHandler = async (err, req, res, next) => {
+  const docList = await fs.promises.readdir(uploadConfig.tmpFolder);
+
+  if (docList.length > 1) {
+
+    for (let i = 0; i < docList.length; i++) {
+      if (docList[i] === 'uploads') continue;
+
+      const filePath = path.resolve(uploadConfig.tmpFolder, docList[i]);
+
+      try {
+        await fs.promises.stat(filePath);
+      } catch {
+        return;
+      }
+
+      await fs.promises.unlink(filePath);
+
+    }
+  }
+
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
       status: 'error',
