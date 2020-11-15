@@ -55,7 +55,6 @@
 - Create a coupom for discont in some specific products 🛑
 
 
-
 # Last Updates
 
 - should not return user populated on List Order By User ✅
@@ -64,5 +63,9 @@
 - On update images and save images from diskStorage ✅
 - remove product images ✅
 
+#
+
 - Check the images sizes (GB) 🛑
 - Make a middleware to ensure empty body on Avatar. 🛑
+- Create repository interfaces to make the code adaptable to any other database provider 🛑
+- Use dependency injection to make the code even more flexible 🛑
