@@ -75,14 +75,12 @@ class ProductItemController {
       });
     });
 
-    const schema = Yup.object().shape({
-      productImages: Yup.array(Yup.object().shape({
-        image: Yup.string().required(),
-        imageUrl: Yup.string().required(),
-      })).max(4)
-    });
+    const productImagesSchema = Yup.array(Yup.object().shape({
+      image: Yup.string().required(),
+      imageUrl: Yup.string().required(),
+    })).max(4);
 
-    await schema.validate(productImages, {
+    await productImagesSchema.validate(productImages, {
       abortEarly: false,
     });
 

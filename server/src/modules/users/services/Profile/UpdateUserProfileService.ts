@@ -28,7 +28,12 @@ class UpdateUserProfileService {
     oldPassword,
     password,
   }: IRequest): Promise<IUser> {
-    const user = await usersRepository.findById(userId);
+    let user = await usersRepository.findById(userId);
+
+    if (!user)
+      throw new AppError('User not found', statusCodes.notFound);
+
+    user = await usersRepository.findByEmail(user.email);
 
     if (!user)
       throw new AppError('User not found', statusCodes.notFound);

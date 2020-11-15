@@ -30,6 +30,8 @@ class ProfileController {
       password,
     });
 
+    user.password = '';
+
     return res.status(statusCodes.ok).json(user);
   }
 }
