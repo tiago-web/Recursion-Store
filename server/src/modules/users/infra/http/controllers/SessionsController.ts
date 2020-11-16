@@ -11,6 +11,8 @@ class SessionsController {
 
     const { user, token } = await authenticateUser.execute({ email, password });
 
+    user.password = "";
+
     return res.status(statusCodes.created).json({ user, token });
   }
 }

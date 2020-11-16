@@ -2,8 +2,7 @@
 
 - Make sure we are using celebrate correctly on every route ✅
 - Correct status code in the controllers and services for (CRUD) ✅
-
-- See a way to check multiform data with celebrate or another package 🛑
+- See a way to check multiform data with celebrate or another package ✅
 
 
 # Reviews
@@ -36,23 +35,47 @@
 - Add / Update / Remove items to the product ✅
 - Add / Update / Remove sizes to the item ✅
 - Check if update has a body content else return another status code ✅
+<<<<<<< HEAD
 
 - Allow the Admin to set products images 🛑
 - Make sure we can access the image 🛑
 - Remember to set image as multpartform and not send it in the json body 🎯
+=======
+- Allow the Admin to set products images ✅
+- Make sure we can access the image ✅
+- Remember to set image as multpartform and not send it in the json body ✅
+>>>>>>> master
 
 
 # Users
 
+- Make sure when create user not return password. ✅
 - The user must have only one main address, if they don't select any, then the first one will be the main. ✅
 - Create / Update / Delete a Route and Service to handle shippingAddresses ✅
 
 
 # Payment
 
+- Set a payment provider 🛑
 - Set order status to in process while payment is not completed 🛑
 
 
 # Coupom
 
 - Create a coupom for discont in some specific products 🛑
+
+
+# Last Updates
+
+- should not return user populated on List Order By User ✅
+- updateProfile not working when password is being updated ✅
+- Array lenght on update product Images ✅
+- On update images and save images from diskStorage ✅
+- remove product images ✅
+
+#
+
+- Check the images sizes (GB) 🛑
+- Make a middleware to ensure empty body on Avatar. 🛑
+- Create repository interfaces to make the code adaptable to any other database provider 🛑
+- Use dependency injection to make the code even more flexible 🛑

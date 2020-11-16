@@ -7,7 +7,6 @@ interface ICreateProductDTO {
   categories: string[];
   price: number;
   description: String;
-  items: IItem[];
 }
 
 export default ICreateProductDTO;

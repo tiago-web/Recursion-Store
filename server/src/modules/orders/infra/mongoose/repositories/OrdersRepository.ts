@@ -1,10 +1,7 @@
 import Order, { IOrder } from '../models/Order';
-import UsersRepository from '@modules/users/infra/mongoose/repositories/UsersRepository';
 
 import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
-import User from '@modules/users/infra/mongoose/models/User';
-
-const usersRepository = new UsersRepository();
+import { IUser } from '@modules/users/infra/mongoose/models/User';
 
 class OrdersRepository {
   public async findAllOrders(): Promise<IOrder[]> {
@@ -17,26 +14,16 @@ class OrdersRepository {
   }
 
   public async findById(id: string): Promise<IOrder | null> {
-    const order = await Order.findById(id).populate("products").populate("userId", "-password");
-
-    // if (order)
-    //   order.userId.password = "";
+    const order = await Order.findById(id).populate("products").populate("userId");
 
     return order;
   }
 
-  public async findAllByUserId(userId: string): Promise<IOrder[] | null> {
-    // const user = await User.findById(userId);
-
-    const user = await usersRepository.findById(userId);
-
-    if (!user)
-      return null;
-
+  public async findAllByUser(user: IUser): Promise<IOrder[] | null> {
     const orders = await Order.find({ userId: user });
 
-    for (let i = 0; i < orders.length; i++)
-      await orders[i].populate("products").populate("userId", "-password").execPopulate();
+    // for (let i = 0; i < orders.length; i++)
+    //   await orders[i].populate("products").execPopulate();
 
     return orders;
   }

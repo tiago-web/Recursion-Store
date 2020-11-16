@@ -78,7 +78,7 @@ class CreateOrderService {
           throw new AppError(`The product '${products[i].productId}' is out of stock.`);
 
         if (!stockQuantity)
-          throw new AppError("The product was not found.", statusCodes.notFound);
+          throw new AppError("Item sizeTag or color not found.", statusCodes.notFound);
 
         if (products[i].items[j].quantity > stockQuantity)
           throw new AppError(`The requested quantity is for the product '${products[i].productId}' not available in stock.`);
