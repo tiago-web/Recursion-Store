@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -12,8 +13,10 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.1",
+    "react-material-ui-carousel": "^2.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "styled-components": "^5.2.1",
     "typescript": "^3.9.5"
   },
   "scripts": {
@@ -41,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.4",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
     "eslint": "^6.8.0",
