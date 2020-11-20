@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <div>
-      <h1>Hello Sergio</h1>
+      <h1>Sergio Sanchez is Gay, and also is Tiago Soriano.</h1>
     </div>
   );
 }
