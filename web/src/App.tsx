@@ -1,12 +1,10 @@
 import React from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div>
-      <h1>Hello Sergio</h1>
-    </div>
-  );
-}
+import Routes from './routes';
+
+const App: React.FC = () => {
+  return <Routes />;
+};
 
 export default App;
