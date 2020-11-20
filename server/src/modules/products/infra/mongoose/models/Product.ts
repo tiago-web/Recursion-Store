@@ -82,8 +82,14 @@ const ProductSchema: Schema = new Schema({
         required: true,
         type: [{
           _id: false,
-          sizeTag: String,
-          quantity: Number
+          sizeTag: {
+            type: String,
+            required: true
+          },
+          quantity: {
+            type: Number,
+            required: true
+          }
         }],
       }
     }]

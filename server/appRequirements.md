@@ -69,3 +69,4 @@
 - Make a middleware to ensure empty body on Avatar. 🛑
 - Create repository interfaces to make the code adaptable to any other database provider 🛑
 - Use dependency injection to make the code even more flexible 🛑
+- Add createdAt and updatedAt to all the interfaces.
