@@ -97,7 +97,7 @@
   "email": "",
   "phone": "",
   "password": "",
-  "avatar_url": "user.jpeg",
+  "avatarUrl": "user.jpeg",
   "avatar": "http://localhost/files/user.jpeg",
   "shippingAddresses": [
     {
