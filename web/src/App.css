@@ -2,6 +2,9 @@
   --primary-color: #34cb79;
   --title-color: #293845;
   --text-color: #909ea9;
+  --navbar-bg: #809bb1;
+  --navbar-border: #163861;
+  --navbar-text: #4c5d6c;
 }
 
 * {
