@@ -1,29 +1,63 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import PersonIcon from '@material-ui/icons/Person';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import SearchIcon from '@material-ui/icons/Search';
+import { Toolbar, Tooltip, Grid, InputBase } from '@material-ui/core';
+import {
+  MaterialAppBar,
+  ContainerTitle,
+  useStyles,
+  MaterialTypography as Typography,
+  MaterialShoppingCartIcon as ShoppingCartIcon,
+  MaterialPersonIcon as PersonIcon,
+  MaterialSearchIcon as SearchIcon,
+  ReactLink as Link,
+} from './styles';
 
 const Navbar: React.FC = () => {
+  const classes = useStyles();
   return (
-    <AppBar style={{ position: 'unset' }}>
+    <MaterialAppBar>
       <Toolbar>
-        <div>
-          <Typography variant="h4">Recursion Store</Typography>
-          <Typography variant="h6">
-            You have never seen a store like this!
-          </Typography>
-        </div>
-        <Link to="/Products">Products</Link>
-        <Button color="inherit">Login</Button>
-        <div>
-          <SearchIcon />
-          <ShoppingCartIcon />
-          <PersonIcon />
-        </div>
+        <Grid container xs={7} className={classes.NavbarGridLeft}>
+          <ContainerTitle>
+            <Typography variant="h4">
+              <Link to="/">Recursion Store</Link>
+            </Typography>
+            <Typography variant="h6">
+              You have never seen a store like this!
+            </Typography>
+          </ContainerTitle>
+        </Grid>
+        <Grid container xs={12} className={classes.NavbarGridCenter}>
+          <Link to="/products">Women</Link>
+          <Link to="/products">Men</Link>
+          <Link to="/products">Kids</Link>
+        </Grid>
+        <Grid container xs={6} className={classes.NavbarGridRight}>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
+          <Tooltip title="Cart" aria-label="cart">
+            <Link to="/Cart">
+              <ShoppingCartIcon />
+            </Link>
+          </Tooltip>
+          <Tooltip title="User" aria-label="user">
+            <Link to="/Cart">
+              <PersonIcon />
+            </Link>
+          </Tooltip>
+        </Grid>
       </Toolbar>
-    </AppBar>
+    </MaterialAppBar>
   );
 };
 

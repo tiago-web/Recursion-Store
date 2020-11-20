@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { CarouselImage, MaterialCarousel, CarouselContainer } from './styles';
+import {
+  MaterialCarousel,
+  CarouselContainer,
+  CarouselTitle,
+  CarouselDescription,
+  CarouselImage,
+} from './styles';
 
 interface Item {
   id: number;
@@ -10,32 +16,31 @@ interface Item {
 }
 
 const Carousel: React.FC = () => {
+  // GET FROM THE DB
   const items = [
     {
       id: 0,
       imageUrl:
         'https://avatars1.githubusercontent.com/u/25516049?s=400&u=3111610864f1e0c93733e568ae35e42433d9e217&v=4',
-      name: 'Random Name #1',
-      description: 'Probably the most random thing you have ever seen!',
+      name: 'Sergio Sanchez',
+      description:
+        'The best of the best, something that you have never seen before!',
     },
     {
       id: 1,
-      name: 'Random Name #2',
-      description: 'Hello World!',
+      name: 'Banner Title #2',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
     },
   ] as Item[];
 
   return (
-    <MaterialCarousel
-      navButtonsAlwaysVisible
-      animation="slide"
-      autoPlay={false}
-    >
+    <MaterialCarousel navButtonsAlwaysVisible animation="slide" interval={5000}>
       {items.map(item => (
         <CarouselContainer key={item.id}>
           <div>
-            <h1>{item.name}</h1>
-            <p>{item.description}</p>
+            <CarouselTitle>{item.name}</CarouselTitle>
+            <CarouselDescription>{item.description}</CarouselDescription>
           </div>
           <CarouselImage
             imageUrl={!!item.imageUrl}
