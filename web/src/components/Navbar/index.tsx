@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
             </Link>
           </Tooltip>
           <Tooltip title="User" aria-label="user">
-            <Link to="/Cart">
+            <Link to="/user/myaccount">
               <PersonIcon />
             </Link>
           </Tooltip>
