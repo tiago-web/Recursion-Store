@@ -1,5 +1,6 @@
 import React from 'react';
-import Carousel from '../../components/Carousel';
+import { Link } from 'react-router-dom';
+import Carousel, { Item } from '../../components/Carousel';
 import Navbar from '../../components/Navbar';
 
 import {
@@ -12,55 +13,72 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
+  const items = [
+    {
+      id: 0,
+      imageUrl:
+        'https://avatars1.githubusercontent.com/u/25516049?s=400&u=3111610864f1e0c93733e568ae35e42433d9e217&v=4',
+      name: 'Sergio Sanchez',
+      description:
+        'The best of the best, something that you have never seen before!',
+    },
+    {
+      id: 1,
+      name: 'Banner Title #2',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    },
+  ] as Item[];
+
   return (
     <>
       <Navbar />
       <Section>
-        <Carousel />
+        <Carousel items={items} navButtons height={400} />
       </Section>
       <Section>
         <Container>
           <h1>Offers you might Like</h1>
           <ProductOffers>
             <ProductOffer>
-              <a href="/">
+              <Link to="product-detail">
                 <img
                   src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
                   alt="MK"
                 />
                 <strong>Dress V-shape</strong>
                 <span>CA$499.99</span>
-              </a>
+              </Link>
             </ProductOffer>
             <ProductOffer>
-              <a href="/">
+              <Link to="product-detail">
                 <img
                   src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
                   alt="MK"
                 />
                 <strong>Dress V-shape</strong>
                 <span>CA$499.99</span>
-              </a>
+              </Link>
             </ProductOffer>
             <ProductOffer>
-              <a href="/">
+              <Link to="product-detail">
                 <img
                   src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
                   alt="MK"
                 />
                 <strong>Dress V-shape</strong>
                 <span>CA$499.99</span>
-              </a>
+              </Link>
             </ProductOffer>
             <ProductOffer>
-              <a href="/">
+              <Link to="product-detail">
                 <img
                   src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
                   alt="MK"
                 />
                 <strong>Dress V-shape</strong>
                 <span>CA$499.99</span>
-              </a>
+              </Link>
             </ProductOffer>
           </ProductOffers>
         </Container>
@@ -69,19 +87,19 @@ const Home: React.FC = () => {
         <SeeProducts>
           <SeeProduct>
             <strong>Underwear</strong>
-            <a href="/">See Products</a>
+            <Link to="products">See Products</Link>
           </SeeProduct>
           <SeeProduct>
-            <strong>Underwear</strong>
-            <a href="/">See Products</a>
+            <strong>Jackets</strong>
+            <Link to="products">See Products</Link>
           </SeeProduct>
           <SeeProduct>
-            <strong>Underwear</strong>
-            <a href="/">See Products</a>
+            <strong>T-Shirts</strong>
+            <Link to="products">See Products</Link>
           </SeeProduct>
           <SeeProduct>
-            <strong>Underwear</strong>
-            <a href="/">See Products</a>
+            <strong>Pants</strong>
+            <Link to="products">See Products</Link>
           </SeeProduct>
         </SeeProducts>
       </Section>
