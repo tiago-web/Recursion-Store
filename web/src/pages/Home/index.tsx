@@ -2,7 +2,14 @@ import React from 'react';
 import Carousel from '../../components/Carousel';
 import Navbar from '../../components/Navbar';
 
-import { Container, Section, ProductOffers, ProductOffer } from './styles';
+import {
+  Container,
+  Section,
+  ProductOffers,
+  ProductOffer,
+  SeeProducts,
+  SeeProduct,
+} from './styles';
 
 const Home: React.FC = () => {
   return (
@@ -16,47 +23,67 @@ const Home: React.FC = () => {
           <h1>Offers you might Like</h1>
           <ProductOffers>
             <ProductOffer>
-              <img
-                src="https://avatars1.githubusercontent.com/u/54996200?s=460&u=71727831f077b47e9e102c1c0e78240fe9b7d67b&v=4"
-                alt="Tiago-git"
-              />
-              <span>Dress V-shape</span>
-              <span>CA$499.99</span>
+              <a href="/">
+                <img
+                  src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
+                  alt="MK"
+                />
+                <strong>Dress V-shape</strong>
+                <span>CA$499.99</span>
+              </a>
             </ProductOffer>
             <ProductOffer>
-              <img
-                src="https://avatars1.githubusercontent.com/u/54996200?s=460&u=71727831f077b47e9e102c1c0e78240fe9b7d67b&v=4"
-                alt="Tiago-git"
-              />
-              <span>Dress V-shape</span>
-              <span>CA$499.99</span>
+              <a href="/">
+                <img
+                  src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
+                  alt="MK"
+                />
+                <strong>Dress V-shape</strong>
+                <span>CA$499.99</span>
+              </a>
             </ProductOffer>
             <ProductOffer>
-              <img
-                src="https://avatars1.githubusercontent.com/u/54996200?s=460&u=71727831f077b47e9e102c1c0e78240fe9b7d67b&v=4"
-                alt="Tiago-git"
-              />
-              <span>Dress V-shape</span>
-              <span>CA$499.99</span>
+              <a href="/">
+                <img
+                  src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
+                  alt="MK"
+                />
+                <strong>Dress V-shape</strong>
+                <span>CA$499.99</span>
+              </a>
             </ProductOffer>
             <ProductOffer>
-              <img
-                src="https://avatars1.githubusercontent.com/u/54996200?s=460&u=71727831f077b47e9e102c1c0e78240fe9b7d67b&v=4"
-                alt="Tiago-git"
-              />
-              <span>Dress V-shape</span>
-              <span>CA$499.99</span>
+              <a href="/">
+                <img
+                  src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
+                  alt="MK"
+                />
+                <strong>Dress V-shape</strong>
+                <span>CA$499.99</span>
+              </a>
             </ProductOffer>
           </ProductOffers>
         </Container>
       </Section>
       <Section>
-        <Container>
-          <img
-            src="https://avatars1.githubusercontent.com/u/54996200?s=460&u=71727831f077b47e9e102c1c0e78240fe9b7d67b&v=4"
-            alt="Tiago-git"
-          />
-        </Container>
+        <SeeProducts>
+          <SeeProduct>
+            <strong>Underwear</strong>
+            <a href="/">See Products</a>
+          </SeeProduct>
+          <SeeProduct>
+            <strong>Underwear</strong>
+            <a href="/">See Products</a>
+          </SeeProduct>
+          <SeeProduct>
+            <strong>Underwear</strong>
+            <a href="/">See Products</a>
+          </SeeProduct>
+          <SeeProduct>
+            <strong>Underwear</strong>
+            <a href="/">See Products</a>
+          </SeeProduct>
+        </SeeProducts>
       </Section>
     </>
   );
