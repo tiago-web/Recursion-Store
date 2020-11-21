@@ -1,12 +1,12 @@
 import React from 'react';
+
+import Routes from './routes';
+
 import './App.css';
 
-function App() {
-  return (
-    <div>
-      <h1>Sergio Sanchez is Gay, and also is Tiago Soriano.</h1>
-    </div>
-  );
-}
+const App: React.FC = () => {
+  return <Routes />;
+};
+>>>>>>> master
 
 export default App;
