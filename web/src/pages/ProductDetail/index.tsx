@@ -1,8 +1,10 @@
 import React from 'react';
-import { FiHeart } from 'react-icons/fi';
+import { FiHeart, FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 import Carousel, { Item } from '../../components/Carousel';
 import Navbar from '../../components/Navbar';
+import Button from '../../components/Button';
 
 import {
   Section,
@@ -10,6 +12,11 @@ import {
   ProductDetailContent,
   Colors,
   Sizes,
+  AddToCart,
+  Description,
+  ReviewsContainer,
+  ReviewsHeaderContent,
+  ReviewsBodyContent,
 } from './styles';
 
 const ProductDetail: React.FC = () => {
@@ -22,7 +29,7 @@ const ProductDetail: React.FC = () => {
     {
       id: 1,
       imageUrl:
-        'https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg',
+        'https://www.prada.com/content/dam/pradanux_products/2/291/291832/1WQ8F0002/291832_1WQ8_F0002_S_202_MDF.png/_jcr_content/renditions/cq5dam.web.white.800.1000.webp',
     },
     {
       id: 2,
@@ -52,10 +59,18 @@ const ProductDetail: React.FC = () => {
           <Colors>
             <strong>Colors</strong>
             <ul>
-              <li id="red" />
-              <li id="blue" />
-              <li id="green" />
-              <li id="black" />
+              <li id="red">
+                <button type="button">XX</button>
+              </li>
+              <li id="blue">
+                <button type="button">XX</button>
+              </li>
+              <li id="green">
+                <button type="button">XX</button>
+              </li>
+              <li id="black">
+                <button type="button">XX</button>
+              </li>
             </ul>
           </Colors>
           <Sizes>
@@ -81,8 +96,116 @@ const ProductDetail: React.FC = () => {
               </li>
             </ul>
           </Sizes>
+          <AddToCart>
+            <div className="quantity">
+              Quantity
+              <input name="qty" type="number" value="1" />
+            </div>
+            <Button>ADD TO CART</Button>
+          </AddToCart>
+          <Description>
+            <strong>Description</strong>
+            <p>
+              Tenete ergo quod si servitus quae natura liber, et aliena tua tunc
+              impeditur. Dolebis, et turbabuntur, et invenietis, cum culpa tam
+              dis hominibusque. Quod si tibi tantum sit propria et aliena
+            </p>
+          </Description>
         </ProductDetailContent>
       </Section>
+
+      {/* <Section> */}
+      <ReviewsContainer>
+        <ReviewsHeaderContent>
+          <h1>Reviews</h1>
+          <Button>READ ALL REVIEWS</Button>
+          <Link to="/product/review">WRITE A REVIEW</Link>
+        </ReviewsHeaderContent>
+        <ReviewsBodyContent>
+          <h1>Most Relevant</h1>
+          <div className="review">
+            <div className="userInfo">
+              <span>Sergio</span>
+              <span>Address</span>
+              <span>Date</span>
+            </div>
+            <div className="reviewBody">
+              <strong>Title of the review</strong>
+              <p>
+                Tenete ergo quod si servitus quae natura liber, et aliena tua
+                tunc impeditur. Dolebis, et turbabuntur, et invenietis, cum
+                culpa tam dis hominibusque. Quod si tibi tantum sit propria et
+                aliena
+              </p>
+              <div className="likes">
+                <button type="button">
+                  <FiThumbsUp size={18} color="#909ea9" />
+                </button>
+                <span>3900</span>
+                <button type="button">
+                  <FiThumbsDown size={18} color="#909ea9" />
+                </button>
+                <span>2</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="review">
+            <div className="userInfo">
+              <span>Sergio</span>
+              <span>Address</span>
+              <span>Date</span>
+            </div>
+            <div className="reviewBody">
+              <strong>Title of the review</strong>
+              <p>
+                Tenete ergo quod si servitus quae natura liber, et aliena tua
+                tunc impeditur. Dolebis, et turbabuntur, et invenietis, cum
+                culpa tam dis hominibusque. Quod si tibi tantum sit propria et
+                aliena
+              </p>
+              <div className="likes">
+                <button type="button">
+                  <FiThumbsUp size={18} color="#909ea9" />
+                </button>
+                <span>3900</span>
+                <button type="button">
+                  <FiThumbsDown size={18} color="#909ea9" />
+                </button>
+                <span>2</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="review">
+            <div className="userInfo">
+              <span>Sergio</span>
+              <span>Address</span>
+              <span>Date</span>
+            </div>
+            <div className="reviewBody">
+              <strong>Title of the review</strong>
+              <p>
+                Tenete ergo quod si servitus quae natura liber, et aliena tua
+                tunc impeditur. Dolebis, et turbabuntur, et invenietis, cum
+                culpa tam dis hominibusque. Quod si tibi tantum sit propria et
+                aliena
+              </p>
+              <div className="likes">
+                <button type="button">
+                  <FiThumbsUp size={18} color="#909ea9" />
+                </button>
+                <span>3900</span>
+                <button type="button">
+                  <FiThumbsDown size={18} color="#909ea9" />
+                </button>
+                <span>2</span>
+              </div>
+            </div>
+          </div>
+        </ReviewsBodyContent>
+      </ReviewsContainer>
+      {/* </Section> */}
     </>
   );
 };
