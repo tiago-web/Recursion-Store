@@ -1,21 +1,24 @@
 import styled from 'styled-components';
 import Carousel from 'react-material-ui-carousel';
 
-interface CarouselImageProps {
-  imageUrl: boolean;
+interface CarouselProps {
+  imageUrl?: boolean;
+  name?: boolean;
+  height?: number;
 }
 
-export const CarouselImage = styled.img<CarouselImageProps>`
-  height: 300px;
-  width: 250px;
+export const CarouselImage = styled.img<CarouselProps>`
+  height: ${props => (props.name ? 300 : 800)}px;
+  width: ${props => (props.name ? 250 : 750)}px;
   border-radius: 5px;
 
   /* margin-left: 64px; */
 
   display: ${props => (props.imageUrl ? 'block' : 'none')};
 `;
-export const MaterialCarousel = styled(Carousel)`
-  height: 400px;
+
+export const MaterialCarousel = styled(Carousel) <CarouselProps>`
+  height: ${props => props.height}px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,10 +38,11 @@ export const MaterialCarousel = styled(Carousel)`
     width: 75vw;
   }
 `;
-export const CarouselContainer = styled.div`
+
+export const CarouselContainer = styled.div<CarouselProps>`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: ${props => (props.name ? 'space-around' : 'center')};
 `;
 
 export const CarouselTitle = styled.h1`
