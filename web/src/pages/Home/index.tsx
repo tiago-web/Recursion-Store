@@ -34,7 +34,7 @@ const Home: React.FC = () => {
     <>
       <Navbar />
       <Section>
-        <Carousel items={items} navButtons height={420} />
+        <Carousel items={items} navButtonsAlwaysVisible height={420} />
       </Section>
       <Section>
         <Container>
