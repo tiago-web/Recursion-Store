@@ -17,7 +17,7 @@ export const CarouselImage = styled.img<CarouselProps>`
   display: ${props => (props.imageUrl ? 'block' : 'none')};
 `;
 
-export const MaterialCarousel = styled(Carousel) <CarouselProps>`
+export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   height: ${props => props.height}px;
   display: flex;
   flex-direction: column;

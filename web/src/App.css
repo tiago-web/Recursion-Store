@@ -5,6 +5,12 @@
   --navbar-bg: #809bb1;
   --navbar-border: #163861;
   --navbar-text: #4c5d6c;
+  --menu-active-btn-bg: #83cba5;
+  --menu-active-border-btn-bg: #00a34d;
+  --menu-inactive-btn-bg: #dfe5ec;
+  --menu-inactive-border-btn-bg: #9eadba;
+  --menu-logout-btn-bg: #e9a2ad;
+  --menu-logout-border-btn-bg: #d3455b;
 }
 
 * {
