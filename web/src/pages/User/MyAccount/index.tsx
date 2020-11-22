@@ -1,11 +1,67 @@
+import { Grid, Divider, Container, Typography } from '@material-ui/core';
 import React from 'react';
 import Navbar from '../../../components/Navbar';
+import UserSideBar from '../../../components/UserSideBar';
 
 const MyAccount: React.FC = () => {
   return (
     <>
       <Navbar />
-      <h1>User / My Account</h1>
+      <Grid
+        container
+        direction="column"
+        justify="space-evenly"
+        alignItems="stretch"
+      >
+        <Grid
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="stretch"
+          style={{
+            minHeight: '6rem',
+          }}
+        >
+          &nbsp;
+        </Grid>
+        <Grid container>
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="stretch"
+            xs={12}
+            sm={12}
+            md={3}
+            style={{
+              minWidth: '30%',
+              padding: '3vw 3vw',
+            }}
+          >
+            <UserSideBar />
+          </Grid>
+          <Divider orientation="vertical" flexItem />
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="stretch"
+            xs={12}
+            sm={12}
+            md={8}
+          >
+            <div>
+              <h2>Update Profile</h2>
+              <form>
+                <input />
+              </form>
+            </div>
+          </Grid>
+        </Grid>
+      </Grid>
     </>
   );
 };

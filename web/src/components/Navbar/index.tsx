@@ -4,10 +4,10 @@ import {
   MaterialAppBar,
   ContainerTitle,
   useStyles,
-  MaterialTypography as Typography,
-  MaterialShoppingCartIcon as ShoppingCartIcon,
-  MaterialPersonIcon as PersonIcon,
-  MaterialSearchIcon as SearchIcon,
+  MaterialTypography,
+  MaterialShoppingCartIcon,
+  MaterialPersonIcon,
+  MaterialSearchIcon,
   ReactLink as Link,
 } from './styles';
 
@@ -18,12 +18,12 @@ const Navbar: React.FC = () => {
       <Toolbar>
         <Grid container xs={7} className={classes.NavbarGridLeft}>
           <ContainerTitle>
-            <Typography variant="h4">
+            <MaterialTypography variant="h4">
               <Link to="/">Recursion Store</Link>
-            </Typography>
-            <Typography variant="h6">
+            </MaterialTypography>
+            <MaterialTypography variant="h6">
               You have never seen a store like this!
-            </Typography>
+            </MaterialTypography>
           </ContainerTitle>
         </Grid>
         <Grid container xs={12} className={classes.NavbarGridCenter}>
@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
         <Grid container xs={6} className={classes.NavbarGridRight}>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
-              <SearchIcon />
+              <MaterialSearchIcon />
             </div>
             <InputBase
               placeholder="Search…"
@@ -47,12 +47,12 @@ const Navbar: React.FC = () => {
           </div>
           <Tooltip title="Cart" aria-label="cart">
             <Link to="/Cart">
-              <ShoppingCartIcon />
+              <MaterialShoppingCartIcon />
             </Link>
           </Tooltip>
           <Tooltip title="User" aria-label="user">
             <Link to="/user/myaccount">
-              <PersonIcon />
+              <MaterialPersonIcon />
             </Link>
           </Tooltip>
         </Grid>
