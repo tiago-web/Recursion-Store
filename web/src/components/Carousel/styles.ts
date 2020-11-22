@@ -12,8 +12,6 @@ export const CarouselImage = styled.img<CarouselProps>`
   width: ${props => (props.name ? 250 : 750)}px;
   border-radius: 5px;
 
-  /* margin-left: 64px; */
-
   display: ${props => (props.imageUrl ? 'block' : 'none')};
 `;
 
@@ -24,6 +22,8 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  background: #868c98;
 
   .Carousel-indicators-2 {
     display: none;
@@ -47,7 +47,10 @@ export const CarouselContainer = styled.div<CarouselProps>`
 
 export const CarouselTitle = styled.h1`
   font-family: Roboto, Ubunto, sans-serif;
+  font-weight: 700;
   margin-bottom: 8px;
 `;
 
-export const CarouselDescription = styled.p``;
+export const CarouselDescription = styled.p`
+  color: #f0f0f0;
+`;
