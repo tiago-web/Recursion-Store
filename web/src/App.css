@@ -23,12 +23,20 @@ body {
   background: #dfe5ec;
   -webkit-font-smoothing: antialiased;
   color: var(--text-color);
+
 }
 
 body,
 input,
+textarea,
 button {
   font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+button,
+a {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 h1,
