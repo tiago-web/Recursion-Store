@@ -41,7 +41,7 @@ const MyAccount: React.FC = () => {
               padding: '3vw 3vw',
             }}
           >
-            <UserSideBar />
+            <UserSideBar myProfileActive />
           </Grid>
           <Divider orientation="vertical" flexItem />
           <Grid
