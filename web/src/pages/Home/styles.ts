@@ -9,7 +9,6 @@ export const Section = styled.section`
   a {
     text-decoration: none;
   }
-  /* border-top: 2px solid; */
 `;
 
 export const Container = styled.div`
@@ -30,23 +29,14 @@ export const Container = styled.div`
 
 export const ProductOffers = styled.div`
   display: flex;
-  flex-wrap: wrap;
   align-content: flex-start;
   align-items: flex-start;
   justify-content: space-around;
-  /* padding-bottom: 64px; */
   width: 100%;
 
-  @media (max-width: 100) {
-    width: 100%;
+  @media screen and (max-width: 1120px) {
+    flex-direction: column;
   }
-  /* width: 100%;
-  max-width: 1500px;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  align-items: flex-start;
-  justify-content: center; */
 `;
 
 export const ProductOffer = styled.div`
@@ -76,22 +66,25 @@ export const ProductOffer = styled.div`
 
 export const SeeProducts = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-around;
-  /* padding-bottom: 64px; */
 
-  width: 50%;
+  width: 90%;
+
+  @media screen and (max-width: 1120px) {
+    flex-direction: column;
+  }
 `;
 
 export const SeeProduct = styled.div`
-  height: 500px;
+  min-width: 300px;
+  max-width: 300px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: 80px;
+  margin: 48px 0;
 
   background: url('https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg')
     no-repeat center;
@@ -99,6 +92,8 @@ export const SeeProduct = styled.div`
   strong {
     color: #fff;
     font-size: 32px;
+    width: 100%;
+    text-align: center;
   }
 
   a {
@@ -109,6 +104,10 @@ export const SeeProduct = styled.div`
 
     transition: color 0.2s;
     transition: border 0.2s;
+
+    @media screen and (max-width: 1120px) {
+      text-align: center;
+    }
 
     &:hover {
       color: ${shade(0.2, '#f4ede8')};
