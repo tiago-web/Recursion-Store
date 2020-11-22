@@ -17,7 +17,7 @@ const Home: React.FC = () => {
     {
       id: 0,
       imageUrl:
-        'https://avatars1.githubusercontent.com/u/25516049?s=400&u=3111610864f1e0c93733e568ae35e42433d9e217&v=4',
+        'https://calvinklein.scene7.com/is/image/CalvinKlein/54016593_466_main?wid=730&hei=961&fmt=jpeg&qlt=85%2C0&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0&iccEmbed=0',
       name: 'Sergio Sanchez',
       description:
         'The best of the best, something that you have never seen before!',
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
     <>
       <Navbar />
       <Section>
-        <Carousel items={items} navButtons height={400} />
+        <Carousel items={items} navButtonsAlwaysVisible height={420} />
       </Section>
       <Section>
         <Container>

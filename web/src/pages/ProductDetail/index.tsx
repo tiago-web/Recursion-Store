@@ -50,7 +50,7 @@ const ProductDetail: React.FC = () => {
       <Section>
         <ProductDetailContainer>
           <CarouselContent>
-            <Carousel items={items} navButtons={false} height={800} />
+            <Carousel items={items} height={800} />
           </CarouselContent>
           <ProductDetailContent>
             <div className="title">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { CarouselProps as DefaultCarouselProps } from 'react-material-ui-carousel';
 
 import {
   MaterialCarousel,
@@ -15,18 +16,12 @@ export interface Item {
   description?: string;
 }
 
-interface CarouselProps {
+interface CarouselProps extends DefaultCarouselProps {
   items: Item[];
-  navButtons?: boolean;
   height: number;
 }
 
-const Carousel: React.FC<CarouselProps> = ({
-  items,
-  navButtons,
-  height,
-  ...rest
-}) => {
+const Carousel: React.FC<CarouselProps> = ({ items, height, ...rest }) => {
   // GET FROM THE DB
   // const items = [
   //   {
@@ -48,7 +43,6 @@ const Carousel: React.FC<CarouselProps> = ({
   return (
     <MaterialCarousel
       height={height}
-      navButtonsAlwaysVisible={navButtons}
       animation="slide"
       interval={5000}
       {...rest}
@@ -61,8 +55,8 @@ const Carousel: React.FC<CarouselProps> = ({
               <CarouselDescription>{item.description}</CarouselDescription>
             </div>
           ) : (
-              ''
-            )}
+            ''
+          )}
           {/* <div>
             <CarouselTitle>{item.name}</CarouselTitle>
             <CarouselDescription>{item.description}</CarouselDescription>
