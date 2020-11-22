@@ -43,7 +43,7 @@ const PasswordInputField: React.FC<StandardTextFieldProps> = ({
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
-              aria-label="Toggle password visibility"
+              aria-label={`Toggle ${label} visibility`}
               onClick={handleClickShowPassword}
             >
               {showPassword ? <VisibilityOff /> : <Visibility />}
