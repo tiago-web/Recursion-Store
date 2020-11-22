@@ -2,28 +2,31 @@ import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Section = styled.section`
-  height: 800px;
+  /* height: 800px; */
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin: 80px 0;
+
+  @media screen and (max-width: 1120px) {
+    flex-direction: column;
+  }
 
   a {
     text-decoration: none;
   }
 `;
 
-export const CarouselContent = styled.div`
-  width: 750px;
-  display: flex;
-  justify-content: center;
-`;
-
-export const ProductDetailContent = styled.div`
-  width: 250px;
+export const ProductDetailContainer = styled.div`
   margin-left: 120px;
   display: flex;
-  flex-direction: column;
+
+  @media screen and (max-width: 1120px) {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
 
   div.title {
     display: flex;
@@ -38,6 +41,30 @@ export const ProductDetailContent = styled.div`
   span {
     margin-top: 24px;
     color: #000;
+  }
+`;
+
+export const CarouselContent = styled.div`
+  width: 750px;
+  display: flex;
+  justify-content: center;
+
+  @media screen and (max-width: 1120px) {
+    width: 300px;
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+export const ProductDetailContent = styled.div`
+  width: 250px;
+  margin-left: 120px;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 1120px) {
+    margin-top: 48px;
+    margin-left: 0;
   }
 `;
 
@@ -64,6 +91,7 @@ export const Colors = styled.div`
     li {
       width: 45px;
       height: 45px;
+      max-width: 45px;
       border-radius: 50%;
       flex: 1 0 auto;
       margin: 0 5px 10px 0;
@@ -137,18 +165,6 @@ export const Sizes = styled.div`
       margin: 0 3px 5px 0;
       color: #222;
     }
-    #red {
-      background: #f00;
-    }
-    #blue {
-      background: #00f;
-    }
-    #green {
-      background: #0f0;
-    }
-    #black {
-      background: #000;
-    }
   }
 `;
 
@@ -195,6 +211,10 @@ export const ReviewsContainer = styled.div`
   background: #f2f2f2;
   width: 100%;
   padding-bottom: 80px;
+
+  @media screen and (max-width: 1120px) {
+    width: screen;
+  }
 `;
 export const ReviewsHeaderContent = styled.div`
   display: flex;
@@ -204,14 +224,24 @@ export const ReviewsHeaderContent = styled.div`
   width: 45%;
   margin-top: 48px;
 
+  @media screen and (max-width: 1120px) {
+    flex-direction: column;
+  }
+
   h1 {
     margin-right: 64px;
+
+    @media screen and (max-width: 1120px) {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 12px;
+    }
   }
 
   a {
     background: #809bb1;
     height: 48px;
-    border-radius: 10px;
+    border-radius: 4px;
     border: 0;
     padding: 0 12px;
     color: #312e38;
@@ -225,6 +255,12 @@ export const ReviewsHeaderContent = styled.div`
     justify-content: center;
 
     margin-left: 16px;
+
+    @media screen and (max-width: 1120px) {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 12px;
+    }
 
     &:hover {
       background: ${shade(0.2, '#809bb1')};

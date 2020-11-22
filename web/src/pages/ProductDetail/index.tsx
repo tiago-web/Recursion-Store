@@ -8,6 +8,7 @@ import Button from '../../components/Button';
 
 import {
   Section,
+  ProductDetailContainer,
   CarouselContent,
   ProductDetailContent,
   Colors,
@@ -47,71 +48,74 @@ const ProductDetail: React.FC = () => {
     <>
       <Navbar />
       <Section>
-        <CarouselContent>
-          <Carousel items={items} navButtons={false} height={800} />
-        </CarouselContent>
-        <ProductDetailContent>
-          <div className="title">
-            <h1>Dress V-shape</h1>
-            <FiHeart />
-          </div>
-          <span>CA$499.99</span>
-          <Colors>
-            <strong>Colors</strong>
-            <ul>
-              <li id="red">
-                <button type="button">XX</button>
-              </li>
-              <li id="blue">
-                <button type="button">XX</button>
-              </li>
-              <li id="green">
-                <button type="button">XX</button>
-              </li>
-              <li id="black">
-                <button type="button">XX</button>
-              </li>
-            </ul>
-          </Colors>
-          <Sizes>
-            <strong>Sizes</strong>
-            <ul>
-              <li>
-                <a href="/">XS</a>
-              </li>
-              <li>
-                <a href="/">S</a>
-              </li>
-              <li>
-                <a href="/">M</a>
-              </li>
-              <li>
-                <a href="/">L</a>
-              </li>
-              <li>
-                <a href="/">XL</a>
-              </li>
-              <li>
-                <a href="/">XXL</a>
-              </li>
-            </ul>
-          </Sizes>
-          <AddToCart>
-            <div className="quantity">
-              Quantity
-              <input name="qty" type="number" value="1" />
+        <ProductDetailContainer>
+          <CarouselContent>
+            <Carousel items={items} navButtons={false} height={800} />
+          </CarouselContent>
+          <ProductDetailContent>
+            <div className="title">
+              <h1>Dress V-shape</h1>
+              <FiHeart />
             </div>
-            <Button>ADD TO CART</Button>
-          </AddToCart>
-          <Description>
-            <strong>Description</strong>
-            <p>
-              Tenete ergo quod si servitus quae natura liber, et aliena tua tunc
-              impeditur. Dolebis, et turbabuntur, et invenietis, cum culpa tam
-              dis hominibusque. Quod si tibi tantum sit propria et aliena
-            </p>
-          </Description>
-        </ProductDetailContent>
+            <span>CA$499.99</span>
+            <Colors>
+              <strong>Colors</strong>
+              <ul>
+                <li id="red">
+                  <button type="button">XX</button>
+                </li>
+                <li id="blue">
+                  <button type="button">XX</button>
+                </li>
+                <li id="green">
+                  <button type="button">XX</button>
+                </li>
+                <li id="black">
+                  <button type="button">XX</button>
+                </li>
+              </ul>
+            </Colors>
+            <Sizes>
+              <strong>Sizes</strong>
+              <ul>
+                <li>
+                  <a href="/">XS</a>
+                </li>
+                <li>
+                  <a href="/">S</a>
+                </li>
+                <li>
+                  <a href="/">M</a>
+                </li>
+                <li>
+                  <a href="/">L</a>
+                </li>
+                <li>
+                  <a href="/">XL</a>
+                </li>
+                <li>
+                  <a href="/">XXL</a>
+                </li>
+              </ul>
+            </Sizes>
+            <AddToCart>
+              <div className="quantity">
+                Quantity
+                <input name="qty" type="number" value="1" />
+              </div>
+              <Button>ADD TO CART</Button>
+            </AddToCart>
+            <Description>
+              <strong>Description</strong>
+              <p>
+                Tenete ergo quod si servitus quae natura liber, et aliena tua
+                tunc impeditur. Dolebis, et turbabuntur, et invenietis, cum
+                culpa tam dis hominibusque. Quod si tibi tantum sit propria et
+                aliena
+              </p>
+            </Description>
+          </ProductDetailContent>
+        </ProductDetailContainer>
       </Section>
 
       {/* <Section> */}
