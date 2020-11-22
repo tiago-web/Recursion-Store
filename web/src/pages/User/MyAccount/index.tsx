@@ -1,6 +1,7 @@
-import { Grid, Divider, Container, Typography } from '@material-ui/core';
+import { Grid, Divider } from '@material-ui/core';
 import React from 'react';
 import Navbar from '../../../components/Navbar';
+import UpdateProfile from '../../../components/UpdateProfile';
 import UserSideBar from '../../../components/UserSideBar';
 
 const MyAccount: React.FC = () => {
@@ -53,12 +54,7 @@ const MyAccount: React.FC = () => {
             sm={12}
             md={8}
           >
-            <div>
-              <h2>Update Profile</h2>
-              <form>
-                <input />
-              </form>
-            </div>
+            <UpdateProfile />
           </Grid>
         </Grid>
       </Grid>
