@@ -2,8 +2,8 @@ import React from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import HouseIcon from '@material-ui/icons/House';
-import { MenuButton, LogOutIcon, useStyles } from './styles';
 import { Link } from 'react-router-dom';
+import { MenuButton, LogOutIcon, useStyles } from './styles';
 
 type UserSideBarProps = {
   myProfileActive?: boolean;
