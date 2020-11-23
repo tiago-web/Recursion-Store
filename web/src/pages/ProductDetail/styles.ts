@@ -281,14 +281,18 @@ export const ReviewsBodyContent = styled.div`
     margin-top: 48px;
     width: 100%;
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media screen and (max-width: 1120px) {
+      flex-direction: column;
+    }
+
     & + div {
       border-top: 1px solid;
       padding-top: 48px;
     }
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
     div.userInfo {
       display: flex;
@@ -296,11 +300,20 @@ export const ReviewsBodyContent = styled.div`
       align-items: flex-start;
       justify-content: center;
 
+      @media screen and (max-width: 1120px) {
+        flex-direction: row;
+        margin-bottom: 12px;
+      }
+
       span {
         font-weight: bold;
 
         & + span {
           margin-top: 8px;
+
+          @media screen and (max-width: 1120px) {
+            margin: 0 0 0 12px;
+          }
         }
       }
     }
