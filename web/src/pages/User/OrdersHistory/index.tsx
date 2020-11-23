@@ -1,11 +1,11 @@
 import React from 'react';
 import UserLayout from '../../../components/UserLayout';
-import UpdateProfile from '../../../components/UpdateProfile';
+import PreviousOrderCard from '../../../components/PreviousOrderCard';
 
 const MyAccount: React.FC = () => {
   return (
     <UserLayout ordersHistoryActive>
-      <UpdateProfile />
+      <PreviousOrderCard />
     </UserLayout>
   );
 };
