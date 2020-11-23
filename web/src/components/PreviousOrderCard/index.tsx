@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Grid, Paper, ClickAwayListener, Typography } from '@material-ui/core';
+import ProductPrevOrder from '../ProductPrevOrder';
 import { useStyles, HtmlTooltip } from './styles';
 
 type TItem = {
@@ -74,11 +75,11 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
           >
             <Grid item className={classes.item}>
               <div>Order Placed</div>
-              <div>August 10, 2020</div>
+              <div>{order.createdAt}</div>
             </Grid>
             <Grid item className={classes.item}>
               <div>Total</div>
-              <div>CA$299.98</div>
+              <div>CA${order.total}</div>
             </Grid>
             <Grid item className={classes.item}>
               <div>Shipped to</div>
@@ -95,12 +96,20 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
                   arrow
                   title={
                     <>
-                      <Typography color="inherit">Sergio Sanchez</Typography>
-                      <Typography color="inherit">123 Ellesmere Rd</Typography>
                       <Typography color="inherit">
-                        Ontario, Canada, M2D 3F7
+                        {order.userId.firstName} {order.userId.lastName}
                       </Typography>
-                      <Typography color="inherit">321 654 9874</Typography>
+                      <Typography color="inherit">
+                        {order.shippingAddress.address}
+                      </Typography>
+                      <Typography color="inherit">
+                        {order.shippingAddress.state},{' '}
+                        {order.shippingAddress.country},{' '}
+                        {order.shippingAddress.postalCode}
+                      </Typography>
+                      <Typography color="inherit">
+                        {order.userId.phone}
+                      </Typography>
                     </>
                   }
                 >
@@ -110,18 +119,20 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
                     role="button"
                     tabIndex={0}
                   >
-                    Username
+                    {order.userId.firstName} {order.userId.lastName}
                   </div>
                 </HtmlTooltip>
               </ClickAwayListener>
             </Grid>
             <Grid item className={classes.item}>
-              <div>Order # 32123131</div>
+              <div>Order # {order._id}</div>
               <div>Order Details</div>
             </Grid>
           </Grid>
         </Paper>
-        <Paper className={classes.orderDetails}>EMpty</Paper>
+        <Paper className={classes.orderDetails}>
+          <ProductPrevOrder />
+        </Paper>
       </Paper>
     </div>
   );

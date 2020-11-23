@@ -11,6 +11,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
       marginBottom: '3rem',
+      padding: theme.spacing(0, 2),
     },
     orderHeader: {
       padding: theme.spacing(0),

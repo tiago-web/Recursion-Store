@@ -55,7 +55,7 @@ const previousOrders: TPreviousOrder[] = [
 const PreviousOrders: React.FC = () => {
   return (
     <>
-      <div>Previous Orders</div>
+      {/* <h2>Orders History</h2> */}
       {previousOrders.map(order => (
         <PreviousOrderCard key={order._id} order={order} />
       ))}
