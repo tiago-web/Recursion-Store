@@ -4,7 +4,7 @@ import UpdateProfile from '../../../components/UpdateProfile';
 
 const MyAccount: React.FC = () => {
   return (
-    <UserLayout>
+    <UserLayout myProfileActive>
       <UpdateProfile />
     </UserLayout>
   );

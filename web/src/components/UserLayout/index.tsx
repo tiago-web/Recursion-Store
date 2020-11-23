@@ -5,9 +5,17 @@ import UserSideBar from '../UserSideBar';
 
 type UserLayoutProps = {
   children: React.ReactNode;
+  myProfileActive?: boolean;
+  ordersHistoryActive?: boolean;
+  addressesActive?: boolean;
 };
 
-const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
+const UserLayout: React.FC<UserLayoutProps> = ({
+  children,
+  myProfileActive,
+  ordersHistoryActive,
+  addressesActive,
+}) => {
   return (
     <>
       <Navbar />
@@ -44,7 +52,11 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
               padding: '3vw 3vw',
             }}
           >
-            <UserSideBar myProfileActive />
+            <UserSideBar
+              myProfileActive={myProfileActive ? true : undefined}
+              ordersHistoryActive={ordersHistoryActive ? true : undefined}
+              addressesActive={addressesActive ? true : undefined}
+            />
           </Grid>
           <Divider orientation="vertical" flexItem />
           <Grid

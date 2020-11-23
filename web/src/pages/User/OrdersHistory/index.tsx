@@ -1,12 +1,13 @@
 import React from 'react';
-import UserSideBar from '../../../components/UserSideBar';
+import UserLayout from '../../../components/UserLayout';
+import UpdateProfile from '../../../components/UpdateProfile';
 
-const OrdersHistory: React.FC = () => {
+const MyAccount: React.FC = () => {
   return (
-    <>
-      <UserSideBar />
-    </>
+    <UserLayout ordersHistoryActive>
+      <UpdateProfile />
+    </UserLayout>
   );
 };
 
-export default OrdersHistory;
+export default MyAccount;
