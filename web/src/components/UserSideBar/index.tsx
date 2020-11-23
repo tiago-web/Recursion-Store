@@ -2,6 +2,7 @@ import React from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import HouseIcon from '@material-ui/icons/House';
+import { Link } from 'react-router-dom';
 import { MenuButton, LogOutIcon, useStyles } from './styles';
 
 type UserSideBarProps = {
@@ -18,18 +19,24 @@ const UserSideBar: React.FC<UserSideBarProps> = ({
   const classes = useStyles();
   return (
     <div className={classes.menuContainer}>
-      <MenuButton isActive={myProfileActive ? true : undefined}>
-        My Profile
-        <PersonIcon />
-      </MenuButton>
-      <MenuButton isActive={ordersHistoryActive ? true : undefined}>
-        Orders History
-        <ShoppingBasketIcon />
-      </MenuButton>
-      <MenuButton isActive={addressesActive ? true : undefined}>
-        Addresses
-        <HouseIcon />
-      </MenuButton>
+      <Link to="/user/myaccount">
+        <MenuButton isActive={myProfileActive ? true : undefined}>
+          My Profile
+          <PersonIcon />
+        </MenuButton>
+      </Link>
+      <Link to="/user/ordershistory">
+        <MenuButton isActive={ordersHistoryActive ? true : undefined}>
+          Orders History
+          <ShoppingBasketIcon />
+        </MenuButton>
+      </Link>
+      <Link to="/">
+        <MenuButton isActive={addressesActive ? true : undefined}>
+          Addresses
+          <HouseIcon />
+        </MenuButton>
+      </Link>
       <MenuButton isLogOut>
         LogOut
         <LogOutIcon />
