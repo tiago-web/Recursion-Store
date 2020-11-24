@@ -13,18 +13,16 @@ export const Container = styled.div`
   }
 `;
 
-export const Options = styled.div<OptionsProps>`
+export const Options = styled.ul<OptionsProps>`
   display: ${props => (props.selected ? 'block' : 'none')};
 
-  ul {
-    padding: 8px;
-    list-style: none;
+  padding: 8px;
+  list-style: none;
 
-    li {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
   }
 `;

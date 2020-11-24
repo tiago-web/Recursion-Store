@@ -56,11 +56,11 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
 
   const handleClickOpen = useCallback(() => {
     setuserDetailTooltipOpen(true);
-  }, [userDetailTooltipOpen]);
+  }, []);
 
   const handleClickClose = useCallback(() => {
     setuserDetailTooltipOpen(false);
-  }, [userDetailTooltipOpen]);
+  }, []);
 
   const classes = useStyles();
   return (

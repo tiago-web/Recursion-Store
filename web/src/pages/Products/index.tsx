@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import ProductsSideBar from '../../components/ProductsSideBar';
+import ProductList from './components/ProductList';
 
 import { ProductsContainer } from './styles';
 
@@ -10,7 +11,7 @@ const Products: React.FC = () => {
       <Navbar />
       <ProductsContainer>
         <ProductsSideBar />
-        <h1>Products</h1>
+        <ProductList />
       </ProductsContainer>
     </>
   );
