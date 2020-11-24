@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Paper, ClickAwayListener, Typography } from '@material-ui/core';
 import ProductPrevOrder from './ProductPrevOrder';
 import { useStyles, HtmlTooltip } from './styles';
@@ -96,18 +97,18 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
                   arrow
                   title={
                     <>
-                      <Typography color="inherit">
+                      <Typography variant="caption" display="block">
                         {order.userId.firstName} {order.userId.lastName}
                       </Typography>
-                      <Typography color="inherit">
+                      <Typography variant="caption" display="block">
                         {order.shippingAddress.address}
                       </Typography>
-                      <Typography color="inherit">
+                      <Typography variant="caption" display="block">
                         {order.shippingAddress.state},{' '}
                         {order.shippingAddress.country},{' '}
                         {order.shippingAddress.postalCode}
                       </Typography>
-                      <Typography color="inherit">
+                      <Typography variant="caption" display="block">
                         {order.userId.phone}
                       </Typography>
                     </>
@@ -118,6 +119,7 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
                     onKeyUp={handleClickOpen}
                     role="button"
                     tabIndex={0}
+                    className={classes.linkColor}
                   >
                     {order.userId.firstName} {order.userId.lastName}
                   </div>
@@ -126,7 +128,9 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
             </Grid>
             <Grid item className={classes.item}>
               <div>Order # {order._id}</div>
-              <div>Order Details</div>
+              <Link to="/" className={classes.linkColor}>
+                Order Details
+              </Link>
             </Grid>
           </Grid>
         </Paper>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PreviousOrderCard, { TPreviousOrder } from './PreviousOrderCard';
+import api from '../../../../services/api';
 
 const previousOrders: TPreviousOrder[] = [
   {

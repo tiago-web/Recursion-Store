@@ -29,9 +29,13 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     orderDetails: {
       backgroundColor: '#F7F9FA',
-      border: '3px solid #EAEAEA',
+      border: '3px solid white',
       borderTop: '0',
       borderRadius: '0',
+    },
+    linkColor: {
+      color: '#2D75BC',
+      cursor: 'pointer',
     },
   }),
 );
