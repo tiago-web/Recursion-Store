@@ -1,4 +1,6 @@
 import React, { useCallback, useState } from 'react';
+import { Tooltip } from '@material-ui/core';
+
 import formatToDollars from '../../../../../utils/formatToDollars';
 
 import { Product } from '..';
@@ -13,6 +15,7 @@ import {
 } from './styles';
 
 const ProductCard: React.FC<Product> = ({ items, name, price }) => {
+  const [isHover, setIsHover] = useState(false);
   const [selectedColor, setSelectedColor] = useState(items[0].color);
 
   const handleSelectedColor = useCallback((colorName: string) => {
@@ -24,20 +27,40 @@ const ProductCard: React.FC<Product> = ({ items, name, price }) => {
       {items.map(item => (
         <>
           {item.color === selectedColor && (
-            <ProductImage src={item.productImages[0].imageUrl} alt={name} />
+            <ProductImage
+              style={{
+                backgroundImage: `url(${item.productImages[0].imageUrl})`,
+              }}
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+            >
+              {isHover && (
+                <div>
+                  <button>DETAILS</button>
+                  <button>QUICK ADD</button>
+                </div>
+              )}
+            </ProductImage>
           )}
         </>
       ))}
+
       <ProductName>{name}</ProductName>
       <ProductPrice>{formatToDollars(price)}</ProductPrice>
       <AvailableColors>
         {items.map(item => (
-          <ProductColor
+          <Tooltip
             key={item.color}
-            onClick={() => handleSelectedColor(item.color)}
-            selected={item.color === selectedColor}
-            colorHex={item.imageColor}
-          />
+            title={item.color}
+            arrow
+            aria-label={item.color.toLocaleLowerCase()}
+          >
+            <ProductColor
+              onClick={() => handleSelectedColor(item.color)}
+              selected={item.color === selectedColor}
+              colorHex={item.imageColor}
+            />
+          </Tooltip>
         ))}
       </AvailableColors>
     </Container>

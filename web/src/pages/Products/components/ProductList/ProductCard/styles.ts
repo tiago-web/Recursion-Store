@@ -12,11 +12,22 @@ export const Container = styled.div`
   margin-left: -32px;
 `;
 
-export const ProductImage = styled.img`
+export const ProductImage = styled.div`
   height: 400px;
   width: 350px;
   border-radius: 5px;
   margin-bottom: 8px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 350px 400px;
+
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+
+  :hover {
+    opacity: 0.7;
+  }
 `;
 
 export const ProductName = styled.p`
