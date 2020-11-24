@@ -1,10 +1,40 @@
-import React from 'react';
-import AlsoLikeList, { Product } from '../../components/AlsoLikeList';
+import React, { useState } from 'react';
+import { Divider } from '@material-ui/core';
+import AlsoLikeList from '../../components/AlsoLikeList';
 import Navbar from '../../components/Navbar';
+import CarouselList from '../../components/CarouselList';
 
-import { Container, CartSection } from './styles';
+import Button from '../../components/Button';
+
+import {
+  Container,
+  CartSection,
+  CartContainer,
+  YourCartContainer,
+  CartItem,
+  CartTotalContainer,
+} from './styles';
+
+interface Product {
+  id: number;
+  imageUrl: string;
+  name: string;
+  price: string;
+}
+
+interface Item {
+  id: number;
+  imageUrl: string;
+  name: string;
+  size: string;
+  color: string;
+  quantity: number;
+  price: number;
+  discount: boolean;
+}
 
 const Cart: React.FC = () => {
+  // GET from db
   const products = [
     {
       id: 0,
@@ -36,16 +66,85 @@ const Cart: React.FC = () => {
     },
   ] as Product[];
 
+  // GET from db
+  const items = [
+    {
+      id: 0,
+      imageUrl:
+        'https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg',
+      name: 'Dress V-shape',
+      size: 'Medium',
+      color: 'Green',
+      quantity: 2,
+      price: 99.99,
+      discount: false,
+    },
+    {
+      id: 1,
+      imageUrl:
+        'https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg',
+      name: 'Dress V-shape',
+      size: 'Large',
+      color: 'Black',
+      quantity: 2,
+      price: 99.99,
+      discount: true,
+    },
+  ] as Item[];
+
+  const [isCartEmpty, setIsCartEmpty] = useState(false);
+  const [subTotal, setSubTotal] = useState(0);
+  // setIsCartEmpty(true);
+
   return (
     <>
       <Navbar />
       <Container>
         <CartSection>
-          <h1>Your Cart</h1>
+          <CartContainer>
+            <YourCartContainer>
+              <h1>Your Cart</h1>
+              {isCartEmpty ? (
+                <div className="emptyCart">
+                  <strong>You have no items in your bag.</strong>
+                  <span>
+                    Don't know where to start? Here's our best sellers
+                  </span>
+                  <Button>Best Sellers</Button>
+                </div>
+              ) : (
+                  items.map(item => (
+                    <CartItem key={item.id}>
+                      <div>
+                        <img src={item.imageUrl} alt={item.name} />
+                        <div>
+                          <h2>{item.name}</h2>
+                          <span>{item.size}</span>
+                          <span>{item.color}</span>
+                          <span>{item.quantity} items</span>
+                        </div>
+                      </div>
+                      <span>CA${item.price}</span>
+                    </CartItem>
+                  ))
+                )}
+            </YourCartContainer>
+            <Divider orientation="vertical" flexItem />
+            <CartTotalContainer>
+              <span>Subtotal:</span>
+              <h1>CA$199.98</h1>
+              <Button>Checkout</Button>
+              <form action="">
+                <input type="text" placeholder="Enter Coupon" />
+                <Button>Apply</Button>
+              </form>
+            </CartTotalContainer>
+          </CartContainer>
         </CartSection>
         <CartSection>
           <h1>You also might like</h1>
-          <AlsoLikeList products={products} />
+          <AlsoLikeList />
+          <CarouselList items={products} navButtonsAlwaysVisible height={420} />
         </CartSection>
       </Container>
     </>
