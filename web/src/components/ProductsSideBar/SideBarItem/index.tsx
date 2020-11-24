@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useProductsFilter } from '../../../contexts/ProductsFilterContext';
+import { useSortBy } from '../../../contexts/SortByContext';
 
 import SideBarBtn from '../SideBarBtn';
 
@@ -14,9 +15,14 @@ interface SideBarProps {
   isSortBySection?: boolean;
 }
 
-const SideBarItem: React.FC<SideBarProps> = ({ title, items }) => {
+const SideBarItem: React.FC<SideBarProps> = ({
+  title,
+  items,
+  isSortBySection,
+}) => {
   const [selected, setSelected] = useState(false);
   const { addFilter, removeFilter } = useProductsFilter();
+  const { sortBy, setSortBy, removeSortBy } = useSortBy();
 
   const toggleItemSelected = useCallback(() => {
     setSelected(prevState => !prevState);
@@ -24,13 +30,23 @@ const SideBarItem: React.FC<SideBarProps> = ({ title, items }) => {
 
   const addItemToFilterList = useCallback(
     e => {
+      if (isSortBySection) {
+        if (e.target.checked) {
+          setSortBy(e.target.name);
+        } else {
+          removeSortBy();
+        }
+
+        return;
+      }
+
       if (e.target.checked) {
         addFilter(e.target.name);
       } else {
         removeFilter(e.target.name);
       }
     },
-    [addFilter, removeFilter],
+    [isSortBySection, setSortBy, removeSortBy, addFilter, removeFilter],
   );
 
   return (
@@ -45,6 +61,11 @@ const SideBarItem: React.FC<SideBarProps> = ({ title, items }) => {
                   name={formatLabelToName(item)}
                   color="primary"
                   onChange={addItemToFilterList}
+                  disabled={
+                    isSortBySection &&
+                    sortBy !== '' &&
+                    sortBy !== formatLabelToName(item)
+                  }
                 />
               }
               label={item}

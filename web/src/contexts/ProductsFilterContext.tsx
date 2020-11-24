@@ -1,4 +1,5 @@
 import React, { createContext, useState, useCallback, useContext } from 'react';
+import { SortByProvider } from './SortByContext';
 
 interface ProductsFilterContextData {
   filters: string[];
@@ -29,7 +30,7 @@ const ProductsFilterProvider: React.FC = ({ children }) => {
     <ProductsFilterContext.Provider
       value={{ filters, addFilter, removeFilter }}
     >
-      {children}
+      <SortByProvider>{children}</SortByProvider>
     </ProductsFilterContext.Provider>
   );
 };

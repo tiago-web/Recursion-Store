@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../services/api';
 import { useProductsFilter } from '../../../../contexts/ProductsFilterContext';
+import { useSortBy } from '../../../../contexts/SortByContext';
 
 import ProductCard from '../ProductCard';
 import { Title, Container, Products, NotFoundProducts } from './styles';
@@ -26,10 +27,15 @@ export interface Product {
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { filters } = useProductsFilter();
+  const { sortBy } = useSortBy();
 
   useEffect(() => {
     console.log(filters);
   }, [filters]);
+
+  useEffect(() => {
+    console.log(sortBy);
+  }, [sortBy]);
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
