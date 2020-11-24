@@ -10,31 +10,41 @@ import formatLabelToName from '../../../utils/formatLabelToName';
 interface SideBarProps {
   title: string;
   items: string[];
+  addFilter?(filterName: string): void;
 }
 
-const SideBarItem: React.FC<SideBarProps> = ({ title, items }) => {
+const SideBarItem: React.FC<SideBarProps> = ({ title, items, addFilter }) => {
   const [selected, setSelected] = useState(false);
 
   const toggleItemSelected = useCallback(() => {
     setSelected(prevState => !prevState);
   }, []);
 
+  const addItemToFilterList = useCallback(
+    e => {
+      if (addFilter) addFilter(e.target.name);
+    },
+    [addFilter],
+  );
+
   return (
     <Container>
       <SideBarBtn toggleItemSelected={toggleItemSelected}>{title}</SideBarBtn>
       <Options selected={selected}>
-        <ul>
-          {items.map(item => (
-            <li key={item}>
-              <FormControlLabel
-                control={
-                  <Checkbox name={formatLabelToName(item)} color="primary" />
-                }
-                label={item}
-              />
-            </li>
-          ))}
-        </ul>
+        {items.map(item => (
+          <li key={item}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name={formatLabelToName(item)}
+                  color="primary"
+                  onChange={addItemToFilterList}
+                />
+              }
+              label={item}
+            />
+          </li>
+        ))}
       </Options>
     </Container>
   );

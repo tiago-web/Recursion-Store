@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import SideBarItem from './SideBarItem';
 
-import { SideBar } from './styles';
+import { Container, SideBar } from './styles';
 
+// I've got all the filters selected by the user on the filters array
 const ProductsSideBar: React.FC = () => {
-  return (
-    <SideBar>
-      <SideBarItem
-        title="Sort By"
-        items={['Price', 'Sale', 'New Collection']}
-      />
-      <SideBarItem title="Size" items={['XS', 'S', 'M', 'L', 'XL', 'XXL']} />
-      <SideBarItem
-        title="Category"
-        items={['Clothing', 'Shoes', 'Accessories', 'Women', 'Men', 'Kids']}
-      />
+  const [filters, setFilters] = useState<string[]>([]);
 
-      <button type="button">Apply</button>
-    </SideBar>
+  const addFilter = useCallback(filterName => {
+    setFilters(prevState => [...prevState, filterName]);
+  }, []);
+
+  return (
+    <Container>
+      <SideBar>
+        <SideBarItem
+          title="Sort By"
+          items={['Price', 'Sale', 'New Collection']}
+        />
+        <SideBarItem
+          title="Size"
+          items={['XS', 'S', 'M', 'L', 'XL', 'XXL']}
+          addFilter={addFilter}
+        />
+        <SideBarItem
+          title="Category"
+          items={['Clothing', 'Shoes', 'Accessories', 'Women', 'Men', 'Kids']}
+          addFilter={addFilter}
+        />
+      </SideBar>
+    </Container>
   );
 };
 
