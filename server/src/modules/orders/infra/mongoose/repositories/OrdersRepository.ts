@@ -14,16 +14,25 @@ class OrdersRepository {
   }
 
   public async findById(id: string): Promise<IOrder | null> {
-    const order = await Order.findById(id).populate("products").populate("userId");
+    const order = await Order.findById(id)
+      .populate('products')
+      .populate('userId');
 
     return order;
   }
 
   public async findAllByUser(user: IUser): Promise<IOrder[] | null> {
-    const orders = await Order.find({ userId: user });
-
-    // for (let i = 0; i < orders.length; i++)
-    //   await orders[i].populate("products").execPopulate();
+    const orders = await Order.find({ userId: user })
+      .populate({
+        path: 'userId',
+        model: 'User',
+        select: 'firstName lastName email phone',
+      })
+      .populate({
+        path: 'products.productId',
+        model: 'Product',
+        select: 'name price items.productImages',
+      });
 
     return orders;
   }
