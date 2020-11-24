@@ -26,12 +26,12 @@ class OrdersRepository {
       .populate({
         path: 'userId',
         model: 'User',
-        select: 'firstName lastName email phone',
+        select: 'firstName lastName phone',
       })
       .populate({
         path: 'products.productId',
         model: 'Product',
-        select: 'name price items.productImages',
+        select: 'name items.productImages',
       });
 
     return orders;

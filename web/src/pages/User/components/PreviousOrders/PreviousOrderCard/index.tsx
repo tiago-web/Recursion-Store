@@ -4,6 +4,8 @@ import { Grid, Paper, ClickAwayListener, Typography } from '@material-ui/core';
 import ProductPrevOrder from './ProductPrevOrder';
 import { useStyles, HtmlTooltip } from './styles';
 import { TProduct } from './ProductPrevOrder';
+import formatToDollars from '../../../../../utils/formatToDollars';
+import formatDateToOrderDate from '../../../../../utils/formatDateToOrderDate';
 
 type TAddress = {
   address: string;
@@ -13,15 +15,16 @@ type TAddress = {
   postalCode: string;
 };
 
+type TUser = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+};
+
 export type TPreviousOrder = {
   _id: string;
-  userId: {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-  };
+  userId: TUser;
   total: number;
   subTotal: number;
   shippingPrice: number;
@@ -62,11 +65,11 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
           >
             <Grid item className={classes.item}>
               <div>Order Placed</div>
-              <div>{order.createdAt}</div>
+              <div>{formatDateToOrderDate(order.createdAt)}</div>
             </Grid>
             <Grid item className={classes.item}>
               <div>Total</div>
-              <div>CA${order.total}</div>
+              <div>{formatToDollars(order.total)}</div>
             </Grid>
             <Grid item className={classes.item}>
               <div>Shipped to</div>
@@ -121,9 +124,15 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
           </Grid>
         </Paper>
         <Paper className={classes.orderDetails}>
-          {order.products.map(product => (
-            <ProductPrevOrder key={product._id} product={product} />
-          ))}
+          {order.products.map(product =>
+            product.items.map(item => (
+              <ProductPrevOrder
+                key={product._id}
+                product={product}
+                item={item}
+              />
+            )),
+          )}
         </Paper>
       </Paper>
     </div>

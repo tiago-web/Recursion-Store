@@ -1,6 +1,9 @@
 import React from 'react';
 import { Grid, CardMedia } from '@material-ui/core';
 import { useStyles, PurpleSolidButton, PurpleOutlineButton } from './styles';
+import formatToDollars from '../../../../../../utils/formatToDollars';
+import formatSizeTagToName from '../../../../../../utils/formatSizeTagToName';
+import formatQuantityToItemsNumber from '../../../../../../utils/formatQuantityToItemsNumber';
 
 export type TProduct = {
   _id: string;
@@ -12,7 +15,6 @@ export type TProduct = {
 type TProductDetail = {
   _id: string;
   name: string;
-  price: number;
   items: [
     {
       productImages: [
@@ -34,9 +36,13 @@ type TItem = {
 
 type ProductPrevOrderProps = {
   product: TProduct;
+  item: TItem;
 };
 
-const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({ product }) => {
+const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({
+  product,
+  item,
+}) => {
   const classes = useStyles();
   return (
     <Grid
@@ -50,8 +56,8 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({ product }) => {
         <Grid item xs={6}>
           <CardMedia
             className={classes.media}
-            image="https://cdn.shopify.com/s/files/1/1417/0920/products/6242-nox-anabel-royal-blue_95046124-1406-4e44-a9a2-5fce4117b9cd.jpg?v=1571659552"
-            title="Blue Dress V-Shape"
+            image={product.productId.items[0].productImages[0].imageUrl}
+            title={product.productId.name}
           />
         </Grid>
         <Grid
@@ -63,16 +69,16 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({ product }) => {
           className={classes.detail}
         >
           <Grid className={classes.titleLine} xs={12}>
-            Dress V-Shape
+            {product.productId.name}
           </Grid>
           <Grid className={classes.descriptionLine} xs={12}>
-            Medium
+            {formatSizeTagToName(item.sizeTag)}
           </Grid>
           <Grid className={classes.descriptionLine} xs={12}>
-            Green
+            {item.color}
           </Grid>
           <Grid className={classes.descriptionLine} xs={12}>
-            2 items
+            {formatQuantityToItemsNumber(item.quantity)}
           </Grid>
         </Grid>
       </Grid>
@@ -86,7 +92,7 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({ product }) => {
           className={classes.buttonsSection}
         >
           <Grid className={classes.titleLine} xs={12}>
-            CA$99.99
+            {formatToDollars(product.productPrice)}
           </Grid>
 
           <Grid className={classes.titleLine} xs={12}>
