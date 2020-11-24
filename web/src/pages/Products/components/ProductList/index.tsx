@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../services/api';
 
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard';
 import { Title, Container, Products, NotFoundProducts } from './styles';
 
 interface ItemProps {

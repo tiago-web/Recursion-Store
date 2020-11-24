@@ -10,6 +10,8 @@ export const SideBar = styled.div`
 
   height: 100%;
   width: 18vw;
+  max-width: 320px;
+  min-width: 180px;
   display: flex;
   align-items: center;
   flex-direction: column;

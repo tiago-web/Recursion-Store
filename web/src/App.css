@@ -26,6 +26,10 @@ body {
   color: var(--text-color);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body,
 input,
 textarea,

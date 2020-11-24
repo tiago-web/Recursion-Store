@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
-import formatToDollars from '../../../../../utils/formatToDollars';
+import formatToDollars from '../../../../utils/formatToDollars';
 
-import { Product } from '..';
+import { Product } from '../ProductList';
 
 import {
   Container,

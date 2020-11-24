@@ -125,7 +125,7 @@ const ProductDetail: React.FC = () => {
           <Button>READ ALL REVIEWS</Button>
           <Link to="/product/review">WRITE A REVIEW</Link>
         </ReviewsHeaderContent>
-        <ReviewsBodyContent>
+        <ReviewsBodyContent id="reviews-body-content">
           <h1>Most Relevant</h1>
           <div className="review">
             <div className="userInfo">

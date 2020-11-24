@@ -4,7 +4,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import SideBarBtn from '../SideBarBtn';
 
-import { Container, Options } from './styles';
+import { Container, Options, CheckboxOption } from './styles';
 import formatLabelToName from '../../../utils/formatLabelToName';
 
 interface SideBarProps {
@@ -32,7 +32,7 @@ const SideBarItem: React.FC<SideBarProps> = ({ title, items, addFilter }) => {
       <SideBarBtn toggleItemSelected={toggleItemSelected}>{title}</SideBarBtn>
       <Options selected={selected}>
         {items.map(item => (
-          <li key={item}>
+          <CheckboxOption key={item}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -43,7 +43,7 @@ const SideBarItem: React.FC<SideBarProps> = ({ title, items, addFilter }) => {
               }
               label={item}
             />
-          </li>
+          </CheckboxOption>
         ))}
       </Options>
     </Container>
