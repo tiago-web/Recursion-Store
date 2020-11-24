@@ -1,6 +1,6 @@
 import React from 'react';
-import UserLayout from '../../../components/UserLayout';
-import PreviousOrders from '../../../components/PreviousOrders';
+import UserLayout from '../components/UserLayout';
+import PreviousOrders from '../components/PreviousOrders';
 
 const MyAccount: React.FC = () => {
   return (
