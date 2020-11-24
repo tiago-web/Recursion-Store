@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
+export const Container = styled.div``;
+
 export const SideBar = styled.div`
   background: #fff;
   border-style: solid;
   border-width: 2px 2px 0 0;
   border-color: #868c98;
 
-  height: 80vh;
-  margin-top: 120px;
+  height: 100%;
   width: 18vw;
+  max-width: 320px;
+  min-width: 180px;
   display: flex;
   align-items: center;
   flex-direction: column;

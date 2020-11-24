@@ -24,7 +24,10 @@ body {
   background: #dfe5ec;
   -webkit-font-smoothing: antialiased;
   color: var(--text-color);
+}
 
+html {
+  scroll-behavior: smooth;
 }
 
 body,

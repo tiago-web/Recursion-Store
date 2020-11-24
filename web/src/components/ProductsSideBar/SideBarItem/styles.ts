@@ -6,25 +6,28 @@ interface OptionsProps {
 
 export const Container = styled.div`
   width: 80%;
-
-  ul {
-    padding: 8px;
-    list-style: none;
-  }
 `;
 
-export const Options = styled.div<OptionsProps>`
+export const Options = styled.ul<OptionsProps>`
   display: ${props => (props.selected ? 'block' : 'none')};
 
-  ul {
-    padding: 8px;
-    list-style: none;
+  padding: 12px 8px 8px;
+  list-style: none;
+`;
 
-    li {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-    }
+export const CheckboxOption = styled.li`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-left: 6px;
+
+  & + li {
+    margin-top: 4px;
+  }
+
+  .PrivateSwitchBase-root-8 {
+    padding: 0;
   }
 `;
