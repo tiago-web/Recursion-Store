@@ -1,5 +1,5 @@
 import React from 'react';
-import PreviousOrderCard, { TPreviousOrder } from '../PreviousOrderCard';
+import PreviousOrderCard, { TPreviousOrder } from './PreviousOrderCard';
 
 const previousOrders: TPreviousOrder[] = [
   {

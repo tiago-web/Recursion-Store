@@ -4,7 +4,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import PasswordInputField from '../PasswordInputField';
+import PasswordInputField from '../../../../components/PasswordInputField';
 import { useStyles, PurpleButton } from './styles';
 
 const UpdateProfile: React.FC = () => {

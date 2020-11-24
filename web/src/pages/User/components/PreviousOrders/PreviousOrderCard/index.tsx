@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Grid, Paper, ClickAwayListener, Typography } from '@material-ui/core';
-import ProductPrevOrder from '../ProductPrevOrder';
+import ProductPrevOrder from './ProductPrevOrder';
 import { useStyles, HtmlTooltip } from './styles';
 
 type TItem = {

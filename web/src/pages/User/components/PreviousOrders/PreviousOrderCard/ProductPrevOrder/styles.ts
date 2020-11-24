@@ -1,7 +1,7 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import { shade } from 'polished';
-import Button from '../Button';
+import Button from '../../../../../../components/Button';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,7 +1,7 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { shade } from 'polished';
 import styled from 'styled-components';
-import Button from '../Button';
+import Button from '../../../../components/Button';
 
 export const PurpleButton = styled(Button)`
   background-color: #6060ab;
