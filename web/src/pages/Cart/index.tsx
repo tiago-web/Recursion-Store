@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Divider } from '@material-ui/core';
-import AlsoLikeList, { Product } from '../../components/AlsoLikeList';
+import AlsoLikeList from '../../components/AlsoLikeList';
 import Navbar from '../../components/Navbar';
+import CarouselList from '../../components/CarouselList';
 
 import Button from '../../components/Button';
 
@@ -13,6 +14,13 @@ import {
   CartItem,
   CartTotalContainer,
 } from './styles';
+
+interface Product {
+  id: number;
+  imageUrl: string;
+  name: string;
+  price: string;
+}
 
 interface Item {
   id: number;
@@ -135,7 +143,8 @@ const Cart: React.FC = () => {
         </CartSection>
         <CartSection>
           <h1>You also might like</h1>
-          <AlsoLikeList products={products} />
+          <AlsoLikeList />
+          <CarouselList items={products} navButtonsAlwaysVisible height={420} />
         </CartSection>
       </Container>
     </>

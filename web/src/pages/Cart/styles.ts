@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const CartSection = styled.section`
   min-height: 700px;
   width: 100%;
+  max-width: 1200px;
   margin-bottom: 64px;
 `;
 

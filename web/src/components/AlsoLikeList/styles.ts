@@ -1,37 +1,61 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
-import GridList from '@material-ui/core/GridList';
 
 export const Container = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  overflow: hidden;
-  /* background:  */
-`;
+  align-items: center;
+  /* justify-content: center; */
+  max-height: 400px;
+  overflow-x: auto;
+  position: relative;
+  width: 100%;
 
-export const GridListing = styled(GridList)`
-  flex-wrap: nowrap;
-  transform: translateZ(0);
-
-  .Carousel-indicators-2 {
-    display: none;
+  &::-webkit-scrollbar {
+    width: 0;
   }
 
-  .Carousel-indicators-9 {
-    display: none;
+  div {
+    min-width: 300px;
+    height: 300px;
+    line-height: 300px;
+    background: #000;
+    text-align: center;
+    color: #fff;
+    margin: 8px;
   }
 
-  .CarouselItem {
-    width: 75vw;
-  }
-`;
+  .left {
+    position: absolute;
+    left: 0;
+    border: 0;
+    padding: 12px;
+    border-radius: 50%;
+    background-color: #9eadba;
+    opacity: 0.4;
 
-export const GridListTileBar = styled.div`
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.3) 70%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  color: var(--title-color);
+    transition: background-color 0.2s;
+    transition: opacity 0.2s;
+
+    &:hover {
+      background: ${shade(0.2, '#9eadba')};
+      opacity: 0.8;
+    }
+  }
+
+  .right {
+    position: absolute;
+    right: 0;
+    padding: 12px;
+    border-radius: 50%;
+    background-color: #9eadba;
+    opacity: 0.4;
+
+    transition: background-color 0.2s;
+    transition: opacity 0.2s;
+
+    &:hover {
+      background: ${shade(0.2, '#9eadba')};
+      opacity: 0.8;
+    }
+  }
 `;
