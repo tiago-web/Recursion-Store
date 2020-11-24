@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../../../services/api';
 
 import ProductCard from './ProductCard';
-
-import { Title, Container, Products } from './styles';
+import { Title, Container, Products, NotFoundProducts } from './styles';
 
 interface ItemProps {
   color: string;
@@ -40,14 +39,18 @@ const ProductList: React.FC = () => {
     <Container>
       <Title>Products</Title>
       <Products>
-        {products.map(product => (
-          <ProductCard
-            key={product.name}
-            name={product.name}
-            items={product.items}
-            price={product.price}
-          />
-        ))}
+        {products.length > 0 ? (
+          products.map(product => (
+            <ProductCard
+              key={product.name}
+              name={product.name}
+              items={product.items}
+              price={product.price}
+            />
+          ))
+        ) : (
+          <NotFoundProducts>No products were found.</NotFoundProducts>
+        )}
       </Products>
     </Container>
   );

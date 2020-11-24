@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import formatToDollars from '../../../../../utils/formatToDollars';
 
 import { Product } from '..';
 
@@ -28,7 +29,7 @@ const ProductCard: React.FC<Product> = ({ items, name, price }) => {
         </>
       ))}
       <ProductName>{name}</ProductName>
-      <ProductPrice>{price}</ProductPrice>
+      <ProductPrice>{formatToDollars(price)}</ProductPrice>
       <AvailableColors>
         {items.map(item => (
           <ProductColor

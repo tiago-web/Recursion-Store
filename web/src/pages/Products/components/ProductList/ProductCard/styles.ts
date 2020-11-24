@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
+import { shade } from 'polished';
+
 interface ProductColorProps {
   colorHex: string;
   selected: boolean;
 }
 
 export const Container = styled.div`
-  padding: 24px;
-  margin-left: -24px;
+  padding: 32px;
+  margin-left: -32px;
 `;
 
 export const ProductImage = styled.img`
@@ -17,9 +19,15 @@ export const ProductImage = styled.img`
   margin-bottom: 8px;
 `;
 
-export const ProductName = styled.p``;
+export const ProductName = styled.p`
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: ${shade(0.1, '#868c98')};
+`;
 
-export const ProductPrice = styled.p``;
+export const ProductPrice = styled.p`
+  margin-top: 4px;
+`;
 
 export const AvailableColors = styled.div`
   display: flex;
