@@ -3,21 +3,18 @@ import { Link } from 'react-router-dom';
 import { Grid, Paper, ClickAwayListener, Typography } from '@material-ui/core';
 import ProductPrevOrder from './ProductPrevOrder';
 import { useStyles, HtmlTooltip } from './styles';
+import { TProduct } from './ProductPrevOrder';
 
-type TItem = {
-  color: string;
-  sizeTag: string;
-  quantity: number;
-};
-
-type IProduct = {
-  productId: string;
-  productPrice: number;
-  items: TItem[];
+type TAddress = {
+  address: string;
+  country: string;
+  state: string;
+  city: string;
+  postalCode: string;
 };
 
 export type TPreviousOrder = {
-  _id: number;
+  _id: string;
   userId: {
     _id: string;
     firstName: string;
@@ -30,22 +27,11 @@ export type TPreviousOrder = {
   shippingPrice: number;
   status: string;
   delivered: boolean;
-  shippingAddress: {
-    address: string;
-    country: string;
-    state: string;
-    city: string;
-    postalCode: string;
-  };
-  billingAddress: {
-    address: string;
-    country: string;
-    state: string;
-    city: string;
-    postalCode: string;
-  };
-  products: IProduct[];
+  shippingAddress: TAddress;
+  billingAddress: TAddress;
+  products: TProduct[];
   createdAt: string;
+  updatedAt: string;
 };
 
 type previousOrderCardProps = {
@@ -135,7 +121,9 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
           </Grid>
         </Paper>
         <Paper className={classes.orderDetails}>
-          <ProductPrevOrder />
+          {order.products.map(product => (
+            <ProductPrevOrder key={product._id} product={product} />
+          ))}
         </Paper>
       </Paper>
     </div>

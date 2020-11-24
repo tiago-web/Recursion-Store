@@ -2,7 +2,41 @@ import React from 'react';
 import { Grid, CardMedia } from '@material-ui/core';
 import { useStyles, PurpleSolidButton, PurpleOutlineButton } from './styles';
 
-const ProductPrevOrder: React.FC = () => {
+export type TProduct = {
+  _id: string;
+  productId: TProductDetail;
+  productPrice: number;
+  items: TItem[];
+};
+
+type TProductDetail = {
+  _id: string;
+  name: string;
+  price: number;
+  items: [
+    {
+      productImages: [
+        {
+          image: string;
+          imageUrl: string;
+        },
+      ];
+    },
+  ];
+};
+
+type TItem = {
+  _id: string;
+  color: string;
+  sizeTag: string;
+  quantity: number;
+};
+
+type ProductPrevOrderProps = {
+  product: TProduct;
+};
+
+const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({ product }) => {
   const classes = useStyles();
   return (
     <Grid
