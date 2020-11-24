@@ -14,16 +14,13 @@ const PasswordInputField: React.FC<StandardTextFieldProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
 
-  const handleChange = useCallback(
-    event => {
-      setPassword(event.target.value);
-    },
-    [password],
-  );
+  const handleChange = useCallback(event => {
+    setPassword(event.target.value);
+  }, []);
 
   const handleClickShowPassword = useCallback(() => {
     setShowPassword(prevState => !prevState);
-  }, [showPassword]);
+  }, []);
 
   return (
     <TextField
