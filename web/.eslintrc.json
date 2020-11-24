@@ -23,7 +23,12 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": "error",
     "react/jsx-one-expression-per-line": "off",
@@ -36,10 +41,13 @@
     "no-unused-expressions": "off",
     "no-underscore-dangle": "off",
     "import/no-duplicates": "off",
+    "react/no-unescaped-entities": "off",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".tsx"]
+        "extensions": [
+          ".tsx"
+        ]
       }
     ],
     "import/prefer-default-export": "off",
