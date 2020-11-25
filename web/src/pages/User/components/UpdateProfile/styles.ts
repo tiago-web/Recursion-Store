@@ -24,15 +24,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'transparent',
       boxShadow: 'none',
     },
-
-    paperTitle: {
-      padding: theme.spacing(0.5, 3.5),
-      textAlign: 'left',
-      backgroundColor: 'transparent',
-      boxShadow: 'none',
-      color: 'var(--title-color)',
-      fontSize: '2rem',
-      fontWeight: 'bolder',
+    title: {
+      flexGrow: 1,
+      padding: theme.spacing(0, 3, 4),
     },
     textField: {
       width: '18.4rem',

@@ -1,6 +1,6 @@
 import React from 'react';
-import PreviousOrderCard, { TPreviousOrder } from './PreviousOrderCard';
 import { Grid } from '@material-ui/core';
+import PreviousOrderCard, { TPreviousOrder } from './PreviousOrderCard';
 import api from '../../../../services/api';
 import { useStyles } from './styles';
 import previousOrders from '../../../../MockData/previousOrders';
