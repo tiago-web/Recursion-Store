@@ -29,27 +29,28 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
   item,
   addOrder,
 }) => {
-  const [sizeTag, setSizeTag] = useState('');
   const [availableQuantity, setAvailableQuantity] = useState<number>(0);
-  // const [quantityOptions, setQuantityOptions] = useState<JSX.Element[]>([]);
+  const [selectedSizeTag, setSelectedSizeTag] = useState('');
   const [selectedQuantity, setSelectedQuantity] = useState(0);
 
   useEffect(() => {
-    const selectedSize = item.sizes.find(size => size.sizeTag === sizeTag);
+    const selectedSize = item.sizes.find(
+      size => size.sizeTag === selectedSizeTag,
+    );
 
     if (selectedSize) {
       const availableQtyPerSize = selectedSize.quantity;
 
       setAvailableQuantity(availableQtyPerSize);
     }
-  }, [item.sizes, sizeTag, setAvailableQuantity]);
+  }, [item.sizes, selectedSizeTag, setAvailableQuantity]);
 
-  // useEffect(() => {
-  //   addOrder({
-  //     sizeTag,
-  //     quantity,
-  //   });
-  // }, [addOrder, quantity, sizeTag]);
+  const handleAddToCart = useCallback(() => {
+    addOrder({
+      sizeTag: selectedSizeTag,
+      quantity: selectedQuantity,
+    });
+  }, [addOrder, selectedSizeTag, selectedQuantity]);
 
   const checkSizeQuantity = useCallback(
     (size: string) => {
@@ -65,7 +66,7 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
   return (
     <Container>
       <OverlayContainer>
-        {sizeTag === '' ? (
+        {selectedSizeTag === '' ? (
           <>
             <OptionTitle>Size</OptionTitle>
 
@@ -75,7 +76,7 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
                   <OptionItem key={size}>
                     <OptionBtn
                       disabled={!checkSizeQuantity(size)}
-                      onClick={() => setSizeTag(size)}
+                      onClick={() => setSelectedSizeTag(size)}
                     >
                       {size}
                     </OptionBtn>
@@ -100,7 +101,7 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
                 </OptionItem>
               ))}
             </Options>
-            <AddToCartBtn>Add to cart</AddToCartBtn>
+            <AddToCartBtn onClick={handleAddToCart}>Add to cart</AddToCartBtn>
           </>
         )}
       </OverlayContainer>

@@ -72,9 +72,6 @@ export const ProductColor = styled.button<ProductColorProps>`
       position: relative;
       cursor: not-allowed;
 
-      /* opacity: 0.5; */
-      /* border: none; */
-
       ::after {
         content: '';
         width: 100%;

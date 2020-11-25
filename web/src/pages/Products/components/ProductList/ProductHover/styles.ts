@@ -3,6 +3,8 @@ import { Button as MaterialBtn } from '@material-ui/core';
 import { shade } from 'polished';
 
 export const Container = styled.div`
+  /* transition: opacity 0.3 ease-in; */
+
   width: 100%;
   height: 100%;
   z-index: 5;

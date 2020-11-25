@@ -43,9 +43,9 @@ const ProductHover: React.FC<ProductHoverProps> = ({
     }
   }, [productId, selectedColor, show]);
 
-  useEffect(() => {
-    console.log(order);
-  }, [order]);
+  // useEffect(() => {
+  //   console.log(order);
+  // }, [order]);
 
   const toggleProductOption = useCallback(() => {
     setShow(prevState => !prevState);

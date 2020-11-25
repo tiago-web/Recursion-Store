@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
 import formatToDollars from '../../../../../utils/formatToDollars';
@@ -53,12 +53,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              {/* {isHover && <ProductHover productId={productId} selectedColor={selectedColor}/>} */}
-              <ProductHover
+              {isHover && (
+                <ProductHover
+                  productId={productId}
+                  item={item}
+                  selectedColor={selectedColor}
+                />
+              )}
+              {/* <ProductHover
                 productId={productId}
                 item={item}
+
                 selectedColor={selectedColor}
-              />
+              /> */}
             </ProductImage>
           )}
         </>
