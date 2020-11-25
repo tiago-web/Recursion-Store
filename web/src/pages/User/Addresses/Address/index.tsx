@@ -46,7 +46,7 @@ const Address: React.FC<AddressProps> = ({ address }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to="/user/addresses">
+          <Link to="/user/edit-address">
             <Button size="small">Edit</Button>
           </Link>
           <Button size="small" className={classes.red}>

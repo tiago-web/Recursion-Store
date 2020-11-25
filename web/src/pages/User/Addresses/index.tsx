@@ -26,7 +26,7 @@ const PreviousOrders: React.FC = () => {
             &nbsp;
           </Grid>
           <Grid container xs={12} sm={6} justify="center">
-            <Link to="/user/addresses">
+            <Link to="/user/add-address">
               <PurpleSolidButton>Add New Address</PurpleSolidButton>
             </Link>
           </Grid>
