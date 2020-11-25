@@ -86,7 +86,7 @@ export const OptionItem = styled.div`
 export const AddToCartBtn = styled(MaterialBtn)`
   text-transform: uppercase;
   width: 50%;
-  margin-top: 4px;
+  margin-top: 8px;
   margin-left: auto;
 
   padding: 6px 8px;

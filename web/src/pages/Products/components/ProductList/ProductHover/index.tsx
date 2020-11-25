@@ -9,7 +9,7 @@ import {
   DetailsBtn,
   QuickAddBtn,
 } from './styles';
-import ProductOptionSelector from '../ProductOptionSelector';
+import QuickAddOptions from '../QuickAddOptions';
 
 interface ProductHoverProps {
   productId: string;
@@ -77,7 +77,7 @@ const ProductHover: React.FC<ProductHoverProps> = ({
     <Container>
       <HoverOptions>
         {show && (
-          <ProductOptionSelector
+          <QuickAddOptions
             availableSizeTags={availableSizeTags}
             item={item}
             addOrder={addOrder}

@@ -1,11 +1,10 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { shade } from 'polished';
 
 interface ProductColorProps {
   colorHex: string;
   selected: boolean;
-  enabled: boolean;
 }
 
 export const Container = styled.div`
@@ -56,7 +55,7 @@ export const ProductColor = styled.button<ProductColorProps>`
   border-radius: 50%;
   border: none;
 
-  border: ${props => (props.selected ? '3px solid #75b7ee' : 'none')};
+  border: ${props => (props.selected ? '4px solid #868c98' : 'none')};
 
   height: 26px;
   width: 26px;
@@ -64,23 +63,22 @@ export const ProductColor = styled.button<ProductColorProps>`
   &:focus {
     outline: none;
   }
-
-  ${props =>
-    !props.enabled &&
-    css`
-      border: 2px solid #c53030;
-      position: relative;
-      cursor: not-allowed;
-
-      ::after {
-        content: '';
-        width: 100%;
-        border-bottom: solid 3px #c53030;
-        position: absolute;
-        left: 0;
-        top: 46%;
-        z-index: 1;
-        transform: rotate(45deg);
-      }
-    `}
 `;
+// ${props =>
+//   !props.enabled &&
+//   css`
+//     border: 2px solid #c53030;
+//     position: relative;
+//     cursor: not-allowed;
+
+//     ::after {
+//       content: '';
+//       width: 100%;
+//       border-bottom: solid 3px #c53030;
+//       position: absolute;
+//       left: 0;
+//       top: 46%;
+//       z-index: 1;
+//       transform: rotate(45deg);
+//     }
+//   `}
