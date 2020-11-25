@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { useProductsFilter } from '../../../contexts/ProductsFilterContext';
-import { useSortBy } from '../../../contexts/SortByContext';
-
 import SideBarBtn from '../SideBarBtn';
 
+import { useProductsFilter } from '../../../../../contexts/ProductsFilterContext';
+import { useSortBy } from '../../../../../contexts/SortByContext';
+import formatLabelToName from '../../../../../utils/formatLabelToName';
+
 import { Container, Options, CheckboxOption } from './styles';
-import formatLabelToName from '../../../utils/formatLabelToName';
 
 interface SideBarProps {
   title: string;

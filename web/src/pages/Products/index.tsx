@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
-import ProductsSideBar from '../../components/ProductsSideBar';
+import ProductsSideBar from './components/ProductsSideBar';
 import ProductList from './components/ProductList';
 import { ProductsFilterProvider } from '../../contexts/ProductsFilterContext';
 
