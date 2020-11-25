@@ -16,15 +16,15 @@ interface AddOrderProps {
   quantity: number;
 }
 
-interface ProductOptionSelectorProps {
+interface QuickAddOptionsProps {
   availableSizeTags: string[];
   item: ItemProps;
   addOrder(newOrder: AddOrderProps): void;
 }
 
-const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const options = [1, 2, 3, 4, 5];
 
-const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
+const QuickAddOptions: React.FC<QuickAddOptionsProps> = ({
   availableSizeTags,
   item,
   addOrder,
@@ -109,4 +109,4 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
   );
 };
 
-export default ProductOptionSelector;
+export default QuickAddOptions;

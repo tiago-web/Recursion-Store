@@ -33,14 +33,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     setSelectedColor(colorName);
   }, []);
 
-  const checkColorAvailability = useCallback((item: ItemProps): boolean => {
-    const productColorInStock = item.sizes.find(size => size.quantity > 0);
-
-    if (!productColorInStock) return false;
-
-    return true;
-  }, []);
-
   return (
     <Container>
       {items.map(item => (
@@ -86,8 +78,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 onClick={() => handleSelectedColor(item.color)}
                 selected={item.color === selectedColor}
                 colorHex={item.imageColor}
-                enabled={checkColorAvailability(item)}
-                disabled={!checkColorAvailability(item)}
               />
             </ColorContainer>
           </Tooltip>
