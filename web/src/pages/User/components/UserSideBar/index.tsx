@@ -31,7 +31,7 @@ const UserSideBar: React.FC<UserSideBarProps> = ({
           <ShoppingBasketIcon />
         </MenuButton>
       </Link>
-      <Link to="/">
+      <Link to="/user/addresses">
         <MenuButton isActive={addressesActive ? true : undefined}>
           Addresses
           <HouseIcon />
