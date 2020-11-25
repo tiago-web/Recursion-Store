@@ -7,7 +7,6 @@ const userAddresses: TUserAddress[] = [
     state: 'Ontario',
     city: 'Toronto',
     postalCode: '1A2 B3C',
-    main: true,
   },
   {
     address: '123 Eglinton Rd',
@@ -15,6 +14,7 @@ const userAddresses: TUserAddress[] = [
     state: 'Ontario',
     city: 'Toronto',
     postalCode: '1A2 B3C',
+    main: true,
   },
   {
     address: '123 Eglinton Rd',

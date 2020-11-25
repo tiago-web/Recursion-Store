@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -24,7 +25,6 @@ type AddressProps = {
 
 const Address: React.FC<AddressProps> = ({ address }) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   return (
     <Grid xs={12} sm={6} className={classes.addressesGrid}>
@@ -35,21 +35,23 @@ const Address: React.FC<AddressProps> = ({ address }) => {
             color="textSecondary"
             gutterBottom
           >
-            Word of the Day
+            {address.main ? 'Default Shipping Address' : <br />}
           </Typography>
-          <Typography variant="h5" component="h2">
-            be{bull}nev{bull}o{bull}lent
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            adjective
+          <Typography variant="h6">{address.address}</Typography>
+          <Typography variant="body1" component="p">
+            {address.postalCode}
           </Typography>
           <Typography variant="body2" component="p">
-            well meaning and kindly.
-            <br />a benevolent smile
+            {address.city}, {address.state}, {address.country}
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Link to="/user/addresses">
+            <Button size="small">Edit</Button>
+          </Link>
+          <Button size="small" className={classes.red}>
+            Remove
+          </Button>
         </CardActions>
       </Card>
     </Grid>
