@@ -19,9 +19,15 @@ export interface Item {
 interface CarouselProps extends DefaultCarouselProps {
   items: Item[];
   height: number;
+  backgroundColor?: string;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ items, height, ...rest }) => {
+const Carousel: React.FC<CarouselProps> = ({
+  items,
+  height,
+  backgroundColor,
+  ...rest
+}) => {
   // GET FROM THE DB
   // const items = [
   //   {
@@ -44,23 +50,18 @@ const Carousel: React.FC<CarouselProps> = ({ items, height, ...rest }) => {
     <MaterialCarousel
       height={height}
       animation="slide"
+      background={backgroundColor}
       interval={5000}
       {...rest}
     >
       {items.map(item => (
         <CarouselContainer key={item.id} name={!!item.name}>
-          {item.name || item.description ? (
-            <div>
-              <CarouselTitle>{item.name}</CarouselTitle>
+          <div>
+            {item.name && <CarouselTitle>{item.name}</CarouselTitle>}
+            {item.description && (
               <CarouselDescription>{item.description}</CarouselDescription>
-            </div>
-          ) : (
-            ''
-          )}
-          {/* <div>
-            <CarouselTitle>{item.name}</CarouselTitle>
-            <CarouselDescription>{item.description}</CarouselDescription>
-          </div> */}
+            )}
+          </div>
           <CarouselImage
             name={!!item.name}
             imageUrl={!!item.imageUrl}

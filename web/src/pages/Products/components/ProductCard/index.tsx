@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
 import formatToDollars from '../../../../utils/formatToDollars';
 
-import { Product } from '../ProductList';
+import ProductHover from '../ProductHover';
+import { ItemProps, Product } from '../ProductList';
 
 import {
   Container,
@@ -14,12 +15,29 @@ import {
   ProductColor,
 } from './styles';
 
-const ProductCard: React.FC<Product> = ({ items, name, price }) => {
+type ProductCardProps = Omit<Product, '_id'> & {
+  productId: string;
+};
+
+const ProductCard: React.FC<ProductCardProps> = ({
+  productId,
+  items,
+  name,
+  price,
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [selectedColor, setSelectedColor] = useState(items[0].color);
 
   const handleSelectedColor = useCallback((colorName: string) => {
     setSelectedColor(colorName);
+  }, []);
+
+  const checkColorAvailability = useCallback((item: ItemProps): boolean => {
+    const productColorInStock = item.sizes.find(size => size.quantity > 0);
+
+    if (!productColorInStock) return false;
+
+    return true;
   }, []);
 
   return (
@@ -34,12 +52,8 @@ const ProductCard: React.FC<Product> = ({ items, name, price }) => {
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              {isHover && (
-                <div>
-                  <button>DETAILS</button>
-                  <button>QUICK ADD</button>
-                </div>
-              )}
+              {/* {isHover && <ProductHover productId={productId} />} */}
+              <ProductHover productId={productId} />
             </ProductImage>
           )}
         </>
@@ -59,6 +73,8 @@ const ProductCard: React.FC<Product> = ({ items, name, price }) => {
               onClick={() => handleSelectedColor(item.color)}
               selected={item.color === selectedColor}
               colorHex={item.imageColor}
+              enabled={checkColorAvailability(item)}
+              disabled={!checkColorAvailability(item)}
             />
           </Tooltip>
         ))}

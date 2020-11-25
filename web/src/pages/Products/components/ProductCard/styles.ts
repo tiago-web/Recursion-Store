@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { shade } from 'polished';
 
 interface ProductColorProps {
   colorHex: string;
   selected: boolean;
+  enabled: boolean;
 }
 
 export const Container = styled.div`
@@ -25,8 +26,10 @@ export const ProductImage = styled.div`
   -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 
+  transition: opacity 0.3s;
+
   :hover {
-    opacity: 0.7;
+    opacity: 0.8;
   }
 `;
 
@@ -50,7 +53,7 @@ export const ProductColor = styled.button<ProductColorProps>`
   border-radius: 50%;
   border: none;
 
-  border: ${props => (props.selected ? '3px solid #808080' : 'none')};
+  border: ${props => (props.selected ? '3px solid #75b7ee' : 'none')};
 
   height: 26px;
   width: 26px;
@@ -62,4 +65,23 @@ export const ProductColor = styled.button<ProductColorProps>`
   &:focus {
     outline: none;
   }
+
+  ${props =>
+    !props.enabled &&
+    css`
+      border: 2px solid #969696;
+      position: relative;
+      cursor: not-allowed;
+
+      ::after {
+        content: '';
+        width: 110%;
+        border-bottom: solid 3px #969696;
+        position: absolute;
+        left: 0;
+        top: 46%;
+        z-index: 1;
+        transform: rotate(45deg);
+      }
+    `}
 `;
