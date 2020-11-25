@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container, ButtonsContainer, DetailsBtn, QuickAddBtn } from './styles';
@@ -10,6 +10,7 @@ interface ProductHoverProps {
 const ProductHover: React.FC<ProductHoverProps> = ({ productId }) => {
   return (
     <Container>
+      {/* <ProductOptionSelector /> */}
       <ButtonsContainer>
         <DetailsBtn>
           <Link to={`/product-detail/${productId}`}>details</Link>

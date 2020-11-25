@@ -6,7 +6,7 @@ import api from '../../../../services/api';
 import ProductCard from '../ProductCard';
 import { Title, Container, Products, NoFoundProducts } from './styles';
 
-interface ItemProps {
+export interface ItemProps {
   color: string;
   imageColor: string; // HEX
   productImages: Array<{

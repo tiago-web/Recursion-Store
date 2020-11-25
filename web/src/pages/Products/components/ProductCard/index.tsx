@@ -4,7 +4,7 @@ import { Tooltip } from '@material-ui/core';
 import formatToDollars from '../../../../utils/formatToDollars';
 
 import ProductHover from '../ProductHover';
-import { Product } from '../ProductList';
+import { ItemProps, Product } from '../ProductList';
 
 import {
   Container,
@@ -30,6 +30,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const handleSelectedColor = useCallback((colorName: string) => {
     setSelectedColor(colorName);
+  }, []);
+
+  const checkColorAvailability = useCallback((item: ItemProps): boolean => {
+    const productColorInStock = item.sizes.find(size => size.quantity > 0);
+
+    if (!productColorInStock) return false;
+
+    return true;
   }, []);
 
   return (
@@ -65,6 +73,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
               onClick={() => handleSelectedColor(item.color)}
               selected={item.color === selectedColor}
               colorHex={item.imageColor}
+              enabled={checkColorAvailability(item)}
+              disabled={!checkColorAvailability(item)}
             />
           </Tooltip>
         ))}
