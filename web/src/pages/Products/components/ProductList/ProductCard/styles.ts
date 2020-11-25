@@ -25,12 +25,6 @@ export const ProductImage = styled.div`
   -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-
-  transition: opacity 0.3s;
-
-  :hover {
-    opacity: 0.8;
-  }
 `;
 
 export const ProductName = styled.p`
@@ -48,6 +42,15 @@ export const AvailableColors = styled.div`
   align-items: center;
   margin-top: 8px;
 `;
+
+export const ColorContainer = styled.div`
+  max-width: 350px;
+
+  & + div {
+    margin-left: 6px;
+  }
+`;
+
 export const ProductColor = styled.button<ProductColorProps>`
   background: ${props => props.colorHex};
   border-radius: 50%;
@@ -57,10 +60,6 @@ export const ProductColor = styled.button<ProductColorProps>`
 
   height: 26px;
   width: 26px;
-
-  & + button {
-    margin-left: 6px;
-  }
 
   &:focus {
     outline: none;

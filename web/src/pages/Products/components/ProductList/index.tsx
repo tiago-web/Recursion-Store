@@ -3,7 +3,7 @@ import api from '../../../../services/api';
 // import { useProductsFilter } from '../../../../contexts/ProductsFilterContext';
 // import { useSortBy } from '../../../../contexts/SortByContext';
 
-import ProductCard from '../ProductCard';
+import ProductCard from './ProductCard';
 import { Title, Container, Products, NoFoundProducts } from './styles';
 
 export interface ItemProps {
