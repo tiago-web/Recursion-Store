@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
-import formatToDollars from '../../../../utils/formatToDollars';
+import formatToDollars from '../../../../../utils/formatToDollars';
 
 import ProductHover from '../ProductHover';
-import { ItemProps, Product } from '../ProductList';
+import { ItemProps, Product } from '..';
 
 import {
   Container,
@@ -12,6 +12,7 @@ import {
   ProductName,
   ProductPrice,
   AvailableColors,
+  ColorContainer,
   ProductColor,
 } from './styles';
 
@@ -52,8 +53,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              {/* {isHover && <ProductHover productId={productId} />} */}
-              <ProductHover productId={productId} />
+              {isHover && (
+                <ProductHover
+                  productId={productId}
+                  item={item}
+                  selectedColor={selectedColor}
+                />
+              )}
+              {/* <ProductHover
+                productId={productId}
+                item={item}
+
+                selectedColor={selectedColor}
+              /> */}
             </ProductImage>
           )}
         </>
@@ -69,13 +81,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
             arrow
             aria-label={item.color.toLocaleLowerCase()}
           >
-            <ProductColor
-              onClick={() => handleSelectedColor(item.color)}
-              selected={item.color === selectedColor}
-              colorHex={item.imageColor}
-              enabled={checkColorAvailability(item)}
-              disabled={!checkColorAvailability(item)}
-            />
+            <ColorContainer>
+              <ProductColor
+                onClick={() => handleSelectedColor(item.color)}
+                selected={item.color === selectedColor}
+                colorHex={item.imageColor}
+                enabled={checkColorAvailability(item)}
+                disabled={!checkColorAvailability(item)}
+              />
+            </ColorContainer>
           </Tooltip>
         ))}
       </AvailableColors>

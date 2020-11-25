@@ -1,0 +1,112 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import { ItemProps } from '..';
+
+import {
+  Container,
+  OverlayContainer,
+  Options,
+  OptionTitle,
+  OptionItem,
+  OptionBtn,
+  AddToCartBtn,
+} from './styles';
+
+interface AddOrderProps {
+  sizeTag: string;
+  quantity: number;
+}
+
+interface ProductOptionSelectorProps {
+  availableSizeTags: string[];
+  item: ItemProps;
+  addOrder(newOrder: AddOrderProps): void;
+}
+
+const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
+  availableSizeTags,
+  item,
+  addOrder,
+}) => {
+  const [availableQuantity, setAvailableQuantity] = useState<number>(0);
+  const [selectedSizeTag, setSelectedSizeTag] = useState('');
+  const [selectedQuantity, setSelectedQuantity] = useState(0);
+
+  useEffect(() => {
+    const selectedSize = item.sizes.find(
+      size => size.sizeTag === selectedSizeTag,
+    );
+
+    if (selectedSize) {
+      const availableQtyPerSize = selectedSize.quantity;
+
+      setAvailableQuantity(availableQtyPerSize);
+    }
+  }, [item.sizes, selectedSizeTag, setAvailableQuantity]);
+
+  const handleAddToCart = useCallback(() => {
+    addOrder({
+      sizeTag: selectedSizeTag,
+      quantity: selectedQuantity,
+    });
+  }, [addOrder, selectedSizeTag, selectedQuantity]);
+
+  const checkSizeQuantity = useCallback(
+    (size: string) => {
+      const foundSize = item.sizes.find(sz => sz.sizeTag === size);
+
+      if (!foundSize || foundSize.quantity === 0) return false;
+
+      return true;
+    },
+    [item.sizes],
+  );
+
+  return (
+    <Container>
+      <OverlayContainer>
+        {selectedSizeTag === '' ? (
+          <>
+            <OptionTitle>Size</OptionTitle>
+
+            <Options>
+              {availableSizeTags.map(size => {
+                return (
+                  <OptionItem key={size}>
+                    <OptionBtn
+                      disabled={!checkSizeQuantity(size)}
+                      onClick={() => setSelectedSizeTag(size)}
+                    >
+                      {size}
+                    </OptionBtn>
+                  </OptionItem>
+                );
+              })}
+            </Options>
+          </>
+        ) : (
+          <>
+            <OptionTitle>Quantity</OptionTitle>
+            <Options>
+              {options.map(quantity => (
+                <OptionItem key={quantity}>
+                  <OptionBtn
+                    onClick={() => setSelectedQuantity(quantity)}
+                    selected={selectedQuantity === quantity}
+                    disabled={!(availableQuantity >= quantity)}
+                  >
+                    {quantity}
+                  </OptionBtn>
+                </OptionItem>
+              ))}
+            </Options>
+            <AddToCartBtn onClick={handleAddToCart}>Add to cart</AddToCartBtn>
+          </>
+        )}
+      </OverlayContainer>
+    </Container>
+  );
+};
+
+export default ProductOptionSelector;
