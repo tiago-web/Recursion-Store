@@ -106,7 +106,16 @@ const Cart: React.FC = () => {
 
   const [isCartEmpty, setIsCartEmpty] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
-  // setIsCartEmpty(true);
+
+  // const {increment, decrement, items} = useCart();
+
+  // const addItem = (id: string): void => {
+  //   increment(id);
+  // }
+
+  // const removeItem = (id: string): void => {
+  //   decrement(id);
+  // }
 
   return (
     <>

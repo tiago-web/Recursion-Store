@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../services/api';
+import { useProductsFilter } from '../../../../contexts/ProductsFilterContext';
+import { useSortBy } from '../../../../contexts/SortByContext';
 
 import ProductCard from '../ProductCard';
-import { Title, Container, Products, NotFoundProducts } from './styles';
+import { Title, Container, Products, NoFoundProducts } from './styles';
 
 interface ItemProps {
   color: string;
@@ -24,6 +26,21 @@ export interface Product {
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [productsFound, setProductsFound] = useState(false);
+  const { filters } = useProductsFilter();
+  const { sortBy } = useSortBy();
+
+  useEffect(() => {
+    setProductsFound(products.length > 0);
+  }, [products]);
+
+  useEffect(() => {
+    console.log(filters);
+  }, [filters]);
+
+  useEffect(() => {
+    console.log(sortBy);
+  }, [sortBy]);
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
@@ -38,8 +55,8 @@ const ProductList: React.FC = () => {
   return (
     <Container>
       <Title>Products</Title>
-      <Products>
-        {products.length > 0 ? (
+      <Products productsFound={productsFound}>
+        {productsFound ? (
           products.map(product => (
             <ProductCard
               key={product.name}
@@ -49,7 +66,7 @@ const ProductList: React.FC = () => {
             />
           ))
         ) : (
-          <NotFoundProducts>No products were found.</NotFoundProducts>
+          <NoFoundProducts>No products were found.</NoFoundProducts>
         )}
       </Products>
     </Container>
