@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ItemProps } from '..';
 
 import {
@@ -8,7 +8,7 @@ import {
   OptionTitle,
   OptionItem,
   OptionBtn,
-  ConfirmBtn,
+  AddToCartBtn,
 } from './styles';
 
 interface AddOrderProps {
@@ -22,6 +22,8 @@ interface ProductOptionSelectorProps {
   addOrder(newOrder: AddOrderProps): void;
 }
 
+const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
   availableSizeTags,
   item,
@@ -29,8 +31,8 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
 }) => {
   const [sizeTag, setSizeTag] = useState('');
   const [availableQuantity, setAvailableQuantity] = useState<number>(0);
-  const [quantityOptions, setQuantityOptions] = useState<JSX.Element[]>([]);
-  const [quantity, setQuantity] = useState(0);
+  // const [quantityOptions, setQuantityOptions] = useState<JSX.Element[]>([]);
+  const [selectedQuantity, setSelectedQuantity] = useState(0);
 
   useEffect(() => {
     const selectedSize = item.sizes.find(size => size.sizeTag === sizeTag);
@@ -42,33 +44,23 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
     }
   }, [item.sizes, sizeTag, setAvailableQuantity]);
 
-  useEffect(() => {
-    const options = [];
-
-    for (let i = 1; i <= 10; i++) {
-      console.log(!(availableQuantity >= i));
-
-      options.push(
-        <OptionItem key={i}>
-          <OptionBtn
-            onClick={() => setQuantity(i)}
-            disabled={!(availableQuantity >= i)}
-          >
-            {i}
-          </OptionBtn>
-        </OptionItem>,
-      );
-    }
-
-    setQuantityOptions(options);
-  }, [availableQuantity]);
-
   // useEffect(() => {
   //   addOrder({
   //     sizeTag,
   //     quantity,
   //   });
   // }, [addOrder, quantity, sizeTag]);
+
+  const checkSizeQuantity = useCallback(
+    (size: string) => {
+      const foundSize = item.sizes.find(sz => sz.sizeTag === size);
+
+      if (!foundSize || foundSize.quantity === 0) return false;
+
+      return true;
+    },
+    [item.sizes],
+  );
 
   return (
     <Container>
@@ -78,11 +70,14 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
             <OptionTitle>Size</OptionTitle>
 
             <Options>
-              {availableSizeTags.map(availableSize => {
+              {availableSizeTags.map(size => {
                 return (
-                  <OptionItem key={availableSize}>
-                    <OptionBtn onClick={() => setSizeTag(availableSize)}>
-                      {availableSize}
+                  <OptionItem key={size}>
+                    <OptionBtn
+                      disabled={!checkSizeQuantity(size)}
+                      onClick={() => setSizeTag(size)}
+                    >
+                      {size}
                     </OptionBtn>
                   </OptionItem>
                 );
@@ -92,8 +87,20 @@ const ProductOptionSelector: React.FC<ProductOptionSelectorProps> = ({
         ) : (
           <>
             <OptionTitle>Quantity</OptionTitle>
-            <Options>{quantityOptions}</Options>
-            <ConfirmBtn>Confirm</ConfirmBtn>
+            <Options>
+              {options.map(quantity => (
+                <OptionItem key={quantity}>
+                  <OptionBtn
+                    onClick={() => setSelectedQuantity(quantity)}
+                    selected={selectedQuantity === quantity}
+                    disabled={!(availableQuantity >= quantity)}
+                  >
+                    {quantity}
+                  </OptionBtn>
+                </OptionItem>
+              ))}
+            </Options>
+            <AddToCartBtn>Add to cart</AddToCartBtn>
           </>
         )}
       </OverlayContainer>

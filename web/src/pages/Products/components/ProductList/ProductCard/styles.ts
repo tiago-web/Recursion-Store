@@ -68,14 +68,17 @@ export const ProductColor = styled.button<ProductColorProps>`
   ${props =>
     !props.enabled &&
     css`
-      border: 2px solid #969696;
+      border: 2px solid #c53030;
       position: relative;
       cursor: not-allowed;
 
+      /* opacity: 0.5; */
+      /* border: none; */
+
       ::after {
         content: '';
-        width: 110%;
-        border-bottom: solid 3px #969696;
+        width: 100%;
+        border-bottom: solid 3px #c53030;
         position: absolute;
         left: 0;
         top: 46%;

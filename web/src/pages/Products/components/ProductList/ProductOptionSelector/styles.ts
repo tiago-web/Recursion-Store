@@ -1,8 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Button as MaterialBtn } from '@material-ui/core';
 
 import { shade } from 'polished';
+
+interface OptionBtnProps {
+  selected?: boolean;
+  disabled?: boolean;
+}
 
 export const Container = styled.div`
   height: 30%;
@@ -30,7 +35,7 @@ export const Options = styled.ul`
   max-width: 350px;
 `;
 
-export const OptionBtn = styled.button`
+export const OptionBtn = styled.button<OptionBtnProps>`
   border-radius: 50%;
   border: 2px solid var(--text-color);
   color: var(--text-color);
@@ -47,12 +52,29 @@ export const OptionBtn = styled.button`
   &:focus {
     outline: none;
   }
+
+  ${props =>
+    props.selected &&
+    css`
+      background: #20589c;
+      color: #fff;
+      border: none;
+    `}
+
+  ${props =>
+    props.disabled &&
+    css`
+      background: #c53030;
+      color: #fff;
+      opacity: 0.5;
+      border: none;
+
+      cursor: not-allowed;
+    `}
 `;
 
 export const OptionTitle = styled.h2`
   width: 100%;
-  /* display: flex;
-  justify-content: center; */
 
   margin-bottom: 10px;
 `;
@@ -61,10 +83,10 @@ export const OptionItem = styled.div`
   padding: 3px 5px;
 `;
 
-export const ConfirmBtn = styled(MaterialBtn)`
+export const AddToCartBtn = styled(MaterialBtn)`
   text-transform: uppercase;
   width: 50%;
-  margin-top: 8px;
+  margin-top: 4px;
   margin-left: auto;
 
   padding: 6px 8px;
