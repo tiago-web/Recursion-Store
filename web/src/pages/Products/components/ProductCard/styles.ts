@@ -26,7 +26,7 @@ export const ProductImage = styled.div`
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 
   :hover {
-    opacity: 0.7;
+    opacity: 0.8;
   }
 `;
 

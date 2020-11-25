@@ -5,6 +5,7 @@ interface CarouselProps {
   imageUrl?: boolean;
   name?: boolean;
   height?: number;
+  background?: string;
 }
 
 export const CarouselImage = styled.img<CarouselProps>`
@@ -23,7 +24,7 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   align-items: center;
   width: 100%;
 
-  background: #868c98;
+  background: ${props => (props.background ? props.background : 'none')};
 
   .Carousel-indicators-2 {
     display: none;

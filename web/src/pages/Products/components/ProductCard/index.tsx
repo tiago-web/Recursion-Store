@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
 import formatToDollars from '../../../../utils/formatToDollars';
 
+import ProductHover from '../ProductHover';
 import { Product } from '../ProductList';
 
 import {
@@ -14,7 +15,16 @@ import {
   ProductColor,
 } from './styles';
 
-const ProductCard: React.FC<Product> = ({ items, name, price }) => {
+type ProductCardProps = Omit<Product, '_id'> & {
+  productId: string;
+};
+
+const ProductCard: React.FC<ProductCardProps> = ({
+  productId,
+  items,
+  name,
+  price,
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [selectedColor, setSelectedColor] = useState(items[0].color);
 
@@ -34,12 +44,8 @@ const ProductCard: React.FC<Product> = ({ items, name, price }) => {
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              {isHover && (
-                <div>
-                  <button>DETAILS</button>
-                  <button>QUICK ADD</button>
-                </div>
-              )}
+              {/* {isHover && <ProductHover productId={productId} />} */}
+              <ProductHover productId={productId} />
             </ProductImage>
           )}
         </>

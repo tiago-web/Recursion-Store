@@ -15,7 +15,7 @@ export const Products = styled.div<ProductsProps>`
 
   height: ${props => (props.productsFound ? 'auto' : '80vh')};
 
-  @media screen and (min-width: 1600px) {
+  @media screen and (min-width: 1400px) {
     height: 80vh;
   }
 `;

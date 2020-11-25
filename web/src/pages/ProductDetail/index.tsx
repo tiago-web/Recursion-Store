@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiHeart, FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Carousel, { Item } from '../../components/Carousel';
 import Navbar from '../../components/Navbar';
@@ -20,7 +20,17 @@ import {
   ReviewsBodyContent,
 } from './styles';
 
+interface RouteParams {
+  productId: string;
+}
+
 const ProductDetail: React.FC = () => {
+  const { productId } = useParams<RouteParams>(); // THE PRODUCT ID IS ON THIS VARIABLE
+
+  // useEffect(() => {
+  //   console.log(productId);
+  // }, []);
+
   const items = [
     {
       id: 0,
