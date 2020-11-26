@@ -13,11 +13,8 @@ export const Products = styled.div<ProductsProps>`
   display: flex;
   flex-wrap: wrap;
 
+  max-width: 1300px;
   height: ${props => (props.productsFound ? 'auto' : '80vh')};
-
-  @media screen and (min-width: 1400px) {
-    height: 80vh;
-  }
 `;
 
 export const Title = styled.h1`
