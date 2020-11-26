@@ -1,21 +1,33 @@
 const formatSizeTagToName = (sizeTag: string): string => {
+  const avaliableSizes = [
+    {
+      sizeTag: 'X',
+      sizeName: 'Extra',
+    },
+    {
+      sizeTag: 'S',
+      sizeName: 'Small',
+    },
+    {
+      sizeTag: 'M',
+      sizeName: 'Medium',
+    },
+    {
+      sizeTag: 'L',
+      sizeName: 'Large',
+    },
+    {
+      sizeTag: 'U',
+      sizeName: 'Unique Size',
+    },
+  ];
+
   const formattedSizeTag = sizeTag
     .split('')
     .map(letter => {
-      switch (letter) {
-        case 'X':
-          return 'Extra';
-        case 'S':
-          return 'Small';
-        case 'M':
-          return 'Medium';
-        case 'L':
-          return 'Large';
-        case 'U':
-          return 'Unique Size';
-        default:
-          return '';
-      }
+      const sizeFound = avaliableSizes.find(size => size.sizeTag === letter);
+      if (!sizeFound) return '';
+      return sizeFound.sizeName;
     })
     .join(' ');
 
