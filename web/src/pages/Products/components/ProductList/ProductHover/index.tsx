@@ -10,6 +10,7 @@ import {
   QuickAddBtn,
 } from './styles';
 import QuickAddOptions from '../QuickAddOptions';
+import { useCart } from '../../../../../contexts/CartContext';
 
 interface ProductHoverProps {
   productId: string;
@@ -17,7 +18,7 @@ interface ProductHoverProps {
   item: ItemProps;
 }
 
-interface OrderProps {
+interface ProductProps {
   productId: string;
   color: string;
   quantity: number;
@@ -30,11 +31,14 @@ const ProductHover: React.FC<ProductHoverProps> = ({
   item,
 }) => {
   const [show, setShow] = useState(false);
-  const [order, setOrder] = useState<OrderProps>({} as OrderProps);
+  const [selectedProduct, setSelectedProduct] = useState<ProductProps>(
+    {} as ProductProps,
+  );
+  const { addToCart } = useCart();
 
   useEffect(() => {
     if (show) {
-      setOrder({
+      setSelectedProduct({
         productId,
         color: selectedColor,
         quantity: 0,
@@ -51,9 +55,15 @@ const ProductHover: React.FC<ProductHoverProps> = ({
     setShow(prevState => !prevState);
   }, []);
 
-  const addOrder = useCallback(
-    ({ quantity, sizeTag }: Omit<OrderProps, 'productId' | 'color'>) => {
-      setOrder(prevState => ({
+  const addProductToCart = useCallback(
+    ({ quantity, sizeTag }: Omit<ProductProps, 'productId' | 'color'>) => {
+      addToCart(productId, {
+        color: selectedColor,
+        quantity,
+        sizeTag,
+      });
+
+      setSelectedProduct(prevState => ({
         ...prevState,
         quantity,
         sizeTag,
@@ -64,7 +74,7 @@ const ProductHover: React.FC<ProductHoverProps> = ({
 
       setShow(false);
     },
-    [],
+    [addToCart, selectedColor, productId],
   );
 
   const availableSizeTags = useMemo(() => {
@@ -80,7 +90,7 @@ const ProductHover: React.FC<ProductHoverProps> = ({
           <QuickAddOptions
             availableSizeTags={availableSizeTags}
             item={item}
-            addOrder={addOrder}
+            addProductToCart={addProductToCart}
           />
         )}
         <ButtonsContainer>

@@ -3,9 +3,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import SideBarBtn from '../SideBarBtn';
 
-import { useProductsFilter } from '../../../../../contexts/ProductsFilterContext';
-import { useSortBy } from '../../../../../contexts/SortByContext';
 import formatLabelToName from '../../../../../utils/formatLabelToName';
+import { useProductsFilter } from '../../../contexts/ProductsFilterContext';
+import { useSortBy } from '../../../contexts/SortByContext';
 
 import { Container, Options, CheckboxOption } from './styles';
 

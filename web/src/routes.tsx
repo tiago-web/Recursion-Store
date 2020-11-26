@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
@@ -13,7 +13,7 @@ import AddEditAddress from './pages/User/AddEditAddress';
 
 const Routes: React.FC = () => {
   return (
-    <BrowserRouter>
+    <Switch>
       <Route component={Home} path="/" exact />
       <Route component={Products} path="/products" />
       <Route component={ProductDetail} path="/product-detail/:productId" />
@@ -24,7 +24,7 @@ const Routes: React.FC = () => {
       <Route component={Addresses} path="/user/addresses" />
       <Route component={AddEditAddress} path="/user/edit-address" />
       <Route component={AddEditAddress} path="/user/add-address" />
-    </BrowserRouter>
+    </Switch>
   );
 };
 

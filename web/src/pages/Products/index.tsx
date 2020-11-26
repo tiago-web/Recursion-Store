@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 
 import ProductList from './components/ProductList';
-import { ProductsFilterProvider } from '../../contexts/ProductsFilterContext';
+import { ProductsFilterProvider } from './contexts/ProductsFilterContext';
 
 import { ProductsContainer } from './styles';
 import ProductsSideBar from './components/ProductsSideBar';
