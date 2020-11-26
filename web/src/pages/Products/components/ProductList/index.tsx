@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../services/api';
-// import { useProductsFilter } from '../../../../contexts/ProductsFilterContext';
-// import { useSortBy } from '../../../../contexts/SortByContext';
+// import { useProductsFilter } from '../../contexts/ProductsFilterContext';
+// import { useSortBy } from '../../contexts/SortByContext';
 
 import ProductCard from './ProductCard';
 import { Title, Container, Products, NoFoundProducts } from './styles';
@@ -68,8 +68,8 @@ const ProductList: React.FC = () => {
             />
           ))
         ) : (
-          <NoFoundProducts>No products were found.</NoFoundProducts>
-        )}
+            <NoFoundProducts>No products were found.</NoFoundProducts>
+          )}
       </Products>
     </Container>
   );

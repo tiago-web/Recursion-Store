@@ -11,7 +11,7 @@ import {
   AddToCartBtn,
 } from './styles';
 
-interface AddOrderProps {
+interface AddToCartProps {
   sizeTag: string;
   quantity: number;
 }
@@ -19,7 +19,7 @@ interface AddOrderProps {
 interface QuickAddOptionsProps {
   availableSizeTags: string[];
   item: ItemProps;
-  addOrder(newOrder: AddOrderProps): void;
+  addProductToCart(newOrder: AddToCartProps): void;
 }
 
 const options = [1, 2, 3, 4, 5];
@@ -27,7 +27,7 @@ const options = [1, 2, 3, 4, 5];
 const QuickAddOptions: React.FC<QuickAddOptionsProps> = ({
   availableSizeTags,
   item,
-  addOrder,
+  addProductToCart,
 }) => {
   const [availableQuantity, setAvailableQuantity] = useState<number>(0);
   const [selectedSizeTag, setSelectedSizeTag] = useState('');
@@ -46,11 +46,11 @@ const QuickAddOptions: React.FC<QuickAddOptionsProps> = ({
   }, [item.sizes, selectedSizeTag, setAvailableQuantity]);
 
   const handleAddToCart = useCallback(() => {
-    addOrder({
+    addProductToCart({
       sizeTag: selectedSizeTag,
       quantity: selectedQuantity,
     });
-  }, [addOrder, selectedSizeTag, selectedQuantity]);
+  }, [addProductToCart, selectedSizeTag, selectedQuantity]);
 
   const checkSizeQuantity = useCallback(
     (size: string) => {
@@ -86,24 +86,24 @@ const QuickAddOptions: React.FC<QuickAddOptionsProps> = ({
             </Options>
           </>
         ) : (
-          <>
-            <OptionTitle>Quantity</OptionTitle>
-            <Options>
-              {options.map(quantity => (
-                <OptionItem key={quantity}>
-                  <OptionBtn
-                    onClick={() => setSelectedQuantity(quantity)}
-                    selected={selectedQuantity === quantity}
-                    disabled={!(availableQuantity >= quantity)}
-                  >
-                    {quantity}
-                  </OptionBtn>
-                </OptionItem>
-              ))}
-            </Options>
-            <AddToCartBtn onClick={handleAddToCart}>Add to cart</AddToCartBtn>
-          </>
-        )}
+            <>
+              <OptionTitle>Quantity</OptionTitle>
+              <Options>
+                {options.map(quantity => (
+                  <OptionItem key={quantity}>
+                    <OptionBtn
+                      onClick={() => setSelectedQuantity(quantity)}
+                      selected={selectedQuantity === quantity}
+                      disabled={!(availableQuantity >= quantity)}
+                    >
+                      {quantity}
+                    </OptionBtn>
+                  </OptionItem>
+                ))}
+              </Options>
+              <AddToCartBtn onClick={handleAddToCart}>Add to cart</AddToCartBtn>
+            </>
+          )}
       </OverlayContainer>
     </Container>
   );
