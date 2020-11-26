@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { shade } from 'polished';
 
@@ -26,10 +27,15 @@ export const ProductImage = styled.div`
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 `;
 
-export const ProductName = styled.p`
+export const ProductName = styled(Link)`
   font-weight: 600;
   font-size: 1.2rem;
   color: ${shade(0.1, '#868c98')};
+  transition: color 0.2s;
+
+  :hover {
+    color: ${shade(0.4, '#868c98')};
+  }
 `;
 
 export const ProductPrice = styled.p`
@@ -64,21 +70,3 @@ export const ProductColor = styled.button<ProductColorProps>`
     outline: none;
   }
 `;
-// ${props =>
-//   !props.enabled &&
-//   css`
-//     border: 2px solid #c53030;
-//     position: relative;
-//     cursor: not-allowed;
-
-//     ::after {
-//       content: '';
-//       width: 100%;
-//       border-bottom: solid 3px #c53030;
-//       position: absolute;
-//       left: 0;
-//       top: 46%;
-//       z-index: 1;
-//       transform: rotate(45deg);
-//     }
-//   `}
