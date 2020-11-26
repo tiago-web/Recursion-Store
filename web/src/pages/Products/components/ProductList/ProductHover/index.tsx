@@ -47,7 +47,7 @@ const ProductHover: React.FC<ProductHoverProps> = ({
   //   console.log(order);
   // }, [order]);
 
-  const toggleProductOption = useCallback(() => {
+  const toggleQuickAddOptions = useCallback(() => {
     setShow(prevState => !prevState);
   }, []);
 
@@ -87,7 +87,7 @@ const ProductHover: React.FC<ProductHoverProps> = ({
           <DetailsBtn>
             <Link to={`/product-detail/${productId}`}>details</Link>
           </DetailsBtn>
-          <QuickAddBtn onClick={toggleProductOption}>quick add</QuickAddBtn>
+          <QuickAddBtn onClick={toggleQuickAddOptions}>quick add</QuickAddBtn>
         </ButtonsContainer>
       </HoverOptions>
     </Container>

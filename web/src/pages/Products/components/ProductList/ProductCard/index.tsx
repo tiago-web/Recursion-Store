@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
+
 import { Tooltip } from '@material-ui/core';
 
 import formatToDollars from '../../../../../utils/formatToDollars';
 
 import ProductHover from '../ProductHover';
-import { ItemProps, Product } from '..';
+import { Product } from '..';
 
 import {
   Container,
@@ -52,18 +53,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   selectedColor={selectedColor}
                 />
               )}
-              {/* <ProductHover
-                productId={productId}
-                item={item}
-
-                selectedColor={selectedColor}
-              /> */}
             </ProductImage>
           )}
         </>
       ))}
+      <ProductName to={`/product-detail/${productId}`}>{name}</ProductName>
 
-      <ProductName>{name}</ProductName>
       <ProductPrice>{formatToDollars(price)}</ProductPrice>
       <AvailableColors>
         {items.map(item => (

@@ -116,5 +116,5 @@ dist
 .pnp.*
 
 # Temp
-tmp/*
-!tmp/uploads/.gitkeep
+# tmp/*
+# !tmp/uploads/.gitkeep

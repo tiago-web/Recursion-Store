@@ -56,7 +56,7 @@ const QuickAddOptions: React.FC<QuickAddOptionsProps> = ({
     (size: string) => {
       const foundSize = item.sizes.find(sz => sz.sizeTag === size);
 
-      if (!foundSize || foundSize.quantity === 0) return false;
+      if (!foundSize || foundSize.quantity <= 0) return false;
 
       return true;
     },
