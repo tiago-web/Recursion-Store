@@ -82,6 +82,29 @@ export const CartItem = styled.div`
       display: flex;
       flex-direction: column;
       margin-left: 12px;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+
+        button {
+          width: 40px;
+          height: 40px;
+          text-align: center;
+
+          & + button {
+            margin-left: 4px;
+          }
+        }
+        .add {
+          background: var(--menu-active-border-btn-bg);
+        }
+        .rmv {
+          background: var(--menu-logout-border-btn-bg);
+        }
+      }
     }
   }
 
@@ -126,7 +149,6 @@ export const CartTotalContainer = styled.div`
     button {
       width: 100px;
       margin: 0;
-      border-radius: ;
     }
   }
 `;

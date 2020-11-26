@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
 import AlsoLikeList from '../../components/AlsoLikeList';
 import Navbar from '../../components/Navbar';
@@ -90,11 +91,31 @@ const Cart: React.FC = () => {
       price: 99.99,
       discount: true,
     },
+    {
+      id: 1,
+      imageUrl:
+        'https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg',
+      name: 'Dress V-shape',
+      size: 'Large',
+      color: 'Black',
+      quantity: 2,
+      price: 99.99,
+      discount: true,
+    },
   ] as Item[];
 
   const [isCartEmpty, setIsCartEmpty] = useState(false);
   const [subTotal, setSubTotal] = useState(0);
-  // setIsCartEmpty(true);
+
+  // const {increment, decrement, items} = useCart();
+
+  // const addItem = (id: string): void => {
+  //   increment(id);
+  // }
+
+  // const removeItem = (id: string): void => {
+  //   decrement(id);
+  // }
 
   return (
     <>
@@ -110,7 +131,9 @@ const Cart: React.FC = () => {
                   <span>
                     Don't know where to start? Here's our best sellers
                   </span>
-                  <Button>Best Sellers</Button>
+                  <Button>
+                    <Link to="/products">Best Sellers</Link>
+                  </Button>
                 </div>
               ) : (
                   items.map(item => (
@@ -121,7 +144,11 @@ const Cart: React.FC = () => {
                           <h2>{item.name}</h2>
                           <span>{item.size}</span>
                           <span>{item.color}</span>
-                          <span>{item.quantity} items</span>
+                          <div className="quantity">
+                            <span>{item.quantity} items</span>
+                            <Button className="add">+</Button>
+                            <Button className="rmv">-</Button>
+                          </div>
                         </div>
                       </div>
                       <span>CA${item.price}</span>
