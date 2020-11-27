@@ -33,10 +33,14 @@ const SideBarItem: React.FC<SideBarProps> = ({
 
   useEffect(() => {
     if (filter) {
-      const hasFilter = items.find(item => item === filter);
+      const hasFilter = items.find(
+        item => item.toLocaleLowerCase() === filter.toLocaleLowerCase(),
+      );
 
       if (hasFilter) {
-        setCheckboxSelectedByFilter(filter.replace(/\s/g, ''));
+        setCheckboxSelectedByFilter(
+          filter.replace(/\s/g, '').toLocaleLowerCase(),
+        );
 
         addFilter(title, filter);
       }
@@ -77,7 +81,10 @@ const SideBarItem: React.FC<SideBarProps> = ({
           <Checkbox
             key={item}
             name={item}
-            isChecked={checkboxSelectedByFilter === item.replace(/\s/g, '')}
+            isChecked={
+              checkboxSelectedByFilter ===
+              item.replace(/\s/g, '').toLocaleLowerCase()
+            }
             handleCheckboxChange={addItemToFilterList}
             disabled={isSortBySection && sortBy !== '' && sortBy !== item}
           >

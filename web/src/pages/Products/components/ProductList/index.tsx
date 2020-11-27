@@ -53,9 +53,6 @@ const ProductList: React.FC = () => {
       })
       .then(response => setProducts(response.data));
   }, [filters]);
-  // useEffect(() => {
-  //   console.log(filters);
-  // }, [filters]);
 
   // useEffect(() => {
   //   console.log(sortBy);
