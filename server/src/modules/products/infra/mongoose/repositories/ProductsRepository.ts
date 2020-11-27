@@ -3,6 +3,7 @@ import Product, { IProduct } from '../models/Product';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDTO';
 import IFindQuantityDTO from '@modules/products/dtos/IFindQuantityDTO';
+import IFindByFilters from '@modules/products/dtos/IFindByFilters';
 
 class ProductsRepository {
   public async findByName(productName: string): Promise<IProduct | null> {
@@ -80,10 +81,29 @@ class ProductsRepository {
     return product;
   }
 
-  public async findByCategories(categories: string[]): Promise<IProduct[]> {
-    const product = await Product.find({ categories: { $all: categories } });
+  public async findByFilters({
+    categories,
+    sizes,
+  }: IFindByFilters): Promise<IProduct[] | null> {
+    if (categories && sizes)
+      return await Product.find({
+        $and: [
+          { 'items.sizes': { $elemMatch: { sizeTag: { $in: sizes } } } },
+          { categories: { $all: categories } },
+        ],
+      });
 
-    return product;
+    if (sizes)
+      return await Product.find({
+        'items.sizes': { $elemMatch: { sizeTag: { $in: sizes } } },
+      });
+
+    if (categories)
+      return await Product.find({
+        categories: { $all: categories },
+      });
+
+    return null;
   }
 
   public async create(
