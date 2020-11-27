@@ -4,17 +4,31 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
 import ProfileController from '../controllers/ProfileController';
 import UserShippingAddressController from '../controllers/UserShippingAddressController';
+import UserShippingAddressesController from '../controllers/UserShippingAddressesController';
 
 const profileRouter = Router();
 const profileController = new ProfileController();
 const userShippingAddress = new UserShippingAddressController();
+const userShippingAddresses = new UserShippingAddressesController();
 
 profileRouter.use(ensureAuthenticated);
 
-profileRouter.get("/", profileController.index);
+profileRouter.get('/', profileController.index);
+
+profileRouter.get('/shippingAddresses', userShippingAddresses.index);
+
+profileRouter.get(
+  '/shippingAddress/:postalCode',
+  celebrate({
+    [Segments.PARAMS]: {
+      postalCode: Joi.string().required(),
+    },
+  }),
+  userShippingAddress.index,
+);
 
 profileRouter.put(
-  "/",
+  '/',
   celebrate({
     [Segments.BODY]: {
       firstName: Joi.string(),
@@ -23,10 +37,10 @@ profileRouter.put(
       email: Joi.string().email(),
       oldPassword: Joi.string(),
       password: Joi.string(),
-      passwordConfirmation: Joi.string().valid(Joi.ref("password")),
+      passwordConfirmation: Joi.string().valid(Joi.ref('password')),
     },
   }),
-  profileController.update
+  profileController.update,
 );
 
 profileRouter.post(
@@ -42,7 +56,7 @@ profileRouter.post(
       main: Joi.boolean(),
     },
   }),
-  userShippingAddress.create
+  userShippingAddress.create,
 );
 
 profileRouter.put(
@@ -59,7 +73,7 @@ profileRouter.put(
       main: Joi.boolean(),
     },
   }),
-  userShippingAddress.update
+  userShippingAddress.update,
 );
 
 profileRouter.delete(
@@ -67,10 +81,10 @@ profileRouter.delete(
   ensureAuthenticated,
   celebrate({
     [Segments.BODY]: {
-      postalCode: Joi.string().required()
+      postalCode: Joi.string().required(),
     },
   }),
-  userShippingAddress.delete
+  userShippingAddress.delete,
 );
 
 export default profileRouter;
