@@ -117,7 +117,10 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
             </Grid>
             <Grid item className={classes.item}>
               <div>Order # {order._id}</div>
-              <Link to="/" className={classes.linkColor}>
+              <Link
+                to={`/order-details/${order._id}`}
+                className={classes.linkColor}
+              >
                 Order Details
               </Link>
             </Grid>
