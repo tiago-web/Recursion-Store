@@ -103,7 +103,9 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({
           </Grid>
 
           <Grid className={classes.titleLine} xs={12}>
-            <PurpleOutlineButton>Write a product review</PurpleOutlineButton>
+            <Link to={`/product/review/${product.productId._id}`}>
+              <PurpleOutlineButton>Write a product review</PurpleOutlineButton>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
