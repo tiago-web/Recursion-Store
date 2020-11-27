@@ -34,6 +34,9 @@ export const Container = styled.div`
     }
 
     img {
+      width: 500px;
+      height: 450px;
+
       @media screen and (max-width: 1120px) {
         width: 90%;
       }
@@ -42,15 +45,17 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.form`
-  width: 40%;
-  height: 440px;
+  width: 400px;
+  min-width: 400px;
+  height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: 24px;
 
   @media screen and (max-width: 1120px) {
     margin: 48px 24px 0;
-    width: 100%;
+    width: 90%;
   }
 
   input {

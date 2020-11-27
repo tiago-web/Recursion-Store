@@ -12,7 +12,7 @@ const ProductOffers: React.FC = () => {
         {previousOrders.map(prevOrder =>
           prevOrder.products.map(product => (
             <ProductOffer key={prevOrder._id}>
-              <Link to={`product-detail/${product._id}`}>
+              <Link to="product-detail/5fbf0c4a67a485596038e2a6">
                 <img
                   src={product.productId.items[0].productImages[0].imageUrl}
                   alt="MK"

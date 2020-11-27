@@ -26,8 +26,7 @@ const ProductDetail: React.FC = () => {
       <Section>
         <ProductDetailContainer />
       </Section>
-      <ProductReviewsContainer />
-      {/* </Section> */}
+      <ProductReviewsContainer productId={productId} />
     </>
   );
 };

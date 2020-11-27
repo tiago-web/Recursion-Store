@@ -4,38 +4,7 @@ import { Link } from 'react-router-dom';
 import { Container, SeeProduct } from './styles';
 import api from '../../../../services/api';
 
-export interface ItemProps {
-  color: string;
-  imageColor: string; // HEX
-  productImages: Array<{
-    imageUrl: string;
-  }>;
-  sizes: Array<{
-    sizeTag: string;
-    quantity: number;
-  }>;
-}
-
-export interface Product {
-  _id: string;
-  items: ItemProps[];
-  name: string;
-  price: number;
-}
-
 const ProductOverview: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    async function loadProducts(): Promise<void> {
-      const response = await api.get('products');
-
-      setProducts(response.data);
-    }
-
-    loadProducts();
-  }, []);
-
   return (
     <>
       <Container>
@@ -77,6 +46,3 @@ const ProductOverview: React.FC = () => {
 };
 
 export default ProductOverview;
-
-// background: url('https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg')
-//     no-repeat center;

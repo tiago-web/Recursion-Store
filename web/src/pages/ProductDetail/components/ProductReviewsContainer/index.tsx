@@ -5,11 +5,17 @@ import ProductReviewBody from './ProductReviewBody';
 
 import { Container } from './styles';
 
-const ProductReviewContainer: React.FC = () => {
+interface ProductReviewContainerProps {
+  productId: string;
+}
+
+const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
+  productId,
+}) => {
   return (
     <>
       <Container>
-        <ProductReviewHeader />
+        <ProductReviewHeader productId={productId} />
         <ProductReviewBody />
       </Container>
     </>
