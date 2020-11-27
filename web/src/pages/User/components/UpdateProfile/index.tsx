@@ -26,8 +26,8 @@ const UpdateProfile: React.FC = () => {
           <Paper className={classes.paper}>
             <TextField
               className={classes.textField}
-              id="input-with-icon-textfield"
               label="First Name"
+              name="firstName"
               variant="outlined"
               InputProps={{
                 startAdornment: (
@@ -43,8 +43,8 @@ const UpdateProfile: React.FC = () => {
           <Paper className={classes.paper}>
             <TextField
               className={classes.textField}
-              id="input-with-icon-textfield"
               label="Last Name"
+              name="lastName"
               variant="outlined"
               InputProps={{
                 startAdornment: (
@@ -61,8 +61,8 @@ const UpdateProfile: React.FC = () => {
           <Paper className={classes.paper}>
             <TextField
               className={classes.textField}
-              id="input-with-icon-textfield"
               label="Email"
+              name="email"
               variant="outlined"
               InputProps={{
                 startAdornment: (
@@ -78,8 +78,8 @@ const UpdateProfile: React.FC = () => {
           <Paper className={classes.paper}>
             <TextField
               className={classes.textField}
-              id="input-with-icon-textfield"
               label="Phone"
+              name="phone"
               variant="outlined"
               InputProps={{
                 startAdornment: (

@@ -24,7 +24,6 @@ const PasswordInputField: React.FC<StandardTextFieldProps> = ({
 
   return (
     <TextField
-      id="outlined-adornment-password"
       variant="outlined"
       type={showPassword ? 'text' : 'password'}
       label={label}
