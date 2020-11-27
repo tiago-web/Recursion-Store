@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  @media screen and (min-width: 3150px) {
+    height: 85vh;
+  }
+`;
 
 export const SideBar = styled.div`
   background: #fff;

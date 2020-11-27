@@ -10,14 +10,22 @@ const ProductsSideBar: React.FC = () => {
       <SideBar>
         <SideBarItem
           title="Sort By"
-          items={['Price', 'Sale', 'New Collection']}
+          items={['Lowest Price', 'Highest Price', 'Sale']}
           isSortBySection
         />
-        <SideBarItem title="Size" items={['XS', 'S', 'M', 'L', 'XL', 'XXL']} />
         <SideBarItem
           title="Category"
-          items={['Clothing', 'Shoes', 'Accessories', 'Women', 'Men', 'Kids']}
+          items={[
+            'New Collection',
+            'Clothing',
+            'Shoes',
+            'Accessories',
+            'Women',
+            'Men',
+            'Kids',
+          ]}
         />
+        <SideBarItem title="Size" items={['XS', 'S', 'M', 'L', 'XL', 'XXL']} />
       </SideBar>
     </Container>
   );

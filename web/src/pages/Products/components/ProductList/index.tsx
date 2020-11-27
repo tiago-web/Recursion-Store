@@ -68,8 +68,8 @@ const ProductList: React.FC = () => {
             />
           ))
         ) : (
-            <NoFoundProducts>No products were found.</NoFoundProducts>
-          )}
+          <NoFoundProducts>No products were found.</NoFoundProducts>
+        )}
       </Products>
     </Container>
   );
