@@ -36,9 +36,26 @@ const ProductList: React.FC = () => {
   }, [products]);
 
   useEffect(() => {
-    // api.get("products", { params: { size}})
-    console.log(filters);
+    const categories = filters
+      .find(filter => filter.sessionTitle === 'Category')
+      ?.filterNames.join(',');
+
+    const sizes = filters
+      .find(filter => filter.sessionTitle === 'Size')
+      ?.filterNames.join(',');
+
+    api
+      .get('products', {
+        params: {
+          categories,
+          sizes,
+        },
+      })
+      .then(response => setProducts(response.data));
   }, [filters]);
+  // useEffect(() => {
+  //   console.log(filters);
+  // }, [filters]);
 
   // useEffect(() => {
   //   console.log(sortBy);

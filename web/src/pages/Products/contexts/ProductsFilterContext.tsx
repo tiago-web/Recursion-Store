@@ -17,14 +17,17 @@ const ProductsFilterContext = createContext<ProductsFilterContextData>(
 );
 
 const ProductsFilterProvider: React.FC = ({ children }) => {
-  const [filters, setFilters] = useState<Filter[]>([]);
+  const [filters, setFilters] = useState<Filter[]>([
+    { sessionTitle: 'Size', filterNames: [] },
+    { sessionTitle: 'Category', filterNames: [] },
+  ]);
 
   const addFilter = useCallback(
     (sessionTitle: string, filter: string) => {
       const newFiltersArray = [...filters];
 
       const existentSessionTitle = newFiltersArray.find(
-        filter => filter.sessionTitle === sessionTitle,
+        f => f.sessionTitle === sessionTitle,
       );
 
       if (existentSessionTitle) {
@@ -46,7 +49,7 @@ const ProductsFilterProvider: React.FC = ({ children }) => {
       const newFiltersArray = [...filters];
 
       const filterToRemove = newFiltersArray.find(
-        filter => filter.sessionTitle === sessionTitle,
+        f => f.sessionTitle === sessionTitle,
       );
 
       if (filterToRemove) {

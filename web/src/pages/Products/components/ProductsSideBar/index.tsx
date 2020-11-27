@@ -25,7 +25,10 @@ const ProductsSideBar: React.FC = () => {
             'Kids',
           ]}
         />
-        <SideBarItem title="Size" items={['XS', 'S', 'M', 'L', 'XL', 'XXL']} />
+        <SideBarItem
+          title="Size"
+          items={['XS', 'S', 'M', 'L', 'XL', 'XXL', 'U']}
+        />
       </SideBar>
     </Container>
   );

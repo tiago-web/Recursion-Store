@@ -4,6 +4,8 @@ export const Container = styled.div`
   @media screen and (min-width: 3150px) {
     height: 85vh;
   }
+
+  min-height: 85vh;
 `;
 
 export const SideBar = styled.div`

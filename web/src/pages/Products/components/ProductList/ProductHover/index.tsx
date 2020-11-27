@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ItemProps } from '..';
 
@@ -31,21 +31,21 @@ const ProductHover: React.FC<ProductHoverProps> = ({
   item,
 }) => {
   const [show, setShow] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<ProductProps>(
-    {} as ProductProps,
-  );
+  // const [selectedProduct, setSelectedProduct] = useState<ProductProps>(
+  //   {} as ProductProps,
+  // );
   const { addToCart } = useCart();
 
-  useEffect(() => {
-    if (show) {
-      setSelectedProduct({
-        productId,
-        color: selectedColor,
-        quantity: 0,
-        sizeTag: '',
-      });
-    }
-  }, [productId, selectedColor, show]);
+  // useEffect(() => {
+  //   if (show) {
+  //     setSelectedProduct({
+  //       productId,
+  //       color: selectedColor,
+  //       quantity: 0,
+  //       sizeTag: '',
+  //     });
+  //   }
+  // }, [productId, selectedColor, show]);
 
   // useEffect(() => {
   //   console.log(order);
@@ -63,11 +63,11 @@ const ProductHover: React.FC<ProductHoverProps> = ({
         sizeTag,
       });
 
-      setSelectedProduct(prevState => ({
-        ...prevState,
-        quantity,
-        sizeTag,
-      }));
+      // setSelectedProduct(prevState => ({
+      //   ...prevState,
+      //   quantity,
+      //   sizeTag,
+      // }));
 
       // TODO: Save the order in the cart
       // TODO: Open a confirmational modal
