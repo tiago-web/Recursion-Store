@@ -15,7 +15,7 @@ const Routes: React.FC = () => {
   return (
     <Switch>
       <Route component={Home} path="/" exact />
-      <Route component={Products} path="/products" />
+      <Route component={Products} path="/products/:filter?" />
       <Route component={ProductDetail} path="/product-detail/:productId" />
       <Route component={ProductReview} path="/product/review/:productId" />
       <Route component={Cart} path="/cart" />
