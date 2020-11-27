@@ -9,15 +9,16 @@ export const Container = styled.div`
     align-items: center;
     margin-left: 0;
   }
+`;
 
-  div.title {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+export const Title = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-    h1 {
-      margin-right: 24px;
-    }
+  h1 {
+    margin-right: 24px;
   }
 
   span {
@@ -49,7 +50,6 @@ export const ProductDetailContent = styled.div`
     margin-left: 0;
   }
 `;
-
 export const Colors = styled.div`
   display: flex;
   flex-direction: column;

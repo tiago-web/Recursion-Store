@@ -1,5 +1,4 @@
 import React from 'react';
-import { FiHeart } from 'react-icons/fi';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 
@@ -7,6 +6,7 @@ import {
   Container,
   CarouselContent,
   ProductDetailContent,
+  Title,
   Colors,
   Sizes,
   AddToCart,
@@ -21,11 +21,10 @@ const ProductDetailContainer: React.FC = () => {
           <Carousel items={[]} height={800} />
         </CarouselContent>
         <ProductDetailContent>
-          <div className="title">
+          <Title>
             <h1>Dress V-shape</h1>
-            <FiHeart />
-          </div>
-          <span>CA$499.99</span>
+            <span>CA$499.99</span>
+          </Title>
           <Colors>
             <strong>Colors</strong>
             <ul>
