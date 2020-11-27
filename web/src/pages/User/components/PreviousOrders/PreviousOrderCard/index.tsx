@@ -128,7 +128,10 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
             product.items.map(item => (
               <ProductPrevOrder
                 key={product._id}
-                product={product}
+                productId={product.productId._id}
+                productName={product.productId.name}
+                productPrice={product.productPrice}
+                imageUrl={product.productId.items[0].productImages[0].imageUrl}
                 item={item}
               />
             )),
