@@ -12,17 +12,6 @@ export const PurpleSolidButton = styled(Button)`
   }
 `;
 
-// export const RedOutlinedButton = styled(Button)`
-//   background-color: transparent;
-//   border: 2px solid var(--menu-logout-border-btn-bg);
-//   color: var(--menu-logout-border-btn-bg);
-//   width: 18.4rem;
-//   &:hover {
-//     background: ${shade(0.1, 'var(--menu-logout-border-btn-bg)')};
-//     color: ${shade(0, '#FFFFFF')};
-//   }
-// `;
-
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

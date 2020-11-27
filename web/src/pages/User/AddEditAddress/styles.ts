@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
-import { TextField, Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme: Theme) =>
@@ -14,6 +14,22 @@ export const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const MUGrid = styled(Grid)`
-  margin: 1rem 0.5rem;
+export const PurpleSolidButton = styled(Button)`
+  background-color: #6060ab;
+  border: 2px solid #6060ab;
+  color: white;
+  &:hover {
+    background: ${shade(0.2, '#5454A0')};
+  }
+`;
+
+export const RedOutlinedButton = styled(Button)`
+  background-color: white;
+  border: 2px solid var(--menu-logout-btn-bg);
+  color: var(--menu-logout-border-btn-bg);
+  &:hover {
+    background: ${shade(0.1, '#d3455b')};
+    border: 2px solid var(--menu-logout-border-btn-bg);
+    color: ${shade(0, '#FFFFFF')};
+  }
 `;

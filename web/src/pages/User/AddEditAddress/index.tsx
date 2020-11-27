@@ -5,7 +5,7 @@ import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import { useLocation } from 'react-router-dom';
 import { Grid, TextField, FormControlLabel, Button } from '@material-ui/core';
 import UserLayout from '../components/UserLayout';
-import { useStyles } from './styles';
+import { useStyles, PurpleSolidButton, RedOutlinedButton } from './styles';
 import api from '../../../services/api';
 
 const PurpleCheckbox = withStyles({
@@ -18,7 +18,7 @@ const PurpleCheckbox = withStyles({
   checked: {},
 })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
-const PreviousOrders: React.FC = () => {
+const AddEditAddress: React.FC = () => {
   const { pathname } = useLocation();
   const isEditAddressPage = pathname.toLowerCase().includes('edit');
   const titleInitials = isEditAddressPage ? 'Edit' : 'Add';
@@ -26,7 +26,6 @@ const PreviousOrders: React.FC = () => {
 
   const handleChange = (): void => {
     setMain(prevState => !prevState);
-    console.log(main);
   };
   const classes = useStyles();
 
@@ -91,21 +90,21 @@ const PreviousOrders: React.FC = () => {
           <Grid container xs={12} sm={6} className={classes.textFieldGrid}>
             {isEditAddressPage ? (
               <>
-                <Grid xs={12} sm={6} className={classes.textFieldGrid}>
-                  <Button variant="contained" fullWidth>
+                <Grid xs={6} className={classes.textFieldGrid}>
+                  <RedOutlinedButton variant="contained" fullWidth>
                     Cancel
-                  </Button>
+                  </RedOutlinedButton>
                 </Grid>
-                <Grid xs={12} sm={6} className={classes.textFieldGrid}>
-                  <Button variant="contained" fullWidth>
+                <Grid xs={6} className={classes.textFieldGrid}>
+                  <PurpleSolidButton variant="contained" fullWidth>
                     Save
-                  </Button>
+                  </PurpleSolidButton>
                 </Grid>
               </>
             ) : (
-              <Button variant="contained" fullWidth>
+              <PurpleSolidButton variant="contained" fullWidth>
                 Create Address
-              </Button>
+              </PurpleSolidButton>
             )}
           </Grid>
         </Grid>
@@ -114,4 +113,4 @@ const PreviousOrders: React.FC = () => {
   );
 };
 
-export default PreviousOrders;
+export default AddEditAddress;
