@@ -1,19 +1,32 @@
 import { Request, Response } from 'express';
-import statusCodes from "@config/statusCodes";
+import statusCodes from '@config/statusCodes';
 
 import CreateUserAddressService from '@modules/users/services/UserAddress/CreateUserAddressService';
 import UpdateUserAddressService from '@modules/users/services/UserAddress/UpdateUserAddressService';
 import DeleteUserAddressService from '@modules/users/services/UserAddress/DeleteUserAddressService';
+import GetUserAddressByPostalCodeService from '@modules/users/services/UserAddress/GetUserAddressByPostalCodeService';
 
 const createUserAddress = new CreateUserAddressService();
 const updateUserAddress = new UpdateUserAddressService();
 const deleteUserAddress = new DeleteUserAddressService();
+const getUserAddressByPostalCode = new GetUserAddressByPostalCodeService();
 
-class UserShippingAdressesController {
+class UserShippingAddressController {
+  public async index(req: Request, res: Response): Promise<Response> {
+    const { id: userId } = req.user;
+    const { postalCode } = req.params;
+
+    const shippingAddress = await getUserAddressByPostalCode.execute({
+      userId,
+      postalCode,
+    });
+
+    return res.status(statusCodes.ok).json(shippingAddress);
+  }
+
   public async create(req: Request, res: Response): Promise<Response> {
     const { id: userId } = req.user;
     const { address, country, state, city, postalCode, main } = req.body;
-
 
     const user = await createUserAddress.execute({
       userId,
@@ -30,7 +43,15 @@ class UserShippingAdressesController {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const { id: userId } = req.user;
-    const { address, country, state, city, postalCode, oldPostalCode, main } = req.body;
+    const {
+      address,
+      country,
+      state,
+      city,
+      postalCode,
+      oldPostalCode,
+      main,
+    } = req.body;
 
     const user = await updateUserAddress.execute({
       userId,
@@ -59,4 +80,4 @@ class UserShippingAdressesController {
   }
 }
 
-export default UserShippingAdressesController;
+export default UserShippingAddressController;
