@@ -41,9 +41,9 @@ const SideBarItem: React.FC<SideBarProps> = ({
       }
 
       if (e.target.checked) {
-        addFilter(e.target.name);
+        addFilter(title, e.target.name);
       } else {
-        removeFilter(e.target.name);
+        removeFilter(title, e.target.name);
       }
     },
     [isSortBySection, setSortBy, removeSortBy, addFilter, removeFilter],

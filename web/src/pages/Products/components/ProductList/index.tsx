@@ -36,6 +36,7 @@ const ProductList: React.FC = () => {
   }, [products]);
 
   useEffect(() => {
+    // api.get("products", { params: { size}})
     console.log(filters);
   }, [filters]);
 
