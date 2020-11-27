@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, CardMedia } from '@material-ui/core';
 import { useStyles, PurpleSolidButton, PurpleOutlineButton } from './styles';
 import formatToDollars from '../../../../../../utils/formatToDollars';
@@ -96,7 +97,9 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({
           </Grid>
 
           <Grid className={classes.titleLine} xs={12}>
-            <PurpleSolidButton>Buy it Again</PurpleSolidButton>
+            <Link to={`/product-detail/${product.productId._id}`}>
+              <PurpleSolidButton>Buy it Again</PurpleSolidButton>
+            </Link>
           </Grid>
 
           <Grid className={classes.titleLine} xs={12}>
