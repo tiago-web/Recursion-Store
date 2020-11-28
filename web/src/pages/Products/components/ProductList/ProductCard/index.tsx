@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { forwardRef, useCallback, useState } from 'react';
 
 import { Tooltip } from '@material-ui/core';
 
@@ -46,6 +46,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               }}
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
+              onClick={() => setIsHover(true)}
             >
               {isHover && (
                 <ProductHover
