@@ -129,12 +129,12 @@ const ProductReview: React.FC = () => {
             </div>
           </>
         ) : (
-            <Button>
+            <>
               <h1>Product not found!</h1>
               <Button onClick={handleGoBack} id="go-back">
                 Go back
             </Button>
-            </Button>
+            </>
           )}
       </Container>
     </>
