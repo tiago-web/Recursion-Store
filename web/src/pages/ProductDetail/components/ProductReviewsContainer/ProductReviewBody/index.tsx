@@ -3,7 +3,11 @@ import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 
 import { Container, Review, Info, ReviewBody, Likes } from './styles';
 
-const ProductReviewBody: React.FC = () => {
+interface ProductReviewBodyProps {
+  productId: string;
+}
+
+const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({ productId }) => {
   return (
     <Container>
       <h1>Most Relevant</h1>
