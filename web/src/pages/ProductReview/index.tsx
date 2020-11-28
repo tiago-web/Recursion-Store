@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 
 import { Container, Form } from './styles';
@@ -27,11 +27,17 @@ export interface Product {
   items: Item[];
 }
 
+export interface ReviewFormData {
+  productId: string;
+  title: string;
+  body: string;
+}
+
 const ProductReview: React.FC = () => {
   const { productId } = useParams<RouteParams>(); // THE PRODUCT ID IS ON THIS VARIABLE
+  const history = useHistory();
+
   const [product, setProduct] = useState<Product>();
-  // const [item, setItem] = useState<Item>();
-  // const [images, setImages] = useState<ProductImage>();
   const [image, setImage] = useState('');
 
   useEffect(() => {
@@ -40,28 +46,47 @@ const ProductReview: React.FC = () => {
 
       setProduct(response.data);
 
-      if (product) setImage(product?.items[0].productImages[0].imageUrl);
+      if (product) setImage(product.items[0].productImages[0].imageUrl);
     }
 
     loadProduct();
   }, [productId, image, product]);
 
+  const handleSubmit = useCallback(() => {
+    history.push(`/product-detail/${productId}`);
+  }, [productId, history]);
+
+  const handleGoBack = useCallback(() => {
+    history.push('/products');
+  }, [history]);
+
   return (
     <>
       <Navbar />
       <Container>
-        <h1>
-          Write a review for <span>{product?.name}</span>
-        </h1>
-        <div className="form">
-          <img src={image} alt="Dress" />
-          <Form action="">
-            <input type="text" placeholder="Title" /> {/* Title to api */}
-            <textarea placeholder="Review" cols={4} rows={18} />
-            {/* Body to api */}
-            <Button>SEND</Button>
-          </Form>
-        </div>
+        {product ? (
+          <>
+            <h1>
+              Write a review for <span>{product?.name}</span>
+            </h1>
+            <div className="form">
+              <img src={image} alt="Dress" />
+              <Form action="" onSubmit={handleSubmit}>
+                <input type="text" placeholder="Title" /> {/* Title to api */}
+                <textarea placeholder="Review" cols={4} rows={18} />
+                {/* Body to api */}
+                <Button type="submit">SEND</Button>
+              </Form>
+            </div>
+          </>
+        ) : (
+            <>
+              <h1>Product not found!</h1>
+              <Button onClick={handleGoBack} id="go-back">
+                Go back
+            </Button>
+            </>
+          )}
       </Container>
     </>
   );
