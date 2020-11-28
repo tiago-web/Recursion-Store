@@ -54,7 +54,7 @@ const previousOrders: TPreviousOrder[] = [
             _id: '5fbd269a7743058d84a7172b',
             color: 'Black',
             sizeTag: 'M',
-            quantity: 2,
+            quantity: 1,
           },
         ],
         productPrice: 38.47,

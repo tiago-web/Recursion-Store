@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, CardMedia } from '@material-ui/core';
 import { useStyles, PurpleSolidButton, PurpleOutlineButton } from './styles';
 import formatToDollars from '../../../../../../utils/formatToDollars';
@@ -35,12 +36,18 @@ type TItem = {
 };
 
 type ProductPrevOrderProps = {
-  product: TProduct;
+  productId: string;
+  productName: string;
+  productPrice: number;
+  imageUrl: string;
   item: TItem;
 };
 
 const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({
-  product,
+  productId,
+  productName,
+  productPrice,
+  imageUrl,
   item,
 }) => {
   const classes = useStyles();
@@ -56,8 +63,8 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({
         <Grid item xs={6}>
           <CardMedia
             className={classes.media}
-            image={product.productId.items[0].productImages[0].imageUrl}
-            title={product.productId.name}
+            image={imageUrl}
+            title={productName}
           />
         </Grid>
         <Grid
@@ -69,7 +76,7 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({
           className={classes.detail}
         >
           <Grid className={classes.titleLine} xs={12}>
-            {product.productId.name}
+            {productName}
           </Grid>
           <Grid className={classes.descriptionLine} xs={12}>
             {formatSizeTagToName(item.sizeTag)}
@@ -92,15 +99,19 @@ const ProductPrevOrder: React.FC<ProductPrevOrderProps> = ({
           className={classes.buttonsSection}
         >
           <Grid className={classes.titleLine} xs={12}>
-            {formatToDollars(product.productPrice)}
+            {formatToDollars(productPrice)}
           </Grid>
 
           <Grid className={classes.titleLine} xs={12}>
-            <PurpleSolidButton>Buy it Again</PurpleSolidButton>
+            <Link to={`/product-detail/${productId}`}>
+              <PurpleSolidButton>Buy it Again</PurpleSolidButton>
+            </Link>
           </Grid>
 
           <Grid className={classes.titleLine} xs={12}>
-            <PurpleOutlineButton>Write a product review</PurpleOutlineButton>
+            <Link to={`/product/review/${productId}`}>
+              <PurpleOutlineButton>Write a product review</PurpleOutlineButton>
+            </Link>
           </Grid>
         </Grid>
       </Grid>

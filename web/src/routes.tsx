@@ -10,6 +10,7 @@ import MyAccount from './pages/User/MyAccount';
 import OrdersHistory from './pages/User/OrdersHistory';
 import Addresses from './pages/User/Addresses';
 import AddEditAddress from './pages/User/AddEditAddress';
+import OrderDetails from './pages/OrderDetails';
 
 const Routes: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const Routes: React.FC = () => {
       <Route component={Addresses} path="/user/addresses" />
       <Route component={AddEditAddress} path="/user/edit-address" />
       <Route component={AddEditAddress} path="/user/add-address" />
+      <Route component={OrderDetails} path="/order-details/:orderId" />
     </Switch>
   );
 };

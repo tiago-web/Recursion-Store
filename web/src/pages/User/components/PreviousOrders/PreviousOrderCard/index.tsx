@@ -117,7 +117,10 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
             </Grid>
             <Grid item className={classes.item}>
               <div>Order # {order._id}</div>
-              <Link to="/" className={classes.linkColor}>
+              <Link
+                to={`/order-details/${order._id}`}
+                className={classes.linkColor}
+              >
                 Order Details
               </Link>
             </Grid>
@@ -128,7 +131,10 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
             product.items.map(item => (
               <ProductPrevOrder
                 key={product._id}
-                product={product}
+                productId={product.productId._id}
+                productName={product.productId.name}
+                productPrice={product.productPrice}
+                imageUrl={product.productId.items[0].productImages[0].imageUrl}
                 item={item}
               />
             )),
