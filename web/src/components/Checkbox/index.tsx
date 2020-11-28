@@ -35,20 +35,22 @@ const Checkbox: React.FC<CheckboxProps> = ({
   }, [isChecked]);
 
   const handleChange = useCallback(() => {
-    if (handleCheckboxChange) handleCheckboxChange(!checked, name);
+    if (!disabled) {
+      if (handleCheckboxChange) handleCheckboxChange(!checked, name);
 
-    setChecked(!checked);
-  }, [handleCheckboxChange, checked, name]);
+      setChecked(!checked);
+    }
+  }, [handleCheckboxChange, disabled, checked, name]);
 
   return (
-    <CheckboxContainer onClick={handleChange}>
+    <CheckboxContainer disabled={disabled} onClick={handleChange}>
       <HiddenCheckbox
+        disabled={disabled}
         name={name}
         type="checkbox"
-        disabled={disabled}
         {...rest}
       />
-      <StyledCheckbox checked={checked}>
+      <StyledCheckbox disabled={disabled} checked={checked}>
         <Icon viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
         </Icon>

@@ -12,9 +12,7 @@ const SortByProvider: React.FC = ({ children }) => {
   const [sortByFilter, setSortByFilter] = useState<string>('');
 
   const setSortBy = useCallback((sortBy: string) => {
-    const updatedFilters = setSortByFilter(sortBy);
-
-    return updatedFilters;
+    setSortByFilter(sortBy);
   }, []);
 
   const removeSortBy = useCallback(() => {
