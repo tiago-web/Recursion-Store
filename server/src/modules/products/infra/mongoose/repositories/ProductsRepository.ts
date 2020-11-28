@@ -3,6 +3,7 @@ import Product, { IProduct } from '../models/Product';
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDTO';
 import IFindQuantityDTO from '@modules/products/dtos/IFindQuantityDTO';
+import IFindByFilters from '@modules/products/dtos/IFindByFilters';
 
 class ProductsRepository {
   public async findByName(productName: string): Promise<IProduct | null> {
@@ -17,50 +18,55 @@ class ProductsRepository {
     return products;
   }
 
-  public async findQuantity({ productId, color, sizeTag }: IFindQuantityDTO): Promise<number | null> {
+  public async findQuantity({
+    productId,
+    color,
+    sizeTag,
+  }: IFindQuantityDTO): Promise<number | null> {
     const product = await this.findById(productId);
 
-    if (!product)
-      return null;
+    if (!product) return null;
 
-    if (!product.items)
-      return null;
+    if (!product.items) return null;
 
     const item = product.items.find(item => item.color === color);
 
-    if (!item)
-      return null;
+    if (!item) return null;
 
     const matchedSize = item.sizes.find(size => size.sizeTag === sizeTag);
 
-    if (!matchedSize)
-      return null;
+    if (!matchedSize) return null;
 
     const quantity = matchedSize.quantity;
 
     return quantity;
   }
 
-  public async updateSizeQuantity({ productId, color, sizeTag, quantity, operator }: IUpdateSizeQuantityDTO): Promise<IProduct | null> {
+  public async updateSizeQuantity({
+    productId,
+    color,
+    sizeTag,
+    quantity,
+    operator,
+  }: IUpdateSizeQuantityDTO): Promise<IProduct | null> {
     const product = await this.findById(productId);
 
-    if (!product)
-      return null;
+    if (!product) return null;
 
-    if (!product.items)
-      return null;
+    if (!product.items) return null;
 
     const item = product.items.find(item => item.color === color);
 
-    if (!item)
-      return null;
+    if (!item) return null;
 
     const sizeToUpdate = item.sizes.find(size => size.sizeTag === sizeTag);
 
-    if (!sizeToUpdate)
-      return null;
+    if (!sizeToUpdate) return null;
 
-    const newQuantity = operator === 'add' ? sizeToUpdate.quantity + quantity : sizeToUpdate.quantity - quantity;
+    const newQuantity =
+      operator === 'add'
+        ? sizeToUpdate.quantity + quantity
+        : sizeToUpdate.quantity - quantity;
 
     sizeToUpdate.quantity = newQuantity;
 
@@ -70,12 +76,39 @@ class ProductsRepository {
   }
 
   public async findById(id: string): Promise<IProduct | null> {
-    const product = await Product.findById(id).populate("reviews");
+    const product = await Product.findById(id).populate('reviews');
 
     return product;
   }
 
-  public async create(productData: ICreateProductDTO): Promise<IProduct | null> {
+  public async findByFilters({
+    categories,
+    sizes,
+  }: IFindByFilters): Promise<IProduct[] | null> {
+    if (categories && sizes)
+      return await Product.find({
+        $and: [
+          { 'items.sizes': { $elemMatch: { sizeTag: { $in: sizes } } } },
+          { categories: { $all: categories } },
+        ],
+      });
+
+    if (sizes)
+      return await Product.find({
+        'items.sizes': { $elemMatch: { sizeTag: { $in: sizes } } },
+      });
+
+    if (categories)
+      return await Product.find({
+        categories: { $all: categories },
+      });
+
+    return null;
+  }
+
+  public async create(
+    productData: ICreateProductDTO,
+  ): Promise<IProduct | null> {
     const product = new Product(productData);
 
     await product.save();

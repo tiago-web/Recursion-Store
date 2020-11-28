@@ -36,10 +36,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Container>
-      {items.map(item => (
-        <>
-          {item.color === selectedColor && (
+      {items.map(
+        item =>
+          item.color === selectedColor && (
             <ProductImage
+              key={item.color}
               style={{
                 backgroundImage: `url(${item.productImages[0].imageUrl})`,
               }}
@@ -54,9 +55,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 />
               )}
             </ProductImage>
-          )}
-        </>
-      ))}
+          ),
+      )}
       <ProductName to={`/product-detail/${productId}`}>{name}</ProductName>
 
       <ProductPrice>{formatToDollars(price)}</ProductPrice>

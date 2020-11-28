@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../../services/api';
-// import { useProductsFilter } from '../../contexts/ProductsFilterContext';
+import { useProductsFilter } from '../../contexts/ProductsFilterContext';
 // import { useSortBy } from '../../contexts/SortByContext';
 
 import ProductCard from './ProductCard';
@@ -28,16 +28,31 @@ export interface Product {
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [productsFound, setProductsFound] = useState(false);
-  // const { filters } = useProductsFilter();
+  const { filters } = useProductsFilter();
   // const { sortBy } = useSortBy();
 
   useEffect(() => {
     setProductsFound(products.length > 0);
   }, [products]);
 
-  // useEffect(() => {
-  //   console.log(filters);
-  // }, [filters]);
+  useEffect(() => {
+    const categories = filters
+      .find(filter => filter.sessionTitle === 'Category')
+      ?.filterNames.join(',');
+
+    const sizes = filters
+      .find(filter => filter.sessionTitle === 'Size')
+      ?.filterNames.join(',');
+
+    api
+      .get('products', {
+        params: {
+          categories,
+          sizes,
+        },
+      })
+      .then(response => setProducts(response.data));
+  }, [filters]);
 
   // useEffect(() => {
   //   console.log(sortBy);
@@ -68,8 +83,8 @@ const ProductList: React.FC = () => {
             />
           ))
         ) : (
-            <NoFoundProducts>No products were found.</NoFoundProducts>
-          )}
+          <NoFoundProducts>No products were found.</NoFoundProducts>
+        )}
       </Products>
     </Container>
   );

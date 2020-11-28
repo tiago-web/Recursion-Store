@@ -8,15 +8,10 @@
     "strictPropertyInitialization": false,
     "baseUrl": "./src",
     "paths": {
-      "@modules/*": [
-        "modules/*"
-      ],
-      "@shared/*": [
-        "shared/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ]
+      "@modules/*": ["modules/*"],
+      "@shared/*": ["shared/*"],
+      "@config/*": ["config/*"],
+      "@utils/*": ["utils/*"]
     },
     "allowJs": true,
     "esModuleInterop": true,
