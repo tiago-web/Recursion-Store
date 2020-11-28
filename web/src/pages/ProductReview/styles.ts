@@ -80,7 +80,7 @@ export const Form = styled.form`
 
   input {
     padding: 16px;
-    border: 0;
+    border: 1px solid #dfe5ec;
     border-radius: 4px;
     color: #293845;
 
@@ -95,7 +95,7 @@ export const Form = styled.form`
   }
   textarea {
     padding: 16px;
-    border: 0;
+    border: 1px solid #dfe5ec;
     border-radius: 4px;
     color: #293845;
 
@@ -107,6 +107,10 @@ export const Form = styled.form`
       color: #909ea9;
       font-size: 18px;
     }
+  }
+
+  .error {
+    border: 1px solid #f00;
   }
 
   button {
