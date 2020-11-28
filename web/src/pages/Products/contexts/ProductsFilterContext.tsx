@@ -1,4 +1,5 @@
 import React, { createContext, useState, useCallback, useContext } from 'react';
+import capitalizeWords from '../../../utils/capitalizeWords';
 import { SortByProvider } from './SortByContext';
 
 interface Filter {
@@ -10,6 +11,7 @@ interface ProductsFilterContextData {
   filters: Filter[];
   addFilter(sessionTitle: string, filter: string): void;
   removeFilter(sessionTitle: string, filter: string): void;
+  removeAllFilters(): void;
 }
 
 const ProductsFilterContext = createContext<ProductsFilterContextData>(
@@ -31,13 +33,13 @@ const ProductsFilterProvider: React.FC = ({ children }) => {
       );
 
       if (existentSessionTitle) {
-        existentSessionTitle.filterNames.push(filter);
+        existentSessionTitle.filterNames.push(capitalizeWords(filter));
 
         setFilters(newFiltersArray);
       } else {
         setFilters(prevFilters => [
           ...prevFilters,
-          { sessionTitle, filterNames: [filter] },
+          { sessionTitle, filterNames: [capitalizeWords(filter)] },
         ]);
       }
     },
@@ -64,9 +66,18 @@ const ProductsFilterProvider: React.FC = ({ children }) => {
     [filters],
   );
 
+  const removeAllFilters = useCallback(() => {
+    const defaultFiltersState = [...filters];
+
+    defaultFiltersState[0].filterNames = [];
+    defaultFiltersState[1].filterNames = [];
+
+    setFilters(defaultFiltersState);
+  }, [filters]);
+
   return (
     <ProductsFilterContext.Provider
-      value={{ filters, addFilter, removeFilter }}
+      value={{ filters, addFilter, removeFilter, removeAllFilters }}
     >
       <SortByProvider>{children}</SortByProvider>
     </ProductsFilterContext.Provider>

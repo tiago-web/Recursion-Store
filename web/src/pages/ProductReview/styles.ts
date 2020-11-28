@@ -8,6 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   @media screen and (max-width: 1120px) {
     margin-left: 0;
@@ -22,8 +23,27 @@ export const Container = styled.div`
     }
   }
 
+  button#go-back {
+    max-width: 500px;
+  }
+
+  div.alert {
+    position: absolute;
+    width: 300px;
+    height: 100px;
+
+    right: 15;
+    bottom: 15;
+
+    span {
+      line-height: 24px;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+
   div.form {
-    width: 60%;
+    width: 1000px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -34,11 +54,11 @@ export const Container = styled.div`
     }
 
     img {
-      width: 500px;
+      width: 400px;
       height: 450px;
 
       @media screen and (max-width: 1120px) {
-        width: 90%;
+        width: 400px;
       }
     }
   }
@@ -46,7 +66,7 @@ export const Container = styled.div`
 
 export const Form = styled.form`
   width: 400px;
-  min-width: 400px;
+  max-width: 400px;
   height: 450px;
   display: flex;
   flex-direction: column;
@@ -55,12 +75,12 @@ export const Form = styled.form`
 
   @media screen and (max-width: 1120px) {
     margin: 48px 24px 0;
-    width: 90%;
+    width: 500px;
   }
 
   input {
     padding: 16px;
-    border: 0;
+    border: 1px solid #dfe5ec;
     border-radius: 4px;
     color: #293845;
 
@@ -75,7 +95,7 @@ export const Form = styled.form`
   }
   textarea {
     padding: 16px;
-    border: 0;
+    border: 1px solid #dfe5ec;
     border-radius: 4px;
     color: #293845;
 
@@ -89,9 +109,14 @@ export const Form = styled.form`
     }
   }
 
+  .error {
+    border: 1px solid #f00;
+  }
+
   button {
     @media screen and (max-width: 1120px) {
       margin: 0 24px 24px;
+      width: 350px;
     }
   }
 `;
