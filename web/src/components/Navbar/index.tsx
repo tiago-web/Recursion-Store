@@ -27,9 +27,9 @@ const Navbar: React.FC = () => {
           </ContainerTitle>
         </Grid>
         <Grid container xs={12} className={classes.NavbarGridCenter}>
-          <Link to="/products">Women</Link>
-          <Link to="/products">Men</Link>
-          <Link to="/products">Kids</Link>
+          <Link to="/products/women">Women</Link>
+          <Link to="/products/men">Men</Link>
+          <Link to="/products/kids">Kids</Link>
         </Grid>
         <Grid container xs={6} className={classes.NavbarGridRight}>
           <div className={classes.search}>
