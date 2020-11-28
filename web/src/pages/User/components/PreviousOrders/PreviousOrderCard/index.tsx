@@ -7,7 +7,7 @@ import { TProduct } from './ProductPrevOrder';
 import formatToDollars from '../../../../../utils/formatToDollars';
 import formatDateToOrderDate from '../../../../../utils/formatDateToOrderDate';
 
-type TAddress = {
+export type TAddress = {
   address: string;
   country: string;
   state: string;

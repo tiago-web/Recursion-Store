@@ -4,16 +4,6 @@ import styled from 'styled-components';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      backgroundColor: 'transparent',
-      boxShadow: 'none',
-      color: theme.palette.text.secondary,
-    },
     alignLeft: {
       textAlign: 'left',
     },
@@ -23,7 +13,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     title: {
       textAlign: 'center',
       fontWeight: 'bold',
-      fontSize: '1.3rem',
+      fontSize: '1.2rem',
     },
   }),
 );

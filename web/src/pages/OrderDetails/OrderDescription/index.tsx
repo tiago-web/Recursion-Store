@@ -1,9 +1,31 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-
+import formatToDollars from '../../../utils/formatToDollars';
+import formatDateToOrderDate from '../../../utils/formatDateToOrderDate';
+import { TAddress } from '../../User/components/PreviousOrders/PreviousOrderCard';
 import { useStyles, RowMUGrid } from './styles';
 
-const OrderDescription: React.FC = () => {
+type OrderDescriptionProps = {
+  orderId: string;
+  date: string;
+  status: string;
+  shippingAddress: TAddress;
+  billingAddress: TAddress;
+  subTotal: number;
+  shippingPrice: number;
+  total: number;
+};
+
+const OrderDescription: React.FC<OrderDescriptionProps> = ({
+  orderId,
+  date,
+  status,
+  shippingAddress,
+  billingAddress,
+  subTotal,
+  shippingPrice,
+  total,
+}) => {
   const classes = useStyles();
   return (
     <Grid
@@ -13,57 +35,58 @@ const OrderDescription: React.FC = () => {
       }}
     >
       <RowMUGrid item xs={12} className={classes.title}>
-        Order #12312312
+        Order # {orderId}
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignLeft}>
+      <RowMUGrid item xs={6} className={classes.alignLeft}>
         Status
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignRight}>
-        Delivered
+      <RowMUGrid item xs={6} className={classes.alignRight}>
+        {status}
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignLeft}>
+      <RowMUGrid item xs={6} className={classes.alignLeft}>
         Order Placed
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignRight}>
-        August 10, 2020
+      <RowMUGrid item xs={6} className={classes.alignRight}>
+        {formatDateToOrderDate(date)}
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignLeft}>
+      <RowMUGrid item xs={6} className={classes.alignLeft}>
         Subtotal
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignRight}>
-        CA$299.98
+      <RowMUGrid item xs={6} className={classes.alignRight}>
+        {formatToDollars(subTotal)}
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignLeft}>
+      <RowMUGrid item xs={6} className={classes.alignLeft}>
         Shipping Price
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignRight}>
-        CA$2.98
+      <RowMUGrid item xs={6} className={classes.alignRight}>
+        {formatToDollars(shippingPrice)}
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignLeft}>
+      <RowMUGrid item xs={6} className={classes.alignLeft}>
         Total
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignRight}>
-        CA$321.98
+      <RowMUGrid item xs={6} className={classes.alignRight}>
+        {formatToDollars(total)}
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignLeft}>
+      <RowMUGrid item xs={6} className={classes.alignLeft}>
         Shipping Address
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignRight}>
-        123 Eglinton Rd
+      <RowMUGrid item xs={6} className={classes.alignRight}>
+        {shippingAddress.address}
         <br />
-        1A2 B3C
+        {shippingAddress.postalCode}
         <br />
-        Toronto, Ontario, Canada
+        {shippingAddress.city}, {shippingAddress.state},{' '}
+        {shippingAddress.country}
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignLeft}>
+      <RowMUGrid item xs={6} className={classes.alignLeft}>
         Billing Address
       </RowMUGrid>
-      <RowMUGrid item xs={12} sm={6} className={classes.alignRight}>
-        123 Eglinton Rd
+      <RowMUGrid item xs={6} className={classes.alignRight}>
+        {billingAddress.address}
         <br />
-        1A2 B3C
+        {billingAddress.postalCode}
         <br />
-        Toronto, Ontario, Canada
+        {billingAddress.city}, {billingAddress.state}, {billingAddress.country}
       </RowMUGrid>
     </Grid>
   );
