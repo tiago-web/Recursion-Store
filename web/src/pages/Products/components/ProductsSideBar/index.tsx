@@ -10,7 +10,7 @@ const ProductsSideBar: React.FC = () => {
       <SideBar>
         <SideBarItem
           title="Sort By"
-          items={['Lowest Price', 'Highest Price', 'Sale']}
+          items={['Lowest Price', 'Highest Price']}
           isSortBySection
         />
         <SideBarItem

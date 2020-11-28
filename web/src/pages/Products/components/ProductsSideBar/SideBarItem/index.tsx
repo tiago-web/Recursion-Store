@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import SideBarBtn from '../SideBarBtn';
 import Checkbox from '../../../../../components/Checkbox';
 
@@ -24,12 +24,16 @@ const SideBarItem: React.FC<SideBarProps> = ({
   items,
   isSortBySection,
 }) => {
-  const { filter } = useParams<RouteParams>();
+  const { filter: urlFilter } = useParams<RouteParams>();
+
+  const [filter, setFilter] = useState<string | undefined>(urlFilter);
 
   const [selected, setSelected] = useState(false);
   const [checkboxSelectedByFilter, setCheckboxSelectedByFilter] = useState('');
   const { addFilter, removeFilter } = useProductsFilter();
   const { sortBy, setSortBy, removeSortBy } = useSortBy();
+
+  const history = useHistory();
 
   useEffect(() => {
     if (filter) {
@@ -67,10 +71,27 @@ const SideBarItem: React.FC<SideBarProps> = ({
       if (checked) {
         addFilter(title, name);
       } else {
+        if (
+          filter &&
+          name.replace(/\s/g, '').toLocaleLowerCase() ===
+            filter.replace(/\s/g, '').toLocaleLowerCase()
+        ) {
+          history.go(-1);
+          setFilter(undefined);
+        }
         removeFilter(title, name);
       }
     },
-    [isSortBySection, setSortBy, removeSortBy, addFilter, removeFilter, title],
+    [
+      isSortBySection,
+      setSortBy,
+      removeSortBy,
+      addFilter,
+      removeFilter,
+      title,
+      filter,
+      history,
+    ],
   );
 
   return (
