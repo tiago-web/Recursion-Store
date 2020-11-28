@@ -15,7 +15,7 @@ import {
 
 interface CheckboxProps extends HtmlHTMLAttributes<HTMLInputElement> {
   name: string;
-  isChecked?: boolean;
+  isChecked: boolean;
   disabled?: boolean;
   handleCheckboxChange?(checked: boolean, name: string): void;
 }
@@ -24,14 +24,14 @@ const Checkbox: React.FC<CheckboxProps> = ({
   name,
   disabled,
   children,
-  isChecked = false,
+  isChecked,
   handleCheckboxChange,
   ...rest
 }) => {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (isChecked) setChecked(true);
+    setChecked(isChecked);
   }, [isChecked]);
 
   const handleChange = useCallback(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../../../../services/api';
 import { useProductsFilter } from '../../contexts/ProductsFilterContext';
 import { useSortBy } from '../../contexts/SortByContext';

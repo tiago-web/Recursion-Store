@@ -14,10 +14,14 @@ export const CheckboxContainer = styled.div<CheckBoxProps>`
     margin-top: 7px;
   }
 
+  color: ${shade(0.25, '#b0b0b0')};
+
   ${props =>
     props.disabled &&
     css`
       cursor: default;
+
+      color: ${lighten(0.09, '#b0b0b0')};
     `}
 `;
 
@@ -38,12 +42,12 @@ export const StyledCheckbox = styled.div<CheckBoxProps>`
   display: inline-block;
   width: 18px;
   height: 18px;
-  background: ${props => (props.checked ? '#2196F3' : '#d1d1d1')};
+  background: ${props => (props.checked ? '#2196F3' : lighten(0.2, '#b0b0b0'))};
   border-radius: 3px;
   transition: all 0.3s;
 
   :hover {
-    background: ${props => (props.checked ? '#2196F3' : shade(0.4, '#d1d1d1'))};
+    background: ${props => (props.checked ? '#2196F3' : shade(0.2, '#b0b0b0'))};
   }
 
   ${Icon} {
@@ -56,7 +60,7 @@ export const StyledCheckbox = styled.div<CheckBoxProps>`
       cursor: default;
 
       pointer-events: none;
-      background: ${lighten(0.1, '#d1d1d1')};
+      background: ${lighten(0.27, '#b0b0b0')};
     `}
 `;
 
