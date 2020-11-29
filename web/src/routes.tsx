@@ -11,6 +11,7 @@ import OrdersHistory from './pages/User/OrdersHistory';
 import Addresses from './pages/User/Addresses';
 import AddEditAddress from './pages/User/AddEditAddress';
 import OrderDetails from './pages/OrderDetails';
+import Login from './pages/Login';
 
 const Routes: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ const Routes: React.FC = () => {
       <Route component={AddEditAddress} path="/user/edit-address" />
       <Route component={AddEditAddress} path="/user/add-address" />
       <Route component={OrderDetails} path="/order-details/:orderId" />
+      <Route component={Login} path="/login" />
     </Switch>
   );
 };

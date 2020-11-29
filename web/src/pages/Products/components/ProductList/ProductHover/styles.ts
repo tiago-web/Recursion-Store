@@ -3,7 +3,7 @@ import { Button as MaterialBtn } from '@material-ui/core';
 import { shade } from 'polished';
 
 export const Container = styled.div`
-  /* transition: opacity 0.3 ease-in; */
+  transition: all 0.3s;
 
   width: 100%;
   height: 100%;
@@ -37,16 +37,15 @@ export const DetailsBtn = styled(MaterialBtn)`
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
 
   &:hover {
-    background: ${shade(0.2, '#fff')};
+    background: ${shade(0.3, 'rgba(255, 255, 255, 0.9)')};
   }
 
   a {
     font-family: Roboto, Ubunto, sans-serif;
-    font-weight: 700;
-    color: #333;
+    color: var(--text-color);
     width: 100%;
   }
 `;
@@ -54,18 +53,17 @@ export const DetailsBtn = styled(MaterialBtn)`
 export const QuickAddBtn = styled(MaterialBtn)`
   text-transform: uppercase;
   width: 100%;
+  transition: background-color 0.3s;
 
   padding: 6px 8px;
-  background: rgb(128, 155, 177, 0.9);
+  background: rgba(52, 28, 73, 0.9);
   margin: 3px;
   color: #fff;
   font-family: Roboto, Ubunto, sans-serif;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 
-  transition: background-color 0.2s;
-
   &:hover {
-    background: ${shade(0.4, '#809bb1')};
+    background: ${shade(0.3, 'rgba(52, 28, 73, 0.9)')};
   }
 `;

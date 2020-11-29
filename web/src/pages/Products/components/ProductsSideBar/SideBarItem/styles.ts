@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-interface CheckBoxProps {
-  checked: boolean;
-}
-
 interface OptionsProps {
   selected: boolean;
 }

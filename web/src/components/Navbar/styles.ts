@@ -63,6 +63,8 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     NavbarGridCenter: {
       placeContent: 'space-evenly',
+      fontWeight: 500,
+      fontSize: '1.1rem',
       alignItems: 'center',
     },
     NavbarGridRight: {
