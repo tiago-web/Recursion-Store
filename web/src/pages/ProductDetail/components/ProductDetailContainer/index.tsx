@@ -49,6 +49,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
 
     if (item) {
       setImages(item.productImages);
+      setItemSize(item);
     }
   }, [selectedColor, items, item]);
 
@@ -95,7 +96,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             <AddToCart>
               <div className="quantity">
                 Quantity
-                <input name="qty" type="number" value="1" />
+                <input name="qty" type="number" placeholder="Qty" />
               </div>
               <Button>ADD TO CART</Button>
             </AddToCart>
