@@ -15,8 +15,16 @@ class OrdersRepository {
 
   public async findById(id: string): Promise<IOrder | null> {
     const order = await Order.findById(id)
-      .populate('products')
-      .populate('userId');
+      .populate({
+        path: 'userId',
+        model: 'User',
+        select: 'firstName lastName phone',
+      })
+      .populate({
+        path: 'products.productId',
+        model: 'Product',
+        select: 'name items.color items.productImages',
+      });
 
     return order;
   }
@@ -31,7 +39,7 @@ class OrdersRepository {
       .populate({
         path: 'products.productId',
         model: 'Product',
-        select: 'name items.productImages',
+        select: 'name items.color items.productImages',
       });
 
     return orders;
