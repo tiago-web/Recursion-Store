@@ -44,6 +44,7 @@ const Home: React.FC = () => {
         <Carousel
           backgroundColor="#341C49"
           items={items}
+          timeout={{ enter: 600, exit: 450 }}
           navButtonsAlwaysVisible
           height={60}
         />

@@ -20,8 +20,8 @@ export const MenuButton = styled(Button)<MenuButtonProps>`
     return props.isActive ? '#e06b50' : '#583874';
   }};
 
-  padding: 1vw 2.6vw;
-  color: ${props => (props.isLogOut ? '#583874' : 'var(--menu-text-color)')};
+  padding: 1vw 2.3vw;
+  color: ${props => (props.isLogOut ? '#583874' : '#fafafa')};
 
   border: 2px solid ${props => (props.isActive ? '#e06b50' : '#583874')};
 
@@ -38,7 +38,7 @@ export const MenuButton = styled(Button)<MenuButtonProps>`
       ${props =>
         props.isActive ? shade(0.25, '#e06b50') : shade(0.25, '#583874')};
 
-    color: var(--menu-text-color);
+    color: #fafafa;
   }
 `;
 

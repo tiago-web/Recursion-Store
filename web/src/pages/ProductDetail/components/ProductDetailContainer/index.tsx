@@ -61,7 +61,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
     <>
       <Container>
         <CarouselContent>
-          <Carousel items={images} height={85} autoPlay={false} />
+          <Carousel items={images} height={90} autoPlay={false} />
         </CarouselContent>
         {productId ? (
           <ProductDetailContent>

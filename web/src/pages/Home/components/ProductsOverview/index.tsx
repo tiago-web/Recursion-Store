@@ -9,7 +9,7 @@ const ProductOverview: React.FC = () => {
       <Container>
         <SeeProduct
           style={{
-            backgroundImage: `url(http://localhost:3333/files/db9f69d2dcf820c89151-blueDress.jpg)`,
+            backgroundImage: `url(http://localhost:3333/files/dcd8c56e36a2b7cb2ad4-sleeve.jpg)`,
           }}
         >
           <strong>Women</strong>
@@ -17,7 +17,7 @@ const ProductOverview: React.FC = () => {
         </SeeProduct>
         <SeeProduct
           style={{
-            backgroundImage: `url(http://localhost:3333/files/2968e0748d0908a16254-skinnyJeans.jpg)`,
+            backgroundImage: `url(http://localhost:3333/files/6172f0d9ee16ee5ac3b0-blackSweaterMen3.jpg)`,
           }}
         >
           <strong>Men</strong>

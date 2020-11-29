@@ -18,12 +18,14 @@ const Navbar: React.FC = () => {
       <Toolbar>
         <Grid container xs={7} className={classes.NavbarGridLeft}>
           <ContainerTitle>
-            <MaterialTypography variant="h4">
-              <Link to="/">Recursion Store</Link>
-            </MaterialTypography>
-            <MaterialTypography variant="h6">
-              You have never seen a store like this!
-            </MaterialTypography>
+            <Link to="/">
+              <MaterialTypography variant="h4">
+                Recursion Store
+              </MaterialTypography>
+              <MaterialTypography variant="h6">
+                You have never seen a store like this!
+              </MaterialTypography>
+            </Link>
           </ContainerTitle>
         </Grid>
         <Grid container xs={12} className={classes.NavbarGridCenter}>

@@ -4,9 +4,10 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   justify-content: space-around;
-  width: 80%;
+  width: 70%;
+  max-width: 1000px;
 
   @media screen and (max-width: 1120px) {
     flex-direction: column;
@@ -17,9 +18,9 @@ export const Container = styled.div`
 `;
 
 export const ProductOffer = styled.div`
-  min-width: 400px;
+  min-width: 350px;
   height: 500px;
-  padding: 15px;
+  margin: 32px 65px;
 
   a {
     display: flex;
@@ -28,7 +29,7 @@ export const ProductOffer = styled.div`
 
     img {
       height: 380px;
-      width: 350px;
+      width: 330px;
 
       border-radius: 5px;
 

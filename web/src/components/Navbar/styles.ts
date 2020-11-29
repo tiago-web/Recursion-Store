@@ -11,6 +11,8 @@ import {
   createStyles,
 } from '@material-ui/core/styles';
 
+import { lighten, shade } from 'polished';
+
 export const MaterialAppBar = styled(AppBar)`
   position: unset;
   /* flex: 20em 40em 20em; */
@@ -28,11 +30,15 @@ export const ContainerTitle = styled.div`
     margin: 0;
     padding: 0;
     font-weight: 600;
+    color: #e06b50;
+    opacity: 0.9;
   }
   h6 {
     margin: 0;
     font-size: 1rem;
     padding: 0;
+    color: ${lighten(0.2, '#e06b50')};
+    opacity: 0.9;
   }
 `;
 

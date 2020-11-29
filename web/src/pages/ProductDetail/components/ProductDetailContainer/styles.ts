@@ -28,7 +28,7 @@ export const Title = styled.div`
 
   span {
     margin-top: 24px;
-    color: #000;
+    color: #341c49;
   }
 `;
 
@@ -84,7 +84,7 @@ export const ProductColor = styled.button<ProductColorProps>`
   border-radius: 50%;
   border: none;
 
-  border: ${props => (props.selected ? '4px solid #868c98' : 'none')};
+  border: ${props => (props.selected ? '3px solid #e06b50' : 'none')};
 
   height: 45px;
   width: 45px;
@@ -123,7 +123,7 @@ export const Description = styled.div`
 
   strong {
     font-size: 18px;
-    color: #222;
+    color: #341c49;
     margin-bottom: 12px;
   }
 `;

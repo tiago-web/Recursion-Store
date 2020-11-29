@@ -35,6 +35,9 @@ const Carousel: React.FC<CarouselProps> = ({
       animation="slide"
       background={backgroundColor}
       interval={5500}
+      indicatorContainerProps={{ className: 'indicatorContainer', style: {} }}
+      activeIndicatorProps={{ className: 'activeIndicator', style: {} }}
+      indicatorProps={{ className: 'nonActiveIndicator', style: {} }}
       {...rest}
     >
       {items.map(item => (
