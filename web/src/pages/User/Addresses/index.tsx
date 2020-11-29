@@ -22,7 +22,7 @@ const PreviousOrders: React.FC = () => {
     const token = localStorage.getItem('@Recursion:token');
     if (!token) history.push('/');
     api
-      .get('/profile/shippingAddressese', {
+      .get('/profile/shippingAddresses', {
         headers: {
           Authorization: `bearer ${token}`,
         },
