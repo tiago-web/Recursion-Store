@@ -38,20 +38,7 @@ const Login: React.FC = () => {
     },
   });
 
-  // type TLoginResponse = {
-  //   data: {
-  //     token?: string;
-  //     status?: string;
-  //     message?: string;
-  //   };
-  //   status: number;
-  // };
-
   const onSubmit = ({ email, password }: TLoginData): void => {
-    // const response: TLoginResponse = api.post('/sessions', {
-    //   email,
-    //   password,
-    // });
     api
       .post('/sessions', {
         email,
