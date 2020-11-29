@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import PreviousOrderCard, { TPreviousOrder } from './PreviousOrderCard';
 import api from '../../../../services/api';
+import apiErrorHandler from '../../../../services/apiErrorHandler';
 import { useStyles } from './styles';
-import { useHistory } from 'react-router-dom';
 // import previousOrders from '../../../../MockData/previousOrders';
 
 const PreviousOrders: React.FC = () => {
@@ -26,10 +27,7 @@ const PreviousOrders: React.FC = () => {
         },
       })
       .then(response => setOrders(response.data))
-      .catch(response => {
-        localStorage.removeItem('@Recursion:token');
-        history.push('/');
-      });
+      .catch(apiErrorHandler);
   }, []);
 
   return (
