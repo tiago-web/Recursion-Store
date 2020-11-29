@@ -29,33 +29,34 @@ export const SeeProduct = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: 350px 400px;
-  /* background: url('https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg')
-    no-repeat center; */
 
   strong {
-    color: #909ea9;
+    color: #000;
     font-size: 36px;
     width: 100%;
     text-align: center;
     background: #fff;
+    opacity: 0.6;
   }
 
   a {
-    border: 1px solid #505050;
-    padding: 4px 8px;
-    color: #505050;
+    border: 1px solid #e4740c;
+    padding: 8px 16px;
+    color: #e4740c;
     font-weight: bold;
+    background: #fff;
 
     transition: color 0.2s;
     transition: border 0.2s;
+    transition: background-color 0.2s;
 
     @media screen and (max-width: 1120px) {
       text-align: center;
     }
 
     &:hover {
-      color: ${shade(0.6, '#505050')};
-      border: 1px solid ${shade(0.6, '#505050')};
+      color: #fff;
+      background: #e4740c;
     }
   }
 `;

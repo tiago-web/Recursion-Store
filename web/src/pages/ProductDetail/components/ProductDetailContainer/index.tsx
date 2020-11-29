@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
+import { size } from 'polished';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
+import Sizes from './Sizes';
 
 import { ImagesProps, ItemProps, Product } from '../..';
 
@@ -16,7 +18,6 @@ import {
   AvailableColors,
   ColorContainer,
   ProductColor,
-  Sizes,
   AddToCart,
   Description,
 } from './styles';
@@ -34,6 +35,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
 }) => {
   const [selectedColor, setSelectedColor] = useState(items[0].color);
   const [item, setItem] = useState<ItemProps>();
+  const [itemSize, setItemSize] = useState<ItemProps>(items[0]);
   const [images, setImages] = useState<ImagesProps[]>(items[0].productImages);
 
   const handleSelectedColor = useCallback((colorName: string) => {
@@ -50,6 +52,12 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
     }
   }, [selectedColor, items, item]);
 
+  const availableSizeTags = useMemo(() => {
+    const sizeTags = itemSize.sizes.map(s => s.sizeTag);
+
+    return sizeTags;
+  }, [itemSize]);
+
   return (
     <>
       <Container>
@@ -65,47 +73,25 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             <Colors>
               <strong>Colors</strong>
               <AvailableColors>
-                {items.map(item => (
+                {items.map(i => (
                   <Tooltip
-                    key={item.color}
-                    title={item.color}
+                    key={i.color}
+                    title={i.color}
                     arrow
-                    aria-label={item.color.toLocaleLowerCase()}
+                    aria-label={i.color.toLocaleLowerCase()}
                   >
                     <ColorContainer>
                       <ProductColor
-                        onClick={() => handleSelectedColor(item.color)}
-                        selected={item.color === selectedColor}
-                        colorHex={item.imageColor}
+                        onClick={() => handleSelectedColor(i.color)}
+                        selected={i.color === selectedColor}
+                        colorHex={i.imageColor}
                       />
                     </ColorContainer>
                   </Tooltip>
                 ))}
               </AvailableColors>
             </Colors>
-            <Sizes>
-              <strong>Sizes</strong>
-              <ul>
-                <li>
-                  <a href="/">XS</a>
-                </li>
-                <li>
-                  <a href="/">S</a>
-                </li>
-                <li>
-                  <a href="/">M</a>
-                </li>
-                <li>
-                  <a href="/">L</a>
-                </li>
-                <li>
-                  <a href="/">XL</a>
-                </li>
-                <li>
-                  <a href="/">XXL</a>
-                </li>
-              </ul>
-            </Sizes>
+            <Sizes availableSizeTags={availableSizeTags} item={itemSize} />
             <AddToCart>
               <div className="quantity">
                 Quantity

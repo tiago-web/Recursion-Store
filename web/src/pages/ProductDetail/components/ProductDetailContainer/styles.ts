@@ -94,36 +94,6 @@ export const ProductColor = styled.button<ProductColorProps>`
   }
 `;
 
-export const Sizes = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-
-  margin-top: 24px;
-
-  strong {
-    font-size: 18px;
-    color: #222;
-  }
-
-  ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-
-    margin-top: 12px;
-
-    li {
-      width: 45px;
-      height: 45px;
-      flex: 1 0 auto;
-      margin: 0 3px 5px 0;
-      color: #222;
-    }
-  }
-`;
-
 export const AddToCart = styled.div`
   display: flex;
   align-items: center;
