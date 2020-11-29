@@ -30,10 +30,10 @@ const Home: React.FC = () => {
       <Navbar />
       <Section>
         <Carousel
-          backgroundColor="#868c98"
+          backgroundColor="#341C49"
           items={items}
           navButtonsAlwaysVisible
-          height={420}
+          height={440}
         />
       </Section>
       <Section>

@@ -19,7 +19,7 @@ export const Container = styled.div`
 
   width: 100%;
 
-  background-color: #f2f2f2;
+  background-color: #fff;
 
   h1 {
     margin: 80px;

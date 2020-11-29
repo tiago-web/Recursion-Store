@@ -9,10 +9,10 @@ export const Container = styled.div`
 `;
 
 export const SideBar = styled.div`
-  background: #fff;
+  background: #e0e1e2;
   border-style: solid;
   border-width: 2px 2px 0 0;
-  border-color: #868c98;
+  border-color: #583874;
 
   height: 100%;
   width: 18vw;
@@ -22,5 +22,5 @@ export const SideBar = styled.div`
   align-items: center;
   flex-direction: column;
 
-  box-shadow: 2px -2px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px -2px 4px 0px rgba(0, 0, 0, 0.3);
 `;
