@@ -4,7 +4,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { InputAdornment } from '@material-ui/core';
-import TextField, { StandardTextFieldProps } from '@material-ui/core/TextField';
+import { StandardTextFieldProps } from '@material-ui/core/TextField';
+
+import { CssTextField } from './styles';
 
 const PasswordInputField: React.FC<StandardTextFieldProps> = ({
   label,
@@ -23,7 +25,7 @@ const PasswordInputField: React.FC<StandardTextFieldProps> = ({
   }, []);
 
   return (
-    <TextField
+    <CssTextField
       variant="outlined"
       type={showPassword ? 'text' : 'password'}
       label={label}
@@ -49,7 +51,7 @@ const PasswordInputField: React.FC<StandardTextFieldProps> = ({
       }}
     >
       {children}
-    </TextField>
+    </CssTextField>
   );
 };
 

@@ -9,13 +9,11 @@ export const Container = styled.div`
 `;
 
 export const SideBar = styled.div`
-  background: #e0e1e2;
-  border-style: solid;
-  border-width: 2px 2px 0 0;
-  border-color: #583874;
+  background: #462a5e;
 
   height: 100%;
-  width: 18vw;
+  width: 16vw;
+  border-top-right-radius: 8px;
   max-width: 320px;
   min-width: 180px;
   display: flex;

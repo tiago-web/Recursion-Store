@@ -55,7 +55,9 @@ const Checkbox: React.FC<CheckboxProps> = ({
           <polyline points="20 6 9 17 4 12" />
         </Icon>
       </StyledCheckbox>
-      <CheckboxLabel>{children}</CheckboxLabel>
+      <CheckboxLabel disabled={disabled} checked={checked}>
+        {children}
+      </CheckboxLabel>
     </CheckboxContainer>
   );
 };

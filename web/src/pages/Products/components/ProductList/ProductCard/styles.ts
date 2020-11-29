@@ -28,24 +28,26 @@ export const ProductImage = styled.div`
 `;
 
 export const ProductName = styled(Link)`
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: ${shade(0.1, '#868c98')};
-  transition: color 0.2s;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  transition: color 0.3s;
 
   :hover {
-    color: ${shade(0.4, '#868c98')};
+    color: ${shade(0.6, '#583874')};
   }
 `;
 
 export const ProductPrice = styled.p`
-  margin-top: 4px;
+  margin: 3px 0 9px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #e06b50;
 `;
 
 export const AvailableColors = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 8px;
 `;
 
 export const ColorContainer = styled.div`
@@ -59,12 +61,15 @@ export const ColorContainer = styled.div`
 export const ProductColor = styled.button<ProductColorProps>`
   background: ${props => props.colorHex};
   border-radius: 50%;
-  border: none;
+  border: ${props =>
+    props.selected ? '3px solid #e06b50' : `3px solid ${props.colorHex}`};
 
-  border: ${props => (props.selected ? '4px solid #868c98' : 'none')};
+  height: 27px;
+  width: 27px;
 
-  height: 26px;
-  width: 26px;
+  box-shadow: -1px -3px 36px -5px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -1px -3px 36px -5px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: -1px -3px 36px -5px rgba(0, 0, 0, 0.6);
 
   &:focus {
     outline: none;

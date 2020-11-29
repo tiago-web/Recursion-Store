@@ -15,13 +15,14 @@ export const Container = styled.div`
   flex-direction: column;
   place-content: center;
   align-items: center;
-  padding-bottom: 64px;
+  padding-bottom: 74px;
 
   width: 100%;
 
   background-color: #fff;
 
   h1 {
-    margin: 80px;
+    margin: 80px 0;
+    font-size: 2.1rem;
   }
 `;

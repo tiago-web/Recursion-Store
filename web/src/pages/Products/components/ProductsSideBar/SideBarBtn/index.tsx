@@ -21,7 +21,7 @@ const SideBarBtn: React.FC<ButtonProps> = ({
   }, [toggleItemSelected]);
 
   return (
-    <Button onClick={toggleActive}>
+    <Button active={active} onClick={toggleActive}>
       {children}
       {active ? <RemoveIcon /> : <AddIcon />}
     </Button>

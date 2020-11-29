@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, InputAdornment, TextField, Paper } from '@material-ui/core';
+import { Grid, InputAdornment, Paper } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PasswordInputField from '../../../../components/PasswordInputField';
-import { useStyles, PurpleButton } from './styles';
+import { useStyles, PurpleButton, CssTextField } from './styles';
 
 const UpdateProfile: React.FC = () => {
   const classes = useStyles();
@@ -24,7 +24,7 @@ const UpdateProfile: React.FC = () => {
 
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
-            <TextField
+            <CssTextField
               className={classes.textField}
               label="First Name"
               name="firstName"
@@ -41,7 +41,7 @@ const UpdateProfile: React.FC = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
-            <TextField
+            <CssTextField
               className={classes.textField}
               label="Last Name"
               name="lastName"
@@ -59,7 +59,7 @@ const UpdateProfile: React.FC = () => {
 
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
-            <TextField
+            <CssTextField
               className={classes.textField}
               label="Email"
               name="email"
@@ -76,7 +76,7 @@ const UpdateProfile: React.FC = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
-            <TextField
+            <CssTextField
               className={classes.textField}
               label="Phone"
               name="phone"

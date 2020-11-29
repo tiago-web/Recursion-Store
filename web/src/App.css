@@ -1,16 +1,14 @@
 :root {
-  --primary-color: #34cb79;
+  --darkest-purple: #220f33;
   --title-color: #e06b50;
   --text-color: #583874;
   --navbar-bg: #583874;
   --navbar-border: #220f33;
   --navbar-text: #e0e1e2c9;
-  --menu-active-btn-bg: #83cba5;
-  --menu-active-border-btn-bg: #00a34d;
-  --menu-inactive-btn-bg: #dfe5ec;
-  --menu-inactive-border-btn-bg: #9eadba;
-  --menu-logout-btn-bg: #e9a2ad;
-  --menu-logout-border-btn-bg: #d3455b;
+  --menu-text-color: #fafafa;
+  --menu-active-btn-bg: #e06b50;
+  --menu-inactive-btn-bg: rgba(88, 56, 116, 0.8);
+  --menu-logout-btn-bg: #d3455b;
   --placeholder-text: #69527e;
 }
 
