@@ -18,6 +18,7 @@ type TProductDetail = {
   name: string;
   items: [
     {
+      color: string;
       productImages: [
         {
           image: string;
