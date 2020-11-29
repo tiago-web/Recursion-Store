@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+interface ProductColorProps {
+  colorHex: string;
+  selected: boolean;
+}
+
 export const Container = styled.div`
   margin-left: 120px;
   display: flex;
@@ -50,6 +55,7 @@ export const ProductDetailContent = styled.div`
     margin-left: 0;
   }
 `;
+
 export const Colors = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,96 +63,34 @@ export const Colors = styled.div`
   justify-content: center;
 
   margin-top: 24px;
+`;
 
-  strong {
-    font-size: 18px;
-    color: #222;
-  }
+export const AvailableColors = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+`;
 
-  ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
+export const ColorContainer = styled.div`
+  max-width: 350px;
 
-    margin-top: 12px;
-
-    li {
-      width: 45px;
-      height: 45px;
-      max-width: 45px;
-      border-radius: 50%;
-      flex: 1 0 auto;
-      margin: 0 5px 10px 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      button {
-        border: 0;
-        border-radius: 50%;
-        padding: 14px;
-        cursor: pointer;
-      }
-    }
-    #red {
-      background: #f00;
-      button {
-        color: #f00;
-        background: #f00;
-      }
-    }
-    #blue {
-      background: #00f;
-      button {
-        color: #00f;
-        background: #00f;
-      }
-    }
-    #green {
-      background: #0f0;
-      button {
-        color: #0f0;
-        background: #0f0;
-      }
-    }
-    #black {
-      background: #000;
-      button {
-        color: #000;
-        background: #000;
-      }
-    }
+  & + div {
+    margin-left: 6px;
   }
 `;
 
-export const Sizes = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+export const ProductColor = styled.button<ProductColorProps>`
+  background: ${props => props.colorHex};
+  border-radius: 50%;
+  border: none;
 
-  margin-top: 24px;
+  border: ${props => (props.selected ? '4px solid #868c98' : 'none')};
 
-  strong {
-    font-size: 18px;
-    color: #222;
-  }
+  height: 45px;
+  width: 45px;
 
-  ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-
-    margin-top: 12px;
-
-    li {
-      width: 45px;
-      height: 45px;
-      flex: 1 0 auto;
-      margin: 0 3px 5px 0;
-      color: #222;
-    }
+  &:focus {
+    outline: none;
   }
 `;
 

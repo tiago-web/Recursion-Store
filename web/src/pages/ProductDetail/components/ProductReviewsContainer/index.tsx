@@ -16,7 +16,7 @@ const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
     <>
       <Container>
         <ProductReviewHeader productId={productId} />
-        <ProductReviewBody />
+        <ProductReviewBody productId={productId} title="Most Relevant" />
       </Container>
     </>
   );

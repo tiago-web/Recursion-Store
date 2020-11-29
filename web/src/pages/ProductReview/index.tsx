@@ -1,7 +1,13 @@
-import React, { FormEvent, useCallback, useEffect, useState } from 'react';
+import React, {
+  FormEvent,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
-import { useToast } from '../../contexts/ToastContext';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 import Navbar from '../../components/Navbar';
 import Button from '../../components/Button';
@@ -45,6 +51,8 @@ const ProductReview: React.FC = () => {
   const [body, setBody] = useState('');
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openError, setOpenError] = useState(false);
 
   useEffect(() => {
     async function loadProduct(): Promise<void> {
@@ -58,27 +66,41 @@ const ProductReview: React.FC = () => {
     loadProduct();
   }, [productId, image, product]);
 
+  function Alert(props: AlertProps): ReactElement {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string): void => {
+    setOpenSuccess(false);
+    setOpenError(false);
+  };
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
 
     if (!title && !body) {
       setTitleError(true);
       setBodyError(true);
+      setOpenError(true);
       return;
     }
     if (!title) {
       setTitleError(true);
       setBodyError(false);
+      setOpenError(true);
       return;
     }
     if (!body) {
       setTitleError(false);
       setBodyError(true);
+      setOpenError(true);
       return;
     }
 
     setTitleError(false);
     setBodyError(false);
+
+    setOpenSuccess(true);
 
     const data = {
       productId,
@@ -86,9 +108,11 @@ const ProductReview: React.FC = () => {
       body,
     };
 
-    await api.post('reviews', data);
+    console.log(data);
 
-    history.push(`/product-detail/${productId}`);
+    // await api.post('reviews', data);
+
+    // history.push(`/product-detail/${productId}`);
   }
 
   const handleGoBack = useCallback(() => {
@@ -125,16 +149,34 @@ const ProductReview: React.FC = () => {
                   onChange={e => setBody(e.target.value)}
                 />
                 <Button type="submit">SEND</Button>
+                <Snackbar
+                  open={openSuccess}
+                  autoHideDuration={4000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="success">
+                    Thanks for your review!
+                  </Alert>
+                </Snackbar>
+                <Snackbar
+                  open={openError}
+                  autoHideDuration={4000}
+                  onClose={handleClose}
+                >
+                  <Alert onClose={handleClose} severity="error">
+                    Fill the form to submit a review!
+                  </Alert>
+                </Snackbar>
               </Form>
             </div>
           </>
         ) : (
-            <Button>
+            <>
               <h1>Product not found!</h1>
               <Button onClick={handleGoBack} id="go-back">
                 Go back
             </Button>
-            </Button>
+            </>
           )}
       </Container>
     </>
