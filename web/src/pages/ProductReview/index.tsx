@@ -9,7 +9,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
-import Navbar from '../../components/Navbar';
 import Button from '../../components/Button';
 
 import api from '../../services/api';
@@ -121,7 +120,6 @@ const ProductReview: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <Container>
         {product ? (
           <>
@@ -171,13 +169,13 @@ const ProductReview: React.FC = () => {
             </div>
           </>
         ) : (
-            <>
-              <h1>Product not found!</h1>
-              <Button onClick={handleGoBack} id="go-back">
-                Go back
+          <>
+            <h1>Product not found!</h1>
+            <Button onClick={handleGoBack} id="go-back">
+              Go back
             </Button>
-            </>
-          )}
+          </>
+        )}
       </Container>
     </>
   );

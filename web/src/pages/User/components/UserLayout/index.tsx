@@ -1,6 +1,5 @@
 import { Grid, Divider } from '@material-ui/core';
 import React from 'react';
-import Navbar from '../../../../components/Navbar';
 import UserSideBar from '../UserSideBar';
 
 type UserLayoutProps = {
@@ -18,7 +17,6 @@ const UserLayout: React.FC<UserLayoutProps> = ({
 }) => {
   return (
     <>
-      <Navbar />
       <Grid
         container
         direction="column"

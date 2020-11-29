@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Paper, Divider } from '@material-ui/core';
 import previousOrders from '../../MockData/previousOrders';
-import Navbar from '../../components/Navbar';
 import ProductPrevOrder from '../User/components/PreviousOrders/PreviousOrderCard/ProductPrevOrder';
 import OrderDescription from './OrderDescription';
 import { useStyles } from './styles';
@@ -11,7 +10,6 @@ const OrderDetails: React.FC = () => {
   const classes = useStyles();
   return (
     <>
-      <Navbar />
       <div className={classes.root}>
         <Grid container justify="space-between">
           <Grid item xs={12} justify="flex-start">

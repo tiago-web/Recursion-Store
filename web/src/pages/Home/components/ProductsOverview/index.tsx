@@ -12,16 +12,16 @@ const ProductOverview: React.FC = () => {
             backgroundImage: `url(http://localhost:3333/files/db9f69d2dcf820c89151-blueDress.jpg)`,
           }}
         >
-          <strong>Dresses</strong>
-          <Link to="products">See Products</Link>
+          <strong>Women</strong>
+          <Link to="/products/women">See Products</Link>
         </SeeProduct>
         <SeeProduct
           style={{
-            backgroundImage: `url(http://localhost:3333/files/d96223fe3cb566e13ff4-blackSweater.jpg)`,
+            backgroundImage: `url(http://localhost:3333/files/2968e0748d0908a16254-skinnyJeans.jpg)`,
           }}
         >
-          <strong>Sweater</strong>
-          <Link to="products">See Products</Link>
+          <strong>Men</strong>
+          <Link to="/products/men">See Products</Link>
         </SeeProduct>
         <SeeProduct
           style={{
@@ -29,15 +29,15 @@ const ProductOverview: React.FC = () => {
           }}
         >
           <strong>Kids</strong>
-          <Link to="products">See Products</Link>
+          <Link to="/products/kids">See Products</Link>
         </SeeProduct>
         <SeeProduct
           style={{
             backgroundImage: `url(http://localhost:3333/files/e446aab3b724cfd02f66-face_mask_1.jpg)`,
           }}
         >
-          <strong>Face Musk</strong>
-          <Link to="products">See Products</Link>
+          <strong>Accessories</strong>
+          <Link to="/products/accessories">See Products</Link>
         </SeeProduct>
       </Container>
     </>

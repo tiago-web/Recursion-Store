@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Toolbar, Tooltip, Grid, InputBase } from '@material-ui/core';
 import {
   MaterialAppBar,

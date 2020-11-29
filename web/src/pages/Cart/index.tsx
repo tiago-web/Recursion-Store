@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
 import AlsoLikeList from '../../components/AlsoLikeList';
-import Navbar from '../../components/Navbar';
 import CarouselList from '../../components/CarouselList';
 
 import Button from '../../components/Button';
@@ -119,7 +118,6 @@ const Cart: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <Container>
         <CartSection>
           <CartContainer>
@@ -136,25 +134,25 @@ const Cart: React.FC = () => {
                   </Button>
                 </div>
               ) : (
-                  items.map(item => (
-                    <CartItem key={item.id}>
+                items.map(item => (
+                  <CartItem key={item.id}>
+                    <div>
+                      <img src={item.imageUrl} alt={item.name} />
                       <div>
-                        <img src={item.imageUrl} alt={item.name} />
-                        <div>
-                          <h2>{item.name}</h2>
-                          <span>{item.size}</span>
-                          <span>{item.color}</span>
-                          <div className="quantity">
-                            <span>{item.quantity} items</span>
-                            <Button className="add">+</Button>
-                            <Button className="rmv">-</Button>
-                          </div>
+                        <h2>{item.name}</h2>
+                        <span>{item.size}</span>
+                        <span>{item.color}</span>
+                        <div className="quantity">
+                          <span>{item.quantity} items</span>
+                          <Button className="add">+</Button>
+                          <Button className="rmv">-</Button>
                         </div>
                       </div>
-                      <span>CA${item.price}</span>
-                    </CartItem>
-                  ))
-                )}
+                    </div>
+                    <span>CA${item.price}</span>
+                  </CartItem>
+                ))
+              )}
             </YourCartContainer>
             <Divider orientation="vertical" flexItem />
             <CartTotalContainer>

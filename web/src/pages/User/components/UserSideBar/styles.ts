@@ -17,15 +17,13 @@ interface MenuButtonProps {
 export const MenuButton = styled(Button)<MenuButtonProps>`
   background: ${props => {
     if (props.isLogOut) return 'transparent';
-    return props.isActive ? '#e06b50' : 'rgba(88, 56, 116, 1)';
+    return props.isActive ? '#e06b50' : '#583874';
   }};
 
   padding: 1vw 2.6vw;
-  color: ${props =>
-    props.isLogOut ? 'rgba(88, 56, 116, 1)' : 'var(--menu-text-color)'};
+  color: ${props => (props.isLogOut ? '#583874' : 'var(--menu-text-color)')};
 
-  border: 2px solid
-    ${props => (props.isActive ? '#e06b50' : 'rgba(88, 56, 116, 1)')};
+  border: 2px solid ${props => (props.isActive ? '#e06b50' : '#583874')};
 
   width: 15rem;
   height: 3rem;
@@ -34,15 +32,11 @@ export const MenuButton = styled(Button)<MenuButtonProps>`
   justify-content: space-between;
   &:hover {
     background: ${props =>
-      props.isActive
-        ? shade(0.25, '#e06b50')
-        : shade(0.25, 'rgba(88, 56, 116, 1)')};
+      props.isActive ? shade(0.25, '#e06b50') : shade(0.25, '#583874')};
 
     border: 2px solid
       ${props =>
-        props.isActive
-          ? shade(0.25, '#e06b50')
-          : shade(0.25, 'rgba(88, 56, 116, 1)')};
+        props.isActive ? shade(0.25, '#e06b50') : shade(0.25, '#583874')};
 
     color: var(--menu-text-color);
   }

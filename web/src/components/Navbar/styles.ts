@@ -13,10 +13,10 @@ import {
 
 export const MaterialAppBar = styled(AppBar)`
   position: unset;
-  flex: 20em 40em 20em;
+  /* flex: 20em 40em 20em; */
   background: var(--navbar-bg);
   border-bottom: 3px solid var(--navbar-border);
-  height: 130px;
+  height: 100px;
   justify-content: center;
 `;
 
@@ -24,8 +24,10 @@ export const ContainerTitle = styled.div`
   align-self: center;
   padding: 0.4rem 0;
   h4 {
+    font-size: 1.8rem;
     margin: 0;
     padding: 0;
+    font-weight: 600;
   }
   h6 {
     margin: 0;
@@ -41,7 +43,6 @@ export const ReactLink = styled(Link)`
 
 export const MaterialTypography = styled(Typography)`
   color: var(--navbar-text);
-  font-weight: 600;
 `;
 
 export const MaterialShoppingCartIcon = styled(ShoppingCartIcon)`
@@ -63,8 +64,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     NavbarGridCenter: {
       placeContent: 'space-evenly',
-      fontWeight: 500,
-      fontSize: '1.1rem',
+      fontSize: '1.2rem',
       alignItems: 'center',
     },
     NavbarGridRight: {
