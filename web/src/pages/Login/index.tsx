@@ -1,6 +1,6 @@
-import React from 'react';
-import api from '../../services/api';
+import React, { useState } from 'react';
 import { AccountCircle as AccountCircleIcon } from '@material-ui/icons';
+import { useHistory } from 'react-router-dom';
 // import { DevTool } from '@hookform/devtools';
 import {
   Avatar,
@@ -14,6 +14,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
+import api from '../../services/api';
 import { CssTextField, useStyles } from './styles';
 
 type TLoginData = {
@@ -24,6 +25,9 @@ type TLoginData = {
 
 const Login: React.FC = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const [error, setError] = useState(undefined);
+
   const { register, handleSubmit, control, errors } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -34,8 +38,39 @@ const Login: React.FC = () => {
     },
   });
 
+  // type TLoginResponse = {
+  //   data: {
+  //     token?: string;
+  //     status?: string;
+  //     message?: string;
+  //   };
+  //   status: number;
+  // };
+
   const onSubmit = ({ email, password }: TLoginData): void => {
-    // const response = await api.post('/sessions', { email, password });
+    // const response: TLoginResponse = api.post('/sessions', {
+    //   email,
+    //   password,
+    // });
+    api
+      .post('/sessions', {
+        email,
+        password,
+      })
+      .then(response => {
+        if (response.statusText === 'Created' && response.data.token) {
+          setError(undefined);
+          localStorage.setItem('@Recursion:token', response.data.token);
+          history.push('/products');
+        }
+      })
+      .catch(response => {
+        const { message } = JSON.parse(response.request.response);
+        setError(message);
+        setTimeout(() => {
+          setError(undefined);
+        }, 2500);
+      });
   };
 
   return (
@@ -94,6 +129,12 @@ const Login: React.FC = () => {
           {errors.password && (
             <span className={classes.error}>{errors.password.message}</span>
           )}
+
+          <Grid container>
+            <Grid item>
+              <span className={classes.error}>{error}</span>
+            </Grid>
+          </Grid>
 
           <Grid container>
             {/* <Grid item xs>
