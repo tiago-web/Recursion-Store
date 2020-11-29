@@ -38,12 +38,14 @@ export const Options = styled.ul`
 export const OptionBtn = styled.button<OptionBtnProps>`
   border-radius: 50%;
   border: 2px solid var(--text-color);
+  font-size: 0.9rem;
   color: var(--text-color);
 
-  padding: 3px;
+  padding: 15px;
+  font-weight: 600;
 
-  width: 30px;
-  height: 30px;
+  width: 27px;
+  height: 27px;
 
   display: flex;
   align-items: center;
@@ -56,9 +58,9 @@ export const OptionBtn = styled.button<OptionBtnProps>`
   ${props =>
     props.selected &&
     css`
-      background: #20589c;
+      background: var(--text-color);
       color: #fff;
-      border: none;
+      border: 2px solid var(--text-color);
     `}
 
   ${props =>
@@ -66,8 +68,8 @@ export const OptionBtn = styled.button<OptionBtnProps>`
     css`
       background: #c53030;
       color: #fff;
-      opacity: 0.5;
-      border: none;
+      opacity: 0.6;
+      border: 2px solid #c53030;
 
       cursor: not-allowed;
     `}
@@ -75,8 +77,11 @@ export const OptionBtn = styled.button<OptionBtnProps>`
 
 export const OptionTitle = styled.h2`
   width: 100%;
+  font-size: 1.5rem;
 
-  margin-bottom: 10px;
+  color: #462a5e;
+
+  margin: 0 0 14px 4px;
 `;
 
 export const OptionItem = styled.div`
@@ -86,11 +91,11 @@ export const OptionItem = styled.div`
 export const AddToCartBtn = styled(MaterialBtn)`
   text-transform: uppercase;
   width: 50%;
-  margin-top: 8px;
+  margin-top: 13px;
   margin-left: auto;
 
   padding: 6px 8px;
-  background: #163861;
+  background: ${shade(0.1, '#e06b50')};
   color: #fff;
   font-family: Roboto, Ubunto, sans-serif;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -99,6 +104,6 @@ export const AddToCartBtn = styled(MaterialBtn)`
   transition: background-color 0.2s;
 
   &:hover {
-    background: ${shade(0.5, '#163861')};
+    background: ${shade(0.5, '#e06b50')};
   }
 `;

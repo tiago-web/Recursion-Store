@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-content: flex-start;
   align-items: flex-start;
   justify-content: space-around;
-  width: 100%;
+  width: 80%;
 
   @media screen and (max-width: 1120px) {
     flex-direction: column;
@@ -19,7 +19,7 @@ export const Container = styled.div`
 export const ProductOffer = styled.div`
   min-width: 400px;
   height: 500px;
-  margin: 0 24px;
+  padding: 15px;
 
   a {
     display: flex;
@@ -27,8 +27,8 @@ export const ProductOffer = styled.div`
     align-items: left;
 
     img {
-      height: 400px;
-      width: 400px;
+      height: 380px;
+      width: 350px;
 
       border-radius: 5px;
 
@@ -38,14 +38,15 @@ export const ProductOffer = styled.div`
     }
 
     strong {
-      margin-top: 8px;
-      font-size: 1.15rem;
-      font-weight: 600;
+      margin: 8px 0 0 4px;
+      font-size: 1.2rem;
+      font-weight: 700;
     }
 
     span {
-      margin-top: 4px;
-      color: var(--text-color);
+      margin: 4px 0 0 4px;
+      color: #e06b50;
+      font-weight: 600;
     }
   }
 `;
