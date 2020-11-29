@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import { Button as MaterialBtn } from '@material-ui/core';
 
-import { shade } from 'polished';
-
 interface ButtonProps {
   active: boolean;
 }

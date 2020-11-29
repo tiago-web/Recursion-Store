@@ -32,7 +32,8 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   }
 
   .Carousel-indicators-9,
-  .Carousel-indicators-10 {
+  .Carousel-indicators-10,
+  .Carousel-indicators-38 {
     position: absolute;
     bottom: 0;
 
@@ -45,7 +46,6 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   }
 
   .CarouselItem {
-    width: 75vw;
   }
 
   .Carousel-button-14 {
@@ -60,6 +60,8 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
 `;
 
 export const CarouselContainer = styled.div<CarouselProps>`
+  width: 70vw;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: ${props => (props.name ? 'space-around' : 'center')};

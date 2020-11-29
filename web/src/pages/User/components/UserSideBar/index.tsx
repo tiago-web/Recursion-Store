@@ -2,8 +2,10 @@ import React from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import HouseIcon from '@material-ui/icons/House';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+
 import { Link } from 'react-router-dom';
-import { MenuButton, LogOutIcon, useStyles } from './styles';
+import { MenuButton, useStyles } from './styles';
 
 type UserSideBarProps = {
   myProfileActive?: boolean;
@@ -39,7 +41,7 @@ const UserSideBar: React.FC<UserSideBarProps> = ({
       </Link>
       <MenuButton isLogOut>
         LogOut
-        <LogOutIcon />
+        <PowerSettingsNewIcon />
       </MenuButton>
     </div>
   );

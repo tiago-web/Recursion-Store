@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { lighten } from 'polished';
-
 export const Container = styled.div`
   @media screen and (min-width: 3150px) {
     height: 85vh;
