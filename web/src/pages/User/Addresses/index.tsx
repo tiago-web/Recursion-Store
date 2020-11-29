@@ -15,7 +15,7 @@ const PreviousOrders: React.FC = () => {
         <Grid item className={classes.container}>
           <h2>Addresses</h2>
         </Grid>
-        <Grid container item className={classes.container}>
+        <Grid container item>
           {userAddresses.map(address => (
             <Address key={address.postalCode} address={address} />
           ))}

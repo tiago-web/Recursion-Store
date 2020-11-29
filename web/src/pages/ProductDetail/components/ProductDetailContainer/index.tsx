@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
-import { size } from 'polished';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
@@ -63,7 +62,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
     <>
       <Container>
         <CarouselContent>
-          <Carousel items={images} height={800} autoPlay={false} />
+          <Carousel items={images} height={90} autoPlay={false} />
         </CarouselContent>
         {productId ? (
           <ProductDetailContent>
@@ -106,8 +105,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             </Description>
           </ProductDetailContent>
         ) : (
-            <h1>Product Not Found</h1>
-          )}
+          <h1>Product Not Found</h1>
+        )}
       </Container>
     </>
   );

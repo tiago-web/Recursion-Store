@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Navbar from '../../components/Navbar';
 import api from '../../services/api';
 
 import ProductDetailContainer from './components/ProductDetailContainer';
@@ -52,7 +51,6 @@ const ProductDetail: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       {product ? (
         <>
           <Section>
@@ -67,8 +65,8 @@ const ProductDetail: React.FC = () => {
           <ProductReviewsContainer productId={productId} />
         </>
       ) : (
-          <h1>Product not found!</h1>
-        )}
+        <h1>Product not found!</h1>
+      )}
     </>
   );
 };

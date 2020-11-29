@@ -5,10 +5,8 @@
   --navbar-bg: #583874;
   --navbar-border: #220f33;
   --navbar-text: #e0e1e2c9;
-  --menu-text-color: #fafafa;
   --menu-active-btn-bg: #e06b50;
   --menu-inactive-btn-bg: rgba(88, 56, 116, 0.8);
-  --menu-logout-btn-bg: #d3455b;
   --placeholder-text: #69527e;
 }
 
@@ -31,8 +29,12 @@ html {
 body,
 input,
 textarea,
+span,
+a,
+p,
+li,
 button {
-  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-family: Roboto, Arial, Helvetica, sans-serif !important;
 }
 
 button,
@@ -49,5 +51,5 @@ h5,
 h6 {
   color: var(--title-color);
   font-weight: 600;
-  font-family: Ubuntu;
+  font-family: Ubuntu !important;
 }

@@ -1,7 +1,7 @@
 import { Grid, Divider } from '@material-ui/core';
 import React from 'react';
-import Navbar from '../../../../components/Navbar';
 import UserSideBar from '../UserSideBar';
+import { useStyles } from './styles';
 
 type UserLayoutProps = {
   children: React.ReactNode;
@@ -16,9 +16,10 @@ const UserLayout: React.FC<UserLayoutProps> = ({
   ordersHistoryActive,
   addressesActive,
 }) => {
+  const classes = useStyles();
+
   return (
     <>
-      <Navbar />
       <Grid
         container
         direction="column"
@@ -58,7 +59,11 @@ const UserLayout: React.FC<UserLayoutProps> = ({
               addressesActive={addressesActive ? true : undefined}
             />
           </Grid>
-          <Divider orientation="vertical" flexItem />
+          <Divider
+            orientation="vertical"
+            flexItem
+            classes={{ root: classes.divider }}
+          />
           <Grid
             item
             container

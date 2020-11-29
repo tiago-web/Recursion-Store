@@ -9,13 +9,10 @@ import {
   CarouselImage,
 } from './styles';
 
-export interface ImagesProps {
-  imageUrl: string;
-}
-
 export interface Item {
   id: string;
   imageUrl?: string;
+  imageWidth?: number;
   name?: string;
   description?: string;
 }
@@ -37,7 +34,10 @@ const Carousel: React.FC<CarouselProps> = ({
       height={height}
       animation="slide"
       background={backgroundColor}
-      interval={5000}
+      interval={5500}
+      indicatorContainerProps={{ className: 'indicatorContainer', style: {} }}
+      activeIndicatorProps={{ className: 'activeIndicator', style: {} }}
+      indicatorProps={{ className: 'nonActiveIndicator', style: {} }}
       {...rest}
     >
       {items.map(item => (
@@ -51,6 +51,7 @@ const Carousel: React.FC<CarouselProps> = ({
           <CarouselImage
             name={!!item.name}
             imageUrl={!!item.imageUrl}
+            imageWidth={item.imageWidth}
             src={item.imageUrl}
             alt="Product Name"
           />
