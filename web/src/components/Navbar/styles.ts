@@ -16,6 +16,8 @@ export const MaterialAppBar = styled(AppBar)`
   flex: 20em 40em 20em;
   background: var(--navbar-bg);
   border-bottom: 3px solid var(--navbar-border);
+  height: 130px;
+  justify-content: center;
 `;
 
 export const ContainerTitle = styled.div`

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container, SeeProduct } from './styles';
-import api from '../../../../services/api';
 
 const ProductOverview: React.FC = () => {
   return (

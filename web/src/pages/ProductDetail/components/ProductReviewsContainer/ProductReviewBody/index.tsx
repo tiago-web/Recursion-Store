@@ -5,12 +5,16 @@ import { Container, Review, Info, ReviewBody, Likes } from './styles';
 
 interface ProductReviewBodyProps {
   productId: string;
+  title: string;
 }
 
-const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({ productId }) => {
+const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
+  productId,
+  title,
+}) => {
   return (
     <Container>
-      <h1>Most Relevant</h1>
+      <h1>{title}</h1>
       <Review>
         <Info>
           <span>Sergio</span>

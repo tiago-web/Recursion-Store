@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Carousel, { Item } from '../../components/Carousel';
 import Navbar from '../../components/Navbar';
 import ProductOffers from './components/ProductOffers';
@@ -10,18 +9,20 @@ import { Container, Section } from './styles';
 const Home: React.FC = () => {
   const items = [
     {
-      id: 0,
+      id: '0',
       imageUrl:
-        'https://calvinklein.scene7.com/is/image/CalvinKlein/54016593_466_main?wid=730&hei=961&fmt=jpeg&qlt=85%2C0&resMode=sharp2&op_usm=0.9%2C1.0%2C8%2C0&iccEmbed=0',
-      name: 'Sergio Sanchez',
+        'https://image.freepik.com/free-vector/christmas-santa-claus-character-with-lettering_23-2148386165.jpg',
+      name: 'Christmas is comming!',
       description:
-        'The best of the best, something that you have never seen before!',
+        'Shop our christmas offers to give the best gift to who you love: a RECURSION fashion piece!',
     },
     {
-      id: 1,
-      name: 'Banner Title #2',
+      id: '1',
+      imageUrl:
+        'https://cdn1.vectorstock.com/i/1000x1000/66/35/stop-coronavirus-covid-19-design-banner-vector-30366635.jpg',
+      name: 'COVID-19, we need to stop it!',
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        'It is time to stop the spread of the virus. The RECURSION Store is taking all the precautions needed to mantain our customers and employees safe. We offer a safe kit to help the community, send a message to know how to receive yours.',
     },
   ] as Item[];
 
@@ -30,10 +31,10 @@ const Home: React.FC = () => {
       <Navbar />
       <Section>
         <Carousel
-          backgroundColor="#868c98"
+          backgroundColor="#d12121"
           items={items}
           navButtonsAlwaysVisible
-          height={420}
+          height={500}
         />
       </Section>
       <Section>
