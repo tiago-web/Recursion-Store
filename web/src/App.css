@@ -1,17 +1,17 @@
 :root {
   --primary-color: #34cb79;
-  --title-color: #293845;
-  --text-color: #909ea9;
-  --navbar-bg: #809bb1;
-  --navbar-border: #163861;
-  --navbar-text: #4c5d6c;
+  --title-color: #e06b50;
+  --text-color: #583874;
+  --navbar-bg: #583874;
+  --navbar-border: #220f33;
+  --navbar-text: #e0e1e2c9;
   --menu-active-btn-bg: #83cba5;
   --menu-active-border-btn-bg: #00a34d;
   --menu-inactive-btn-bg: #dfe5ec;
   --menu-inactive-border-btn-bg: #9eadba;
   --menu-logout-btn-bg: #e9a2ad;
   --menu-logout-border-btn-bg: #d3455b;
-  --placeholder-text: #c8c8c8;
+  --placeholder-text: #69527e;
 }
 
 * {
@@ -21,7 +21,7 @@
 }
 
 body {
-  background: #dfe5ec;
+  background: #fafafa;
   -webkit-font-smoothing: antialiased;
   color: var(--text-color);
 }
@@ -50,5 +50,6 @@ h4,
 h5,
 h6 {
   color: var(--title-color);
+  font-weight: 600;
   font-family: Ubuntu;
 }

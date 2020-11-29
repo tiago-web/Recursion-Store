@@ -33,10 +33,24 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   .Carousel-indicators-9 {
     position: absolute;
     bottom: 0;
+
+    .Carousel-active {
+      color: #e0e1e2;
+    }
   }
 
   .CarouselItem {
     width: 75vw;
+  }
+
+  .Carousel-button-14 {
+    background: transparent;
+  }
+
+  .MuiIconButton-label .MuiSvgIcon-root {
+    width: 45px;
+    height: 45px;
+    color: #e0e1e2;
   }
 `;
 
@@ -49,9 +63,9 @@ export const CarouselContainer = styled.div<CarouselProps>`
 export const CarouselTitle = styled.h1`
   font-family: Roboto, Ubunto, sans-serif;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 `;
 
 export const CarouselDescription = styled.p`
-  color: #f0f0f0;
+  color: #e0e1e2;
 `;

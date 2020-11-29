@@ -19,6 +19,7 @@ export const Products = styled.div<ProductsProps>`
 
 export const Title = styled.h1`
   margin-bottom: 24px;
+  font-size: 2.3rem;
 `;
 
 export const NoFoundProducts = styled.h3`

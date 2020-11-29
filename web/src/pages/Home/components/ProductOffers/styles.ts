@@ -29,14 +29,23 @@ export const ProductOffer = styled.div`
     img {
       height: 400px;
       width: 400px;
+
+      border-radius: 5px;
+
+      -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     }
 
     strong {
       margin-top: 8px;
+      font-size: 1.15rem;
+      font-weight: 600;
     }
 
     span {
       margin-top: 4px;
+      color: var(--text-color);
     }
   }
 `;
