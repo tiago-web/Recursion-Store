@@ -12,6 +12,7 @@ import {
 import { useStyles, CssTypography } from './styles';
 
 export type TUserAddress = {
+  oldPostalCode?: string;
   address: string;
   country: string;
   state: string;

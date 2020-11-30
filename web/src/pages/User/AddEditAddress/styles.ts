@@ -11,6 +11,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     textFieldGrid: {
       padding: '1rem 1rem',
     },
+    error: {
+      color: 'red',
+    },
   }),
 );
 
