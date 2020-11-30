@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import UserLayout from '../components/UserLayout';
 import Address, { TUserAddress } from './Address';
 import { useStyles, PurpleSolidButton } from './styles';
@@ -10,7 +9,6 @@ import apiErrorHandler from '../../../services/apiErrorHandler';
 
 const PreviousOrders: React.FC = () => {
   const classes = useStyles();
-  const history = useHistory();
   const [addressesFound, setAddressesFound] = useState(false);
   const [addresses, setAddresses] = useState<TUserAddress[]>([]);
 
@@ -19,14 +17,8 @@ const PreviousOrders: React.FC = () => {
   }, [addresses]);
 
   useEffect(() => {
-    const token = localStorage.getItem('@Recursion:token');
-    if (!token) history.push('/');
     api
-      .get('/profile/shippingAddresses', {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      })
+      .get('/profile/shippingAddresses')
       .then(response => setAddresses(response.data))
       .catch(apiErrorHandler);
   }, []);
