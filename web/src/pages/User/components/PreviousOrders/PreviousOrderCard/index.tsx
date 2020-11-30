@@ -128,16 +128,21 @@ const PreviousOrderCard: React.FC<previousOrderCardProps> = ({ order }) => {
         </Paper>
         <Paper className={classes.orderDetails}>
           {order.products.map(product =>
-            product.items.map(item => (
-              <ProductPrevOrder
-                key={product._id}
-                productId={product.productId._id}
-                productName={product.productId.name}
-                productPrice={product.productPrice}
-                imageUrl={product.productId.items[0].productImages[0].imageUrl}
-                item={item}
-              />
-            )),
+            product.items.map(item => {
+              const imageUrl = product.productId.items.find(
+                itemImg => itemImg.color === item.color,
+              );
+              return (
+                <ProductPrevOrder
+                  key={product._id}
+                  productId={product.productId._id}
+                  productName={product.productId.name}
+                  productPrice={product.productPrice}
+                  imageUrl={imageUrl ? imageUrl.productImages[0].imageUrl : ''}
+                  item={item}
+                />
+              );
+            }),
           )}
         </Paper>
       </Paper>
