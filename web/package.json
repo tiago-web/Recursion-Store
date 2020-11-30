@@ -25,7 +25,7 @@
     "react-material-ui-carousel": "^2.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-spring": "^8.0.27",
+    "react-spring": "^9.0.0-rc.1",
     "styled-components": "^5.2.1",
     "typescript": "^3.9.5",
     "uuidv4": "^6.2.5",

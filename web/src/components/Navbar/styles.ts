@@ -12,8 +12,9 @@ import {
 } from '@material-ui/core/styles';
 
 import { lighten, shade } from 'polished';
+import { animated } from 'react-spring';
 
-export const MaterialAppBar = styled(AppBar)`
+const NavBar = styled(AppBar)`
   position: sticky;
 
   border-bottom: 3px solid var(--navbar-border);
@@ -40,6 +41,8 @@ export const MaterialAppBar = styled(AppBar)`
     border-bottom: 3px solid var(--navbar-border);
   }
 `;
+
+export const MaterialAppBar = animated(NavBar);
 
 export const ContainerTitle = styled.div`
   align-self: center;

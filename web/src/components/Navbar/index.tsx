@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Toolbar, Tooltip, Grid, InputBase } from '@material-ui/core';
+import { useSpring } from 'react-spring';
 import {
   MaterialAppBar,
   ContainerTitle,
@@ -16,6 +17,13 @@ const Navbar: React.FC = () => {
   const classes = useStyles();
   const [navbarActive, setNavbarActive] = useState(false);
   const [isHome, setIsHome] = useState(false);
+  // const props = useSpring({ opacity: 0 });
+  const [style, animate] = useSpring(() => ({
+    opacity: 1,
+    y: 0,
+    height: 100,
+    easing: 'ease',
+  }));
 
   const location = useLocation();
 
@@ -29,7 +37,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleNavBarActive = () => {
-      if (window.scrollY >= 150) {
+      if (window.scrollY >= 110) {
         setNavbarActive(true);
       } else {
         setNavbarActive(false);
@@ -43,6 +51,16 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (navbarActive) {
+      animate({ opacity: 0.5, y: -200, height: 80, config: { duration: 600 } });
+
+      animate({ opacity: 1, y: 0, delay: 500, config: { duration: 700 } });
+    } else {
+      animate({ height: 100 });
+    }
+  }, [navbarActive]);
+
   const handleNavbarClasses = useCallback(() => {
     if (isHome) {
       return navbarActive ? 'isHome active' : 'isHome';
@@ -51,7 +69,7 @@ const Navbar: React.FC = () => {
   }, [isHome, navbarActive]);
 
   return (
-    <MaterialAppBar className={handleNavbarClasses()}>
+    <MaterialAppBar style={style} className={handleNavbarClasses()}>
       <Toolbar>
         <Grid container xs={7} className={classes.NavbarGridLeft}>
           <ContainerTitle>
