@@ -31,7 +31,7 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   width: 100%;
 
   background: ${props => (props.background ? props.background : 'none')};
-  background-image: linear-gradient(180deg, #220f33, #220f33, #341c49, #462a5e);
+  background-image: linear-gradient(200deg, #220f33, #220f33, #341c49, #462a5e);
 
   .indicatorContainer {
     position: absolute;
@@ -69,6 +69,7 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
 export const CarouselContainer = styled.div<CarouselProps>`
   width: 80vw;
   min-height: 100%;
+  margin-top: 10vh;
 
   display: flex;
   align-items: center;

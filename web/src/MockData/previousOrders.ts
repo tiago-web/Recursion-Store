@@ -33,6 +33,7 @@ const previousOrders: TPreviousOrder[] = [
           name: 'Developer Sweater',
           items: [
             {
+              color: 'Black',
               productImages: [
                 {
                   image: 'il_1140xN.2102609728_mzgn.jpg',
@@ -66,6 +67,7 @@ const previousOrders: TPreviousOrder[] = [
           name: 'Cashmere Scarf',
           items: [
             {
+              color: 'Blue',
               productImages: [
                 {
                   image:
@@ -126,6 +128,7 @@ const previousOrders: TPreviousOrder[] = [
           name: 'Developer Sweater',
           items: [
             {
+              color: 'Black',
               productImages: [
                 {
                   image: 'il_1140xN.2102609728_mzgn.jpg',
@@ -159,6 +162,7 @@ const previousOrders: TPreviousOrder[] = [
           name: 'Cashmere Scarf',
           items: [
             {
+              color: 'Blue',
               productImages: [
                 {
                   image:
