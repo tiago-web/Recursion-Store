@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import HouseIcon from '@material-ui/icons/House';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../../../../contexts/AuthContext';
 import { MenuButton, useStyles } from './styles';
 
 type UserSideBarProps = {
@@ -19,6 +20,14 @@ const UserSideBar: React.FC<UserSideBarProps> = ({
   addressesActive,
 }) => {
   const classes = useStyles();
+  const { signOut } = useAuth();
+  const history = useHistory();
+
+  const handleLogOut = useCallback(e => {
+    signOut();
+    history.push('/');
+  }, []);
+
   return (
     <div className={classes.menuContainer}>
       <Link to="/user/myaccount">
@@ -39,7 +48,7 @@ const UserSideBar: React.FC<UserSideBarProps> = ({
           <HouseIcon />
         </MenuButton>
       </Link>
-      <MenuButton isLogOut>
+      <MenuButton onClick={handleLogOut} isLogOut>
         LogOut
         <PowerSettingsNewIcon />
       </MenuButton>
