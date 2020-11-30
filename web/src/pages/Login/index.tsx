@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { AccountCircle as AccountCircleIcon } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
 // import { DevTool } from '@hookform/devtools';
@@ -14,7 +14,8 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
-import api from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
+// import api from '../../services/api';
 import { CssTextField, useStyles } from './styles';
 
 type TLoginData = {
@@ -26,7 +27,8 @@ type TLoginData = {
 const Login: React.FC = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [error, setError] = useState(undefined);
+  const { signIn } = useAuth();
+  const [error, setError] = useState('');
 
   const { register, handleSubmit, control, errors } = useForm({
     mode: 'onChange',
@@ -38,27 +40,20 @@ const Login: React.FC = () => {
     },
   });
 
-  const onSubmit = ({ email, password }: TLoginData): void => {
-    api
-      .post('/sessions', {
-        email,
-        password,
-      })
-      .then(response => {
-        if (response.statusText === 'Created' && response.data.token) {
-          setError(undefined);
-          localStorage.setItem('@Recursion:token', response.data.token);
-          history.push('/products');
-        }
-      })
-      .catch(response => {
-        const { message } = JSON.parse(response.request.response);
-        setError(message);
-        setTimeout(() => {
-          setError(undefined);
-        }, 2500);
-      });
-  };
+  const onSubmit = useCallback(
+    async ({ email, password }: TLoginData): Promise<void> => {
+      try {
+        await signIn({
+          email,
+          password,
+        });
+      } catch (err) {
+        setError('Incorrect email/password combination.');
+      }
+    },
+
+    [signIn],
+  );
 
   return (
     <Container component="main" maxWidth="xs">
