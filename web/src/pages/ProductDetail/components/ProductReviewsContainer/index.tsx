@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import ProductReviewHeader from './ProductReviewHeader';
 import ProductReviewBody from './ProductReviewBody';
@@ -12,11 +12,24 @@ interface ProductReviewContainerProps {
 const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
   productId,
 }) => {
+  const [showAllReviews, setShowAllReviews] = useState(false);
+
+  const toggleShowAllReviews = useCallback(() => {
+    setShowAllReviews(prevState => !prevState);
+  }, []);
+
   return (
     <>
       <Container>
-        <ProductReviewHeader productId={productId} />
-        <ProductReviewBody productId={productId} title="Most Relevant" />
+        <ProductReviewHeader
+          productId={productId}
+          toggleShowAllReviews={toggleShowAllReviews}
+        />
+        <ProductReviewBody
+          productId={productId}
+          title="Most Relevant"
+          showAllReviews={showAllReviews}
+        />
       </Container>
     </>
   );
