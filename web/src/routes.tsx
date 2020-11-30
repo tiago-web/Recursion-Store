@@ -24,7 +24,10 @@ const Routes: React.FC = () => {
       <Route component={MyAccount} path="/user/myaccount" />
       <Route component={OrdersHistory} path="/user/ordershistory" />
       <Route component={Addresses} path="/user/addresses" />
-      <Route component={AddEditAddress} path="/user/edit-address" />
+      <Route
+        component={AddEditAddress}
+        path="/user/edit-address/:oldPostalCode"
+      />
       <Route component={AddEditAddress} path="/user/add-address" />
       <Route component={OrderDetails} path="/order-details/:orderId" />
       <Route component={Login} path="/login" />
