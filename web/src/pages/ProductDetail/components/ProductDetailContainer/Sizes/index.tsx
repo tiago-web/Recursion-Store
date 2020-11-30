@@ -35,6 +35,7 @@ const Sizes: React.FC<SizesProps> = ({ availableSizeTags, item }) => {
               <OptionBtn
                 disabled={!checkSizeQuantity(size)}
                 onClick={() => setSelectedSizeTag(size)}
+                selected={selectedSizeTag === size}
               >
                 {size}
               </OptionBtn>

@@ -52,6 +52,7 @@ export const OptionBtn = styled.div<OptionBtnProps>`
   border-radius: 50%;
   border: 2px solid var(--text-color);
   color: var(--text-color);
+  cursor: pointer;
 
   padding: 3px;
 

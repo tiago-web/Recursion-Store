@@ -10,9 +10,9 @@ const ProductOffers: React.FC = () => {
     <>
       <Container>
         {previousOrders.map(prevOrder =>
-          prevOrder.products.map(product => (
+          prevOrder.products.slice(0, 4).map(product => (
             <ProductOffer key={prevOrder._id}>
-              <Link to="product-detail/5fbf0c4a67a485596038e2a6">
+              <Link to="products">
                 <img
                   src={product.productId.items[0].productImages[0].imageUrl}
                   alt="MK"
@@ -23,46 +23,6 @@ const ProductOffers: React.FC = () => {
             </ProductOffer>
           )),
         )}
-        {/* <ProductOffer>
-          <Link to="product-detail">
-            <img
-              src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
-              alt="MK"
-            />
-            <strong>Dress V-shape</strong>
-            <span>CA$499.99</span>
-          </Link>
-        </ProductOffer>
-        <ProductOffer>
-          <Link to="product-detail">
-            <img
-              src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
-              alt="MK"
-            />
-            <strong>Dress V-shape</strong>
-            <span>CA$499.99</span>
-          </Link>
-        </ProductOffer>
-        <ProductOffer>
-          <Link to="product-detail">
-            <img
-              src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
-              alt="MK"
-            />
-            <strong>Dress V-shape</strong>
-            <span>CA$499.99</span>
-          </Link>
-        </ProductOffer>
-        <ProductOffer>
-          <Link to="product-detail">
-            <img
-              src="https://digital.michaelkors.com/refreshes/2020/holiday/refresh1/global/desktop/homepage/HP_PROMO_11-1.jpg"
-              alt="MK"
-            />
-            <strong>Dress V-shape</strong>
-            <span>CA$499.99</span>
-          </Link>
-        </ProductOffer> */}
       </Container>
     </>
   );
