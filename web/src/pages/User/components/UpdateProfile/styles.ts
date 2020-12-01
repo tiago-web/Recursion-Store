@@ -62,5 +62,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     textField: {
       width: '18.4rem',
     },
+    error: {
+      color: 'red',
+    },
+    success: {
+      color: 'green',
+    },
   }),
 );
