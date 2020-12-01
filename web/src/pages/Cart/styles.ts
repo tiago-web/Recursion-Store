@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -69,8 +70,8 @@ export const CartItem = styled.div`
   }
 
   img {
-    width: 250px;
-    height: 300px;
+    width: 170px;
+    height: 200px;
     border: 5px solid #fff;
   }
 
@@ -98,18 +99,35 @@ export const CartItem = styled.div`
             margin-left: 4px;
           }
         }
-        .add {
-          background: var(--menu-active-border-btn-bg);
-        }
-        .rmv {
-          background: var(--menu-logout-border-btn-bg);
-        }
       }
     }
   }
 
-  span {
-    margin: 8px 24px 0 0;
+  .price {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin: 8px 24px 0 0;
+    }
+
+    button {
+      margin-top: 12px;
+      background: #fafafa;
+      color: #583874;
+      padding: 0;
+      width: 45px;
+      height: 45px;
+
+      transition: all 0.2;
+
+      &:hover {
+        color: ${shade(0.8, '#583874')};
+      }
+    }
   }
 `;
 

@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
+import { number } from 'yup';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
 import Sizes from './Sizes';
+
+import { useCart, Item } from '../../../../contexts/CartContext';
 
 import { ImagesProps, ItemProps, Product } from '../..';
 
@@ -33,9 +36,14 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   description,
 }) => {
   const [selectedColor, setSelectedColor] = useState(items[0].color);
+  const [selectedSizeTag, setSelectedSizeTag] = useState('');
   const [item, setItem] = useState<ItemProps>();
   const [itemSize, setItemSize] = useState<ItemProps>(items[0]);
   const [images, setImages] = useState<ImagesProps[]>(items[0].productImages);
+  const [updatedItem, setUpdatedItem] = useState<Item>();
+  const [quantity, setQuantity] = useState('');
+
+  const cart = useCart();
 
   const handleSelectedColor = useCallback((colorName: string) => {
     setSelectedColor(colorName);
@@ -57,6 +65,33 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
 
     return sizeTags;
   }, [itemSize]);
+
+  useEffect(() => {
+    if (item) {
+      const newUpdatedItem = {
+        color: item.color,
+        sizeTag: selectedSizeTag,
+        quantity: Number(quantity),
+      };
+      if (
+        newUpdatedItem.color !== '' &&
+        newUpdatedItem.sizeTag !== '' &&
+        newUpdatedItem.quantity !== 0
+      ) {
+        setUpdatedItem(newUpdatedItem);
+      }
+    }
+  }, [item, quantity, selectedSizeTag]);
+
+  const handleAddToCart = useCallback(() => {
+    if (updatedItem) {
+      cart.addToCart(productId, updatedItem);
+    }
+  }, [cart, productId, updatedItem]);
+
+  const handleSelectedSize = useCallback((size: string) => {
+    setSelectedSizeTag(size);
+  }, []);
 
   return (
     <>
@@ -91,13 +126,24 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
                 ))}
               </AvailableColors>
             </Colors>
-            <Sizes availableSizeTags={availableSizeTags} item={itemSize} />
+            <Sizes
+              availableSizeTags={availableSizeTags}
+              item={itemSize}
+              handleSelectedSize={handleSelectedSize}
+              selectedSizeTag={selectedSizeTag}
+            />
             <AddToCart>
               <div className="quantity">
                 Quantity
-                <input name="qty" type="number" placeholder="Qty" />
+                <input
+                  name="quantity"
+                  type="number"
+                  placeholder="Qty"
+                  value={quantity}
+                  onChange={e => setQuantity(e.target.value)}
+                />
               </div>
-              <Button>ADD TO CART</Button>
+              <Button onClick={handleAddToCart}>ADD TO CART</Button>
             </AddToCart>
             <Description>
               <strong>Description</strong>

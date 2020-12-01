@@ -10,7 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Review = styled.div`
+export const ReviewContainer = styled.div`
   margin-top: 48px;
   width: 100%;
 

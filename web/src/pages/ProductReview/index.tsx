@@ -169,13 +169,13 @@ const ProductReview: React.FC = () => {
             </div>
           </>
         ) : (
-          <>
-            <h1>Product not found!</h1>
-            <Button onClick={handleGoBack} id="go-back">
-              Go back
+            <>
+              <h1>Product not found!</h1>
+              <Button onClick={handleGoBack} id="go-back">
+                Go back
             </Button>
-          </>
-        )}
+            </>
+          )}
       </Container>
     </>
   );
