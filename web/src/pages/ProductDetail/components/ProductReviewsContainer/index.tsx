@@ -1,22 +1,30 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import ProductReviewHeader from './ProductReviewHeader';
 import ProductReviewBody from './ProductReviewBody';
+import { Product, User } from '../..';
 
 import { Container } from './styles';
 
-interface ProductReviewContainerProps {
+type ProductReviewContainerProps = Omit<Product, '_id'> & {
   productId: string;
+};
+
+interface UserProps {
+  users: User[];
 }
 
-const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
-  productId,
-}) => {
+const ProductReviewContainer: React.FC<
+  ProductReviewContainerProps & UserProps
+> = ({ productId, reviews, users }) => {
   const [showAllReviews, setShowAllReviews] = useState(false);
+  const [btnText, setBtnText] = useState('SHOW ALL REVIEWS');
 
   const toggleShowAllReviews = useCallback(() => {
     setShowAllReviews(prevState => !prevState);
-  }, []);
+    if (btnText === 'SHOW ALL REVIEWS') setBtnText('HIDE REVIEWS');
+    if (btnText === 'HIDE REVIEWS') setBtnText('SHOW ALL REVIEWS');
+  }, [btnText]);
 
   return (
     <>
@@ -24,11 +32,14 @@ const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
         <ProductReviewHeader
           productId={productId}
           toggleShowAllReviews={toggleShowAllReviews}
+          btnText={btnText}
         />
         <ProductReviewBody
           productId={productId}
           title="Most Relevant"
           showAllReviews={showAllReviews}
+          reviews={reviews}
+          users={users}
         />
       </Container>
     </>

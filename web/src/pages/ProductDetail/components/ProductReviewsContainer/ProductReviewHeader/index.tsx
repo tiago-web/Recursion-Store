@@ -8,16 +8,18 @@ import { Container } from './styles';
 interface ProductReviewHeaderProps {
   productId: string;
   toggleShowAllReviews(): void;
+  btnText: string;
 }
 
 const ProductReviewHeader: React.FC<ProductReviewHeaderProps> = ({
   productId,
   toggleShowAllReviews,
+  btnText,
 }) => {
   return (
     <Container>
       <h1>Reviews</h1>
-      <Button onClick={toggleShowAllReviews}>READ ALL REVIEWS</Button>
+      <Button onClick={toggleShowAllReviews}>{btnText}</Button>
       <Link to={`/product/review/${productId}`}>WRITE A REVIEW</Link>
     </Container>
   );

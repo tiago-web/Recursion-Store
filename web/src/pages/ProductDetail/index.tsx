@@ -12,6 +12,14 @@ interface RouteParams {
   productId: string;
 }
 
+export interface Review {
+  _id: string;
+  title: string;
+  body: string;
+  createdAt: string;
+  createdBy: string;
+}
+
 export interface ImagesProps {
   id: string;
   imageUrl: string;
@@ -29,15 +37,32 @@ export interface ItemProps {
 
 export interface Product {
   _id: string;
+  reviews: Review[];
   items: ItemProps[];
   name: string;
   price: number;
   description: string;
 }
 
+export interface User {
+  _id: string;
+  firstName: string;
+}
+
 const ProductDetail: React.FC = () => {
   const { productId } = useParams<RouteParams>(); // THE PRODUCT ID IS ON THIS VARIABLE
   const [product, setProduct] = useState<Product>();
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    async function loadUsers(): Promise<void> {
+      const response = await api.get('users');
+
+      setUsers(response.data);
+    }
+
+    loadUsers();
+  }, []);
 
   useEffect(() => {
     async function loadProduct(): Promise<void> {
@@ -60,13 +85,22 @@ const ProductDetail: React.FC = () => {
               items={product.items}
               price={product.price}
               description={product.description}
+              reviews={product.reviews}
             />
           </Section>
-          <ProductReviewsContainer productId={productId} />
+          <ProductReviewsContainer
+            productId={productId}
+            name={product.name}
+            items={product.items}
+            price={product.price}
+            description={product.description}
+            reviews={product.reviews}
+            users={users}
+          />
         </>
       ) : (
-        <h1>Product not found!</h1>
-      )}
+          <h1>Product not found!</h1>
+        )}
     </>
   );
 };

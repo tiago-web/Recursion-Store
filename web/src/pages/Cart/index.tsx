@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
+import { FiTrash } from 'react-icons/fi';
 import AlsoLikeList from '../../components/AlsoLikeList';
 import CarouselList from '../../components/CarouselList';
 
@@ -134,25 +135,28 @@ const Cart: React.FC = () => {
                   </Button>
                 </div>
               ) : (
-                items.map(item => (
-                  <CartItem key={item.id}>
-                    <div>
-                      <img src={item.imageUrl} alt={item.name} />
+                  items.map(item => (
+                    <CartItem key={item.id}>
                       <div>
-                        <h2>{item.name}</h2>
-                        <span>{item.size}</span>
-                        <span>{item.color}</span>
-                        <div className="quantity">
-                          <span>{item.quantity} items</span>
-                          <Button className="add">+</Button>
-                          <Button className="rmv">-</Button>
+                        <img src={item.imageUrl} alt={item.name} />
+                        <div>
+                          <h2>{item.name}</h2>
+                          <span>Size: {item.size}</span>
+                          <span>Color: {item.color}</span>
+                          <div className="quantity">
+                            <span>{item.quantity} items</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <span>CA${item.price}</span>
-                  </CartItem>
-                ))
-              )}
+                      <div className="price">
+                        <span>CA${item.price}</span>
+                        <Button>
+                          <FiTrash size={20} />
+                        </Button>
+                      </div>
+                    </CartItem>
+                  ))
+                )}
             </YourCartContainer>
             <Divider orientation="vertical" flexItem />
             <CartTotalContainer>
