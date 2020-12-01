@@ -13,8 +13,6 @@ const userShippingAddresses = new UserShippingAddressesController();
 
 profileRouter.use(ensureAuthenticated);
 
-profileRouter.get('/', profileController.index);
-
 profileRouter.get('/shippingAddresses', userShippingAddresses.index);
 
 profileRouter.get(

@@ -2,8 +2,10 @@ import { Request, Response } from 'express';
 import statusCodes from "@config/statusCodes";
 
 import CreateUserService from '@modules/users/services/User/CreateUserService';
+import ListUsersService from '@modules/users/services/User/ListUsersService';
 
 const createUser = new CreateUserService();
+const listUsers = new ListUsersService();
 
 class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -20,6 +22,12 @@ class UserController {
     user.password = "";
 
     return res.status(statusCodes.created).json(user);
+  }
+
+  public async index(req: Request, res: Response): Promise<Response> {
+    const users = await listUsers.execute();
+
+    return res.status(statusCodes.ok).json(users);
   }
 }
 
