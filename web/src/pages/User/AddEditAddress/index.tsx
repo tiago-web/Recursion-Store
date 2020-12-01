@@ -136,30 +136,30 @@ const AddEditAddress: React.FC = () => {
                     />
                   </Grid>
                 ) : (
-                  <Grid
-                    key={name}
-                    xs={name === 'address' ? 12 : 6}
-                    className={classes.textFieldGrid}
-                  >
-                    <TextField
-                      name={name}
-                      label={addressLabels[`${name}`]}
-                      variant="outlined"
-                      onChange={handleAddressChange}
-                      autoComplete={name}
-                      value={addressForm[name]}
-                      error={!!errors[name]}
-                      inputRef={register}
-                      fullWidth
-                      autoFocus
-                    />
-                    {errors[name] && (
-                      <span className={classes.error}>
-                        {errors[name].message}
-                      </span>
-                    )}
-                  </Grid>
-                );
+                    <Grid
+                      key={name}
+                      xs={name === 'address' ? 12 : 6}
+                      className={classes.textFieldGrid}
+                    >
+                      <TextField
+                        name={name}
+                        label={addressLabels[`${name}`]}
+                        variant="outlined"
+                        onChange={handleAddressChange}
+                        autoComplete={name}
+                        value={addressForm[name]}
+                        error={!!errors[name]}
+                        inputRef={register}
+                        fullWidth
+                        autoFocus
+                      />
+                      {errors[name] && (
+                        <span className={classes.error}>
+                          {errors[name].message}
+                        </span>
+                      )}
+                    </Grid>
+                  );
               })}
 
               <Grid xs={12} sm={6} className={classes.textFieldGrid}>
@@ -186,12 +186,12 @@ const AddEditAddress: React.FC = () => {
             </Grid>
           </form>
         ) : (
-          <Grid container alignItems="center">
-            <Grid item xs={12} className={classes.textFieldGrid}>
-              No Address Found
+            <Grid container alignItems="center">
+              <Grid item xs={12} className={classes.textFieldGrid}>
+                No Address Found
             </Grid>
-          </Grid>
-        )}
+            </Grid>
+          )}
       </Grid>
     </UserLayout>
   );
