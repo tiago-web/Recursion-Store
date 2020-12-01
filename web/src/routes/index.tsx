@@ -1,6 +1,6 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import Route from './Routes';
+import { Switch, Route } from 'react-router-dom';
+import CustomRoute from './Routes';
 
 import Home from '../pages/Home';
 import ProductDetail from '../pages/ProductDetail';
@@ -22,21 +22,29 @@ const Routes: React.FC = () => {
       <Route component={ProductDetail} path="/product-detail/:productId" />
       <Route component={ProductReview} path="/product/review/:productId" />
       <Route component={Cart} path="/cart" />
-      <Route component={MyAccount} path="/user/myaccount" isPrivate />
-      <Route component={OrdersHistory} path="/user/ordershistory" isPrivate />
-      <Route component={Addresses} path="/user/addresses" isPrivate />
-      <Route
+      <CustomRoute component={MyAccount} path="/user/myaccount" isPrivate />
+      <CustomRoute
+        component={OrdersHistory}
+        path="/user/ordershistory"
+        isPrivate
+      />
+      <CustomRoute component={Addresses} path="/user/addresses" isPrivate />
+      <CustomRoute
         component={AddEditAddress}
         path="/user/edit-address/:oldPostalCode"
         isPrivate
       />
-      <Route component={AddEditAddress} path="/user/add-address" isPrivate />
-      <Route
+      <CustomRoute
+        component={AddEditAddress}
+        path="/user/add-address"
+        isPrivate
+      />
+      <CustomRoute
         component={OrderDetails}
         path="/order-details/:orderId"
         isPrivate
       />
-      <Route component={Login} path="/login" />
+      <CustomRoute component={Login} path="/login" />
     </Switch>
   );
 };
