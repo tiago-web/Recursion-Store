@@ -1,18 +1,18 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
 
-type User = {
-  id: string;
+export type TUser = {
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  avatarUrl: string;
+  avatarUrl?: string;
 };
 
 type AuthState = {
   token: string;
-  user: User;
+  user: TUser;
 };
 
 type SignInCredentials = {
@@ -21,10 +21,10 @@ type SignInCredentials = {
 };
 
 type AuthContextData = {
-  user: User;
+  user: TUser;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
-  updateUser(user: User): void;
+  updateUser(user: TUser): void;
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -60,19 +60,26 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
-    const token = localStorage.removeItem('@Recursion:token');
-    const user = localStorage.removeItem('@Recursion:user');
+    localStorage.removeItem('@Recursion:token');
+    localStorage.removeItem('@Recursion:user');
 
     setData({} as AuthState);
   }, []);
 
   const updateUser = useCallback(
-    (user: User) => {
-      localStorage.setItem('@Recursion:user', JSON.stringify(user));
+    ({ firstName, lastName, email, phone }: TUser) => {
+      const userStr = localStorage.getItem('@Recursion:user');
+      let user: TUser = {} as TUser;
+
+      if (userStr) user = JSON.parse(userStr);
+
+      const updatedUser = { ...user, firstName, lastName, email, phone };
+
+      localStorage.setItem('@Recursion:user', JSON.stringify(updatedUser));
 
       setData({
         token: data.token,
-        user,
+        user: updatedUser,
       });
     },
     [setData, data.token],

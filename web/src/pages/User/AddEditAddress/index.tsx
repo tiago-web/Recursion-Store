@@ -27,7 +27,7 @@ enum addressLabels {
   state = 'State',
   city = 'City',
   postalCode = 'Postal Code',
-  main = 'Main',
+  main = 'Default Shipping Address',
 }
 
 const PurpleCheckbox = withStyles({
@@ -124,7 +124,7 @@ const AddEditAddress: React.FC = () => {
                     className={classes.textFieldGrid}
                   >
                     <FormControlLabel
-                      label="Default Shipping Address"
+                      label={addressLabels[name as keyof typeof addressLabels]}
                       control={
                         <PurpleCheckbox
                           name={name}
@@ -143,11 +143,11 @@ const AddEditAddress: React.FC = () => {
                   >
                     <TextField
                       name={name}
-                      label={addressLabels[`${name}`]}
+                      label={addressLabels[name as keyof typeof addressLabels]}
                       variant="outlined"
                       onChange={handleAddressChange}
                       autoComplete={name}
-                      value={addressForm[name]}
+                      value={addressForm[name as keyof typeof addressForm]}
                       error={!!errors[name]}
                       inputRef={register}
                       fullWidth
