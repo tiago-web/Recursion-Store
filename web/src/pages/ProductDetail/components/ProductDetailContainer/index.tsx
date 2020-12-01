@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
 import { number } from 'yup';
+import { useHistory } from 'react-router-dom';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
@@ -35,6 +36,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   price,
   description,
 }) => {
+  const history = useHistory();
+
   const [selectedColor, setSelectedColor] = useState(items[0].color);
   const [selectedSizeTag, setSelectedSizeTag] = useState('');
   const [item, setItem] = useState<ItemProps>();
@@ -87,6 +90,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
     if (updatedItem) {
       cart.addToCart(productId, updatedItem);
     }
+    history.push('/cart');
   }, [cart, productId, updatedItem]);
 
   const handleSelectedSize = useCallback((size: string) => {

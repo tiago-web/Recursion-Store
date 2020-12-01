@@ -136,6 +136,7 @@ const AddEditAddress: React.FC = () => {
                     />
                   </Grid>
                 ) : (
+
                   <Grid
                     key={name}
                     xs={name === 'address' ? 12 : 6}
@@ -186,12 +187,12 @@ const AddEditAddress: React.FC = () => {
             </Grid>
           </form>
         ) : (
-          <Grid container alignItems="center">
-            <Grid item xs={12} className={classes.textFieldGrid}>
-              No Address Found
+            <Grid container alignItems="center">
+              <Grid item xs={12} className={classes.textFieldGrid}>
+                No Address Found
             </Grid>
-          </Grid>
-        )}
+            </Grid>
+          )}
       </Grid>
     </UserLayout>
   );
