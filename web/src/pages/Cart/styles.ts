@@ -70,8 +70,8 @@ export const CartItem = styled.div`
   }
 
   img {
-    width: 250px;
-    height: 300px;
+    width: 170px;
+    height: 200px;
     border: 5px solid #fff;
   }
 

@@ -15,7 +15,6 @@ interface ProductReviewBodyProps {
 }
 
 const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
-  productId,
   title,
   showAllReviews,
   reviews,

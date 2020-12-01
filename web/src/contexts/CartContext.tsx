@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 
-interface Item {
+export interface Item {
   color: string;
   sizeTag: string;
   quantity: number;
