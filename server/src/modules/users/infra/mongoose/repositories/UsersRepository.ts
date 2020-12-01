@@ -18,6 +18,12 @@ export default class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  public async findAllUsers(): Promise<IUser[]> {
+    const users = await User.find({}).sort({ createdAt: 1 });
+
+    return users;
+  }
+
   public async create(userData: ICreateUserDTO): Promise<IUser> {
     const user = new User(userData);
 
