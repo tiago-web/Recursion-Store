@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
-import { number } from 'yup';
 import { useHistory } from 'react-router-dom';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
@@ -45,8 +44,9 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   const [images, setImages] = useState<ImagesProps[]>(items[0].productImages);
   const [updatedItem, setUpdatedItem] = useState<Item>();
   const [quantity, setQuantity] = useState('');
+  const [addedTocart, setAddedToCart] = useState(true);
 
-  const cart = useCart();
+  const { addToCart } = useCart();
 
   const handleSelectedColor = useCallback((colorName: string) => {
     setSelectedColor(colorName);
@@ -75,6 +75,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
         color: item.color,
         sizeTag: selectedSizeTag,
         quantity: Number(quantity),
+        price,
       };
       if (
         newUpdatedItem.color !== '' &&
@@ -84,14 +85,17 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
         setUpdatedItem(newUpdatedItem);
       }
     }
-  }, [item, quantity, selectedSizeTag]);
+  }, [item, quantity, selectedSizeTag, price]);
 
   const handleAddToCart = useCallback(() => {
     if (updatedItem) {
-      cart.addToCart(productId, updatedItem);
+      addToCart(productId, updatedItem);
+      history.push('/cart');
+      setAddedToCart(true);
+    } else {
+      setAddedToCart(false);
     }
-    history.push('/cart');
-  }, [cart, productId, updatedItem]);
+  }, [addToCart, productId, updatedItem, history]);
 
   const handleSelectedSize = useCallback((size: string) => {
     setSelectedSizeTag(size);
@@ -149,6 +153,11 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
               </div>
               <Button onClick={handleAddToCart}>ADD TO CART</Button>
             </AddToCart>
+            {!addedTocart && (
+              <span style={{ color: '#f00' }}>
+                Could not add item to cart. Select all the requirements.
+              </span>
+            )}
             <Description>
               <strong>Description</strong>
               <p>{description}</p>

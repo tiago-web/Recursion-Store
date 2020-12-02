@@ -61,6 +61,7 @@ const ProductHover: React.FC<ProductHoverProps> = ({
         color: selectedColor,
         quantity,
         sizeTag,
+        price: 48.7,
       });
 
       // setSelectedProduct(prevState => ({

@@ -27,6 +27,14 @@ export const Container = styled.div`
       flex-direction: column;
       margin-left: 12px;
 
+      strong {
+        span {
+          margin-left: 4px;
+          font-weight: lighter;
+          color: #e06b50;
+        }
+      }
+
       div {
         display: flex;
         flex-direction: row;
@@ -55,6 +63,15 @@ export const Container = styled.div`
 
     span {
       margin: 8px 24px 0 0;
+    }
+
+    .oldPrice {
+      text-decoration: line-through;
+      color: #555;
+    }
+
+    .newPrice {
+      color: #f00;
     }
 
     button {

@@ -1,36 +1,31 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { Divider } from '@material-ui/core';
-import { FiTrash } from 'react-icons/fi';
 
-import Button from '../../../../components/Button';
 import EmptyCart from './EmptyCart';
-import CartItem from './CartItem';
+import CartItemContainer from './CartItemContainer';
 import CartTotal from './CartTotal';
-import { Item } from '../..';
+import { Product } from '../..';
 
 import { Container, YourCartContainer } from './styles';
 
-type CartContainerProps = Omit<Item, ''> & {
-  items: Item[];
-};
+interface CartContainerProps {
+  products: Product[];
+}
 
-const CartContainer: React.FC<CartContainerProps> = ({ items }) => {
-  const [isCartEmpty, setIsCartEmpty] = useState(false);
-
+const CartContainer: React.FC<CartContainerProps> = ({ products }) => {
   return (
     <>
       <Container>
         <YourCartContainer>
           <h1>Your Cart</h1>
-          {isCartEmpty ? (
-            <EmptyCart />
+          {products.length !== 0 ? (
+            products.map(p => <CartItemContainer key={p.productId} p={p} />)
           ) : (
-              items.map(item => <CartItem key={item.id} item={item} />)
+              <EmptyCart />
             )}
         </YourCartContainer>
         <Divider orientation="vertical" flexItem />
-        <CartTotal />
+        <CartTotal products={products} />
       </Container>
     </>
   );
