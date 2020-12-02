@@ -13,6 +13,7 @@ import Addresses from '../pages/User/Addresses';
 import AddEditAddress from '../pages/User/AddEditAddress';
 import OrderDetails from '../pages/OrderDetails';
 import Login from '../pages/Login';
+import AddEditProduct from '../pages/Admin/AddEditProduct';
 
 const Routes: React.FC = () => {
   return (
@@ -22,6 +23,8 @@ const Routes: React.FC = () => {
       <Route component={ProductDetail} path="/product-detail/:productId" />
       <Route component={ProductReview} path="/product/review/:productId" />
       <Route component={Cart} path="/cart" />
+      <Route component={AddEditProduct} path="/Admin/AddProduct" />
+      <Route component={AddEditProduct} path="/Admin/EditProduct/:productId" />
       <CustomRoute component={MyAccount} path="/user/myaccount" isPrivate />
       <CustomRoute
         component={OrdersHistory}
