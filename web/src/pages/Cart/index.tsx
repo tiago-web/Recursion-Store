@@ -14,7 +14,6 @@ export interface Item {
   color: string;
   sizeTag: string;
   quantity: number;
-  price: number;
 }
 
 export interface Product {

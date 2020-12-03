@@ -4,7 +4,6 @@ export interface Item {
   color: string;
   sizeTag: string;
   quantity: number;
-  price: number;
 }
 
 interface Product {
@@ -69,6 +68,8 @@ const CartProvider: React.FC = ({ children }) => {
 
   const updateItem = useCallback(
     (productId: string, updatedItem: Item) => {
+      const newProductsArray = [...products];
+
       const product = products.find(p => p.productId === productId);
 
       if (product) {

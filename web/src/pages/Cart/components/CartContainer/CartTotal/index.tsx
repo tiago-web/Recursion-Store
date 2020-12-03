@@ -1,36 +1,52 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Button from '../../../../../components/Button';
 import formatToDollars from '../../../../../utils/formatToDollars';
-import { Product, Item } from '../../..';
+import { Product } from '../../..';
 
 import { Container } from './styles';
+import { ProductApiProps } from '../CartItemContainer';
+import api from '../../../../../services/api';
 
 interface CartTotalProps {
   products: Product[];
 }
 
 const CartTotal: React.FC<CartTotalProps> = ({ products }) => {
-  const [items, setItems] = useState<Item[]>([]);
+  const [productsApi, setProductsApi] = useState<ProductApiProps[]>([]);
 
-  // const cartTotal = useMemo(() => {
-  //   const total = products.reduce((accumulator, product) => {
-  //     const subTotals = product.items.map(item => item.price !== 0);
-  //     setItems(subTotals);
+  useEffect(() => {
+    async function loadProducts(): Promise<void> {
+      const response = await api.get('products');
 
-  //     const subTotal = subTotals.
+      setProductsApi(response.data);
+    }
 
-  //     return accumulator + subTotal;
-  //   }, 0);
+    loadProducts();
+  }, []);
 
-  //   return formatValue(total);
-  // }, [products]);
+  const totalCart = useMemo(() => {
+    const total = products.reduce((accumulator, product) => {
+      const qtyTotal = product.items.reduce((accumulatorItem, item) => {
+        return accumulatorItem + item.quantity;
+      }, 0);
+      const productApi = productsApi.find(p => p._id === product.productId);
+      let subTotal = 0;
+      if (productApi) {
+        subTotal = productApi.price * qtyTotal;
+      }
+
+      return accumulator + subTotal;
+    }, 0);
+
+    return total;
+  }, [products, productsApi]);
 
   return (
     <>
       <Container>
-        <span>Subtotal:</span>
-        <h1>{formatToDollars(199.98)}</h1>
+        <span>Subtotal: </span>
+        <h1>{formatToDollars(totalCart)}</h1>
         <Button>Checkout</Button>
         <form action="">
           <input type="text" placeholder="Enter Coupon" />
