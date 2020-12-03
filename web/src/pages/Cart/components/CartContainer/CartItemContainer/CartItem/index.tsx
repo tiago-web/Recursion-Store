@@ -39,7 +39,6 @@ const CartItem: React.FC<CartItemProps> = ({
   const [price, setPrice] = useState(0);
   const [qty, setQty] = useState(item.quantity);
   const [highQty, setHighQty] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const [hasDiscount, setHasDiscount] = useState(false);
 
   const { updateItem } = useCart();
