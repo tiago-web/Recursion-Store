@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { Product, Item, Image } from '../../..';
+import { Link } from 'react-router-dom';
+import { Product, Item } from '../../..';
 
 import { Container } from './styles';
 import CartItem from './CartItem';
@@ -10,17 +11,22 @@ import { ItemProps } from '../../../../Products/components/ProductList';
 
 interface CartItemContainerProps {
   p: Product;
+  productFromApi(pApi: ProductApiProps): void;
 }
 
-interface CartProductProps {
+export interface ProductApiProps {
   _id: string;
   name: string;
   items: ItemProps[];
+  price: number;
 }
 
-const CartItemContainer: React.FC<CartItemContainerProps> = ({ p }) => {
-  const [productApi, setProductApi] = useState<CartProductProps>();
-  const { deleteItem } = useCart();
+const CartItemContainer: React.FC<CartItemContainerProps> = ({
+  p,
+  productFromApi,
+}) => {
+  const [productApi, setProductApi] = useState<ProductApiProps>();
+  const { deleteItem, updateItem } = useCart();
 
   useEffect(() => {
     async function loadProduct(): Promise<void> {
@@ -28,9 +34,12 @@ const CartItemContainer: React.FC<CartItemContainerProps> = ({ p }) => {
 
       setProductApi(response.data);
     }
+    if (productApi) {
+      productFromApi(productApi);
+    }
 
     loadProduct();
-  }, [p.productId]);
+  }, [p.productId, productFromApi, productApi]);
 
   function handleDeleteItem(productId: string, updatedItem: Item): void {
     try {
@@ -40,18 +49,30 @@ const CartItemContainer: React.FC<CartItemContainerProps> = ({ p }) => {
     }
   }
 
+  function handleUpdateItem(productId: string, updatedItem: Item): void {
+    try {
+      updateItem(productId, updatedItem);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <Container>
       {productApi && (
         <>
-          <h2>{productApi.name}</h2>
+          <Link to={`/product-detail/${p.productId}`}>
+            <h2>{productApi.name}</h2>
+          </Link>
           {p.items.map(item => (
             <CartItem
               key={item.color}
               productId={p.productId}
               item={item}
               handleDeleteItem={handleDeleteItem}
+              handleUpdateItem={handleUpdateItem}
               imageName={productApi.name}
+              productApi={productApi}
             />
           ))}
         </>

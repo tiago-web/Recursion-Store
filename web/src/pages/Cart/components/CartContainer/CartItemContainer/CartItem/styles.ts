@@ -22,6 +22,15 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
 
+    a {
+      transition: all 0.2s;
+
+      &:hover {
+        background: ${shade(0.2, '#583874')};
+        opacity: 0.8;
+      }
+    }
+
     div {
       display: flex;
       flex-direction: column;
@@ -41,14 +50,23 @@ export const Container = styled.div`
         align-items: center;
         margin: 0;
 
-        button {
-          width: 40px;
-          height: 40px;
-          text-align: center;
+        input {
+          border-radius: 4px;
+          border: 0;
+          margin-left: 8px;
+        }
 
-          & + button {
-            margin-left: 4px;
-          }
+        button {
+          width: 70px;
+          height: 30px;
+          text-align: center;
+          margin-left: 8px;
+        }
+
+        select {
+          border-radius: 4px;
+          border: 0;
+          margin-left: 8px;
         }
       }
     }
@@ -82,10 +100,11 @@ export const Container = styled.div`
       width: 45px;
       height: 45px;
 
-      transition: all 0.2;
+      transition: all 0.2s;
 
       &:hover {
-        color: ${shade(0.8, '#583874')};
+        color: #e06b50;
+        /* color: ${shade(0.8, '#583874')}; */
       }
     }
   }
