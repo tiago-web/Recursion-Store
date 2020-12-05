@@ -54,6 +54,7 @@ export const Container = styled.div`
           border-radius: 4px;
           border: 0;
           margin-left: 8px;
+          width: 100px;
         }
 
         button {
@@ -67,6 +68,7 @@ export const Container = styled.div`
           border-radius: 4px;
           border: 0;
           margin-left: 8px;
+          padding: 8px;
         }
       }
     }
@@ -75,12 +77,12 @@ export const Container = styled.div`
   .price {
     display: flex;
     flex-direction: column;
-    width: 100px;
+    width: 200px;
     align-items: center;
     justify-content: center;
 
     span {
-      margin: 8px 24px 0 0;
+      margin: 0 24px 0 0;
     }
 
     .oldPrice {

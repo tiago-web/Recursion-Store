@@ -4,11 +4,10 @@ import { FiTrash } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Button from '../../../../../../components/Button';
 import formatToDollars from '../../../../../../utils/formatToDollars';
-import { Item } from '../../../..';
 
 import { Container } from './styles';
 import { ProductApiProps } from '..';
-import { useCart } from '../../../../../../contexts/CartContext';
+import { Item } from '../../../../../../contexts/CartContext';
 
 interface CartItemProps {
   productId: string;
@@ -17,13 +16,6 @@ interface CartItemProps {
   handleUpdateItem(productId: string, updatedItem: Item): void;
   imageName: string;
   productApi: ProductApiProps;
-}
-
-interface ItemProps {
-  color: string;
-  productImages: Array<{
-    imageUrl: string;
-  }>;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
@@ -40,8 +32,6 @@ const CartItem: React.FC<CartItemProps> = ({
   const [qty, setQty] = useState(item.quantity);
   const [highQty, setHighQty] = useState(false);
   const [hasDiscount, setHasDiscount] = useState(false);
-
-  const { updateItem } = useCart();
 
   useEffect(() => {
     setUpdatedItem({
@@ -73,8 +63,8 @@ const CartItem: React.FC<CartItemProps> = ({
   }, [qty, handleDeleteItem, productId, updatedItem]);
 
   useEffect(() => {
-    updateItem(productId, updatedItem);
-  }, [productId, updatedItem, updateItem]);
+    handleUpdateItem(productId, updatedItem);
+  }, [productId, updatedItem, handleUpdateItem]);
 
   const handleChangeSelectQty = useCallback(
     (selectedValue: string) => {
@@ -109,7 +99,7 @@ const CartItem: React.FC<CartItemProps> = ({
                 <input
                   type="number"
                   defaultValue={qty}
-                  onBlur={e => setQty(Number(e.target.value))}
+                  onBlur={e => handleChangeSelectQty(e.target.value)}
                 />
               ) : (
                   <select
@@ -135,8 +125,9 @@ const CartItem: React.FC<CartItemProps> = ({
               <span className="newPrice">CA$48.99</span>
             </>
           ) : (
-              <span>{formatToDollars(price)}</span>
+              <span>{formatToDollars(price)} ea</span>
             )}
+
           <Button onClick={() => handleDeleteItem(productId, updatedItem)}>
             <FiTrash size={20} />
           </Button>

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
 import { useHistory } from 'react-router-dom';
+import { number } from 'yup';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
@@ -38,9 +39,11 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   const history = useHistory();
 
   const [selectedColor, setSelectedColor] = useState(items[0].color);
-  const [selectedSizeTag, setSelectedSizeTag] = useState('');
-  const [item, setItem] = useState<ItemProps>();
   const [itemSize, setItemSize] = useState<ItemProps>(items[0]);
+  const [selectedSizeTag, setSelectedSizeTag] = useState(
+    itemSize.sizes[0].sizeTag,
+  );
+  const [item, setItem] = useState<ItemProps>();
   const [images, setImages] = useState<ImagesProps[]>(items[0].productImages);
   const [updatedItem, setUpdatedItem] = useState<Item>();
   const [quantity, setQuantity] = useState('');
@@ -101,6 +104,15 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
     setSelectedSizeTag(size);
   }, []);
 
+  const handleSetQuantity = useCallback((qty: string) => {
+    if (Number(qty) <= 0) {
+      setAddedToCart(false);
+    } else if (qty) {
+      setQuantity(qty);
+      setAddedToCart(true);
+    }
+  }, []);
+
   return (
     <>
       <Container>
@@ -147,11 +159,15 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
                   name="quantity"
                   type="number"
                   placeholder="Qty"
-                  value={quantity}
-                  onChange={e => setQuantity(e.target.value)}
+                  defaultValue={quantity}
+                  onChange={e => handleSetQuantity(e.target.value)}
                 />
               </div>
-              <Button onClick={handleAddToCart}>ADD TO CART</Button>
+              {addedTocart ? (
+                <Button onClick={handleAddToCart}>ADD TO CART</Button>
+              ) : (
+                  <Button>ADD TO CART</Button>
+                )}
             </AddToCart>
             {!addedTocart && (
               <span style={{ color: '#f00' }}>

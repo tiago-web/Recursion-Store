@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Divider } from '@material-ui/core';
 
 import EmptyCart from './EmptyCart';
@@ -20,6 +20,12 @@ const CartContainer: React.FC<CartContainerProps> = ({ products }) => {
     setProductApi(pApi);
   }, []);
 
+  useEffect(() => {
+    if (products.length === 0) {
+      localStorage.removeItem('@Recursion:products');
+    }
+  }, [products]);
+
   return (
     <>
       <Container>
@@ -38,7 +44,11 @@ const CartContainer: React.FC<CartContainerProps> = ({ products }) => {
             )}
         </YourCartContainer>
         <Divider orientation="vertical" flexItem />
-        {productApi ? <CartTotal products={products} /> : <h1>Total: 0</h1>}
+        {products.length !== 0 ? (
+          <CartTotal products={products} isEmpty={false} />
+        ) : (
+            <CartTotal products={products} isEmpty />
+          )}
       </Container>
     </>
   );
