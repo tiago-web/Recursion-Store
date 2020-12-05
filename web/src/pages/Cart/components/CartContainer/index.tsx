@@ -14,12 +14,6 @@ interface CartContainerProps {
 }
 
 const CartContainer: React.FC<CartContainerProps> = ({ products }) => {
-  const [productApi, setProductApi] = useState<ProductApiProps>();
-
-  const productFromApi = useCallback((pApi: ProductApiProps) => {
-    setProductApi(pApi);
-  }, []);
-
   useEffect(() => {
     if (products.length === 0) {
       localStorage.removeItem('@Recursion:products');
@@ -32,13 +26,7 @@ const CartContainer: React.FC<CartContainerProps> = ({ products }) => {
         <YourCartContainer>
           <h1>Your Cart</h1>
           {products.length !== 0 ? (
-            products.map(p => (
-              <CartItemContainer
-                key={p.productId}
-                p={p}
-                productFromApi={productFromApi}
-              />
-            ))
+            products.map(p => <CartItemContainer key={p.productId} p={p} />)
           ) : (
               <EmptyCart />
             )}
