@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import { Product, Item } from '../../..';
+import { Product } from '../../..';
 
 import { Container } from './styles';
 import CartItem from './CartItem';
 import api from '../../../../../services/api';
-import { useCart } from '../../../../../contexts/CartContext';
+import { useCart, Item } from '../../../../../contexts/CartContext';
 import { ItemProps } from '../../../../Products/components/ProductList';
 
 interface CartItemContainerProps {
   p: Product;
-  productFromApi(pApi: ProductApiProps): void;
 }
 
 export interface ProductApiProps {
@@ -21,10 +20,7 @@ export interface ProductApiProps {
   price: number;
 }
 
-const CartItemContainer: React.FC<CartItemContainerProps> = ({
-  p,
-  productFromApi,
-}) => {
+const CartItemContainer: React.FC<CartItemContainerProps> = ({ p }) => {
   const [productApi, setProductApi] = useState<ProductApiProps>();
   const { deleteItem, updateItem } = useCart();
 
@@ -34,12 +30,9 @@ const CartItemContainer: React.FC<CartItemContainerProps> = ({
 
       setProductApi(response.data);
     }
-    if (productApi) {
-      productFromApi(productApi);
-    }
 
     loadProduct();
-  }, [p.productId, productFromApi, productApi]);
+  }, [p.productId, productApi]);
 
   function handleDeleteItem(productId: string, updatedItem: Item): void {
     try {

@@ -116,6 +116,8 @@ const CartProvider: React.FC = ({ children }) => {
         } else {
           product.items = updatedItems;
 
+          console.log(updatedItems);
+
           localStorage.setItem(
             '@Recursion:products',
             JSON.stringify(newProductsArray),

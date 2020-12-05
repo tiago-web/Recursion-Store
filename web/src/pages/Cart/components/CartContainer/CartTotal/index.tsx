@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { useHistory } from 'react-router-dom';
 import Button from '../../../../../components/Button';
 import formatToDollars from '../../../../../utils/formatToDollars';
 import { Product } from '../../..';
@@ -10,10 +11,12 @@ import api from '../../../../../services/api';
 
 interface CartTotalProps {
   products: Product[];
+  isEmpty: boolean;
 }
 
-const CartTotal: React.FC<CartTotalProps> = ({ products }) => {
+const CartTotal: React.FC<CartTotalProps> = ({ products, isEmpty }) => {
   const [productsApi, setProductsApi] = useState<ProductApiProps[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
@@ -42,12 +45,20 @@ const CartTotal: React.FC<CartTotalProps> = ({ products }) => {
     return total;
   }, [products, productsApi]);
 
+  const handleSendToCheckout = useCallback(() => {
+    history.push('/');
+  }, [history]);
+
   return (
     <>
       <Container>
         <span>Subtotal: </span>
         <h1>{formatToDollars(totalCart)}</h1>
-        <Button>Checkout</Button>
+        {isEmpty ? (
+          <Button disabled>Checkout</Button>
+        ) : (
+            <Button onClick={handleSendToCheckout}>Checkout</Button>
+          )}
         <form action="">
           <input type="text" placeholder="Enter Coupon" />
           <Button>Apply</Button>
