@@ -17,6 +17,8 @@ export const CarouselImage = styled.img<CarouselProps>`
     props.name ? (props.imageWidth ? `${props.imageWidth}%` : '100%') : '35%'};
   border-radius: 5px;
 
+  z-index: 5;
+
   display: ${props => (props.imageUrl ? 'block' : 'none')};
 `;
 
@@ -29,10 +31,7 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
   width: 100%;
 
   background: ${props => (props.background ? props.background : 'none')};
-
-  /* .Carousel-indicators-2 {
-    display: none;
-  } */
+  background-image: linear-gradient(200deg, #220f33, #220f33, #341c49, #462a5e);
 
   .indicatorContainer {
     position: absolute;
@@ -70,6 +69,8 @@ export const MaterialCarousel = styled(Carousel)<CarouselProps>`
 export const CarouselContainer = styled.div<CarouselProps>`
   width: 80vw;
   min-height: 100%;
+  margin-top: 10vh;
+
   display: flex;
   align-items: center;
   justify-content: ${props => (props.name ? 'space-around' : 'center')};

@@ -8,8 +8,6 @@ import coughingImg from '../../assets/coughing.svg';
 import santaImg from '../../assets/santa.svg';
 import mobileAppImg from '../../assets/mobileApp.svg';
 
-//'https://image.freepik.com/free-vector/christmas-santa-claus-character-with-lettering_23-2148386165.jpg',
-
 const Home: React.FC = () => {
   const items = [
     {
@@ -46,7 +44,7 @@ const Home: React.FC = () => {
           items={items}
           timeout={{ enter: 600, exit: 450 }}
           navButtonsAlwaysVisible
-          height={60}
+          height={70}
         />
       </Section>
       <Section>
