@@ -17,7 +17,6 @@ const Navbar: React.FC = () => {
   const classes = useStyles();
   const [navbarActive, setNavbarActive] = useState(false);
   const [isHome, setIsHome] = useState(false);
-  // const props = useSpring({ opacity: 0 });
   const [style, animate] = useSpring(() => ({
     opacity: 1,
     y: 0,

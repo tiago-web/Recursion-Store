@@ -12,6 +12,7 @@ import Addresses from './pages/User/Addresses';
 import AddEditAddress from './pages/User/AddEditAddress';
 import OrderDetails from './pages/OrderDetails';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 const Routes: React.FC = () => {
   return (
@@ -28,6 +29,7 @@ const Routes: React.FC = () => {
       <Route component={AddEditAddress} path="/user/add-address" />
       <Route component={OrderDetails} path="/order-details/:orderId" />
       <Route component={Login} path="/login" />
+      <Route component={SignUp} path="/signup" />
     </Switch>
   );
 };
