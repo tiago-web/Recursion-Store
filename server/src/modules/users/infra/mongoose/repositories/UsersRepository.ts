@@ -11,9 +11,17 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   public async findByEmail(email: string): Promise<IUser | null> {
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email }).select(
+      '+password firstName lastName phone email avatarUrl _id',
+    );
 
     return user;
+  }
+
+  public async findAllUsers(): Promise<IUser[]> {
+    const users = await User.find({}).sort({ createdAt: 1 });
+
+    return users;
   }
 
   public async create(userData: ICreateUserDTO): Promise<IUser> {

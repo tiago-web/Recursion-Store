@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import PreviousOrderCard, { TPreviousOrder } from './PreviousOrderCard';
 import api from '../../../../services/api';
 import apiErrorHandler from '../../../../services/apiErrorHandler';
 import { useStyles } from './styles';
-// import previousOrders from '../../../../MockData/previousOrders';
 
 const PreviousOrders: React.FC = () => {
   const classes = useStyles();
-  const history = useHistory();
   const [ordersFound, setOrdersFound] = useState(false);
   const [orders, setOrders] = useState<TPreviousOrder[]>([]);
 
@@ -18,14 +15,8 @@ const PreviousOrders: React.FC = () => {
   }, [orders]);
 
   useEffect(() => {
-    const token = localStorage.getItem('@Recursion:token');
-    if (!token) history.push('/');
     api
-      .get('/orders/user', {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      })
+      .get('/orders/user')
       .then(response => setOrders(response.data))
       .catch(apiErrorHandler);
   }, []);

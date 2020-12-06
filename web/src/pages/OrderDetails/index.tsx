@@ -15,14 +15,8 @@ const OrderDetails: React.FC = () => {
   const [order, setOrder] = useState<TPreviousOrder>();
 
   useEffect(() => {
-    const token = localStorage.getItem('@Recursion:token');
-    if (!token) history.push('/');
     api
-      .get(`/orders/${orderId}`, {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      })
+      .get(`/orders/${orderId}`)
       .then(response => setOrder(response.data))
       .catch(apiErrorHandler);
   }, [order, orderId, history]);
@@ -31,7 +25,7 @@ const OrderDetails: React.FC = () => {
     <>
       <div className={classes.root}>
         <Grid container justify="space-between">
-          <Grid item xs={12} justify="flex-start">
+          <Grid item xs={12}>
             <Paper className={classes.paperTitle}>Order Details</Paper>
           </Grid>
           {order ? (
@@ -60,7 +54,7 @@ const OrderDetails: React.FC = () => {
                       );
                       return (
                         <ProductPrevOrder
-                          key={product._id}
+                          key={item._id}
                           productId={product.productId._id}
                           productName={product.productId.name}
                           productPrice={product.productPrice}

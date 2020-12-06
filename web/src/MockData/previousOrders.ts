@@ -67,7 +67,7 @@ const previousOrders: TPreviousOrder[] = [
           name: 'Cashmere Scarf',
           items: [
             {
-              color: 'Blue',
+              color: 'Gray',
               productImages: [
                 {
                   image:
@@ -162,7 +162,7 @@ const previousOrders: TPreviousOrder[] = [
           name: 'Cashmere Scarf',
           items: [
             {
-              color: 'Blue',
+              color: 'Gray',
               productImages: [
                 {
                   image:

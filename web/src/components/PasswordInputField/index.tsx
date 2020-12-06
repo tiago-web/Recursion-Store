@@ -12,6 +12,7 @@ const PasswordInputField: React.FC<StandardTextFieldProps> = ({
   label,
   children,
   name,
+  inputRef,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
@@ -32,6 +33,7 @@ const PasswordInputField: React.FC<StandardTextFieldProps> = ({
       name={name}
       value={password}
       onChange={handleChange}
+      inputRef={inputRef}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

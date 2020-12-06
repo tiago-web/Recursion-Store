@@ -12,6 +12,7 @@ import {
 import { useStyles, CssTypography } from './styles';
 
 export type TUserAddress = {
+  oldPostalCode?: string;
   address: string;
   country: string;
   state: string;
@@ -50,7 +51,7 @@ const Address: React.FC<AddressProps> = ({ address }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to="/user/edit-address">
+          <Link to={`/user/edit-address/${address.postalCode}`}>
             <Button size="small">Edit</Button>
           </Link>
           <Button size="small" className={classes.red}>

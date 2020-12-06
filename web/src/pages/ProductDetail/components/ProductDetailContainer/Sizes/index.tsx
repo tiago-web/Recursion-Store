@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import { Container, Options, OptionItem, OptionBtn } from './styles';
 import { ItemProps } from '../../..';
@@ -6,14 +6,16 @@ import { ItemProps } from '../../..';
 interface SizesProps {
   availableSizeTags: string[];
   item: ItemProps;
+  handleSelectedSize(size: string): void;
+  selectedSizeTag: string;
 }
 
-const options = [1, 2, 3, 4, 5];
-
-const Sizes: React.FC<SizesProps> = ({ availableSizeTags, item }) => {
-  const [availableQuantity, setAvailableQuantity] = useState<number>(0);
-  const [selectedSizeTag, setSelectedSizeTag] = useState('');
-
+const Sizes: React.FC<SizesProps> = ({
+  availableSizeTags,
+  item,
+  handleSelectedSize,
+  selectedSizeTag,
+}) => {
   const checkSizeQuantity = useCallback(
     (size: string) => {
       const foundSize = item.sizes.find(sz => sz.sizeTag === size);
@@ -34,7 +36,8 @@ const Sizes: React.FC<SizesProps> = ({ availableSizeTags, item }) => {
             <OptionItem key={size}>
               <OptionBtn
                 disabled={!checkSizeQuantity(size)}
-                onClick={() => setSelectedSizeTag(size)}
+                onClick={() => handleSelectedSize(size)}
+                selected={selectedSizeTag === size}
               >
                 {size}
               </OptionBtn>
