@@ -14,6 +14,7 @@ import AddEditAddress from '../pages/User/AddEditAddress';
 import OrderDetails from '../pages/OrderDetails';
 import Login from '../pages/Login';
 import AddEditProduct from '../pages/Admin/AddEditProduct';
+import ItemAE from '../pages/Admin/AddEditProduct/components/ItemAE';
 
 const Routes: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const Routes: React.FC = () => {
       <Route component={Cart} path="/cart" />
       <Route component={AddEditProduct} path="/Admin/AddProduct" />
       <Route component={AddEditProduct} path="/Admin/EditProduct/:productId" />
+      <Route component={ItemAE} path="/Admin/AddItem" />
       <CustomRoute component={MyAccount} path="/user/myaccount" isPrivate />
       <CustomRoute
         component={OrdersHistory}
