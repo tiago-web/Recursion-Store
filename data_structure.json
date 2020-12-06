@@ -16,8 +16,14 @@
       "color": "Gray",
       "imageColor": "#32171",
       "productImages": [
-        "imgGray1.jpg",
-        "imgGray2.jpg"
+        {
+			"image": "imgGray1.jpg";
+			"imageUrl": "http:localhost:3333/files/imgGray1.jpg";
+		},
+        {
+			"image": "imgGray2.jpg";
+			"imageUrl": "http:localhost:3333/files/imgGray2.jpg";
+		}
       ],
       "sizes": [
         {
