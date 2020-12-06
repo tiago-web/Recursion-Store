@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Toolbar, Tooltip, Grid, InputBase } from '@material-ui/core';
+import { useSpring } from 'react-spring';
 import {
   MaterialAppBar,
   ContainerTitle,
@@ -10,11 +11,64 @@ import {
   MaterialSearchIcon,
   ReactLink as Link,
 } from './styles';
+import { useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const classes = useStyles();
+  const [navbarActive, setNavbarActive] = useState(false);
+  const [isHome, setIsHome] = useState(false);
+  const [style, animate] = useSpring(() => ({
+    opacity: 1,
+    y: 0,
+    height: 100,
+    easing: 'ease',
+  }));
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setIsHome(true);
+    } else {
+      setIsHome(false);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    const handleNavBarActive = () => {
+      if (window.scrollY >= 110) {
+        setNavbarActive(true);
+      } else {
+        setNavbarActive(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleNavBarActive);
+
+    return () => {
+      window.removeEventListener('scroll', handleNavBarActive);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (navbarActive) {
+      animate({ opacity: 0.5, y: -200, height: 80, config: { duration: 600 } });
+
+      animate({ opacity: 1, y: 0, delay: 500, config: { duration: 700 } });
+    } else {
+      animate({ height: 100 });
+    }
+  }, [navbarActive]);
+
+  const handleNavbarClasses = useCallback(() => {
+    if (isHome) {
+      return navbarActive ? 'isHome active' : 'isHome';
+    }
+    return navbarActive ? 'active' : '';
+  }, [isHome, navbarActive]);
+
   return (
-    <MaterialAppBar>
+    <MaterialAppBar style={style} className={handleNavbarClasses()}>
       <Toolbar>
         <Grid container xs={7} className={classes.NavbarGridLeft}>
           <ContainerTitle>

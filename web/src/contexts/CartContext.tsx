@@ -15,6 +15,7 @@ interface CartContextData {
   products: Product[];
   addToCart(productId: string, updatedItem: Item): void;
   updateItem(productId: string, updatedItem: Item): void;
+  deleteItem(productId: string, updatedItem: Item): void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -67,11 +68,16 @@ const CartProvider: React.FC = ({ children }) => {
 
   const updateItem = useCallback(
     (productId: string, updatedItem: Item) => {
+      const newProductsArray = [...products];
+
       const product = products.find(p => p.productId === productId);
 
       if (product) {
         const updatedItems = product.items.map(item =>
-          item.color === updatedItem.color ? updatedItem : item,
+          item.color === updatedItem.color &&
+            item.sizeTag === updatedItem.sizeTag
+            ? updatedItem
+            : item,
         );
 
         product.items = updatedItems;
@@ -81,11 +87,52 @@ const CartProvider: React.FC = ({ children }) => {
         setProducts(products);
       }
     },
-    [setProducts, products],
+    [products],
+  );
+
+  const deleteItem = useCallback(
+    (productId: string, updatedItem: Item) => {
+      const newProductsArray = [...products];
+
+      const product = newProductsArray.find(p => p.productId === productId);
+
+      if (product) {
+        const updatedItems = product.items.filter(
+          item =>
+            item.color !== updatedItem.color ||
+            item.sizeTag !== updatedItem.sizeTag,
+        );
+
+        if (updatedItems.length === 0) {
+          const restProducts = newProductsArray.filter(
+            p => p.productId !== productId,
+          );
+
+          localStorage.setItem(
+            '@Recursion:products',
+            JSON.stringify(restProducts),
+          );
+          setProducts(restProducts);
+        } else {
+          product.items = updatedItems;
+
+          console.log(updatedItems);
+
+          localStorage.setItem(
+            '@Recursion:products',
+            JSON.stringify(newProductsArray),
+          );
+          setProducts(newProductsArray);
+        }
+      }
+    },
+    [products],
   );
 
   return (
-    <CartContext.Provider value={{ products, addToCart, updateItem }}>
+    <CartContext.Provider
+      value={{ products, addToCart, updateItem, deleteItem }}
+    >
       {children}
     </CartContext.Provider>
   );

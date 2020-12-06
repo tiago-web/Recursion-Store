@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
-import { number } from 'yup';
 import { useHistory } from 'react-router-dom';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
@@ -39,14 +38,18 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   const history = useHistory();
 
   const [selectedColor, setSelectedColor] = useState(items[0].color);
-  const [selectedSizeTag, setSelectedSizeTag] = useState('');
-  const [item, setItem] = useState<ItemProps>();
   const [itemSize, setItemSize] = useState<ItemProps>(items[0]);
+  const [selectedSizeTag, setSelectedSizeTag] = useState(
+    itemSize.sizes[0].sizeTag,
+  );
+  const [item, setItem] = useState<ItemProps>();
   const [images, setImages] = useState<ImagesProps[]>(items[0].productImages);
   const [updatedItem, setUpdatedItem] = useState<Item>();
   const [quantity, setQuantity] = useState('');
+  const [sizeQuantity, setSizeQuantity] = useState<number>(0);
+  const [addedTocart, setAddedToCart] = useState(true);
 
-  const cart = useCart();
+  const { addToCart } = useCart();
 
   const handleSelectedColor = useCallback((colorName: string) => {
     setSelectedColor(colorName);
@@ -60,17 +63,31 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
     if (item) {
       setImages(item.productImages);
       setItemSize(item);
+
+      const selectedSize = item.sizes.find(
+        size => size.sizeTag === selectedSizeTag,
+      );
+
+      if (selectedSize) {
+        const availableQuantity = selectedSize.quantity;
+
+        setSizeQuantity(availableQuantity);
+      }
     }
-  }, [selectedColor, items, item]);
+  }, [selectedColor, items, item, selectedSizeTag]);
 
   const availableSizeTags = useMemo(() => {
-    const sizeTags = itemSize.sizes.map(s => s.sizeTag);
+    const availableSizeTagsQty = itemSize.sizes.filter(s => s.quantity > 0);
 
-    return sizeTags;
+    if (availableSizeTagsQty) {
+      const sizeTags = availableSizeTagsQty.map(s => s.sizeTag);
+      return sizeTags;
+    }
+    return [];
   }, [itemSize]);
 
   useEffect(() => {
-    if (item) {
+    if (item && selectedSizeTag) {
       const newUpdatedItem = {
         color: item.color,
         sizeTag: selectedSizeTag,
@@ -79,23 +96,39 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
       if (
         newUpdatedItem.color !== '' &&
         newUpdatedItem.sizeTag !== '' &&
-        newUpdatedItem.quantity !== 0
+        newUpdatedItem.quantity > 0 &&
+        newUpdatedItem.quantity <= sizeQuantity
       ) {
         setUpdatedItem(newUpdatedItem);
       }
     }
-  }, [item, quantity, selectedSizeTag]);
+  }, [item, quantity, selectedSizeTag, price, sizeQuantity]);
 
   const handleAddToCart = useCallback(() => {
-    if (updatedItem) {
-      cart.addToCart(productId, updatedItem);
+    if (updatedItem && updatedItem.quantity <= sizeQuantity) {
+      addToCart(productId, updatedItem);
+      history.push('/cart');
+      setAddedToCart(true);
+    } else {
+      setAddedToCart(false);
     }
-    history.push('/cart');
-  }, [cart, productId, updatedItem]);
+  }, [addToCart, productId, updatedItem, history, sizeQuantity]);
 
   const handleSelectedSize = useCallback((size: string) => {
     setSelectedSizeTag(size);
   }, []);
+
+  const handleSetQuantity = useCallback(
+    (qty: string) => {
+      if (Number(qty) <= 0) {
+        setAddedToCart(false);
+      } else if (qty && Number(qty) <= sizeQuantity) {
+        setQuantity(qty);
+        setAddedToCart(true);
+      }
+    },
+    [sizeQuantity],
+  );
 
   return (
     <>
@@ -143,12 +176,22 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
                   name="quantity"
                   type="number"
                   placeholder="Qty"
-                  value={quantity}
-                  onChange={e => setQuantity(e.target.value)}
+                  defaultValue={quantity}
+                  onChange={e => handleSetQuantity(e.target.value)}
                 />
               </div>
-              <Button onClick={handleAddToCart}>ADD TO CART</Button>
+              {addedTocart ? (
+                <Button onClick={handleAddToCart}>ADD TO CART</Button>
+              ) : (
+                  <Button>ADD TO CART</Button>
+                )}
             </AddToCart>
+            {!addedTocart && (
+              <span style={{ color: '#f00' }}>
+                Please, select a valid quantity.
+              </span>
+            )}
+            <span>Quantity available: {sizeQuantity}</span>
             <Description>
               <strong>Description</strong>
               <p>{description}</p>

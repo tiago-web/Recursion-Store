@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { ItemProps } from '..';
 
 import {
@@ -32,6 +33,8 @@ const QuickAddOptions: React.FC<QuickAddOptionsProps> = ({
   const [availableQuantity, setAvailableQuantity] = useState<number>(0);
   const [selectedSizeTag, setSelectedSizeTag] = useState('');
   const [selectedQuantity, setSelectedQuantity] = useState(0);
+
+  const history = useHistory();
 
   useEffect(() => {
     const selectedSize = item.sizes.find(

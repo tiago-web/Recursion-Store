@@ -54,6 +54,10 @@ export const ProductDetailContent = styled.div`
     margin-top: 48px;
     margin-left: 0;
   }
+
+  span {
+    margin-top: 12px;
+  }
 `;
 
 export const Colors = styled.div`

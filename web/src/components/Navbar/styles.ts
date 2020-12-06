@@ -12,15 +12,37 @@ import {
 } from '@material-ui/core/styles';
 
 import { lighten, shade } from 'polished';
+import { animated } from 'react-spring';
 
-export const MaterialAppBar = styled(AppBar)`
-  position: unset;
-  /* flex: 20em 40em 20em; */
-  background: var(--navbar-bg);
+const NavBar = styled(AppBar)`
+  position: sticky;
+
   border-bottom: 3px solid var(--navbar-border);
+  background-image: linear-gradient(200deg, #220f33, #341c49, #341c49, #462a5e);
   height: 100px;
   justify-content: center;
+
+  &.isHome {
+    position: fixed;
+
+    background: transparent;
+    border-bottom: none;
+  }
+
+  &.active {
+    background-image: linear-gradient(
+      200deg,
+      #220f33,
+      #341c49,
+      #341c49,
+      #462a5e
+    );
+
+    border-bottom: 3px solid var(--navbar-border);
+  }
 `;
+
+export const MaterialAppBar = animated(NavBar);
 
 export const ContainerTitle = styled.div`
   align-self: center;

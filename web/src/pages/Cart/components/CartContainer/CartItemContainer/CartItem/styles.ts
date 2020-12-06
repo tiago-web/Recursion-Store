@@ -22,10 +22,27 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
 
+    a {
+      transition: all 0.2s;
+
+      &:hover {
+        background: ${shade(0.2, '#583874')};
+        opacity: 0.8;
+      }
+    }
+
     div {
       display: flex;
       flex-direction: column;
       margin-left: 12px;
+
+      strong {
+        span {
+          margin-left: 4px;
+          font-weight: lighter;
+          color: #e06b50;
+        }
+      }
 
       div {
         display: flex;
@@ -33,14 +50,25 @@ export const Container = styled.div`
         align-items: center;
         margin: 0;
 
-        button {
-          width: 40px;
-          height: 40px;
-          text-align: center;
+        input {
+          border-radius: 4px;
+          border: 0;
+          margin-left: 8px;
+          width: 100px;
+        }
 
-          & + button {
-            margin-left: 4px;
-          }
+        button {
+          width: 70px;
+          height: 30px;
+          text-align: center;
+          margin-left: 8px;
+        }
+
+        select {
+          border-radius: 4px;
+          border: 0;
+          margin-left: 8px;
+          padding: 8px;
         }
       }
     }
@@ -49,12 +77,21 @@ export const Container = styled.div`
   .price {
     display: flex;
     flex-direction: column;
-    width: 100px;
+    width: 200px;
     align-items: center;
     justify-content: center;
 
     span {
-      margin: 8px 24px 0 0;
+      margin: 0 24px 0 0;
+    }
+
+    .oldPrice {
+      text-decoration: line-through;
+      color: #555;
+    }
+
+    .newPrice {
+      color: #f00;
     }
 
     button {
@@ -65,10 +102,11 @@ export const Container = styled.div`
       width: 45px;
       height: 45px;
 
-      transition: all 0.2;
+      transition: all 0.2s;
 
       &:hover {
-        color: ${shade(0.8, '#583874')};
+        color: #e06b50;
+        /* color: ${shade(0.8, '#583874')}; */
       }
     }
   }

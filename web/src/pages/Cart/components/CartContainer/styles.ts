@@ -1,9 +1,9 @@
-import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
   display: flex;
+  align-items: flex-start;
   justify-content: space-around;
   margin: 80px 64px;
 `;
