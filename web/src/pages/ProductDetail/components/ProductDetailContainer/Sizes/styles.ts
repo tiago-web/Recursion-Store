@@ -82,6 +82,7 @@ export const OptionBtn = styled.div<OptionBtnProps>`
       color: #fff;
       opacity: 0.5;
       border: none;
+      /* display: none; */
 
       cursor: not-allowed;
     `}
