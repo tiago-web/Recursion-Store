@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
 import { useHistory } from 'react-router-dom';
-import { number } from 'yup';
 import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
@@ -47,6 +46,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   const [images, setImages] = useState<ImagesProps[]>(items[0].productImages);
   const [updatedItem, setUpdatedItem] = useState<Item>();
   const [quantity, setQuantity] = useState('');
+  const [sizeQuantity, setSizeQuantity] = useState<number>(0);
   const [addedTocart, setAddedToCart] = useState(true);
 
   const { addToCart } = useCart();
@@ -63,55 +63,72 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
     if (item) {
       setImages(item.productImages);
       setItemSize(item);
+
+      const selectedSize = item.sizes.find(
+        size => size.sizeTag === selectedSizeTag,
+      );
+
+      if (selectedSize) {
+        const availableQuantity = selectedSize.quantity;
+
+        setSizeQuantity(availableQuantity);
+      }
     }
-  }, [selectedColor, items, item]);
+  }, [selectedColor, items, item, selectedSizeTag]);
 
   const availableSizeTags = useMemo(() => {
-    const sizeTags = itemSize.sizes.map(s => s.sizeTag);
+    const availableSizeTagsQty = itemSize.sizes.filter(s => s.quantity > 0);
 
-    return sizeTags;
+    if (availableSizeTagsQty) {
+      const sizeTags = availableSizeTagsQty.map(s => s.sizeTag);
+      return sizeTags;
+    }
+    return [];
   }, [itemSize]);
 
   useEffect(() => {
-    if (item) {
+    if (item && selectedSizeTag) {
       const newUpdatedItem = {
         color: item.color,
         sizeTag: selectedSizeTag,
         quantity: Number(quantity),
-        price,
       };
       if (
         newUpdatedItem.color !== '' &&
         newUpdatedItem.sizeTag !== '' &&
-        newUpdatedItem.quantity !== 0
+        newUpdatedItem.quantity > 0 &&
+        newUpdatedItem.quantity <= sizeQuantity
       ) {
         setUpdatedItem(newUpdatedItem);
       }
     }
-  }, [item, quantity, selectedSizeTag, price]);
+  }, [item, quantity, selectedSizeTag, price, sizeQuantity]);
 
   const handleAddToCart = useCallback(() => {
-    if (updatedItem) {
+    if (updatedItem && updatedItem.quantity <= sizeQuantity) {
       addToCart(productId, updatedItem);
       history.push('/cart');
       setAddedToCart(true);
     } else {
       setAddedToCart(false);
     }
-  }, [addToCart, productId, updatedItem, history]);
+  }, [addToCart, productId, updatedItem, history, sizeQuantity]);
 
   const handleSelectedSize = useCallback((size: string) => {
     setSelectedSizeTag(size);
   }, []);
 
-  const handleSetQuantity = useCallback((qty: string) => {
-    if (Number(qty) <= 0) {
-      setAddedToCart(false);
-    } else if (qty) {
-      setQuantity(qty);
-      setAddedToCart(true);
-    }
-  }, []);
+  const handleSetQuantity = useCallback(
+    (qty: string) => {
+      if (Number(qty) <= 0) {
+        setAddedToCart(false);
+      } else if (qty && Number(qty) <= sizeQuantity) {
+        setQuantity(qty);
+        setAddedToCart(true);
+      }
+    },
+    [sizeQuantity],
+  );
 
   return (
     <>
@@ -171,9 +188,10 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             </AddToCart>
             {!addedTocart && (
               <span style={{ color: '#f00' }}>
-                Could not add item to cart. Select all the requirements.
+                Please, select a valid quantity.
               </span>
             )}
+            <span>Quantity available: {sizeQuantity}</span>
             <Description>
               <strong>Description</strong>
               <p>{description}</p>

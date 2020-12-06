@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Divider } from '@material-ui/core';
 
 import EmptyCart from './EmptyCart';
@@ -7,7 +7,6 @@ import CartTotal from './CartTotal';
 import { Product } from '../..';
 
 import { Container, YourCartContainer } from './styles';
-import { ProductApiProps } from './CartItemContainer';
 
 interface CartContainerProps {
   products: Product[];

@@ -52,6 +52,7 @@ const ProductReview: React.FC = () => {
   const [bodyError, setBodyError] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
+  const [isUserLogged, setIsUserLogged] = useState(false);
 
   useEffect(() => {
     async function loadProduct(): Promise<void> {
@@ -77,41 +78,48 @@ const ProductReview: React.FC = () => {
   async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
 
-    if (!title && !body) {
-      setTitleError(true);
-      setBodyError(true);
-      setOpenError(true);
-      return;
-    }
-    if (!title) {
-      setTitleError(true);
-      setBodyError(false);
-      setOpenError(true);
-      return;
-    }
-    if (!body) {
+    try {
+      if (!title && !body) {
+        setIsUserLogged(true);
+        setTitleError(true);
+        setBodyError(true);
+        setOpenError(true);
+        return;
+      }
+      if (!title) {
+        setIsUserLogged(true);
+        setTitleError(true);
+        setBodyError(false);
+        setOpenError(true);
+        return;
+      }
+      if (!body) {
+        setIsUserLogged(true);
+        setTitleError(false);
+        setBodyError(true);
+        setOpenError(true);
+        return;
+      }
+
       setTitleError(false);
-      setBodyError(true);
+      setBodyError(false);
+      setOpenSuccess(true);
+      setIsUserLogged(true);
+
+      const data = {
+        productId,
+        title,
+        body,
+      };
+
+      await api.post('reviews', data);
+
+      history.push(`/product-detail/${productId}`);
+    } catch (err) {
+      setIsUserLogged(false);
       setOpenError(true);
-      return;
+      setOpenSuccess(false);
     }
-
-    setTitleError(false);
-    setBodyError(false);
-
-    setOpenSuccess(true);
-
-    const data = {
-      productId,
-      title,
-      body,
-    };
-
-    console.log(data);
-
-    // await api.post('reviews', data);
-
-    // history.push(`/product-detail/${productId}`);
   }
 
   const handleGoBack = useCallback(() => {
@@ -161,9 +169,15 @@ const ProductReview: React.FC = () => {
                   autoHideDuration={4000}
                   onClose={handleClose}
                 >
-                  <Alert onClose={handleClose} severity="error">
-                    Fill the form to submit a review!
-                  </Alert>
+                  {isUserLogged ? (
+                    <Alert onClose={handleClose} severity="error">
+                      Fill the form to submit a review!
+                    </Alert>
+                  ) : (
+                      <Alert onClose={handleClose} severity="error">
+                        You must login to submit a review!
+                      </Alert>
+                    )}
                 </Snackbar>
               </Form>
             </div>
