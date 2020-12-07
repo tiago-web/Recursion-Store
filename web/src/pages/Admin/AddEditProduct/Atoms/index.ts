@@ -34,5 +34,5 @@ export type TItem = {
 
 export const itemsState = atom<TItem[]>({
   key: 'itemsState',
-  default: [{}] as TItem[],
+  default: [] as TItem[],
 });
