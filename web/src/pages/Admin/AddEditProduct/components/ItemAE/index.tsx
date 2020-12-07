@@ -21,20 +21,24 @@ interface ItemAEProps {
   item?: TItem;
 }
 
-const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
+const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
   const classes = useStyles();
-  const titleInitials = item ? 'Add' : 'Edit';
+  const titleInitials = item ? 'Edit' : 'Add';
   const [globalItems, setGlobalItems] = useRecoilState<TItem[]>(itemsState);
   const [alertOpen, setAlertOpen] = useState(false);
-  // const [color, setColor] = useState('');
-  // const [imageColor, setImageColor] = useState('');
   const [size, setSize] = useState<TSize>({ sizeTag: '', quantity: 1 });
-  const [localSizeTag, setLocalSizeTag] = useState<TSize[]>([] as TSize[]);
   const [errorSize, setErrorSize] = useState({
     sizeTag: '',
     quantity: '',
   });
-  const [isSizeTagAdd, setIsSizeTagAdd] = useState('add');
+  const [errorItem, setErrorItem] = useState({
+    color: '',
+    imageColor: '',
+    productImages: '',
+    sizes: '',
+  });
+  const [sizeTagBtnAction, setSizeTagBtnAction] = useState('add');
+  const [clearBtnText, setClearBtnText] = useState('clear');
   const [localItem, setLocalItem] = useState<TItem>(() => ({
     color: '',
     imageColor: '',
@@ -67,7 +71,6 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
   const handleSizeChange = useCallback(({ target }) => {
     const { name } = target;
     let { value } = target;
-    console.log(target);
     if (name === 'quantity' && typeof value === 'string')
       value = parseInt(value, 10);
     setSize(prevState => {
@@ -77,6 +80,23 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
       };
     });
   }, []);
+
+  const handleSizeSelected = (sizeToUpdate: TSize): void => {
+    setSize(sizeToUpdate);
+    setSizeTagBtnAction('update');
+    setClearBtnText('cancel');
+  };
+
+  const handleSizeDelete = (sizeTag: string): void => {
+    const sizes = localItem.sizes.filter(sz => sz.sizeTag !== sizeTag);
+    setLocalItem(prevState => ({ ...prevState, sizes }));
+  };
+
+  const handleClearCancelBtn = (): void => {
+    setSize({ sizeTag: '', quantity: 1 });
+    setSizeTagBtnAction('add');
+    setClearBtnText('clear');
+  };
 
   const handleAddUpdateBtnClick = ({ sizeTag, quantity }: TSize): void => {
     setErrorSize({ sizeTag: '', quantity: '' });
@@ -92,17 +112,16 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
       }));
 
     if (errorSize.sizeTag === '' && errorSize.quantity === '') {
-      const newSize = { sizeTag, quantity } as TSize;
-      if (isSizeTagAdd === 'add') {
+      if (sizeTagBtnAction === 'add') {
+        const newSize = { sizeTag, quantity } as TSize;
         const sizeFound = localItem.sizes.find(sz => sz.sizeTag === sizeTag);
-        console.log('Adding', sizeFound);
         if (sizeFound)
           setErrorSize(prevState => ({
             ...prevState,
             sizeTag: 'The size tag already exist for this item',
           }));
         else {
-          console.log('Adding the Size');
+          setSize({ sizeTag: '', quantity: 1 });
           setLocalItem(prevState => {
             const sizes =
               prevState.sizes.length === 0
@@ -115,24 +134,91 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
           });
         }
       }
+      if (sizeTagBtnAction === 'update') {
+        const sizes = localItem.sizes.map(sz => {
+          if (sz.sizeTag === sizeTag) return { ...sz, quantity };
+          return sz;
+        });
+        setLocalItem(prevState => ({ ...prevState, sizes }));
+        handleClearCancelBtn();
+      }
     }
   };
 
-  // const handleSizes() = useCallback(({ target })=>{
+  const clearErrorItem = () => {
+    setErrorItem({
+      color: '',
+      imageColor: '',
+      productImages: '',
+      sizes: '',
+    });
+  };
 
-  // }, [])
+  const handleSubmit = (): void => {
+    clearErrorItem();
+    const imagesItems = localItem.productImages.filter(img => {
+      if (img.image !== null) return img;
+    });
 
-  useEffect(() => {
-    console.log(localItem);
-  }, [localItem]);
+    if (localItem.color === '')
+      setErrorItem(prevState => ({
+        ...prevState,
+        color: 'You must enter a color',
+      }));
+
+    if (localItem.imageColor === '')
+      setErrorItem(prevState => ({
+        ...prevState,
+        imageColor: 'You must enter a hex color',
+      }));
+
+    if (imagesItems.length === 0)
+      setErrorItem(prevState => ({
+        ...prevState,
+        productImages: 'You must have at least one image',
+      }));
+
+    if (localItem.sizes.length === 0)
+      setErrorItem(prevState => ({
+        ...prevState,
+        sizes: 'You must have at least one size',
+      }));
+
+    const colorFound = globalItems.find(itm => itm.color === localItem.color);
+
+    if (colorFound)
+      setErrorItem(prevState => ({
+        ...prevState,
+        color: 'The color already exist',
+      }));
+
+    setTimeout(() => {
+      clearErrorItem();
+    }, 2500);
+
+    if (
+      localItem.color !== '' &&
+      localItem.imageColor !== '' &&
+      !colorFound &&
+      imagesItems.length > 0 &&
+      localItem.sizes.length > 0
+    ) {
+      // If no errors, then add  to the global items
+      const updatedItem = {
+        ...localItem,
+        productImages: imagesItems,
+      };
+      setGlobalItems(prevState => [...prevState, updatedItem]);
+    }
+  };
 
   // useEffect(() => {
-  //   console.log(size);
-  // }, [size]);
+  //   console.log(globalItems);
+  // }, [globalItems]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
-      <Grid item justify="center" alignItems="center" className={classes.item}>
+      <Grid item className={classes.item}>
         <h1>{titleInitials} Item</h1>
       </Grid>
       <Grid
@@ -157,6 +243,9 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
       </Grid>
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid item xs={12} className={classes.item}>
+          {errorItem.productImages !== '' && (
+            <p className={classes.error}>{errorItem.productImages}</p>
+          )}
           <Collapse in={alertOpen}>
             <Alert
               variant="outlined"
@@ -191,6 +280,9 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
             variant="outlined"
             fullWidth
           />
+          {errorItem.color !== '' && (
+            <p className={classes.error}>{errorItem.color}</p>
+          )}
         </Grid>
         <Grid item xs={12} className={classes.item}>
           <TextField
@@ -201,6 +293,9 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
             variant="outlined"
             fullWidth
           />
+          {errorItem.imageColor !== '' && (
+            <p className={classes.error}>{errorItem.imageColor}</p>
+          )}
         </Grid>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={12} sm={3} className={classes.item}>
@@ -211,6 +306,7 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
             >
               <InputLabel>Size Tag</InputLabel>
               <Select
+                disabled={sizeTagBtnAction === 'update'}
                 name="sizeTag"
                 value={size.sizeTag}
                 onChange={handleSizeChange}
@@ -245,11 +341,13 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
           </Grid>
           <Grid item xs={12} sm={3} className={classes.item}>
             <SolidButton onClick={() => handleAddUpdateBtnClick(size)}>
-              {isSizeTagAdd}
+              {sizeTagBtnAction}
             </SolidButton>
           </Grid>
           <Grid item xs={12} sm={3} className={classes.item}>
-            <RedOutlinedButton>Cancel</RedOutlinedButton>
+            <RedOutlinedButton onClick={handleClearCancelBtn}>
+              {clearBtnText}
+            </RedOutlinedButton>
           </Grid>
         </Grid>
         <Grid item className={classes.item}>
@@ -258,19 +356,22 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
               key={sz.sizeTag}
               sizeTag={sz.sizeTag}
               quantity={sz.quantity}
+              handleSizeSelected={handleSizeSelected}
+              handleSizeDelete={handleSizeDelete}
             />
           ))}
-          {/* <SizeTag quantity={12} sizeTag="S" />
-          <SizeTag quantity={12} sizeTag="M" />
-          <SizeTag quantity={12} sizeTag="XL" />
-          <SizeTag quantity={12} sizeTag="XXL" /> */}
+          {errorItem.sizes !== '' && (
+            <p className={classes.error}>{errorItem.sizes}</p>
+          )}
         </Grid>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={12} sm={2} className={classes.item}>
             <RedOutlinedButton>Cancel</RedOutlinedButton>
           </Grid>
           <Grid item xs={12} sm={2} className={classes.item}>
-            <SolidButton>Add Item</SolidButton>
+            <SolidButton onClick={handleSubmit}>
+              {item ? 'update' : 'add'}
+            </SolidButton>
           </Grid>
         </Grid>
       </Grid>
