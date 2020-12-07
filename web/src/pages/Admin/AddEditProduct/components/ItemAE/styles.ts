@@ -2,7 +2,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import styled from 'styled-components';
 import { shade } from 'polished';
-// import Button from '../../../../../components/Button';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,6 +11,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
+    },
+    item: {
+      padding: theme.spacing(0, 2),
+      textAlign: 'center',
     },
   }),
 );
