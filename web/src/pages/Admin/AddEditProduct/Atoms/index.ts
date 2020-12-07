@@ -20,7 +20,7 @@ export type TImg = {
   image: string | null;
 };
 
-export type TSizes = {
+export type TSize = {
   sizeTag: string;
   quantity: number;
 };
@@ -29,7 +29,7 @@ export type TItem = {
   color: string;
   imageColor: string;
   productImages: TImg[];
-  sizes: TSizes[];
+  sizes: TSize[];
 };
 
 export const itemsState = atom<TItem[]>({
