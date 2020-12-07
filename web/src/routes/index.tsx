@@ -15,11 +15,13 @@ import OrderDetails from '../pages/OrderDetails';
 import Login from '../pages/Login';
 import AddEditProduct from '../pages/Admin/AddEditProduct';
 import ItemAE from '../pages/Admin/AddEditProduct/components/ItemAE';
+import SignUp from '../pages/SignUp';
 
 const Routes: React.FC = () => {
   return (
     <Switch>
       <Route component={Home} path="/" exact />
+      <Route component={SignUp} path="/signup" />
       <Route component={Products} path="/products/:filter?" />
       <Route component={ProductDetail} path="/product-detail/:productId" />
       <Route component={ProductReview} path="/product/review/:productId" />
