@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useRecoilState } from 'recoil';
 import { TItem, TImg, TSizes, itemsState } from '../../Atoms';
 import ImagePicker from '../ImagePicker';
+import SizeTag from '../SizeTag';
 import { useStyles, SolidButton, RedOutlinedButton } from './styles';
 
 interface ItemAEProps {
@@ -24,6 +25,8 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
   const classes = useStyles();
   const titleInitials = item ? 'Add' : 'Edit';
   const [alertOpen, setAlertOpen] = React.useState(false);
+  const [color, setColor] = React.useState('');
+  const [imageColor, setImageColor] = React.useState('');
   const [globalItems, setGlobalItems] = useRecoilState<TItem[]>(itemsState);
 
   const [localItem, setLocalItem] = useState<TItem>(() => ({
@@ -48,9 +51,9 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
     });
   };
 
-  // useEffect(() => {
-  //   console.log(item);
-  // }, [item]);
+  useEffect(() => {
+    console.log(globalItems);
+  }, [globalItems]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
@@ -105,19 +108,31 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
           </Collapse>
         </Grid>
         <Grid>
-          <TextField name="colorName" label="Color Name" variant="outlined" />
+          <TextField
+            value={color}
+            onChange={e => setColor(e.target.value)}
+            name="colorName"
+            label="Color Name"
+            variant="outlined"
+          />
         </Grid>
         <Grid item>
           <TextField
             name="imageColor"
+            value={imageColor}
+            onChange={e => setImageColor(e.target.value)}
             label="Hex Color (#761253)"
             variant="outlined"
             fullWidth
           />
         </Grid>
         <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={12} sm={4}>
-            <FormControl variant="outlined" className={classes.formControl}>
+          <Grid item xs={12} sm={3} className={classes.item}>
+            <FormControl
+              variant="outlined"
+              className={classes.formControl}
+              fullWidth
+            >
               <InputLabel>Size Tag</InputLabel>
               <Select
                 // value={age}
@@ -132,14 +147,28 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = null }) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField name="quantity" label="Quantity" variant="outlined" />
+          <Grid item xs={12} sm={3} className={classes.item}>
+            <TextField
+              name="quantity"
+              label="Quantity"
+              variant="outlined"
+              fullWidth
+            />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={3} className={classes.item}>
             <SolidButton>Add Size</SolidButton>
           </Grid>
+          <Grid item xs={12} sm={3} className={classes.item}>
+            <RedOutlinedButton>Cancel</RedOutlinedButton>
+          </Grid>
         </Grid>
-        <Grid item>Show tags here</Grid>
+        <Grid item>
+          <SizeTag quantity={12} sizeTag="XS" />
+          <SizeTag quantity={12} sizeTag="S" />
+          <SizeTag quantity={12} sizeTag="M" />
+          <SizeTag quantity={12} sizeTag="XL" />
+          <SizeTag quantity={12} sizeTag="XXL" />
+        </Grid>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={4}>
             <RedOutlinedButton>Cancel</RedOutlinedButton>

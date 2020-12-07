@@ -36,29 +36,3 @@ export const itemsState = atom<TItem[]>({
   key: 'itemsState',
   default: [{}] as TItem[],
 });
-
-// export const imagesState = atom<TImagesState>({
-//   key: 'imagesState',
-//   default: {
-//     img1: {
-//       imageUrl: DEFAULT_IMG_URL,
-//       image: DEFAULT_IMG_FILENAME,
-//       isLocal: false,
-//     },
-//     img2: {
-//       imageUrl: DEFAULT_IMG_URL,
-//       image: DEFAULT_IMG_FILENAME,
-//       isLocal: false,
-//     },
-//     img3: {
-//       imageUrl: DEFAULT_IMG_URL,
-//       image: DEFAULT_IMG_FILENAME,
-//       isLocal: false,
-//     },
-//     img4: {
-//       imageUrl: DEFAULT_IMG_URL,
-//       image: DEFAULT_IMG_FILENAME,
-//       isLocal: false,
-//     },
-//   },
-// });
