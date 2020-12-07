@@ -7,7 +7,7 @@ import ItemAE from './components/ItemAE';
 
 const MiddleElement: React.FC = () => {
   const [product, setProduct] = useRecoilState<TProduct>(productState);
-  let UpdatedProduct = product;
+
   const newItem = {
     color: 'Gray',
     imageColor: '#7f7f7f',
@@ -15,9 +15,6 @@ const MiddleElement: React.FC = () => {
     sizes: [],
   } as TItem;
 
-  // UpdatedProduct = { items: [newItem] };
-
-  setProduct(product);
   return (
     <>
       <ItemAE />

@@ -13,8 +13,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
     },
     item: {
-      padding: theme.spacing(0, 2),
+      padding: theme.spacing(1, 2),
       textAlign: 'center',
+    },
+    error: {
+      color: 'red',
     },
   }),
 );
