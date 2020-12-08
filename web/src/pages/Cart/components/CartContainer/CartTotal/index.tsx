@@ -46,7 +46,7 @@ const CartTotal: React.FC<CartTotalProps> = ({ products, isEmpty }) => {
   }, [products, productsApi]);
 
   const handleSendToCheckout = useCallback(() => {
-    history.push('/');
+    history.push('/checkout');
   }, [history]);
 
   return (

@@ -43,7 +43,7 @@ const ToastProvider: React.FC = ({ children }) => {
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <ToastContainer messages={messages} />
+      <ToastContainer />
     </ToastContext.Provider>
   );
 };

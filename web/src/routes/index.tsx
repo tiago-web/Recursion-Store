@@ -16,6 +16,7 @@ import Login from '../pages/Login';
 import AddEditProduct from '../pages/Admin/AddEditProduct';
 import ItemAE from '../pages/Admin/AddEditProduct/components/ItemAE';
 import SignUp from '../pages/SignUp';
+import Checkout from '../pages/Checkout';
 
 const Routes: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ const Routes: React.FC = () => {
       <Route component={ProductDetail} path="/product-detail/:productId" />
       <Route component={ProductReview} path="/product/review/:productId" />
       <Route component={Cart} path="/cart" />
+      <Route component={Checkout} path="/checkout" />
       <Route component={AddEditProduct} path="/Admin/AddProduct" />
       <Route component={AddEditProduct} path="/Admin/EditProduct/:productId" />
       <Route component={ItemAE} path="/Admin/AddItem" />
