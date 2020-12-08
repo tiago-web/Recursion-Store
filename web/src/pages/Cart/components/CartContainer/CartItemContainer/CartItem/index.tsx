@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { FiTrash } from 'react-icons/fi';
 
 import { Link } from 'react-router-dom';
@@ -14,7 +14,6 @@ interface CartItemProps {
   item: Item;
   handleDeleteItem(productId: string, updatedItem: Item): void;
   handleUpdateItem(productId: string, updatedItem: Item): void;
-  imageName: string;
   productApi: ProductApiProps;
 }
 
@@ -23,15 +22,18 @@ const CartItem: React.FC<CartItemProps> = ({
   item,
   handleDeleteItem,
   handleUpdateItem,
-  imageName,
   productApi,
 }) => {
   const [updatedItem, setUpdatedItem] = useState<Item>(item);
   const [imageUrl, setImageUrl] = useState('');
   const [price, setPrice] = useState(0);
   const [qty, setQty] = useState(item.quantity);
+  const [qtyApi, setQtyApi] = useState<number>(0);
   const [highQty, setHighQty] = useState(false);
   const [hasDiscount, setHasDiscount] = useState(false);
+  const [maxQtyActive, setMaxQtyActive] = useState(false);
+
+  const options = ['1', '2', '3', '4', '5'];
 
   useEffect(() => {
     setUpdatedItem({
@@ -47,14 +49,26 @@ const CartItem: React.FC<CartItemProps> = ({
         i => i.color === item.color && setImageUrl(i.productImages[0].imageUrl),
       );
       setPrice(productApi.price);
+
+      const itemApi = productApi.items.find(i => i.color === item.color);
+
+      if (itemApi) {
+        const sizeApi = itemApi.sizes.find(sz => sz.sizeTag === item.sizeTag);
+
+        if (sizeApi) {
+          setQtyApi(sizeApi.quantity);
+        }
+      }
     }
 
     loadFromApi();
-  }, [productApi, item.color]);
+  }, [productApi, item.color, item.sizeTag]);
 
   useEffect(() => {
     if (qty > 5) {
       setHighQty(true);
+    } else if (qty <= 5 && qty > 0) {
+      setHighQty(false);
     } else if (qty <= 0) {
       handleDeleteItem(productId, updatedItem);
     } else {
@@ -68,15 +82,39 @@ const CartItem: React.FC<CartItemProps> = ({
 
   const handleChangeSelectQty = useCallback(
     (selectedValue: string) => {
-      if (Number(selectedValue) >= 1 || Number(selectedValue) <= 5) {
-        setQty(Number(selectedValue));
-      } else if (Number(selectedValue) < 1) {
-        handleDeleteItem(productId, updatedItem);
-      } else if (selectedValue === '10+') {
+      if (selectedValue === '10+' && qtyApi >= 10) {
         setQty(10);
+      } else if (Number(selectedValue) <= qtyApi) {
+        // if (Number(selectedValue) <= 5) {
+        //   if (Number(selectedValue) >= 1) {
+        //     setQty(Number(selectedValue));
+        //   } else {
+        //     handleDeleteItem(productId, updatedItem);
+        //   }
+        // } else {
+        //   setQty(10);
+        // }
+        // setMaxQtyActive(false);
+        setQty(Number(selectedValue));
+        setMaxQtyActive(false);
+      } else {
+        setQty(qtyApi);
+        setMaxQtyActive(true);
       }
     },
-    [handleDeleteItem, productId, updatedItem],
+    [qtyApi],
+  );
+
+  const handleChangeInputQty = useCallback(
+    (value: number) => {
+      if (value <= qtyApi) {
+        setQty(value);
+        setMaxQtyActive(false);
+      } else {
+        setMaxQtyActive(true);
+      }
+    },
+    [qtyApi],
   );
 
   return (
@@ -84,7 +122,7 @@ const CartItem: React.FC<CartItemProps> = ({
       <Container>
         <div>
           <Link to={`/product-detail/${productId}`}>
-            <img src={imageUrl} alt={imageName} />
+            <img src={imageUrl} alt={productApi.name} />
           </Link>
           <div>
             <strong>
@@ -99,21 +137,25 @@ const CartItem: React.FC<CartItemProps> = ({
                 <input
                   type="number"
                   defaultValue={qty}
-                  onBlur={e => handleChangeSelectQty(e.target.value)}
+                  max="99"
+                  onBlur={e => handleChangeInputQty(Number(e.target.value))}
                 />
               ) : (
-                  <select
-                    defaultValue={qty}
-                    onChange={e => handleChangeSelectQty(e.target.value)}
-                  >
-                    <option value="0">0 (delete)</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="10+">10 +</option>
-                  </select>
+                  <>
+                    <select
+                      defaultValue={qty}
+                      onChange={e => handleChangeSelectQty(e.target.value)}
+                    >
+                      <option value="0">0 (delete)</option>
+                      {options.slice(0, 5).map(option => (
+                        <option key={options[Number(option)]} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                      <option value="10+">10 +</option>
+                    </select>
+                    {maxQtyActive ? <span>Max quantity is {qtyApi}.</span> : ''}
+                  </>
                 )}
             </div>
           </div>
