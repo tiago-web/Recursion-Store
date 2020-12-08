@@ -1,17 +1,7 @@
 import React from 'react';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+
 import { Container } from './styles';
-
-// export interface Product {
-//   id: number;
-//   imageUrl: string;
-//   name: string;
-//   price: string;
-// }
-
-// interface GridListProps extends DefaultGridListProps {
-//   products: Product[];
-// }
 
 interface List {
   name: string;
@@ -44,20 +34,6 @@ const AlsoLikeList: React.FC = () => {
         </button>
       </Container>
     </>
-    // <MaterialCarousel navButtonsAlwaysVisible animation="slide" interval={5000}>
-    //   <Container>
-    //     <GridListing cols={2.5} {...rest}>
-    //       {products.map(product => (
-    //         <CarouselContainer key={product.imageUrl}>
-    //           <GridListTile>
-    //             <img src={product.imageUrl} alt={product.name} />
-    //             <GridListTileBar title={product.name} />
-    //           </GridListTile>
-    //         </CarouselContainer>
-    //       ))}
-    //     </GridListing>
-    //   </Container>
-    // </MaterialCarousel>
   );
 };
 

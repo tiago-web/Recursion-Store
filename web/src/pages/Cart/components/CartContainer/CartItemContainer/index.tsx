@@ -64,7 +64,6 @@ const CartItemContainer: React.FC<CartItemContainerProps> = ({ p }) => {
               item={item}
               handleDeleteItem={handleDeleteItem}
               handleUpdateItem={handleUpdateItem}
-              imageName={productApi.name}
               productApi={productApi}
             />
           ))}
