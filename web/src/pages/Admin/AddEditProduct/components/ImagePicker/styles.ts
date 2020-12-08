@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   align-items: flex-start;
   justify-content: flex-end;
   button {
+    outline: none;
     z-index: 2;
     background-color: transparent;
     border: 0;
