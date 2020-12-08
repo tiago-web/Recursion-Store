@@ -11,6 +11,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: flex-end;
   button {
+    outline: none;
     z-index: 2;
     background-color: transparent;
     border: none;
