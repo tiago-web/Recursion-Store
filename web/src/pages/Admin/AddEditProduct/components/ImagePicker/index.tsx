@@ -43,7 +43,6 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
     const file = e.target.files[0];
 
     if (file && file.type !== 'image/jpeg') {
-      console.log('error');
       setAlertOpen(true);
     } else {
       const reader = new FileReader();

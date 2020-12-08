@@ -5,7 +5,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import MultiSelect from 'react-multi-select-component';
-import { useStyles } from './styles';
+import { useRecoilState } from 'recoil';
+import ItemDetail from '../ItemDetail';
+import { productState, itemsState, TProduct, TItem } from '../../Atoms';
+import { useStyles, SolidButton } from './styles';
 import './selectStyles.css';
 
 type TCategoryOptions = {
@@ -31,29 +34,6 @@ const productSchema = yup.object().shape({
   Description: yup.string().min(6).required(),
 });
 
-type TItem = {
-  color: string;
-  imageColor: string;
-  productImages: {
-    image: string;
-    imageUrl: string;
-  }[];
-  sizes: {
-    sizeTag: string;
-    quantity: number;
-  }[];
-};
-
-type TProduct = {
-  name: string;
-  type: string;
-  categories: string[];
-  price: number;
-  description: string;
-  items?: TItem[];
-  discountPercentage?: number;
-};
-
 enum productLabels {
   name = 'Name',
   type = 'Type',
@@ -68,7 +48,8 @@ const ProductAE: React.FC = () => {
   // const { productId }: { productId: string } = useParams();
   const isEditProductPage = pathname.toLowerCase().includes('edit');
   const titleInitials = isEditProductPage ? 'Edit' : 'Add';
-  const [productForm, setProductForm] = useState({} as TProduct);
+  const [product, setProduct] = useRecoilState<TProduct>(productState);
+  const [items, setItems] = useRecoilState<TItem[]>(itemsState);
   const [catSelected, setCatSelected] = useState<TCategoryOptions[]>([]);
 
   const { register, handleSubmit, errors } = useForm({
@@ -77,20 +58,23 @@ const ProductAE: React.FC = () => {
 
   const handleChange = useCallback(e => {
     const { name, value } = e.target;
-    setProductForm(prevState => ({ ...prevState, [name]: value }));
+    setProduct(prevState => ({ ...prevState, [name]: value }));
   }, []);
 
   useEffect(() => {
     // This is just for testing purposes
-    console.log(catSelected);
     const categories = catSelected.map(category => category.label);
-    console.log(categories);
+    setProduct(prevState => ({ ...prevState, categories }));
   }, [catSelected]);
+
+  useEffect(() => {
+    console.log(product);
+  }, [product]);
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
       <Grid item xs>
-        <h1>{titleInitials} Product</h1>
+        <h1 className={classes.title}>{titleInitials} Product</h1>
       </Grid>
       <Grid container direction="column" alignItems="center">
         {Object.keys(productLabels).map(name => {
@@ -113,7 +97,7 @@ const ProductAE: React.FC = () => {
                 variant="outlined"
                 onChange={handleChange}
                 autoComplete="name"
-                value={productForm[name as keyof typeof productForm]}
+                value={product[name as keyof TProduct]}
                 error={!!errors[name]}
                 inputRef={register}
                 autoFocus
@@ -127,6 +111,24 @@ const ProductAE: React.FC = () => {
             </Grid>
           );
         })}
+        <Grid item className={classes.multiSelect}>
+          <Grid container direction="row" alignItems="center">
+            <Grid item xs={6}>
+              <h3 className={classes.purple}>Items</h3>
+            </Grid>
+            <Grid item xs={6}>
+              <SolidButton>Add Item</SolidButton>
+            </Grid>
+          </Grid>
+        </Grid>
+        {items.map(item => (
+          <Grid key={item.color} item>
+            <ItemDetail item={item} />
+          </Grid>
+        ))}
+        <Grid item className={classes.addBtn}>
+          <SolidButton>Add Product</SolidButton>
+        </Grid>
       </Grid>
     </Grid>
   );
