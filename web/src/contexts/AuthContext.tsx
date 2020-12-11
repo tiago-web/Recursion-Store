@@ -7,6 +7,7 @@ export type TUser = {
   lastName: string;
   email: string;
   phone: string;
+  permission: string;
   avatarUrl?: string;
 };
 
