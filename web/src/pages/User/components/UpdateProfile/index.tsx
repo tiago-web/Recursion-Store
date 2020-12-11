@@ -112,10 +112,10 @@ const UpdateProfile: React.FC = () => {
         oldPassword === ''
           ? updatedUser
           : {
-              ...updatedUser,
-              oldPassword,
-              password: newPassword,
-            },
+            ...updatedUser,
+            oldPassword,
+            password: newPassword,
+          },
       )
       .then(() => {
         updateUser(updatedUser as TUser);
