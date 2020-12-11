@@ -12,7 +12,7 @@ export default class UsersRepository implements IUsersRepository {
 
   public async findByEmail(email: string): Promise<IUser | null> {
     const user = await User.findOne({ email }).select(
-      '+password firstName lastName phone email avatarUrl _id',
+      '+password firstName lastName phone email avatarUrl _id permission',
     );
 
     return user;
