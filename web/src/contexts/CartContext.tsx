@@ -6,7 +6,7 @@ export interface Item {
   quantity: number;
 }
 
-interface Product {
+export interface Product {
   productId: string;
   items: Item[];
 }
