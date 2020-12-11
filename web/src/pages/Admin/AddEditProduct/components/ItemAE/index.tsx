@@ -100,18 +100,22 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
 
   const handleAddUpdateBtnClick = ({ sizeTag, quantity }: TSize): void => {
     setErrorSize({ sizeTag: '', quantity: '' });
-    if (sizeTag === '')
+    let anyError = false;
+    if (sizeTag === '') {
+      anyError = true;
       setErrorSize(prevState => ({
         ...prevState,
         sizeTag: 'You must select a sizeTag',
       }));
-    if (quantity < 1)
+    }
+    if (quantity < 1) {
+      anyError = true;
       setErrorSize(prevState => ({
         ...prevState,
         quantity: 'The quantity must be a number greater than 0',
       }));
-
-    if (errorSize.sizeTag === '' && errorSize.quantity === '') {
+    }
+    if (!anyError) {
       if (sizeTagBtnAction === 'add') {
         const newSize = { sizeTag, quantity } as TSize;
         const sizeFound = localItem.sizes.find(sz => sz.sizeTag === sizeTag);
@@ -145,7 +149,7 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
     }
   };
 
-  const clearErrorItem = () => {
+  const clearErrorItem = (): void => {
     setErrorItem({
       color: '',
       imageColor: '',
@@ -156,53 +160,58 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
 
   const handleSubmit = (): void => {
     clearErrorItem();
+    let anyError = false;
     const imagesItems = localItem.productImages.filter(img => {
       if (img.image !== null) return img;
     });
 
-    if (localItem.color === '')
+    if (localItem.color === '') {
+      anyError = true;
       setErrorItem(prevState => ({
         ...prevState,
         color: 'You must enter a color',
       }));
+    }
 
-    if (localItem.imageColor === '')
+    if (localItem.imageColor === '') {
+      anyError = true;
       setErrorItem(prevState => ({
         ...prevState,
         imageColor: 'You must enter a hex color',
       }));
+    }
 
-    if (imagesItems.length === 0)
+    if (imagesItems.length === 0) {
+      anyError = true;
       setErrorItem(prevState => ({
         ...prevState,
         productImages: 'You must have at least one image',
       }));
+    }
 
-    if (localItem.sizes.length === 0)
+    if (localItem.sizes.length === 0) {
+      anyError = true;
       setErrorItem(prevState => ({
         ...prevState,
         sizes: 'You must have at least one size',
       }));
+    }
 
     const colorFound = globalItems.find(itm => itm.color === localItem.color);
 
-    if (colorFound)
+    if (colorFound) {
+      anyError = true;
       setErrorItem(prevState => ({
         ...prevState,
         color: 'The color already exist',
       }));
+    }
 
     setTimeout(() => {
       clearErrorItem();
     }, 2500);
 
-    if (
-      localItem.color !== '' &&
-      localItem.imageColor !== '' &&
-      !colorFound &&
-      imagesItems.length > 0 &&
-      localItem.sizes.length > 0
-    ) {
+    if (!anyError) {
       // If no errors, then add  to the global items
       const updatedItem = {
         ...localItem,
@@ -215,6 +224,10 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
   // useEffect(() => {
   //   console.log(globalItems);
   // }, [globalItems]);
+
+  // useEffect(() => {
+  //   console.log(errorSize);
+  // }, [errorSize]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
