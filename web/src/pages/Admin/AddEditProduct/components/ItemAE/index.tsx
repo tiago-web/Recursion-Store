@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Grid,
   TextField,
@@ -19,11 +19,13 @@ import { useStyles, SolidButton, RedOutlinedButton } from './styles';
 
 interface ItemAEProps {
   item?: TItem;
+  setModalOpen(status: boolean): void;
 }
 
-const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
+const ItemAE: React.FC<ItemAEProps> = ({ item, setModalOpen }) => {
   const classes = useStyles();
-  const titleInitials = item ? 'Edit' : 'Add';
+  const isEditItem = !!(item && item.color);
+  const titleInitials = isEditItem ? 'Edit' : 'Add';
   const [globalItems, setGlobalItems] = useRecoilState<TItem[]>(itemsState);
   const [alertOpen, setAlertOpen] = useState(false);
   const [size, setSize] = useState<TSize>({ sizeTag: '', quantity: 1 });
@@ -39,27 +41,35 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
   });
   const [sizeTagBtnAction, setSizeTagBtnAction] = useState('add');
   const [clearBtnText, setClearBtnText] = useState('clear');
-  const [localItem, setLocalItem] = useState<TItem>(() => ({
-    color: '',
-    imageColor: '',
-    productImages: [
-      { image: null },
-      { image: null },
-      { image: null },
-      { image: null },
-    ] as TImg[],
-    sizes: [] as TSize[],
-  }));
+  const [localItem, setLocalItem] = useState<TItem>(() => {
+    return item && item.color
+      ? item
+      : {
+          color: '',
+          imageColor: '',
+          productImages: [
+            { image: null },
+            { image: null },
+            { image: null },
+            { image: null },
+          ] as TImg[],
+          sizes: [] as TSize[],
+        };
+  });
 
-  const handleImage = (file: string | null, imageNumber: number): void => {
-    setLocalItem(prevState => {
-      const updatedImages = prevState.productImages;
+  const handleImage = useCallback(
+    (file: File | string | null, imageNumber: number): void => {
+      setLocalItem(prevState => {
+        const updatedImages = prevState.productImages.map((img, idx) => {
+          if (idx === imageNumber) return { image: file };
+          return img;
+        });
 
-      updatedImages[imageNumber].image = file;
-
-      return { ...prevState, productImages: updatedImages } as TItem;
-    });
-  };
+        return { ...prevState, productImages: updatedImages };
+      });
+    },
+    [localItem],
+  );
 
   const handleItemChange = useCallback(({ target }) => {
     const { name, value } = target;
@@ -158,12 +168,17 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
     });
   };
 
-  const handleSubmit = (): void => {
+  const handleSubmit = useCallback((): void => {
     clearErrorItem();
     let anyError = false;
     const imagesItems = localItem.productImages.filter(img => {
       if (img.image !== null) return img;
     });
+
+    console.log('onsubmit', imagesItems);
+
+    for (let i = imagesItems.length; i < 4; i++)
+      imagesItems[i] = { image: null } as TImg;
 
     if (localItem.color === '') {
       anyError = true;
@@ -197,7 +212,14 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
       }));
     }
 
-    const colorFound = globalItems.find(itm => itm.color === localItem.color);
+    const colorFound = isEditItem
+      ? globalItems.find(
+          glbItem =>
+            item &&
+            item.color !== localItem.color &&
+            glbItem.color === localItem.color,
+        )
+      : globalItems.find(glbItem => glbItem.color === localItem.color);
 
     if (colorFound) {
       anyError = true;
@@ -213,13 +235,21 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
 
     if (!anyError) {
       // If no errors, then add  to the global items
-      const updatedItem = {
+      const itemToUpdateOrAdd = {
         ...localItem,
         productImages: imagesItems,
       };
-      setGlobalItems(prevState => [...prevState, updatedItem]);
+      if (isEditItem) {
+        const updatedItems = globalItems.map(gblItem =>
+          item && gblItem.color === item.color ? itemToUpdateOrAdd : gblItem,
+        );
+        setGlobalItems(updatedItems);
+      } else {
+        setGlobalItems(prevState => [...prevState, itemToUpdateOrAdd]);
+      }
+      setModalOpen(false);
     }
-  };
+  }, [localItem]);
 
   // useEffect(() => {
   //   console.log(globalItems);
@@ -228,6 +258,10 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
   // useEffect(() => {
   //   console.log(errorSize);
   // }, [errorSize]);
+
+  // useEffect(() => {
+  //   console.log(localItem);
+  // }, [localItem]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center">
@@ -379,11 +413,13 @@ const ItemAE: React.FC<ItemAEProps> = ({ item = undefined }) => {
         </Grid>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={12} sm={2} className={classes.item}>
-            <RedOutlinedButton>Cancel</RedOutlinedButton>
+            <RedOutlinedButton onClick={() => setModalOpen(false)}>
+              Cancel
+            </RedOutlinedButton>
           </Grid>
           <Grid item xs={12} sm={2} className={classes.item}>
             <SolidButton onClick={handleSubmit}>
-              {item ? 'update' : 'add'}
+              {item && item.color ? 'update' : 'add'}
             </SolidButton>
           </Grid>
         </Grid>

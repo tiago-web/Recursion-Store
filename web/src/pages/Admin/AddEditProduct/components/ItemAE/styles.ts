@@ -24,12 +24,14 @@ export const useStyles = makeStyles((theme: Theme) =>
 
 export const SolidButton = styled(Button)`
   background-color: #e06b50;
+  border: 2px solid #e06b50;
   padding: 0.5rem 1rem;
   color: white;
   width: 100%;
   max-width: 18.4rem;
   &:hover {
     background: ${shade(0.25, '#e06b50')};
+    border: 2px solid ${shade(0.25, '#e06b50')};
   }
 `;
 
