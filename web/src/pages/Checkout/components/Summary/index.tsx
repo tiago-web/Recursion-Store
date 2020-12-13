@@ -1,16 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '../../../../components/Button';
+import formatToDollars from '../../../../utils/formatToDollars';
+// import { Product } from '../../../../contexts/CartContext';
 import { Container } from './styles';
 
-const Summary: React.FC = () => {
+interface SummaryProps {
+  disable: boolean;
+}
+
+const Summary: React.FC<SummaryProps> = ({ disable }) => {
+  const [subtotal, setSubtotal] = useState(0);
+  const [tax, setTax] = useState(0);
+  const [shippingPrice, setShippingPrice] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const cartTotal = localStorage.getItem('@Recursion:cart-total');
+
+    setSubtotal(Number(cartTotal));
+  }, []);
+
+  useEffect(() => {
+    const estTax = subtotal * 0.13;
+    const totalPrice = subtotal + tax;
+
+    setTax(estTax);
+    setTotal(totalPrice);
+  }, [subtotal, tax]);
+
   return (
     <>
       <Container>
         <h1>Summary</h1>
         <div className="subtotal">
           <span>Subtotal:</span>
-          <span>CA$104.99</span>
+          <span>{formatToDollars(subtotal)}</span>
         </div>
         <div className="ship">
           <span>Shipping:</span>
@@ -18,18 +43,18 @@ const Summary: React.FC = () => {
         </div>
         <div className="tax">
           <span>Extimated Tax:</span>
-          <span>CA$0.00</span>
+          <span>{formatToDollars(tax)}</span>
         </div>
         <div className="total">
           <strong>Total:</strong>
-          <strong>CA$104.99</strong>
+          <strong>{formatToDollars(total)}</strong>
         </div>
         {/* <div className="complete"></div> */}
         <span className="terms">
           By completing your purchase you agree to these
           <a href="/">Terms of Service</a>
         </span>
-        <Button>Complete Payment</Button>
+        <Button disabled={!disable}>Complete Payment</Button>
       </Container>
     </>
   );

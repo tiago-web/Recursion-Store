@@ -42,6 +42,8 @@ const CartTotal: React.FC<CartTotalProps> = ({ products, isEmpty }) => {
       return accumulator + subTotal;
     }, 0);
 
+    localStorage.setItem('@Recursion:cart-total', total.toString());
+
     return total;
   }, [products, productsApi]);
 
@@ -54,11 +56,9 @@ const CartTotal: React.FC<CartTotalProps> = ({ products, isEmpty }) => {
       <Container>
         <span>Subtotal: </span>
         <h1>{formatToDollars(totalCart)}</h1>
-        {isEmpty ? (
-          <Button disabled>Checkout</Button>
-        ) : (
-            <Button onClick={handleSendToCheckout}>Checkout</Button>
-          )}
+        <Button disabled={isEmpty} onClick={handleSendToCheckout}>
+          Checkout
+        </Button>
         <form action="">
           <input type="text" placeholder="Enter Coupon" />
           <Button>Apply</Button>

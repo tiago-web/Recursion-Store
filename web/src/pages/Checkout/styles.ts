@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin: 86px 48px 0;
+  margin: 86px 48px 0 48px;
   max-width: 1700px;
 
   @media screen and (max-width: 1120px) {
@@ -18,5 +18,5 @@ export const CheckoutContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 24px 0 0;
+  margin: 24px 0 0;
 `;
