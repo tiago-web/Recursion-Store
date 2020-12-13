@@ -3,11 +3,11 @@ import React from 'react';
 import { Item } from '../../../../../contexts/CartContext';
 import { Container, ItemDetails } from './styles';
 
-interface OrderItem {
+interface OrderItemProps {
   items: Item[];
 }
 
-const OrderItem: React.FC<OrderItem> = ({ items }) => {
+const OrderItem: React.FC<OrderItemProps> = ({ items }) => {
   return (
     <>
       {items.map(item => (
