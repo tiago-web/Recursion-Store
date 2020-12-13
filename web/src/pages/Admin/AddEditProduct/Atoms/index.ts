@@ -9,6 +9,7 @@ export type TProduct = {
   price: number;
   description: string;
   discountPercentage?: number;
+  items?: TItem[];
 };
 
 export const productState = atom<TProduct>({
@@ -17,7 +18,8 @@ export const productState = atom<TProduct>({
 });
 
 export type TImg = {
-  image: string | null;
+  image: File | string | null | undefined;
+  imageUrl?: string;
 };
 
 export type TSize = {
