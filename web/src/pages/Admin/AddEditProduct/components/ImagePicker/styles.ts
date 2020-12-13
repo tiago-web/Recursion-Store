@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: 144px;
-  width: 110px;
+  height: 173px;
+  width: 132px;
   border: 1px solid gray;
   background-color: white;
   position: relative;
@@ -32,8 +32,8 @@ export const ImageContainer = styled.div`
   top: 0;
   left: 0;
   z-index: 1;
-  height: 144px;
-  width: 110px;
+  height: 173px;
+  width: 132px;
   /* border: 1px solid orange; */
   /* background-color: white; */
   display: flex;

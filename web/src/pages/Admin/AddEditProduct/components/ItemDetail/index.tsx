@@ -1,19 +1,51 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import { useRecoilState } from 'recoil';
+import ClearIcon from '@material-ui/icons/Clear';
+import EditIcon from '@material-ui/icons/Edit';
 import { ItemContainer } from './styles';
-import { TItem } from '../../Atoms';
+import { TItem, itemsState, DEFAULT_IMG_URL } from '../../Atoms';
 
 interface ItemDetailProps {
   item: TItem;
+  handleModalOpen(item: TItem): void;
 }
 
-const ItemDetail: React.FC<ItemDetailProps> = ({ item }) => {
+const ItemDetail: React.FC<ItemDetailProps> = ({ item, handleModalOpen }) => {
   const ilenght = item.sizes.length - 1;
+  const [globalItems, setGlobalItems] = useRecoilState<TItem[]>(itemsState);
+  const [imagePreview, setImagePreview] = useState(DEFAULT_IMG_URL);
+
+  const handleDeleteBtn = (): void => {
+    const updatedItem = globalItems.filter(itm => itm.color !== item.color);
+    setGlobalItems(updatedItem);
+  };
+
+  const handleUpdateBtn = (): void => {
+    handleModalOpen(item);
+  };
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    if (reader.readyState === FileReader.DONE) {
+      setImagePreview(reader.result as string);
+    }
+  };
+
+  useEffect(() => {
+    if (item && item.productImages[0].image) {
+      // console.log(typeof item.productImages[0].image);
+      if (typeof item.productImages[0].image === 'object')
+        reader.readAsDataURL(item.productImages[0].image);
+      else setImagePreview(item.productImages[0].image);
+    }
+  }, [item]);
 
   return (
     <ItemContainer>
       <div className="image">
-        <img src={item.productImages[0].image as string} alt={item.color} />
+        <img src={imagePreview} alt={item.color} />
       </div>
       <div className="elements">
         <div className="row1">
@@ -37,6 +69,13 @@ const ItemDetail: React.FC<ItemDetailProps> = ({ item }) => {
           </div>
         </div>
       </div>
+      <button type="button" className="delete-btn" onClick={handleDeleteBtn}>
+        <ClearIcon />
+      </button>
+
+      <button type="button" className="edit-btn" onClick={handleUpdateBtn}>
+        <EditIcon />
+      </button>
     </ItemContainer>
   );
 };
