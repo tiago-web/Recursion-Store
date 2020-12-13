@@ -5,10 +5,49 @@ export const ItemContainer = styled.div`
   border: 0.1rem solid #583874;
   background-color: #e0e1e2c9;
   /* color: #e0e1e2c9; */
+  position: relative;
   height: 8rem;
   width: 18rem;
   display: flex;
   direction: row;
+  .delete-btn {
+    top: 0;
+    right: 0;
+    position: absolute;
+    outline: none;
+    z-index: 3;
+    background-color: transparent;
+    border: 0;
+    svg {
+      color: #583874;
+      border-radius: 12px;
+    }
+    &:hover {
+      svg {
+        background-color: #583874;
+        color: white;
+      }
+    }
+  }
+  .edit-btn {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    outline: none;
+    z-index: 2;
+    background-color: transparent;
+    border: 0;
+    svg {
+      color: #583874;
+      border-radius: 12px;
+    }
+    &:hover {
+      svg {
+        background-color: #583874;
+        color: white;
+      }
+    }
+  }
   .image {
     img {
       margin: 0.95rem;
