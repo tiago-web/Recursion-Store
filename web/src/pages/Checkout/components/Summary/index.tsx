@@ -7,12 +7,12 @@ import { Container } from './styles';
 
 interface SummaryProps {
   disable: boolean;
+  shippingPrice: number;
 }
 
-const Summary: React.FC<SummaryProps> = ({ disable }) => {
+const Summary: React.FC<SummaryProps> = ({ disable, shippingPrice }) => {
   const [subtotal, setSubtotal] = useState(0);
   const [tax, setTax] = useState(0);
-  const [shippingPrice, setShippingPrice] = useState(0);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -23,11 +23,11 @@ const Summary: React.FC<SummaryProps> = ({ disable }) => {
 
   useEffect(() => {
     const estTax = subtotal * 0.13;
-    const totalPrice = subtotal + tax;
+    const totalPrice = subtotal + tax + shippingPrice;
 
     setTax(estTax);
     setTotal(totalPrice);
-  }, [subtotal, tax]);
+  }, [subtotal, tax, shippingPrice]);
 
   return (
     <>
@@ -39,7 +39,7 @@ const Summary: React.FC<SummaryProps> = ({ disable }) => {
         </div>
         <div className="ship">
           <span>Shipping:</span>
-          <span>CA$0.00</span>
+          <span>{formatToDollars(shippingPrice)}</span>
         </div>
         <div className="tax">
           <span>Extimated Tax:</span>

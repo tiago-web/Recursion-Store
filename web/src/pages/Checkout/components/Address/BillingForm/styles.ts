@@ -14,16 +14,38 @@ export const Form = styled.form`
   align-items: flex-start;
   justify-content: space-around;
   margin: 12px 0 0;
+  min-width: 900px;
 
   div {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+    width: 100%;
   }
+
+  .main-input {
+    width: 100%;
+  }
+
   .input {
     display: column;
     flex-direction: column;
     margin: 12px 0 0;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .next-input {
+    margin: 12px 0 0 12px;
+  }
+
+  input {
+    padding: 20px 10px;
+    border: 0;
+    background: #fff;
+    border-radius: 4px;
   }
 `;
