@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Product } from '../../../Cart';
-import OrderItem from './OrderItem';
+import { ItemProps } from '../../../Products/components/ProductList';
+import OrderItemContainer from './OrderItemContainer';
 
 import { Container } from './styles';
 
@@ -9,16 +10,22 @@ interface OrderDetailsContainerProps {
   products: Product[];
 }
 
+interface ProductApiProps {
+  _id: string;
+  name: string;
+  items: ItemProps[];
+  price: number;
+}
+
 const OrderDetailsContainer: React.FC<OrderDetailsContainerProps> = ({
   products,
 }) => {
-  const count = [1, 2, 3];
   return (
     <>
       <Container>
         <h1>Order Details</h1>
         {products.map(product => (
-          <OrderItem key={product.productId} items={product.items} />
+          <OrderItemContainer key={product.productId} product={product} />
         ))}
       </Container>
     </>
