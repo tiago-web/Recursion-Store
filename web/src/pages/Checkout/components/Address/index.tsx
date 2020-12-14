@@ -4,18 +4,20 @@ import { Container, ShippingType } from './styles';
 
 import BillingForm from './BillingForm';
 import ShippingForm from './ShippingForm';
+import api from '../../../../services/api';
 
 interface AddressProps {
   isFormFilled(shippingFormFilled: boolean, billingFormFilled: boolean): void;
   handleShippingPrice(selected: number): void;
 }
 
-interface AddressData {
+export interface AddressesData {
   address: string;
   country: string;
-  postal: string;
+  postalCode: string;
   state: string;
   city: string;
+  main: boolean;
 }
 
 const Address: React.FC<AddressProps> = ({
@@ -34,6 +36,8 @@ const Address: React.FC<AddressProps> = ({
   const [postal, setPostal] = useState('');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
+
+  const [addresses, setAddresses] = useState<AddressesData[]>([]);
 
   const handleIsSameAddress = useCallback(() => {
     setIsSameAddress(prevState => !prevState);
@@ -84,6 +88,18 @@ const Address: React.FC<AddressProps> = ({
     isFormFilled(shippingFormFilled, billingFormFilled);
   }, [isFormFilled, shippingFormFilled, billingFormFilled]);
 
+  useEffect(() => {
+    async function loadUserAddresses(): Promise<void> {
+      const response = await api.get('profile/shippingAddresses');
+
+      if (response) {
+        setAddresses(response.data);
+      }
+    }
+
+    loadUserAddresses();
+  }, []);
+
   return (
     <>
       <Container>
@@ -91,6 +107,7 @@ const Address: React.FC<AddressProps> = ({
           isShippingFormFilled={isShippingFormFilled}
           handleIsSameAddress={handleIsSameAddress}
           handleAddressData={handleAddressData}
+          addresses={addresses}
         />
         <BillingForm
           isBillingFormFilled={isBillingFormFilled}

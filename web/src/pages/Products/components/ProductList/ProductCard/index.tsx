@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { Tooltip } from '@material-ui/core';
 
@@ -10,12 +10,15 @@ import { Product } from '..';
 import {
   Container,
   ProductImage,
+  EditProductButton,
   ProductName,
   ProductPrice,
   AvailableColors,
   ColorContainer,
   ProductColor,
 } from './styles';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../../../../contexts/AuthContext';
 
 type ProductCardProps = Omit<Product, '_id'> & {
   productId: string;
@@ -28,10 +31,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
 }) => {
   const [isHover, setIsHover] = useState(false);
+  const { user } = useAuth();
+  const [isAdminUser, setIsAdminUser] = useState(false);
   const [selectedColor, setSelectedColor] = useState(items[0].color);
 
   const handleSelectedColor = useCallback((colorName: string) => {
     setSelectedColor(colorName);
+  }, []);
+
+  useEffect(() => {
+    setIsAdminUser(user.permission === 'User' ? false : true);
   }, []);
 
   return (
@@ -48,6 +57,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
               onMouseLeave={() => setIsHover(false)}
               onClick={() => setIsHover(true)}
             >
+              {isAdminUser && (
+                <Link to={`/admin/editproduct/${productId}`}>
+                  <EditProductButton>Edit Product</EditProductButton>
+                </Link>
+              )}
+
               {isHover && (
                 <ProductHover
                   productId={productId}
