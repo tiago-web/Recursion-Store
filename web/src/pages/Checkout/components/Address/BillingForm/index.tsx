@@ -3,21 +3,58 @@ import React, { useEffect, useState } from 'react';
 import { Container, Form } from './styles';
 
 interface BillingFormProps {
-  isFormFilled(formFilled: boolean): void;
+  isBillingFormFilled(formFilled: boolean): void;
   isSameAddress: boolean;
+  address: string;
+  country: string;
+  postal: string;
+  state: string;
+  city: string;
 }
 
 const BillingForm: React.FC<BillingFormProps> = ({
-  isFormFilled,
+  isBillingFormFilled,
   isSameAddress,
+  address,
+  country,
+  postal,
+  state,
+  city,
 }) => {
-  const [address, setAddress] = useState('');
-  const [country, setCountry] = useState('');
-  const [postal, setPostal] = useState('');
-  const [state, setState] = useState('');
-  const [city, setCity] = useState('');
+  const [addressBilling, setAddressBilling] = useState('');
+  const [countryBilling, setCountryBilling] = useState('');
+  const [postalBilling, setPostalBilling] = useState('');
+  const [stateBilling, setStateBilling] = useState('');
+  const [cityBilling, setCityBilling] = useState('');
 
-  useEffect(() => { }, []);
+  useEffect(() => {
+    if (isSameAddress) {
+      isBillingFormFilled(true);
+    } else {
+      isBillingFormFilled(false);
+    }
+  }, [isSameAddress, isBillingFormFilled]);
+
+  useEffect(() => {
+    if (
+      addressBilling === '' ||
+      countryBilling === '' ||
+      postalBilling === '' ||
+      stateBilling === '' ||
+      cityBilling === ''
+    ) {
+      isBillingFormFilled(false);
+    } else {
+      isBillingFormFilled(true);
+    }
+  }, [
+    addressBilling,
+    countryBilling,
+    postalBilling,
+    stateBilling,
+    cityBilling,
+    isBillingFormFilled,
+  ]);
 
   return (
     <>
@@ -36,21 +73,41 @@ const BillingForm: React.FC<BillingFormProps> = ({
             <div>
               <div className="input">
                 <span>Country</span>
-                <input type="text" placeholder="Ex. Canada" disabled />
+                <input
+                  type="text"
+                  placeholder="Ex. Canada"
+                  disabled
+                  value={country}
+                />
               </div>
               <div className="input next-input">
                 <span>Postal Code</span>
-                <input type="text" placeholder="Ex. M4B 2P1" disabled />
+                <input
+                  type="text"
+                  placeholder="Ex. M4B 2P1"
+                  disabled
+                  value={postal}
+                />
               </div>
             </div>
             <div>
               <div className="input">
                 <span>State</span>
-                <input type="text" placeholder="Ex. Ontario" disabled />
+                <input
+                  type="text"
+                  placeholder="Ex. Ontario"
+                  disabled
+                  value={state}
+                />
               </div>
               <div className="input next-input">
                 <span>City</span>
-                <input type="text" placeholder="Ex. Toronto" disabled />
+                <input
+                  type="text"
+                  placeholder="Ex. Toronto"
+                  disabled
+                  value={city}
+                />
               </div>
             </div>
           </Form>
@@ -61,8 +118,8 @@ const BillingForm: React.FC<BillingFormProps> = ({
                 type="text"
                 className="main-input"
                 placeholder="Ex. 101 Egliton Ave."
-                value={address}
-                onChange={e => setAddress(e.target.value)}
+                value={addressBilling}
+                onChange={e => setAddressBilling(e.target.value)}
               />
               <div>
                 <div className="input">
@@ -70,8 +127,8 @@ const BillingForm: React.FC<BillingFormProps> = ({
                   <input
                     type="text"
                     placeholder="Ex. Canada"
-                    value={country}
-                    onChange={e => setCountry(e.target.value)}
+                    value={countryBilling}
+                    onChange={e => setCountryBilling(e.target.value)}
                   />
                 </div>
                 <div className="input next-input">
@@ -79,8 +136,8 @@ const BillingForm: React.FC<BillingFormProps> = ({
                   <input
                     type="text"
                     placeholder="Ex. M4B 2P1"
-                    value={postal}
-                    onChange={e => setPostal(e.target.value)}
+                    value={postalBilling}
+                    onChange={e => setPostalBilling(e.target.value)}
                   />
                 </div>
               </div>
@@ -90,8 +147,8 @@ const BillingForm: React.FC<BillingFormProps> = ({
                   <input
                     type="text"
                     placeholder="Ex. Ontario"
-                    value={state}
-                    onChange={e => setState(e.target.value)}
+                    value={stateBilling}
+                    onChange={e => setStateBilling(e.target.value)}
                   />
                 </div>
                 <div className="input next-input">
@@ -99,8 +156,8 @@ const BillingForm: React.FC<BillingFormProps> = ({
                   <input
                     type="text"
                     placeholder="Ex. Toronto"
-                    value={city}
-                    onChange={e => setCity(e.target.value)}
+                    value={cityBilling}
+                    onChange={e => setCityBilling(e.target.value)}
                   />
                 </div>
               </div>

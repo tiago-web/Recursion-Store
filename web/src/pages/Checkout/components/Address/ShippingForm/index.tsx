@@ -3,23 +3,26 @@ import React, { useEffect, useState } from 'react';
 import { Container, Form } from './styles';
 
 interface ShippingFormProps {
-  isFormFilled(formFilled: boolean): void;
+  isShippingFormFilled(formFilled: boolean): void;
   handleIsSameAddress(): void;
+  handleAddressData(
+    addressData: string,
+    countryData: string,
+    postalData: string,
+    stateData: string,
+    cityData: string,
+  ): void;
 }
 
 const ShippingForm: React.FC<ShippingFormProps> = ({
-  isFormFilled,
+  isShippingFormFilled,
   handleIsSameAddress,
+  handleAddressData,
 }) => {
-  // const [addressFilled, setAddressFilled] = useState(false);
   const [address, setAddress] = useState('');
-  // const [countryFilled, setCountryFilled] = useState(false);
   const [country, setCountry] = useState('');
-  // const [postalFilled, setPostalFilled] = useState(false);
   const [postal, setPostal] = useState('');
-  // const [stateFilled, setStateFilled] = useState(false);
   const [state, setState] = useState('');
-  // const [cityFilled, setCityFilled] = useState(false);
   const [city, setCity] = useState('');
 
   useEffect(() => {
@@ -30,11 +33,21 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
       state === '' ||
       city === ''
     ) {
-      isFormFilled(false);
+      isShippingFormFilled(false);
     } else {
-      isFormFilled(true);
+      isShippingFormFilled(true);
     }
-  }, [address, country, postal, state, city, isFormFilled]);
+
+    handleAddressData(address, country, postal, state, city);
+  }, [
+    address,
+    country,
+    postal,
+    state,
+    city,
+    handleAddressData,
+    isShippingFormFilled,
+  ]);
 
   return (
     <>
