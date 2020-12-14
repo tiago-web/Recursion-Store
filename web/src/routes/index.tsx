@@ -14,7 +14,6 @@ import AddEditAddress from '../pages/User/AddEditAddress';
 import OrderDetails from '../pages/OrderDetails';
 import Login from '../pages/Login';
 import AddEditProduct from '../pages/Admin/AddEditProduct';
-import ItemAE from '../pages/Admin/AddEditProduct/components/ItemAE';
 import SignUp from '../pages/SignUp';
 import Checkout from '../pages/Checkout';
 
@@ -28,9 +27,16 @@ const Routes: React.FC = () => {
       <Route component={ProductReview} path="/product/review/:productId" />
       <Route component={Cart} path="/cart" />
       <Route component={Checkout} path="/checkout" />
-      <Route component={AddEditProduct} path="/Admin/AddProduct" />
-      <Route component={AddEditProduct} path="/Admin/EditProduct/:productId" />
-      <Route component={ItemAE} path="/Admin/AddItem" />
+      <CustomRoute
+        component={AddEditProduct}
+        path="/Admin/AddProduct"
+        isPrivate
+      />
+      <CustomRoute
+        component={AddEditProduct}
+        path="/Admin/EditProduct/:productId"
+        isPrivate
+      />
       <CustomRoute component={MyAccount} path="/user/myaccount" isPrivate />
       <CustomRoute
         component={OrdersHistory}
