@@ -7,8 +7,9 @@ export const Container = styled.div`
   justify-content: space-around;
 
   width: 100%;
+  margin: 48px 0 48px;
 
   h1 {
-    margin: 24px 0 48px;
+    margin: 0 0 48px;
   }
 `;

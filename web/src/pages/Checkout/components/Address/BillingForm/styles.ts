@@ -6,6 +6,10 @@ export const Container = styled.div`
   align-items: flex-start;
   justify-content: space-around;
   margin: 24px 0 0;
+
+  div {
+    margin: 8px 0 0;
+  }
 `;
 
 export const Form = styled.form`

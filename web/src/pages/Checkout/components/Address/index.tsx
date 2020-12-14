@@ -14,11 +14,14 @@ const Address: React.FC<AddressProps> = ({
   isFormFilled,
   handleShippingPrice,
 }) => {
-  const [formFilled, setFormFilled] = useState(false);
   const [shippingText, setShippingText] = useState('(1 to 2 business days)');
   const [shippingType, setShippingType] = useState('Express');
+  const [isSameAddress, setIsSameAddress] = useState(false);
 
-  // useEffect(() => { }, []);
+  const handleIsSameAddress = useCallback(() => {
+    setIsSameAddress(prevState => !prevState);
+  }, []);
+
   const handleSelectShipType = useCallback(
     (selectedValue: string) => {
       if (selectedValue === 'Express') {
@@ -35,15 +38,23 @@ const Address: React.FC<AddressProps> = ({
     [handleShippingPrice],
   );
 
+  const handleAddressData = useCallback(() => { }, []);
+
   return (
     <>
       <Container>
-        <ShippingForm isFormFilled={isFormFilled} />
-        <BillingForm isFormFilled={isFormFilled} />
+        <ShippingForm
+          isFormFilled={isFormFilled}
+          handleIsSameAddress={handleIsSameAddress}
+        />
+        <BillingForm
+          isFormFilled={isFormFilled}
+          isSameAddress={isSameAddress}
+        />
 
         <ShippingType>
           <h3>Shipping Type</h3>
-          <label htmlFor="shipping-type">Type</label>
+          <span>Type</span>
           <div>
             <select
               name="shipping-type"
