@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import CheckIcon from '@material-ui/icons/Check';
 import {
@@ -10,6 +10,7 @@ import {
   Grid,
 } from '@material-ui/core';
 import { useStyles, CssTypography } from './styles';
+import api from '../../../../services/api';
 
 export type TUserAddress = {
   oldPostalCode?: string;
@@ -23,9 +24,10 @@ export type TUserAddress = {
 
 type AddressProps = {
   address: TUserAddress;
+  removeAddress(postalCode: string): void;
 };
 
-const Address: React.FC<AddressProps> = ({ address }) => {
+const Address: React.FC<AddressProps> = ({ address, removeAddress }) => {
   const classes = useStyles();
 
   return (
@@ -54,7 +56,11 @@ const Address: React.FC<AddressProps> = ({ address }) => {
           <Link to={`/user/edit-address/${address.postalCode}`}>
             <Button size="small">Edit</Button>
           </Link>
-          <Button size="small" className={classes.red}>
+          <Button
+            size="small"
+            className={classes.red}
+            onClick={() => removeAddress(`${address.postalCode}`)}
+          >
             Remove
           </Button>
         </CardActions>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Grid } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import UserLayout from '../components/UserLayout';
 import Address, { TUserAddress } from './Address';
 import { useStyles, PurpleSolidButton } from './styles';
@@ -9,6 +9,8 @@ import apiErrorHandler from '../../../services/apiErrorHandler';
 
 const PreviousOrders: React.FC = () => {
   const classes = useStyles();
+  const history = useHistory();
+
   const [addressesFound, setAddressesFound] = useState(false);
   const [addresses, setAddresses] = useState<TUserAddress[]>([]);
 
@@ -23,6 +25,14 @@ const PreviousOrders: React.FC = () => {
       .catch(apiErrorHandler);
   }, []);
 
+  const handleRemoveAddress = useCallback((postalCode: string) => {
+    api
+      .delete('/profile/shippingaddress', { data: { postalCode } })
+      .catch(apiErrorHandler);
+
+    history.go(0);
+  }, []);
+
   return (
     <UserLayout addressesActive>
       <Grid container direction="row" className={classes.root}>
@@ -32,7 +42,11 @@ const PreviousOrders: React.FC = () => {
         {addressesFound ? (
           <Grid container item>
             {addresses.map(address => (
-              <Address key={address.postalCode} address={address} />
+              <Address
+                key={address.postalCode}
+                address={address}
+                removeAddress={handleRemoveAddress}
+              />
             ))}
           </Grid>
         ) : (
