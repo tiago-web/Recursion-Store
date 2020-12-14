@@ -175,7 +175,7 @@ const ItemAE: React.FC<ItemAEProps> = ({ item, setModalOpen }) => {
       if (img.image !== null) return img;
     });
 
-    console.log('onsubmit', imagesItems);
+    // console.log('onsubmit', imagesItems);
 
     for (let i = imagesItems.length; i < 4; i++)
       imagesItems[i] = { image: null } as TImg;
