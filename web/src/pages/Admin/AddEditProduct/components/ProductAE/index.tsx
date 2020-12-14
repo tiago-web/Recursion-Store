@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useLocation, useHistory, Link } from 'react-router-dom';
-import { Grid, TextField, Modal, Backdrop, Fade } from '@material-ui/core';
+import {
+  Grid,
+  TextField,
+  Modal,
+  Backdrop,
+  Fade,
+  CircularProgress,
+} from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -8,10 +15,12 @@ import MultiSelect from 'react-multi-select-component';
 import { useRecoilState } from 'recoil';
 import ItemDetail from '../ItemDetail';
 import ItemAE from '../ItemAE';
-import { productState, itemsState, TProduct, TItem, TImg } from '../../Atoms';
+import { itemsState, TProduct, TItem, TImg } from '../../Atoms';
 import { useStyles, SolidButton, RedOutlinedButton } from './styles';
 import './selectStyles.css';
 import api from '../../../../../services/api';
+import getItemsActions from '../../../../../utils/getItemsActions';
+import fetchImageUrlAsBlob from '../../../../../utils/fetchImageUrlAsBlob';
 
 type TCategoryOptions = {
   label: string;
@@ -53,7 +62,7 @@ const ProductAE: React.FC = () => {
   const { productId }: { productId: string } = useParams();
   const isEditProductPage = pathname.toLowerCase().includes('edit');
   const titleInitials = isEditProductPage ? 'Edit' : 'Add';
-  // const [product, setProduct] = useRecoilState<TProduct>(productState);
+  const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState<TProduct>({} as TProduct);
   const [globalItems, setGlobalItems] = useRecoilState<TItem[]>(itemsState);
   const [catSelected, setCatSelected] = useState<TCategoryOptions[]>([]);
@@ -64,6 +73,7 @@ const ProductAE: React.FC = () => {
     items: '',
     product: '',
   });
+  const [serverItems, setServerItems] = useState<TItem[]>([]);
 
   const handleModalOpen = (item: TItem | undefined): void => {
     item ? setModalItem(item as TItem) : setModalItem({} as TItem);
@@ -115,6 +125,7 @@ const ProductAE: React.FC = () => {
         const prod: TProduct = response.data;
 
         if (prod.items) {
+          setServerItems(prod.items);
           const updatedItems: TItem[] = prod.items.map(item => {
             const imageArraySize: number = item.productImages.length;
 
@@ -141,6 +152,10 @@ const ProductAE: React.FC = () => {
   }, [catSelected]);
 
   // useEffect(() => {
+  //   console.log('serverItems', serverItems);
+  // }, [serverItems]);
+
+  // useEffect(() => {
   //   console.log(product);
   // }, [product]);
 
@@ -154,6 +169,21 @@ const ProductAE: React.FC = () => {
       items: '',
       product: '',
     });
+  };
+
+  const endOfRequest = (
+    createdProductId: string | undefined = undefined,
+  ): void => {
+    setLoading(false);
+    if (!createdProductId)
+      setTimeout(() => {
+        history.push(`/product-detail/${productId}`);
+      }, 300);
+
+    if (createdProductId)
+      setTimeout(() => {
+        history.push(`/product-detail/${createdProductId}`);
+      }, 300);
   };
 
   const onSubmit = useCallback(
@@ -196,11 +226,199 @@ const ProductAE: React.FC = () => {
         };
 
         if (isEditProductPage) {
-          console.log('Updating', productToUpdateOrAdd, globalItems);
+          // console.log(
+          //   'Updating',
+          //   productToUpdateOrAdd,
+          //   globalItems,
+          //   serverItems,
+          // );
+          let isUpdatingErrors = false;
+          setLoading(true);
+          api
+            .put(`/Products/${productId}`, productToUpdateOrAdd)
+            .then(response => {
+              const itemsActions = getItemsActions(serverItems, globalItems);
+
+              // console.log('itemsActions', itemsActions);
+
+              itemsActions.map(async (itemAction, idx) => {
+                const itemToUpdateOrAdd = globalItems.find(
+                  itm => itm.color === itemAction.color,
+                );
+
+                const itemFormData = new FormData();
+
+                if (itemToUpdateOrAdd) {
+                  itemFormData.append('color', itemToUpdateOrAdd.color);
+                  itemFormData.append(
+                    'imageColor',
+                    itemToUpdateOrAdd.imageColor,
+                  );
+                  itemFormData.append(
+                    'sizes',
+                    JSON.stringify(itemToUpdateOrAdd.sizes),
+                  );
+                }
+
+                switch (itemAction.action) {
+                  case 'update': {
+                    if (itemToUpdateOrAdd) {
+                      itemFormData.append('oldColor', itemToUpdateOrAdd.color);
+                      for (
+                        let j = 0;
+                        j < itemToUpdateOrAdd.productImages.length;
+                        j++
+                      ) {
+                        const image =
+                          itemToUpdateOrAdd.productImages[j].image ??
+                          itemToUpdateOrAdd.productImages[j].image;
+
+                        if (
+                          typeof image === 'string' &&
+                          image.includes('http://localhost:3333/files/')
+                        ) {
+                          // eslint-disable-next-line no-await-in-loop
+                          const dataFile = await fetchImageUrlAsBlob(image);
+                          itemFormData.append(
+                            'productImages',
+                            dataFile,
+                            'image.jpg',
+                          );
+                          // console.log('File', dataFile);
+                        }
+
+                        if (typeof image === 'object' && image) {
+                          itemFormData.append('productImages', image as File);
+                          // console.log('image', image);
+                        }
+                      }
+
+                      // console.log('requesting update');
+                      const res = await api.put(
+                        `/Products/Items/${productId}`,
+                        itemFormData,
+                      );
+                      // console.log('receiving update', res);
+
+                      api
+                        .put(`/Products/Items/${productId}`, itemFormData)
+                        .then(res => {
+                          // console.log(
+                          //   `color ${itemToUpdateOrAdd.color} was updated`,
+                          // );
+                          if (idx === itemsActions.length - 1) endOfRequest();
+                        })
+                        .catch(() => {
+                          if (idx === itemsActions.length - 1) endOfRequest();
+                          isUpdatingErrors = true;
+                          setErrorProduct(prevState => {
+                            const updatedItemsError = `${prevState.items}<p>color ${itemToUpdateOrAdd.color} was NOT updated</p>`;
+                            // console.log(updatedItemsError);
+                            return { ...prevState, items: updatedItemsError };
+                          });
+                        });
+                    }
+                    break;
+                  }
+
+                  case 'delete': {
+                    const colorToDelete = {
+                      color: itemAction.color,
+                    };
+
+                    api
+                      .delete(`/Products/Items/${productId}`, {
+                        data: colorToDelete,
+                      })
+                      .then(res => {
+                        if (idx === itemsActions.length - 1) endOfRequest();
+                        // console.log(
+                        //   `color ${itemAction.color} was deleted successfully`,
+                        // );
+                      })
+                      .catch(() => {
+                        if (idx === itemsActions.length - 1) endOfRequest();
+                        isUpdatingErrors = true;
+                        setErrorProduct(prevState => {
+                          const deletedItemsError = `${prevState.items}<p>color ${itemAction.color} was NOT deleted</p>`;
+                          // console.log(deletedItemsError);
+                          return { ...prevState, items: deletedItemsError };
+                        });
+                      });
+                    break;
+                  }
+
+                  case 'add': {
+                    if (itemToUpdateOrAdd) {
+                      for (
+                        let j = 0;
+                        j < itemToUpdateOrAdd.productImages.length;
+                        j++
+                      ) {
+                        const image =
+                          itemToUpdateOrAdd.productImages[j].image ??
+                          itemToUpdateOrAdd.productImages[j].image;
+
+                        if (
+                          typeof image === 'string' &&
+                          image.includes('http://localhost:3333/files/')
+                        ) {
+                          // eslint-disable-next-line no-await-in-loop
+                          const dataFile = await fetchImageUrlAsBlob(image);
+                          itemFormData.append(
+                            'productImages',
+                            dataFile,
+                            'image.jpg',
+                          );
+                          // console.log('File', dataFile);
+                        }
+
+                        if (typeof image === 'object') {
+                          itemFormData.append('productImages', image as File);
+                          // console.log('image', image);
+                        }
+                      }
+
+                      api
+                        .post(`/Products/Items/${productId}`, itemFormData)
+                        .then(res => {
+                          if (idx === itemsActions.length - 1) endOfRequest();
+                          // console.log(
+                          //   `color ${itemToUpdateOrAdd.color} was added`,
+                          // );
+                        })
+                        .catch(() => {
+                          if (idx === itemsActions.length - 1) endOfRequest();
+                          isUpdatingErrors = true;
+                          setErrorProduct(prevState => {
+                            const updatedItemsError = `${prevState.items}<p>color ${itemToUpdateOrAdd.color} was NOT added</p>`;
+                            // console.log(updatedItemsError);
+                            return { ...prevState, items: updatedItemsError };
+                          });
+                        });
+                    }
+
+                    break;
+                  }
+
+                  default:
+                    break;
+                }
+              });
+            })
+            .catch(() => {
+              endOfRequest();
+              isUpdatingErrors = true;
+              setErrorProduct(prevState => ({
+                ...prevState,
+                product: `Error: The product ${productToUpdateOrAdd.name} was NOT added`,
+              }));
+            });
         } else {
-          console.log('Adding', productToUpdateOrAdd);
+          // console.log('Adding', productToUpdateOrAdd);
           let createdProductId = '';
           let isAddingErrors = false;
+          setLoading(true);
           api
             .post('/Products', productToUpdateOrAdd)
             .then(response => {
@@ -223,11 +441,16 @@ const ProductAE: React.FC = () => {
 
                 api
                   .post(`/Products/Items/${createdProductId}`, itemFormData)
-                  .then(res => {
-                    console.log(`color ${globalItems[i].color} was inserted`);
+                  // eslint-disable-next-line no-loop-func
+                  .then(() => {
+                    if (globalItems.length - 1 === i)
+                      endOfRequest(createdProductId);
+                    // console.log(`color ${globalItems[i].color} was inserted`);
                   })
                   // eslint-disable-next-line no-loop-func
                   .catch(() => {
+                    if (globalItems.length - 1 === i)
+                      endOfRequest(createdProductId);
                     isAddingErrors = true;
                     setErrorProduct(prevState => {
                       const updatedItemsError = `${prevState.items}<p>color ${globalItems[i].color} was NOT inserted</p>`;
@@ -248,7 +471,7 @@ const ProductAE: React.FC = () => {
         }
       }
     },
-    [globalItems, product],
+    [globalItems, product, serverItems],
   );
 
   return (
@@ -352,6 +575,13 @@ const ProductAE: React.FC = () => {
         <Fade in={modalOpen}>
           <div className={classes.paper}>
             <ItemAE item={modalItem} setModalOpen={setModalOpen} />
+          </div>
+        </Fade>
+      </Modal>
+      <Modal className={classes.modal} open={loading} closeAfterTransition>
+        <Fade in={loading}>
+          <div className={classes.paper}>
+            <CircularProgress size={100} />
           </div>
         </Fade>
       </Modal>
