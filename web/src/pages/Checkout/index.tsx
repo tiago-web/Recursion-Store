@@ -18,9 +18,16 @@ const Checkout: React.FC = () => {
     setProducts(localStorageProducts);
   }, [localStorageProducts]);
 
-  const handleFillAddress = useCallback((formFilled: boolean) => {
-    setIsFilled(formFilled);
-  }, []);
+  const handleFillAddress = useCallback(
+    (shippingFormFilled: boolean, billingFormFilled: boolean) => {
+      if (shippingFormFilled && billingFormFilled) {
+        setIsFilled(true);
+      } else {
+        setIsFilled(false);
+      }
+    },
+    [],
+  );
 
   const handleShippingPrice = useCallback((selected: number) => {
     setShippingPrice(selected);

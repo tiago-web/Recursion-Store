@@ -6,8 +6,16 @@ import BillingForm from './BillingForm';
 import ShippingForm from './ShippingForm';
 
 interface AddressProps {
-  isFormFilled(formFilled: boolean): void;
+  isFormFilled(shippingFormFilled: boolean, billingFormFilled: boolean): void;
   handleShippingPrice(selected: number): void;
+}
+
+interface AddressData {
+  address: string;
+  country: string;
+  postal: string;
+  state: string;
+  city: string;
 }
 
 const Address: React.FC<AddressProps> = ({
@@ -17,6 +25,15 @@ const Address: React.FC<AddressProps> = ({
   const [shippingText, setShippingText] = useState('(1 to 2 business days)');
   const [shippingType, setShippingType] = useState('Express');
   const [isSameAddress, setIsSameAddress] = useState(false);
+
+  const [shippingFormFilled, setShippingFormFilled] = useState(false);
+  const [billingFormFilled, setBillingFormFilled] = useState(false);
+
+  const [address, setAddress] = useState('');
+  const [country, setCountry] = useState('');
+  const [postal, setPostal] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
 
   const handleIsSameAddress = useCallback(() => {
     setIsSameAddress(prevState => !prevState);
@@ -38,18 +55,51 @@ const Address: React.FC<AddressProps> = ({
     [handleShippingPrice],
   );
 
-  const handleAddressData = useCallback(() => { }, []);
+  const handleAddressData = useCallback(
+    (
+      addressData: string,
+      countryData: string,
+      postalData: string,
+      stateData: string,
+      cityData: string,
+    ) => {
+      setAddress(addressData);
+      setCountry(countryData);
+      setPostal(postalData);
+      setState(stateData);
+      setCity(cityData);
+    },
+    [],
+  );
+
+  const isShippingFormFilled = useCallback((formFilled: boolean) => {
+    setShippingFormFilled(formFilled);
+  }, []);
+
+  const isBillingFormFilled = useCallback((formFilled: boolean) => {
+    setBillingFormFilled(formFilled);
+  }, []);
+
+  useEffect(() => {
+    isFormFilled(shippingFormFilled, billingFormFilled);
+  }, [isFormFilled, shippingFormFilled, billingFormFilled]);
 
   return (
     <>
       <Container>
         <ShippingForm
-          isFormFilled={isFormFilled}
+          isShippingFormFilled={isShippingFormFilled}
           handleIsSameAddress={handleIsSameAddress}
+          handleAddressData={handleAddressData}
         />
         <BillingForm
-          isFormFilled={isFormFilled}
+          isBillingFormFilled={isBillingFormFilled}
           isSameAddress={isSameAddress}
+          address={address}
+          country={country}
+          postal={postal}
+          state={state}
+          city={city}
         />
 
         <ShippingType>
