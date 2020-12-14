@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 import { Container, Form } from './styles';
 
@@ -49,12 +50,40 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
     isShippingFormFilled,
   ]);
 
+  const handleSelectAddress = useCallback(async (value: string): Promise<
+    void
+  > => {
+    console.log(value);
+  }, []);
+
   return (
     <>
       <Container>
         <h3>Shipping Address</h3>
         <Form>
           <span>Address</span>
+          <PlacesAutocomplete
+            value={address}
+            onChange={e => setAddress(e)}
+            onSelect={handleSelectAddress}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div>
+                <input {...getInputProps({ placeholder: 'Address' })} />
+                <div>
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map(suggestion => (
+                    <div key={suggestion.placeId}>{suggestion.description}</div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
           <input
             type="text"
             className="main-input"
@@ -103,6 +132,10 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
             </div>
           </div>
         </Form>
+        <div>
+          <input type="checkbox" checked />
+          <span>Use another address</span>
+        </div>
         <div>
           <input type="checkbox" onChange={handleIsSameAddress} />
           <span>Use this address as billing address</span>

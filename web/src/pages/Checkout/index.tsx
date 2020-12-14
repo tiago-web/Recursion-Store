@@ -44,7 +44,7 @@ const Checkout: React.FC = () => {
           />
           <OrderDetailsContainer products={products} />
         </CheckoutContent>
-        <Summary disable={isFilled} shippingPrice={shippingPrice} />
+        <Summary isFilled={isFilled} shippingPrice={shippingPrice} />
       </Container>
     </>
   );
