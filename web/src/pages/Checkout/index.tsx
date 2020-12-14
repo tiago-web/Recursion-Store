@@ -7,16 +7,12 @@ import OrderDetailsContainer from './components/OrderDetailsContainer';
 import { Container, CheckoutContent } from './styles';
 import { useCart, Product } from '../../contexts/CartContext';
 
-// interface CheckoutProps {
-
-// }
-
 const Checkout: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { products: localStorageProducts } = useCart();
-  // const [productsApi, setProductsApi] = useState();
 
   const [isFilled, setIsFilled] = useState(true);
+  const [shippingPrice, setShippingPrice] = useState(12.99);
 
   useEffect(() => {
     setProducts(localStorageProducts);
@@ -26,15 +22,22 @@ const Checkout: React.FC = () => {
     setIsFilled(formFilled);
   }, []);
 
+  const handleShippingPrice = useCallback((selected: number) => {
+    setShippingPrice(selected);
+  }, []);
+
   return (
     <>
       <Container>
         <CheckoutContent>
           <h1>Checkout</h1>
-          <Address isFormFilled={handleFillAddress} />
+          <Address
+            isFormFilled={handleFillAddress}
+            handleShippingPrice={handleShippingPrice}
+          />
           <OrderDetailsContainer products={products} />
         </CheckoutContent>
-        <Summary disable={isFilled} />
+        <Summary disable={isFilled} shippingPrice={shippingPrice} />
       </Container>
     </>
   );
