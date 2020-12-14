@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
-// import { Product } from '../../../../contexts/CartContext';
 import { Container } from './styles';
 
 interface SummaryProps {
-  disable: boolean;
+  isFilled: boolean;
   shippingPrice: number;
 }
 
-const Summary: React.FC<SummaryProps> = ({ disable, shippingPrice }) => {
+const Summary: React.FC<SummaryProps> = ({ isFilled, shippingPrice }) => {
   const [subtotal, setSubtotal] = useState(0);
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
@@ -49,12 +48,18 @@ const Summary: React.FC<SummaryProps> = ({ disable, shippingPrice }) => {
           <strong>Total:</strong>
           <strong>{formatToDollars(total)}</strong>
         </div>
-        {/* <div className="complete"></div> */}
         <span className="terms">
           By completing your purchase you agree to these
           <a href="/">Terms of Service</a>
         </span>
-        <Button disabled={!disable}>Complete Payment</Button>
+        <Button disabled={!isFilled}>Complete Payment</Button>
+        {!isFilled ? (
+          <span style={{ color: '#f00', margin: '8px 0 0' }}>
+            Fill the address.
+          </span>
+        ) : (
+            ''
+          )}
       </Container>
     </>
   );
