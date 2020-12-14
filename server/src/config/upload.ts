@@ -1,6 +1,6 @@
 import multer, { StorageEngine } from 'multer';
 import crypto from 'crypto';
-import path from 'path'
+import path from 'path';
 
 const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
@@ -26,15 +26,15 @@ export default {
       destination: tmpFolder,
       filename(req, file, cb) {
         const fileHash = crypto.randomBytes(10).toString('hex');
-        const fileName = `${fileHash}-${replaceAll(file.originalname, " ", "%20")}`;
+        // const fileName = `${fileHash}-${replaceAll(file.originalname, " ", "%20")}`;
+        const extension = file.originalname.split('.').pop();
+        const fileName = `${fileHash}.${extension}`;
 
         return cb(null, fileName);
       },
     }),
   },
-
 } as IUploadConfig;
-
 
 function replaceAll(str: string, find: string, replace: string) {
   return str.replace(new RegExp(find, 'g'), replace);

@@ -26,3 +26,7 @@ input {
   height: 2rem;
   /* color: var(--darkest-purple); */
 }
+
+.MuiCircularProgress-colorPrimary {
+  color: #583874 !important;
+}

@@ -1,9 +1,9 @@
-import { IProduct } from "../../infra/mongoose/models/Product";
-import ProductsRepository from "../../infra/mongoose/repositories/ProductsRepository";
-import DiskStorageProvider from "@shared/container/providers/StorageProvider/implementations/DiskStorageProvider";
+import { IProduct } from '../../infra/mongoose/models/Product';
+import ProductsRepository from '../../infra/mongoose/repositories/ProductsRepository';
+import DiskStorageProvider from '@shared/container/providers/StorageProvider/implementations/DiskStorageProvider';
 
-import AppError from "@shared/errors/AppError";
-import statusCodes from "@config/statusCodes";
+import AppError from '@shared/errors/AppError';
+import statusCodes from '@config/statusCodes';
 
 interface IRequest {
   productId: string;
@@ -14,7 +14,11 @@ interface IRequest {
     image: string;
     imageUrl: string;
   }>;
-};
+  sizes: Array<{
+    sizeTag: string;
+    quantity: number;
+  }>;
+}
 
 const productsRepository = new ProductsRepository();
 const storageProvider = new DiskStorageProvider();
@@ -26,6 +30,7 @@ class UpdateProductItemService {
     color,
     imageColor,
     productImages,
+    sizes,
   }: IRequest): Promise<IProduct> {
     let product = await productsRepository.findById(productId);
 
@@ -37,11 +42,10 @@ class UpdateProductItemService {
 
     const item = product.items.find(item => item.color === oldColor);
 
-    if (!item)
-      throw new AppError("Item doesn't exists", statusCodes.notFound);
+    if (!item) throw new AppError("Item doesn't exists", statusCodes.notFound);
 
     if (!color && !imageColor && !productImages)
-      throw new AppError('Bad Request.')
+      throw new AppError('Bad Request.');
 
     if (productImages) {
       for (let i = 0; i < item.productImages.length; i++)
@@ -55,10 +59,17 @@ class UpdateProductItemService {
 
     item.color = color ?? item.color;
     item.imageColor = imageColor ?? item.imageColor;
+    item.sizes = sizes ?? item.sizes;
 
-    await productsRepository.save(product);
+    //await productsRepository.save(product);
 
-    return product;
+    const updatedProduct = await productsRepository.updateItem(
+      productId,
+      oldColor,
+      item,
+    );
+
+    return updatedProduct as IProduct;
   }
 }
 

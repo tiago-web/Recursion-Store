@@ -1,15 +1,15 @@
-import { Router } from "express";
+import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import multer from "multer";
-import uploadConfig from "@config/upload";
+import multer from 'multer';
+import uploadConfig from '@config/upload';
 
-import ProductItemController from "../controllers/ProductItemController";
+import ProductItemController from '../controllers/ProductItemController';
 
-import ensureAdminUserAuthenticated from "@modules/users/infra/http/middleware/ensureAdminUserAuthenticated";
-import checkIsValidMongoId from "@shared/infra/http/middlewares/checkIsValidObjectId";
+import ensureAdminUserAuthenticated from '@modules/users/infra/http/middleware/ensureAdminUserAuthenticated';
+import checkIsValidMongoId from '@shared/infra/http/middlewares/checkIsValidObjectId';
 
-import sizesRouter from "./sizes.routes";
+import sizesRouter from './sizes.routes';
 
 const productItemController = new ProductItemController();
 const itemRouter = Router();
@@ -20,35 +20,28 @@ itemRouter.use(ensureAdminUserAuthenticated);
 itemRouter.use('/sizes', sizesRouter);
 
 itemRouter.post(
-  "/:id",
+  '/:id',
   checkIsValidMongoId,
-  upload.array("productImages"),
-  productItemController.create
+  upload.array('productImages'),
+  productItemController.create,
 );
 
 itemRouter.put(
-  "/:id",
+  '/:id',
   checkIsValidMongoId,
-  upload.array("productImages"),
-  celebrate({
-    [Segments.BODY]: {
-      color: Joi.string(),
-      imageColor: Joi.string(),
-      oldColor: Joi.string().required(),
-    }
-  }),
-  productItemController.update
+  upload.array('productImages'),
+  productItemController.update,
 );
 
 itemRouter.delete(
-  "/:id",
+  '/:id',
   checkIsValidMongoId,
   celebrate({
     [Segments.BODY]: {
       color: Joi.string().required(),
-    }
+    },
   }),
-  productItemController.delete
+  productItemController.delete,
 );
 
 export default itemRouter;

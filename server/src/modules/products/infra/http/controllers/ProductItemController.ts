@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import statusCodes from "@config/statusCodes";
-import * as Yup from "yup";
+import statusCodes from '@config/statusCodes';
+import * as Yup from 'yup';
 
-import CreateProductItemService from "@modules/products/services/ProductItem/CreateProductItemService";
-import UpdateProductItemService from "@modules/products/services/ProductItem/UpdateProductItemService";
-import DeleteProductItemService from "@modules/products/services/ProductItem/DeleteProductItemService";
+import CreateProductItemService from '@modules/products/services/ProductItem/CreateProductItemService';
+import UpdateProductItemService from '@modules/products/services/ProductItem/UpdateProductItemService';
+import DeleteProductItemService from '@modules/products/services/ProductItem/DeleteProductItemService';
 
 const createProductItem = new CreateProductItemService();
 const updateProductItem = new UpdateProductItemService();
@@ -21,30 +21,36 @@ class ProductItemController {
     const requestImages = req.files as Express.Multer.File[];
 
     const productImages = requestImages.map(image => {
-      return ({
+      return {
         image: image.filename,
-        imageUrl: `${req.protocol}://${req.get('host')}/files/${image.filename}`,
-      });
+        imageUrl: `${req.protocol}://${req.get('host')}/files/${
+          image.filename
+        }`,
+      };
     });
 
     const data = {
       color,
       imageColor,
       sizes,
-      productImages
+      productImages,
     };
 
     const schema = Yup.object().shape({
       color: Yup.string().required(),
       imageColor: Yup.string().required(),
-      sizes: Yup.array(Yup.object().shape({
-        sizeTag: Yup.string().required(),
-        quantity: Yup.number().required(),
-      })),
-      productImages: Yup.array(Yup.object().shape({
-        image: Yup.string().required(),
-        imageUrl: Yup.string().required(),
-      })).max(4)
+      sizes: Yup.array(
+        Yup.object().shape({
+          sizeTag: Yup.string().required(),
+          quantity: Yup.number().required(),
+        }),
+      ),
+      productImages: Yup.array(
+        Yup.object().shape({
+          image: Yup.string().required(),
+          imageUrl: Yup.string().required(),
+        }),
+      ).max(4),
     });
 
     await schema.validate(data, {
@@ -56,7 +62,7 @@ class ProductItemController {
       color,
       imageColor,
       productImages,
-      sizes
+      sizes,
     });
 
     return res.status(statusCodes.created).json(product);
@@ -65,22 +71,48 @@ class ProductItemController {
   public async update(req: Request, res: Response): Promise<Response> {
     const { id: productId } = req.params;
     const { color, oldColor, imageColor } = req.body;
+    let { sizes } = req.body;
+
+    sizes = JSON.parse(sizes);
 
     const requestImages = req.files as Express.Multer.File[];
 
     const productImages = requestImages.map(image => {
-      return ({
+      return {
         image: image.filename,
-        imageUrl: `${req.protocol}://${req.get('host')}/files/${image.filename}`,
-      });
+        imageUrl: `${req.protocol}://${req.get('host')}/files/${
+          image.filename
+        }`,
+      };
     });
 
-    const productImagesSchema = Yup.array(Yup.object().shape({
-      image: Yup.string().required(),
-      imageUrl: Yup.string().required(),
-    })).max(4);
+    const data = {
+      oldColor,
+      color,
+      imageColor,
+      sizes,
+      productImages,
+    };
 
-    await productImagesSchema.validate(productImages, {
+    const schema = Yup.object().shape({
+      oldColor: Yup.string().required(),
+      color: Yup.string(),
+      imageColor: Yup.string(),
+      sizes: Yup.array(
+        Yup.object().shape({
+          sizeTag: Yup.string().required(),
+          quantity: Yup.number().required(),
+        }),
+      ),
+      productImages: Yup.array(
+        Yup.object().shape({
+          image: Yup.string().required(),
+          imageUrl: Yup.string().required(),
+        }),
+      ).max(4),
+    });
+
+    await schema.validate(data, {
       abortEarly: false,
     });
 
@@ -89,7 +121,8 @@ class ProductItemController {
       color,
       oldColor,
       imageColor,
-      productImages
+      productImages,
+      sizes,
     });
 
     return res.status(statusCodes.ok).json(product);
@@ -101,7 +134,7 @@ class ProductItemController {
 
     const product = await deleteProductItem.execute({
       productId,
-      color
+      color,
     });
 
     return res.status(statusCodes.accepted).json(product);
