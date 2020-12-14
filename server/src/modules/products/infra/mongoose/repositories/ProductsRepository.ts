@@ -1,9 +1,10 @@
-import Product, { IProduct } from '../models/Product';
+import Product, { IItem, IProduct } from '../models/Product';
 
 import ICreateProductDTO from '@modules/products/dtos/ICreateProductDTO';
 import IUpdateSizeQuantityDTO from '@modules/products/dtos/IUpdateSizeQuantityDTO';
 import IFindQuantityDTO from '@modules/products/dtos/IFindQuantityDTO';
 import IFindByFilters from '@modules/products/dtos/IFindByFilters';
+import itemRouter from '../../http/routes/items.routes';
 
 class ProductsRepository {
   public async findByName(productName: string): Promise<IProduct | null> {
@@ -124,6 +125,28 @@ class ProductsRepository {
 
   public async markModified(product: IProduct): Promise<void> {
     await product.markModified('reviews');
+  }
+
+  public async updateItem(
+    productId: string,
+    oldColor: string,
+    item: IItem,
+  ): Promise<IProduct | null> {
+    const productUp = await Product.updateOne(
+      { _id: productId, 'items.color': oldColor },
+      {
+        $set: {
+          'items.$.color': item.color,
+          'items.$.imageColor': item.imageColor,
+          'items.$.sizes': item.sizes,
+          'items.$.productImages': item.productImages,
+        },
+      },
+    );
+
+    const product = await Product.findById(productId).populate('reviews');
+
+    return product;
   }
 }
 
