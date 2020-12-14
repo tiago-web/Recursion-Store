@@ -1,8 +1,14 @@
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 const mainColor = '#341C49';
 const focusColor = '#583874';
+
+export const CreateNewAccountText = styled.p`
+  font-size: 1rem;
+  font-weight: 600;
+`;
 
 export const CssTextField = withStyles({
   root: {
@@ -63,7 +69,7 @@ export const useStyles = makeStyles(theme => {
       },
     },
     link: {
-      color: focusColor,
+      color: '#e06b50',
       textDecoration: 'none !important',
     },
     checkBox: {

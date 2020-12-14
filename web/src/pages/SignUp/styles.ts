@@ -14,6 +14,10 @@ export const Container = styled.div`
   }
 `;
 
+export const SignUpTitle = styled.h1`
+  color: #341c49;
+`;
+
 export const FormWrapper = styled.div`
   margin-top: 54px;
   display: flex;
@@ -24,6 +28,9 @@ export const FormWrapper = styled.div`
 
   border: 1px solid #341c49;
   border-radius: 15px;
+
+  height: fit-content;
+  padding: 38px;
 `;
 
 export const Form = styled.div`
@@ -65,7 +72,7 @@ export const SubmitButton = styled(Button)`
   transition: background-color 0.3s;
 
   padding: 6px 8px;
-  background: #e06b50;
+  background: #341c49;
   margin-top: 18px;
   color: #fff;
   font-family: Roboto, Ubunto, sans-serif;
@@ -73,6 +80,6 @@ export const SubmitButton = styled(Button)`
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 
   &:hover {
-    background: ${shade(0.3, '#e06b50')};
+    background: ${shade(0.3, '#341C49')};
   }
 `;

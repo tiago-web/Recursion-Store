@@ -1,7 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
+import { useAuth } from '../../../../../contexts/AuthContext';
+import api from '../../../../../services/api';
 
 import { Container, Form } from './styles';
+
+interface AddressesData {
+  address: string;
+  country: string;
+  postalCode: string;
+  state: string;
+  city: string;
+}
 
 interface ShippingFormProps {
   isShippingFormFilled(formFilled: boolean): void;
@@ -20,11 +30,56 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
   handleIsSameAddress,
   handleAddressData,
 }) => {
-  const [address, setAddress] = useState('');
-  const [country, setCountry] = useState('');
-  const [postal, setPostal] = useState('');
-  const [state, setState] = useState('');
-  const [city, setCity] = useState('');
+  const { user } = useAuth();
+
+  const [addresses, setAddresses] = useState<AddressesData[]>([]);
+  const [address, setAddress] = useState(() => {
+    const addressExists = addresses[0].address;
+
+    if (addressExists) return addressExists;
+
+    return '';
+  });
+  const [country, setCountry] = useState(() => {
+    const countryExists = addresses[0].country;
+
+    if (countryExists) return countryExists;
+
+    return '';
+  });
+  const [postal, setPostal] = useState(() => {
+    const postalExists = addresses[0].postalCode;
+
+    if (postalExists) return postalExists;
+
+    return '';
+  });
+  const [state, setState] = useState(() => {
+    const stateExists = addresses[0].state;
+
+    if (stateExists) return stateExists;
+
+    return '';
+  });
+  const [city, setCity] = useState(() => {
+    const cityExists = addresses[0].city;
+
+    if (cityExists) return cityExists;
+
+    return '';
+  });
+
+  useEffect(() => {
+    async function loadUserAddresses(): Promise<void> {
+      const response = await api.get('profile/shippingAddresses');
+
+      if (response) {
+        setAddresses(response.data);
+      }
+    }
+
+    loadUserAddresses();
+  }, []);
 
   useEffect(() => {
     if (
