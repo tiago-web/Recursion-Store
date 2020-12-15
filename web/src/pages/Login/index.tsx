@@ -16,7 +16,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useAuth } from '../../contexts/AuthContext';
 // import api from '../../services/api';
-import { CssTextField, useStyles } from './styles';
+import { CssTextField, useStyles, CreateNewAccountText } from './styles';
 
 type TLoginData = {
   email: string;
@@ -156,10 +156,9 @@ const Login: React.FC = () => {
           </Button>
           <Grid container>
             <Grid item>
-              &nbsp;
-              {/* <Link href="#" variant="body2" className={classes.link}>
-                {'New to this platform? Create an Acount.'}
-              </Link> */}
+              <Link href="/signup" className={classes.link}>
+                <CreateNewAccountText>Create new Acount</CreateNewAccountText>
+              </Link>
             </Grid>
           </Grid>
         </form>

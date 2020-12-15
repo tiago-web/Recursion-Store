@@ -1,12 +1,13 @@
 import React from 'react';
 import Carousel, { Item } from '../../components/Carousel';
-import ProductOffers from './components/ProductOffers';
 import ProductsOverview from './components/ProductsOverview';
+import NewCollectionProducts from './components/NewCollectionProducts';
 
-import { Container, Section } from './styles';
 import coughingImg from '../../assets/coughing.svg';
 import santaImg from '../../assets/santa.svg';
 import mobileAppImg from '../../assets/mobileApp.svg';
+
+import { Container, Section } from './styles';
 
 const Home: React.FC = () => {
   const items = [
@@ -49,8 +50,8 @@ const Home: React.FC = () => {
       </Section>
       <Section>
         <Container>
-          <h1>Offers you might Like</h1>
-          <ProductOffers />
+          <h1>New Collection</h1>
+          <NewCollectionProducts />
         </Container>
       </Section>
       <Section>

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Button as MaterialBtn } from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
 
 import { shade } from 'polished';
@@ -17,6 +19,7 @@ export const ProductImage = styled.div`
   height: 400px;
   width: 350px;
   border-radius: 5px;
+  position: relative;
   margin-bottom: 8px;
   background-position: center;
   background-repeat: no-repeat;
@@ -35,6 +38,27 @@ export const ProductName = styled(Link)`
 
   :hover {
     color: ${shade(0.6, '#583874')};
+  }
+`;
+
+export const EditProductButton = styled(MaterialBtn)`
+  position: absolute;
+
+  text-transform: uppercase;
+  width: 40%;
+  transition: background-color 0.3s;
+  margin: 5px;
+
+  padding: 6px 8px;
+  background: rgba(161, 34, 53, 0.9);
+  color: #fff;
+
+  font-family: Roboto, Ubunto, sans-serif;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    background: ${shade(0.3, 'rgba(161, 34, 53, 0.9)')};
   }
 `;
 

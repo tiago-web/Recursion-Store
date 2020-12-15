@@ -8,15 +8,16 @@ import { Container } from './styles';
 
 type ProductReviewContainerProps = Omit<Product, '_id'> & {
   productId: string;
+  users: User[];
+  handleDeleteReview(reviewId: string): void;
 };
 
-interface UserProps {
-  users: User[];
-}
-
-const ProductReviewContainer: React.FC<
-  ProductReviewContainerProps & UserProps
-> = ({ productId, reviews, users }) => {
+const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
+  productId,
+  reviews,
+  users,
+  handleDeleteReview,
+}) => {
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [btnText, setBtnText] = useState('SHOW ALL REVIEWS');
 
@@ -40,6 +41,7 @@ const ProductReviewContainer: React.FC<
           showAllReviews={showAllReviews}
           reviews={reviews}
           users={users}
+          handleDeleteReview={handleDeleteReview}
         />
       </Container>
     </>

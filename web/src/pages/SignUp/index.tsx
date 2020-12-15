@@ -1,7 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import { Container, FormWrapper, Form, Input, SubmitButton } from './styles';
+import {
+  Container,
+  FormWrapper,
+  SignUpTitle,
+  Form,
+  Input,
+  SubmitButton,
+} from './styles';
 import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
@@ -41,8 +48,8 @@ const SignUp: React.FC = () => {
   return (
     <Container>
       <FormWrapper>
-        <AccountCircleIcon style={{ fontSize: 62, color: '#e06b50' }} />
-        <h1>Sign Up</h1>
+        <AccountCircleIcon style={{ fontSize: 62, color: '#341C49' }} />
+        <SignUpTitle>Sign Up</SignUpTitle>
         <Form>
           <Input
             type="text"

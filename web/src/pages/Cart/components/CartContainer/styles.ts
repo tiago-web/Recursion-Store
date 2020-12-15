@@ -11,11 +11,12 @@ export const Container = styled.div`
 export const YourCartContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
 
   h1 {
     font-size: 32px;
-    margin-bottom: 64px;
+    color: #583874;
+    margin-bottom: 36px;
   }
 
   .emptyCart {

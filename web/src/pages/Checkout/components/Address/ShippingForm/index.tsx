@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import PlacesAutocomplete from 'react-places-autocomplete';
+import { AddressesData } from '..';
+import { useAuth } from '../../../../../contexts/AuthContext';
+import api from '../../../../../services/api';
 
 import { Container, Form } from './styles';
 
@@ -13,13 +15,17 @@ interface ShippingFormProps {
     stateData: string,
     cityData: string,
   ): void;
+  addresses: AddressesData[];
 }
 
 const ShippingForm: React.FC<ShippingFormProps> = ({
   isShippingFormFilled,
   handleIsSameAddress,
   handleAddressData,
+  addresses,
 }) => {
+  const { user } = useAuth();
+
   const [address, setAddress] = useState('');
   const [country, setCountry] = useState('');
   const [postal, setPostal] = useState('');
@@ -38,6 +44,7 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
     } else {
       isShippingFormFilled(true);
     }
+    console.log(addresses);
 
     handleAddressData(address, country, postal, state, city);
   }, [
@@ -62,28 +69,6 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
         <h3>Shipping Address</h3>
         <Form>
           <span>Address</span>
-          <PlacesAutocomplete
-            value={address}
-            onChange={e => setAddress(e)}
-            onSelect={handleSelectAddress}
-          >
-            {({
-              getInputProps,
-              suggestions,
-              getSuggestionItemProps,
-              loading,
-            }) => (
-              <div>
-                <input {...getInputProps({ placeholder: 'Address' })} />
-                <div>
-                  {loading && <div>Loading...</div>}
-                  {suggestions.map(suggestion => (
-                    <div key={suggestion.placeId}>{suggestion.description}</div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </PlacesAutocomplete>
           <input
             type="text"
             className="main-input"

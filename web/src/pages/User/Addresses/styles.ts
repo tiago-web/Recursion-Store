@@ -23,7 +23,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(0, 3, 4),
 
       '& h2': {
-        color: '#583874',
+        color: '#e06b50',
         marginLeft: '3px',
       },
     },

@@ -1,10 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../../../contexts/AuthContext';
 import { useProductsFilter } from '../../contexts/ProductsFilterContext';
 import SideBarItem from './SideBarItem';
+import AddIcon from '@material-ui/icons/Add';
 
-import { Container, SideBar } from './styles';
+import {
+  Container,
+  SideBar,
+  AddNewProductLink,
+  AddNewProductButton,
+} from './styles';
 
 interface RouteParams {
   filter?: string;
@@ -39,6 +46,8 @@ const sideBarSessions = [
 const ProductsSideBar: React.FC = () => {
   const { filter: urlFilter } = useParams<RouteParams>();
   const { removeAllFilters, addFilter } = useProductsFilter();
+  const [isAdminUser, setIsAdminUser] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     if (urlFilter) {
@@ -58,9 +67,22 @@ const ProductsSideBar: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlFilter]);
+
+  useEffect(() => {
+    setIsAdminUser(!user || user.permission === 'User' ? false : true);
+  }, []);
+
   return (
     <Container>
       <SideBar>
+        {isAdminUser && (
+          <AddNewProductLink to="/admin/addproduct">
+            <AddNewProductButton>
+              <p>Add New Product</p>
+              <AddIcon />
+            </AddNewProductButton>
+          </AddNewProductLink>
+        )}
         {sideBarSessions.map(session => (
           <SideBarItem
             key={session.title}

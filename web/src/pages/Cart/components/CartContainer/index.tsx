@@ -27,15 +27,19 @@ const CartContainer: React.FC<CartContainerProps> = ({ products }) => {
           {products.length !== 0 ? (
             products.map(p => <CartItemContainer key={p.productId} p={p} />)
           ) : (
-              <EmptyCart />
-            )}
+            <EmptyCart />
+          )}
         </YourCartContainer>
-        <Divider orientation="vertical" flexItem />
+        <Divider
+          orientation="vertical"
+          flexItem
+          style={{ backgroundColor: '#341C49' }}
+        />
         {products.length !== 0 ? (
           <CartTotal products={products} isEmpty={false} />
         ) : (
-            <CartTotal products={products} isEmpty />
-          )}
+          <CartTotal products={products} isEmpty />
+        )}
       </Container>
     </>
   );
