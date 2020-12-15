@@ -18,7 +18,7 @@ export const SideBar = styled.div`
   width: 16vw;
   border-top-right-radius: 8px;
   max-width: 320px;
-  min-width: 180px;
+  min-width: 250px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -42,7 +42,8 @@ export const AddNewProductButton = styled(MaterialBtn)`
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
 
   &:hover {
     background: ${shade(0.3, '#e06b50')};

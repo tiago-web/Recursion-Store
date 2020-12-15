@@ -17,3 +17,8 @@ export const CartSection = styled.section`
     margin-bottom: 32px;
   }
 `;
+export const BestSellersTitle = styled.h1`
+  margin: 0 25px 48px;
+  color: #583874;
+  font-size: 1.6rem;
+`;
