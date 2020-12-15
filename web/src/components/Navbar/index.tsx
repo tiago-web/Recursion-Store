@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Toolbar, Tooltip, Grid, InputBase } from '@material-ui/core';
 import { useSpring } from 'react-spring';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   MaterialAppBar,
   ContainerTitle,
@@ -8,15 +10,17 @@ import {
   MaterialTypography,
   MaterialShoppingCartIcon,
   MaterialPersonIcon,
+  MaterialAccountCircleIcon,
   MaterialSearchIcon,
   ReactLink as Link,
 } from './styles';
-import { useLocation } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const classes = useStyles();
   const [navbarActive, setNavbarActive] = useState(false);
   const [isHome, setIsHome] = useState(false);
+  const { user } = useAuth();
+  const [isUserLogged, setIsUserLogged] = useState(false);
   const [style, animate] = useSpring(() => ({
     opacity: 1,
     y: 0,
@@ -35,7 +39,7 @@ const Navbar: React.FC = () => {
   }, [location]);
 
   useEffect(() => {
-    const handleNavBarActive = () => {
+    const handleNavBarActive = (): void => {
       if (window.scrollY >= 110) {
         setNavbarActive(true);
       } else {
@@ -58,7 +62,15 @@ const Navbar: React.FC = () => {
     } else {
       animate({ height: 100 });
     }
-  }, [navbarActive]);
+  }, [navbarActive, animate]);
+
+  useEffect(() => {
+    if (user) {
+      setIsUserLogged(true);
+    } else {
+      setIsUserLogged(false);
+    }
+  }, [user]);
 
   const handleNavbarClasses = useCallback(() => {
     if (isHome) {
@@ -108,7 +120,14 @@ const Navbar: React.FC = () => {
           </Tooltip>
           <Tooltip title="User" aria-label="user">
             <Link to="/user/myaccount">
-              <MaterialPersonIcon />
+              {isUserLogged ? (
+                <>
+                  <MaterialAccountCircleIcon />
+                  <span>Welcome, {user.firstName}</span>
+                </>
+              ) : (
+                  <MaterialPersonIcon />
+                )}
             </Link>
           </Tooltip>
         </Grid>

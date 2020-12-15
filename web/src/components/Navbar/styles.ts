@@ -3,6 +3,7 @@ import { AppBar, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   makeStyles,
@@ -67,6 +68,10 @@ export const ContainerTitle = styled.div`
 export const ReactLink = styled(Link)`
   text-decoration: none;
   color: var(--navbar-text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const MaterialTypography = styled(Typography)`
@@ -78,6 +83,10 @@ export const MaterialShoppingCartIcon = styled(ShoppingCartIcon)`
 `;
 
 export const MaterialPersonIcon = styled(PersonIcon)`
+  color: var(--navbar-text);
+`;
+
+export const MaterialAccountCircleIcon = styled(AccountCircleIcon)`
   color: var(--navbar-text);
 `;
 
