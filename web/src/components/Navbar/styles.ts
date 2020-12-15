@@ -68,6 +68,11 @@ export const ContainerTitle = styled.div`
 export const ReactLink = styled(Link)`
   text-decoration: none;
   color: var(--navbar-text);
+`;
+
+export const ReactUserLink = styled(Link)`
+  text-decoration: none;
+  color: var(--navbar-text);
   display: flex;
   flex-direction: column;
   align-items: center;

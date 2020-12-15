@@ -13,6 +13,7 @@ import {
   MaterialAccountCircleIcon,
   MaterialSearchIcon,
   ReactLink as Link,
+  ReactUserLink,
 } from './styles';
 
 const Navbar: React.FC = () => {
@@ -41,9 +42,9 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const handleNavBarActive = (): void => {
       if (window.scrollY >= 110) {
-        setNavbarActive(true);
+        setTimeout(setNavbarActive(true), 1000);
       } else {
-        setNavbarActive(false);
+        setTimeout(setNavbarActive(false), 1000);
       }
     };
 
@@ -56,7 +57,12 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     if (navbarActive) {
-      animate({ opacity: 0.5, y: -200, height: 80, config: { duration: 600 } });
+      animate({
+        opacity: 0.5,
+        y: -200,
+        // height: 80,
+        config: { duration: 600 },
+      });
 
       animate({ opacity: 1, y: 0, delay: 500, config: { duration: 700 } });
     } else {
@@ -65,10 +71,10 @@ const Navbar: React.FC = () => {
   }, [navbarActive, animate]);
 
   useEffect(() => {
-    if (user) {
-      setIsUserLogged(true);
-    } else {
+    if (!user) {
       setIsUserLogged(false);
+    } else {
+      setIsUserLogged(true);
     }
   }, [user]);
 
@@ -119,16 +125,16 @@ const Navbar: React.FC = () => {
             </Link>
           </Tooltip>
           <Tooltip title="User" aria-label="user">
-            <Link to="/user/myaccount">
+            <ReactUserLink to="/user/myaccount" className="user-icon">
               {isUserLogged ? (
                 <>
                   <MaterialAccountCircleIcon />
-                  <span>Welcome, {user.firstName}</span>
+                  {/* <span>Welcome, {user.firstName}</span> */}
                 </>
               ) : (
                   <MaterialPersonIcon />
                 )}
-            </Link>
+            </ReactUserLink>
           </Tooltip>
         </Grid>
       </Toolbar>

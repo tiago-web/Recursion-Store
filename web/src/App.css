@@ -26,6 +26,10 @@ html {
   scroll-behavior: smooth;
 }
 
+a, button, form, select, input {
+  outline: none;
+}
+
 body,
 input,
 textarea,

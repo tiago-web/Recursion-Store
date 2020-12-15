@@ -103,3 +103,29 @@ export const Likes = styled.div`
     background: #f2f2f2;
   }
 `;
+
+export const NoReviewsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 84px 0 0;
+
+  h2 {
+    font-size: 1.7rem;
+
+    margin-bottom: 24px;
+  }
+
+  button {
+    border: 0;
+    padding: 6px;
+    background: #f2f2f2;
+  }
+
+  span {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+`;

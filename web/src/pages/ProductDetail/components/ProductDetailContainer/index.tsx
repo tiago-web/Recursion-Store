@@ -133,7 +133,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   return (
     <>
       <Container>
-        <CarouselContent>
+        {/* <CarouselContent>
           <Carousel
             items={images}
             height={60}
@@ -141,7 +141,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             backgroundColor="#fafafa"
             navButtonsAlwaysVisible
           />
-        </CarouselContent>
+        </CarouselContent> */}
+        {/* <ProductImagesCarousel items={images}/> */}
         {productId ? (
           <ProductDetailContent>
             <Title>
@@ -188,8 +189,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
                 {addedTocart ? (
                   <Button onClick={handleAddToCart}>ADD TO CART</Button>
                 ) : (
-                  <Button>ADD TO CART</Button>
-                )}
+                    <Button>ADD TO CART</Button>
+                  )}
               </div>
             </AddToCart>
             {!addedTocart && (
@@ -204,8 +205,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             </Description>
           </ProductDetailContent>
         ) : (
-          <h1>Product Not Found</h1>
-        )}
+            <h1>Product Not Found</h1>
+          )}
       </Container>
     </>
   );
