@@ -70,10 +70,6 @@ const SignUp: React.FC = () => {
 
   const onSubmit = useCallback(
     async data => {
-      // const data = user as SignUpFormData;
-
-      console.log('data', data);
-
       await api.post('users', data);
 
       history.push('/');
