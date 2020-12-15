@@ -1,8 +1,3 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  width: 100%;
-  height: 300px;
-
-  background: #000;
-`;
+export const CarouselContainer = styled.div``;

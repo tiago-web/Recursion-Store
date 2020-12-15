@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import statusCodes from "@config/statusCodes";
+import statusCodes from '@config/statusCodes';
 
 import CreateUserService from '@modules/users/services/User/CreateUserService';
 import ListUsersService from '@modules/users/services/User/ListUsersService';
@@ -16,20 +16,21 @@ class UserController {
       lastName,
       email,
       phone,
-      password
+      password,
     });
 
-    user.password = "";
+    user.password = '';
 
     return res.status(statusCodes.created).json(user);
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
-    const users = await listUsers.execute();
+    const { id: userId } = req.params;
+
+    const users = await listUsers.execute({ userId });
 
     return res.status(statusCodes.ok).json(users);
   }
 }
 
 export default UserController;
-
