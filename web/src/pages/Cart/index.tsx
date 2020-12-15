@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import AlsoLikeList from '../../components/AlsoLikeList';
+import AlsoLikeList from './components/AlsoLikeList';
 import CartContainer from './components/CartContainer';
 import { useCart } from '../../contexts/CartContext';
 
