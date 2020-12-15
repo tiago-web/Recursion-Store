@@ -34,7 +34,7 @@ class DeleteReviewService {
 
     const reviewToDelete = await reviewsRepository.findById(reviewId);
 
-    if (reviewToDelete && reviewToDelete.createdBy !== user && user.permission === "User")
+    if (reviewToDelete && String(reviewToDelete.createdBy) !== String(userId) && user.permission === "User")
       throw new AppError("Only the user who created the review and an Admin can delete this review.", statusCodes.forbidden);
 
     if (!reviewToDelete)

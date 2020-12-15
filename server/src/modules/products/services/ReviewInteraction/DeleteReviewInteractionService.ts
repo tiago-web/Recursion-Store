@@ -31,8 +31,8 @@ class DeleteReviewInteractionService {
 
     const interactionToDelete = review.userInteractions.find(interaction => String(interaction.userId) === userId);
 
-    if (interactionToDelete && interactionToDelete.userId !== user && user.permission === "User")
-      throw new AppError("Only the user who created the interaction and an Admin can delete this interaction.", statusCodes.forbidden);
+    // if (interactionToDelete && interactionToDelete.userId !== user && user.permission === "User")
+    //   throw new AppError("Only the user who created the interaction and an Admin can delete this interaction.", statusCodes.forbidden);
 
     if (!interactionToDelete)
       throw new AppError("Interaction not found", statusCodes.notFound);
