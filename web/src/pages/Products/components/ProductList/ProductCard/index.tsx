@@ -1,5 +1,4 @@
 import React, { forwardRef, useCallback, useEffect, useState } from 'react';
-
 import { Tooltip } from '@material-ui/core';
 
 import formatToDollars from '../../../../../utils/formatToDollars';

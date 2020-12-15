@@ -8,15 +8,14 @@ import { Container } from './styles';
 
 type ProductReviewContainerProps = Omit<Product, '_id'> & {
   productId: string;
+  users: User[];
 };
 
-interface UserProps {
-  users: User[];
-}
-
-const ProductReviewContainer: React.FC<
-  ProductReviewContainerProps & UserProps
-> = ({ productId, reviews, users }) => {
+const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
+  productId,
+  reviews,
+  users,
+}) => {
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [btnText, setBtnText] = useState('SHOW ALL REVIEWS');
 

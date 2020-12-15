@@ -47,6 +47,7 @@ export interface Product {
 export interface User {
   _id: string;
   firstName: string;
+  lastName: string;
 }
 
 const ProductDetail: React.FC = () => {
@@ -99,8 +100,8 @@ const ProductDetail: React.FC = () => {
           />
         </>
       ) : (
-          <h1>Product not found!</h1>
-        )}
+        <h1>Product not found!</h1>
+      )}
     </>
   );
 };
