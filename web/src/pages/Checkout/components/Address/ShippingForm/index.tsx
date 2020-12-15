@@ -11,7 +11,7 @@ interface ShippingFormProps {
   handleAddressData(
     addressData: string,
     countryData: string,
-    postalData: string,
+    postalCodeData: string,
     stateData: string,
     cityData: string,
   ): void;
@@ -28,7 +28,7 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
 
   const [address, setAddress] = useState('');
   const [country, setCountry] = useState('');
-  const [postal, setPostal] = useState('');
+  const [postalCode, setPostalCode] = useState('');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
 
@@ -36,7 +36,7 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
     if (
       address === '' ||
       country === '' ||
-      postal === '' ||
+      postalCode === '' ||
       state === '' ||
       city === ''
     ) {
@@ -44,11 +44,11 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
     } else {
       isShippingFormFilled(true);
     }
-    handleAddressData(address, country, postal, state, city);
+    handleAddressData(address, country, postalCode, state, city);
   }, [
     address,
     country,
-    postal,
+    postalCode,
     state,
     city,
     handleAddressData,
@@ -89,8 +89,8 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
               <input
                 type="text"
                 placeholder="Ex. M4B 2P1"
-                value={postal}
-                onChange={e => setPostal(e.target.value)}
+                value={postalCode}
+                onChange={e => setPostalCode(e.target.value)}
               />
             </div>
           </div>
@@ -115,10 +115,10 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
             </div>
           </div>
         </Form>
-        <div>
+        {/* <div>
           <input type="checkbox" checked />
           <span>Use another address</span>
-        </div>
+        </div> */}
         <div>
           <input type="checkbox" onChange={handleIsSameAddress} />
           <span>Use this address as billing address</span>

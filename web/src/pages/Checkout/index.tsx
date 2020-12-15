@@ -6,34 +6,32 @@ import OrderDetailsContainer from './components/OrderDetailsContainer';
 
 import { Container, CheckoutContent } from './styles';
 import { useCart, Product } from '../../contexts/CartContext';
+import { useAuth } from '../../contexts/AuthContext';
+import api from '../../services/api';
 
-export interface ShippingAddressProps {
-  shippingAdress?: string;
-  shippinCountry?: string;
-  shippingPostalCode?: string;
-  shippingState?: string;
-  shippingCity?: string;
+export interface AddressProps {
+  address: string;
+  country: string;
+  postalCode: string;
+  state: string;
+  city: string;
 }
 
-export interface BillingAddressProps {
-  billingAdress?: string;
-  billingCountry?: string;
-  billingPostalCode?: string;
-  billingState?: string;
-  billingCity?: string;
+interface UserProps {
+  shippingAddresses: AddressProps[];
 }
 
 const Checkout: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { products: localStorageProducts } = useCart();
+  const { user } = useAuth();
+  const [userApi, setUserApi] = useState<UserProps>();
 
   const [isFilled, setIsFilled] = useState(true);
   const [shippingPrice, setShippingPrice] = useState(12.99);
 
-  const [shippingAddress, setShippingAddress] = useState<
-    ShippingAddressProps
-  >();
-  const [billingAddress, setBillingAddress] = useState<BillingAddressProps>();
+  const [shippingAddress, setShippingAddress] = useState<AddressProps>();
+  const [billingAddress, setBillingAddress] = useState<AddressProps>();
 
   useEffect(() => {
     setProducts(localStorageProducts);
@@ -55,36 +53,24 @@ const Checkout: React.FC = () => {
   }, []);
 
   const handleGetTheAddresses = useCallback(
-    (
-      shippingAdress: string,
-      shippinCountry: string,
-      shippingPostalCode: string,
-      shippingState: string,
-      shippingCity: string,
-      billingAdress: string,
-      billingCountry: string,
-      billingPostalCode: string,
-      billingState: string,
-      billingCity: string,
-    ) => {
-      setShippingAddress({
-        shippingAdress,
-        shippinCountry,
-        shippingPostalCode,
-        shippingState,
-        shippingCity,
-      });
-
-      setBillingAddress({
-        billingAdress,
-        billingCountry,
-        billingPostalCode,
-        billingState,
-        billingCity,
-      });
+    (shipping: AddressProps, billing: AddressProps) => {
+      setShippingAddress(shipping);
+      setBillingAddress(billing);
     },
     [],
   );
+
+  useEffect(() => {
+    async function loadUserAddress(): Promise<void> {
+      const response = await api.get(`users/${user._id}`);
+
+      if (response) {
+        setUserApi(response.data);
+      }
+    }
+
+    loadUserAddress();
+  }, [user._id]);
 
   return (
     <>
@@ -98,12 +84,14 @@ const Checkout: React.FC = () => {
           />
           <OrderDetailsContainer products={products} />
         </CheckoutContent>
-        <Summary
-          isFilled={isFilled}
-          shippingPrice={shippingPrice}
-          shippingAddress={shippingAddress}
-          billingAddress={billingAddress}
-        />
+        {shippingAddress && billingAddress ? (
+          <Summary
+            isFilled={isFilled}
+            shippingPrice={shippingPrice}
+            shippingAddress={shippingAddress}
+            billingAddress={billingAddress}
+          />
+        ) : null}
       </Container>
     </>
   );

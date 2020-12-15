@@ -7,14 +7,14 @@ interface BillingFormProps {
   handleAddressData(
     addressData: string,
     countryData: string,
-    postalData: string,
+    postalCodeData: string,
     stateData: string,
     cityData: string,
   ): void;
   isSameAddress: boolean;
   address: string;
   country: string;
-  postal: string;
+  postalCode: string;
   state: string;
   city: string;
 }
@@ -25,13 +25,13 @@ const BillingForm: React.FC<BillingFormProps> = ({
   isSameAddress,
   address,
   country,
-  postal,
+  postalCode,
   state,
   city,
 }) => {
   const [addressBilling, setAddressBilling] = useState('');
   const [countryBilling, setCountryBilling] = useState('');
-  const [postalBilling, setPostalBilling] = useState('');
+  const [postalCodeBilling, setPostalCodeBilling] = useState('');
   const [stateBilling, setStateBilling] = useState('');
   const [cityBilling, setCityBilling] = useState('');
 
@@ -47,7 +47,7 @@ const BillingForm: React.FC<BillingFormProps> = ({
     if (
       addressBilling === '' ||
       countryBilling === '' ||
-      postalBilling === '' ||
+      postalCodeBilling === '' ||
       stateBilling === '' ||
       cityBilling === ''
     ) {
@@ -58,7 +58,7 @@ const BillingForm: React.FC<BillingFormProps> = ({
     handleAddressData(
       addressBilling,
       countryBilling,
-      postalBilling,
+      postalCodeBilling,
       stateBilling,
       cityBilling,
     );
@@ -66,7 +66,7 @@ const BillingForm: React.FC<BillingFormProps> = ({
     handleAddressData,
     addressBilling,
     countryBilling,
-    postalBilling,
+    postalCodeBilling,
     stateBilling,
     cityBilling,
     isBillingFormFilled,
@@ -97,12 +97,12 @@ const BillingForm: React.FC<BillingFormProps> = ({
                 />
               </div>
               <div className="input next-input">
-                <span>Postal Code</span>
+                <span>PostalCode Code</span>
                 <input
                   type="text"
                   placeholder="Ex. M4B 2P1"
                   disabled
-                  value={postal}
+                  value={postalCode}
                 />
               </div>
             </div>
@@ -148,12 +148,12 @@ const BillingForm: React.FC<BillingFormProps> = ({
                   />
                 </div>
                 <div className="input next-input">
-                  <span>Postal Code</span>
+                  <span>PostalCode Code</span>
                   <input
                     type="text"
                     placeholder="Ex. M4B 2P1"
-                    value={postalBilling}
-                    onChange={e => setPostalBilling(e.target.value)}
+                    value={postalCodeBilling}
+                    onChange={e => setPostalCodeBilling(e.target.value)}
                   />
                 </div>
               </div>

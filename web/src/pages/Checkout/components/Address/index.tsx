@@ -5,22 +5,12 @@ import { Container, ShippingType } from './styles';
 import BillingForm from './BillingForm';
 import ShippingForm from './ShippingForm';
 import api from '../../../../services/api';
+import { AddressProps } from '../..';
 
-interface AddressProps {
+interface AddressPageProps {
   isFormFilled(shippingFormFilled: boolean, billingFormFilled: boolean): void;
   handleShippingPrice(selected: number): void;
-  handleGetTheAddresses(
-    shippingAdress: string,
-    shippinCountry: string,
-    shippingPostalCode: string,
-    shippingState: string,
-    shippingCity: string,
-    billingAdress: string,
-    billingCountry: string,
-    billingPostalCode: string,
-    billingState: string,
-    billingCity: string,
-  ): void;
+  handleGetTheAddresses(shipping: AddressProps, billing: AddressProps): void;
 }
 
 export interface AddressesData {
@@ -32,7 +22,7 @@ export interface AddressesData {
   main: boolean;
 }
 
-const Address: React.FC<AddressProps> = ({
+const Address: React.FC<AddressPageProps> = ({
   isFormFilled,
   handleShippingPrice,
   handleGetTheAddresses,
@@ -46,13 +36,13 @@ const Address: React.FC<AddressProps> = ({
 
   const [address, setAddress] = useState('');
   const [country, setCountry] = useState('');
-  const [postal, setPostal] = useState('');
+  const [postalCode, setPostalCode] = useState('');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
 
   const [addressBilling, setAddressBilling] = useState('');
   const [countryBilling, setCountryBilling] = useState('');
-  const [postalBilling, setPostalBilling] = useState('');
+  const [postalCodeBilling, setPostalCodeBilling] = useState('');
   const [stateBilling, setStateBilling] = useState('');
   const [cityBilling, setCityBilling] = useState('');
 
@@ -88,7 +78,7 @@ const Address: React.FC<AddressProps> = ({
     ) => {
       setAddress(addressData);
       setCountry(countryData);
-      setPostal(postalData);
+      setPostalCode(postalData);
       setState(stateData);
       setCity(cityData);
     },
@@ -104,7 +94,7 @@ const Address: React.FC<AddressProps> = ({
     ) => {
       setAddressBilling(addressData);
       setCountryBilling(countryData);
-      setPostalBilling(postalData);
+      setPostalCodeBilling(postalData);
       setStateBilling(stateData);
       setCityBilling(cityData);
     },
@@ -124,28 +114,33 @@ const Address: React.FC<AddressProps> = ({
   }, [isFormFilled, shippingFormFilled, billingFormFilled]);
 
   useEffect(() => {
-    handleGetTheAddresses(
+    const shippingData = {
       address,
       country,
-      postal,
+      postalCode,
       state,
       city,
-      addressBilling,
-      countryBilling,
-      postalBilling,
-      stateBilling,
-      cityBilling,
-    );
+    };
+
+    const billingData = {
+      address: addressBilling,
+      country: countryBilling,
+      postalCode: postalCodeBilling,
+      state: stateBilling,
+      city: cityBilling,
+    };
+
+    handleGetTheAddresses(shippingData, billingData);
   }, [
     handleGetTheAddresses,
     address,
     country,
-    postal,
+    postalCode,
     state,
     city,
     addressBilling,
     countryBilling,
-    postalBilling,
+    postalCodeBilling,
     stateBilling,
     cityBilling,
   ]);
@@ -177,7 +172,7 @@ const Address: React.FC<AddressProps> = ({
           handleAddressData={handleBillingAddressData}
           address={address}
           country={country}
-          postal={postal}
+          postalCode={postalCode}
           state={state}
           city={city}
         />
