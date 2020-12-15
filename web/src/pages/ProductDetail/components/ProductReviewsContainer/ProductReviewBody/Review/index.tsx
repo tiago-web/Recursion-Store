@@ -42,9 +42,7 @@ const Review: React.FC<ReviewProps> = ({
     api
       .get(`users/${review.createdBy}`)
       .then((response: any) =>
-        setUserName(
-          `${response.data.firstName} ${response.data.lastName} (${response.data.permission})`,
-        ),
+        setUserName(`${response.data.firstName} ${response.data.lastName}`),
       );
   }, [review.createdBy]);
 
