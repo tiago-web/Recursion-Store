@@ -4,6 +4,13 @@ import { Container, Form } from './styles';
 
 interface BillingFormProps {
   isBillingFormFilled(formFilled: boolean): void;
+  handleAddressData(
+    addressData: string,
+    countryData: string,
+    postalData: string,
+    stateData: string,
+    cityData: string,
+  ): void;
   isSameAddress: boolean;
   address: string;
   country: string;
@@ -14,6 +21,7 @@ interface BillingFormProps {
 
 const BillingForm: React.FC<BillingFormProps> = ({
   isBillingFormFilled,
+  handleAddressData,
   isSameAddress,
   address,
   country,
@@ -47,7 +55,15 @@ const BillingForm: React.FC<BillingFormProps> = ({
     } else {
       isBillingFormFilled(true);
     }
+    handleAddressData(
+      addressBilling,
+      countryBilling,
+      postalBilling,
+      stateBilling,
+      cityBilling,
+    );
   }, [
+    handleAddressData,
     addressBilling,
     countryBilling,
     postalBilling,

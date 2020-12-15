@@ -44,8 +44,6 @@ const ShippingForm: React.FC<ShippingFormProps> = ({
     } else {
       isShippingFormFilled(true);
     }
-    console.log(addresses);
-
     handleAddressData(address, country, postal, state, city);
   }, [
     address,
