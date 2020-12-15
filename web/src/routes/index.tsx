@@ -16,6 +16,7 @@ import Login from '../pages/Login';
 import AddEditProduct from '../pages/Admin/AddEditProduct';
 import SignUp from '../pages/SignUp';
 import Checkout from '../pages/Checkout';
+import TermsOfService from '../pages/TermsOfService';
 
 const Routes: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const Routes: React.FC = () => {
       <Route component={ProductReview} path="/product/review/:productId" />
       <Route component={Cart} path="/cart" />
       <Route component={Checkout} path="/checkout" />
+      <Route component={TermsOfService} path="/terms-of-service" />
       <CustomRoute
         component={AddEditProduct}
         path="/Admin/AddProduct"
