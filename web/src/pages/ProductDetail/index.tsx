@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -54,6 +54,7 @@ const ProductDetail: React.FC = () => {
   const { productId } = useParams<RouteParams>(); // THE PRODUCT ID IS ON THIS VARIABLE
   const [product, setProduct] = useState<Product>();
   const [users, setUsers] = useState<User[]>([]);
+  // const [reviews, setReviews] = useState<Review[]>(product.reviews);
 
   useEffect(() => {
     async function loadUsers(): Promise<void> {
@@ -74,6 +75,23 @@ const ProductDetail: React.FC = () => {
 
     loadProduct();
   }, [productId]);
+
+  const handleDeleteReview = useCallback(async (reviewId: string): Promise<
+    void
+  > => {
+    try {
+      if (product) {
+        await api.delete(`reviews/${reviewId}`);
+        // const productReviewDeleted = product.reviews.filter(
+        //   r => r._id !== reviewId,
+        // );
+        //
+        // setProduct(product);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   return (
     <>
@@ -96,11 +114,12 @@ const ProductDetail: React.FC = () => {
             price={product.price}
             description={product.description}
             reviews={product.reviews}
+            handleDeleteReview={handleDeleteReview}
             users={users}
           />
         </>
       ) : (
-        <h1>Product not found!</h1>
+        <h1>Loading...</h1>
       )}
     </>
   );

@@ -69,7 +69,7 @@ const ProductsSideBar: React.FC = () => {
   }, [urlFilter]);
 
   useEffect(() => {
-    setIsAdminUser(user.permission === 'User' ? false : true);
+    setIsAdminUser(!user || user.permission === 'User' ? false : true);
   }, []);
 
   return (

@@ -70,7 +70,7 @@ export const OptionBtn = styled.div<OptionBtnProps>`
   ${props =>
     props.selected &&
     css`
-      background: #20589c;
+      background: #583874;
       color: #fff;
       border: none;
     `}

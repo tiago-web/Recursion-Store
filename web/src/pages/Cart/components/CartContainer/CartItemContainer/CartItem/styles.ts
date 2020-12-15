@@ -22,21 +22,14 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
 
-    a {
-      transition: all 0.2s;
-
-      &:hover {
-        background: ${shade(0.2, '#583874')};
-        opacity: 0.8;
-      }
-    }
-
     div {
       display: flex;
       flex-direction: column;
       margin-left: 12px;
 
       strong {
+        margin-bottom: 6px;
+
         span {
           margin-left: 4px;
           font-weight: lighter;
@@ -69,6 +62,11 @@ export const Container = styled.div`
           border: 0;
           margin-left: 8px;
           padding: 8px;
+          outline: none;
+
+          -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+          -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
         }
       }
     }

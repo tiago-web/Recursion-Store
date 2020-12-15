@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
+import { FiThumbsDown, FiThumbsUp, FiX } from 'react-icons/fi';
 
 import { Container, ReviewContainer, Info, ReviewBody, Likes } from './styles';
 import { Review, User } from '../../..';
+import { useAuth } from '../../../../../contexts/AuthContext';
 import Button from '../../../../../components/Button';
 import formatDateToOrderDate from '../../../../../utils/formatDateToOrderDate';
-import { useAuth } from '../../../../../contexts/AuthContext';
+import api from '../../../../../services/api';
 
 interface ProductReviewBodyProps {
   productId: string;
@@ -13,6 +14,7 @@ interface ProductReviewBodyProps {
   showAllReviews: boolean;
   reviews: Review[];
   users: User[];
+  handleDeleteReview(reviewId: string): void;
 }
 
 const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
@@ -20,12 +22,20 @@ const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
   showAllReviews,
   reviews,
   users,
+  handleDeleteReview,
 }) => {
   const [loadMore, setLoadMore] = useState(3);
+  const [reviewOwner, setReviewOwner] = useState();
+  const { user } = useAuth();
+  const [isAdminUser, setIsAdminUser] = useState(false);
 
   const handleLoadMoreReviews = useCallback(() => {
     setLoadMore(loadMore + 3);
   }, [loadMore]);
+
+  useEffect(() => {
+    setIsAdminUser(!user || user.permission === 'User' ? false : true);
+  }, []);
 
   return (
     <Container>
@@ -33,7 +43,6 @@ const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
         <>
           {reviews.slice(0, loadMore).map(review => {
             const user = users.find(u => u._id === review.createdBy);
-            console.log(review);
 
             return (
               <ReviewContainer key={review._id}>
@@ -63,6 +72,14 @@ const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
                     <span>2</span>
                   </Likes>
                 </ReviewBody>
+                {isAdminUser && (
+                  <Button
+                    className="deleteBtn"
+                    onClick={() => handleDeleteReview(review._id)}
+                  >
+                    delete
+                  </Button>
+                )}
               </ReviewContainer>
             );
           })}

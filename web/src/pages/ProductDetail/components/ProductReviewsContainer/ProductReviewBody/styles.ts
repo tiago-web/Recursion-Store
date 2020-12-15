@@ -1,3 +1,4 @@
+import { lighten } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -25,6 +26,22 @@ export const ReviewContainer = styled.div`
   & + div {
     border-top: 1px solid;
     padding-top: 48px;
+  }
+
+  .deleteBtn {
+    background: none;
+    width: 24px;
+    color: #583874;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0 48px 0 0;
+
+    transition: all 0.2s;
+
+    &:hover {
+      color: ${lighten(0.2, '#69527e')};
+    }
   }
 `;
 

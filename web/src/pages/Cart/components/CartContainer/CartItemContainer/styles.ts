@@ -10,9 +10,5 @@ export const Container = styled.div`
 
   h2 {
     margin: 24px 0;
-
-    &:hover {
-      color: ${lighten(0.1, '#e06b50')};
-    }
   }
 `;

@@ -39,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }, []);
 
   useEffect(() => {
-    setIsAdminUser(user.permission === 'User' ? false : true);
+    setIsAdminUser(!user || user.permission === 'User' ? false : true);
   }, []);
 
   return (
