@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
@@ -28,6 +29,8 @@ const Summary: React.FC<SummaryProps> = ({ isFilled, shippingPrice }) => {
     setTotal(totalPrice);
   }, [subtotal, tax, shippingPrice]);
 
+  const handleCreateOrder = useCallback(() => { }, []);
+
   return (
     <>
       <Container>
@@ -50,16 +53,16 @@ const Summary: React.FC<SummaryProps> = ({ isFilled, shippingPrice }) => {
         </div>
         <span className="terms">
           By completing your purchase you agree to these
-          <a href="/">Terms of Service</a>
+          <Link to="/terms-of-service">Terms of Service</Link>
         </span>
-        <Button disabled={!isFilled}>Complete Payment</Button>
+        <Button disabled={!isFilled} onClick={handleCreateOrder}>
+          Complete Payment
+        </Button>
         {!isFilled ? (
           <span style={{ color: '#f00', margin: '8px 0 0' }}>
             Fill the address.
           </span>
-        ) : (
-            ''
-          )}
+        ) : null}
       </Container>
     </>
   );
