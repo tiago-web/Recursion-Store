@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-import AlsoLikeList from './components/AlsoLikeList';
+import BestSellers from './components/BestSellers';
 import CartContainer from './components/CartContainer';
 import { useCart } from '../../contexts/CartContext';
 
-import { Container, CartSection } from './styles';
+import { Container, CartSection, BestSellersTitle } from './styles';
 
 export interface Image {
   imageUrl: string;
@@ -36,9 +36,8 @@ const Cart: React.FC = () => {
           <CartContainer products={products} />
         </CartSection>
         <CartSection>
-          <h1>You also might like</h1>
-          <AlsoLikeList />
-          {/* <CarouselList items={items} navButtonsAlwaysVisible height={420} /> */}
+          <BestSellersTitle>Best Sellers</BestSellersTitle>
+          <BestSellers />
         </CartSection>
       </Container>
     </>

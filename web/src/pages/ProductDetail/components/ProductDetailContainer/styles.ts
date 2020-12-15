@@ -1,3 +1,4 @@
+import { shade } from 'polished';
 import styled from 'styled-components';
 
 interface ProductColorProps {
@@ -8,6 +9,7 @@ interface ProductColorProps {
 export const Container = styled.div`
   margin-left: 120px;
   display: flex;
+  max-width: 1200px;
 
   @media screen and (max-width: 1120px) {
     flex-direction: column;
@@ -24,6 +26,7 @@ export const Title = styled.div`
 
   h1 {
     margin-right: 24px;
+    color: #341c49;
   }
 
   span {
@@ -45,7 +48,8 @@ export const CarouselContent = styled.div`
 `;
 
 export const ProductDetailContent = styled.div`
-  width: 250px;
+  /* width: 250px; */
+  flex: 1;
   margin-left: 120px;
   display: flex;
   flex-direction: column;
@@ -67,6 +71,11 @@ export const Colors = styled.div`
   justify-content: center;
 
   margin-top: 24px;
+
+  strong {
+    font-size: 18px;
+    color: #341c49;
+  }
 `;
 
 export const AvailableColors = styled.div`
@@ -86,9 +95,9 @@ export const ColorContainer = styled.div`
 export const ProductColor = styled.button<ProductColorProps>`
   background: ${props => props.colorHex};
   border-radius: 50%;
-  border: none;
 
-  border: ${props => (props.selected ? '3px solid #e06b50' : 'none')};
+  border: ${props =>
+    props.selected ? '3px solid #e06b50' : `3px solid ${props.colorHex}`};
 
   height: 45px;
   width: 45px;
@@ -100,20 +109,59 @@ export const ProductColor = styled.button<ProductColorProps>`
 
 export const AddToCart = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
-
+  flex-direction: column;
+  width: 100%;
   margin-top: 24px;
 
+  strong {
+    font-size: 18px;
+    color: #341c49;
+    margin-bottom: 12px;
+  }
+
   div {
-    margin-right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    height: 48px;
   }
 
   div input {
-    width: 100px;
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
+    height: 100%;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+    padding: 0 16px;
+    width: 55%;
+    outline: none;
+
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+
+    &::placeholder {
+      color: var(--placeholder-text);
+    }
+  }
+
+  div button {
+    height: 100%;
+    width: 45%;
+    border-radius: 0 5px 5px 0;
+
+    margin: 0;
+    background: #e06b50;
+    font-size: 0.8rem;
+
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      background: ${shade(0.3, '#e06b50')};
+    }
   }
 `;
 
