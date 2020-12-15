@@ -8,6 +8,7 @@ import { Product } from '../../..';
 import { Container } from './styles';
 import { ProductApiProps } from '../CartItemContainer';
 import api from '../../../../../services/api';
+import { useAuth } from '../../../../../contexts/AuthContext';
 
 interface CartTotalProps {
   products: Product[];
@@ -17,6 +18,7 @@ interface CartTotalProps {
 const CartTotal: React.FC<CartTotalProps> = ({ products, isEmpty }) => {
   const [productsApi, setProductsApi] = useState<ProductApiProps[]>([]);
   const history = useHistory();
+  const { user } = useAuth();
 
   useEffect(() => {
     async function loadProducts(): Promise<void> {
@@ -48,8 +50,12 @@ const CartTotal: React.FC<CartTotalProps> = ({ products, isEmpty }) => {
   }, [products, productsApi]);
 
   const handleSendToCheckout = useCallback(() => {
-    history.push('/checkout');
-  }, [history]);
+    if (user) {
+      history.push('/checkout');
+    } else {
+      history.push('/login');
+    }
+  }, [history, user]);
 
   return (
     <>

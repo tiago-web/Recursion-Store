@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import Button from '../../../../components/Button';
-import { ShippingAddressProps, BillingAddressProps } from '../..';
+import { AddressProps } from '../..';
 import api from '../../../../services/api';
 import formatToDollars from '../../../../utils/formatToDollars';
 import { Container } from './styles';
@@ -11,8 +11,8 @@ import { useCart } from '../../../../contexts/CartContext';
 interface SummaryProps {
   isFilled: boolean;
   shippingPrice: number;
-  shippingAddress: ShippingAddressProps | undefined;
-  billingAddress: BillingAddressProps | undefined;
+  shippingAddress: AddressProps;
+  billingAddress: AddressProps;
 }
 
 const Summary: React.FC<SummaryProps> = ({
@@ -25,6 +25,7 @@ const Summary: React.FC<SummaryProps> = ({
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
   const { products } = useCart();
+  const history = useHistory();
 
   useEffect(() => {
     const cartTotal = localStorage.getItem('@Recursion:cart-total');
@@ -42,16 +43,21 @@ const Summary: React.FC<SummaryProps> = ({
 
   const handleCreateOrder = useCallback(async () => {
     try {
-      await api.post('orders', {
-        products,
-        shippingPrice,
-        shippingAddress,
-        billingAddress,
-      });
+      if (shippingAddress && billingAddress) {
+        await api.post('orders', {
+          products,
+          shippingPrice,
+          shippingAddress,
+          billingAddress,
+        });
+      }
+
+      history.push('/');
     } catch (err) {
       console.log(err);
+      history.push('/');
     }
-  }, [products, shippingPrice, shippingAddress, billingAddress]);
+  }, [products, shippingPrice, shippingAddress, billingAddress, history]);
 
   return (
     <>
