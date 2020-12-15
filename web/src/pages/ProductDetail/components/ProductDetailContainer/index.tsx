@@ -176,8 +176,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
               selectedSizeTag={selectedSizeTag}
             />
             <AddToCart>
+              <strong>Quantity</strong>
               <div className="quantity">
-                Quantity
                 <input
                   name="quantity"
                   type="number"
@@ -185,12 +185,12 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
                   defaultValue={quantity}
                   onChange={e => handleSetQuantity(e.target.value)}
                 />
-              </div>
-              {addedTocart ? (
-                <Button onClick={handleAddToCart}>ADD TO CART</Button>
-              ) : (
+                {addedTocart ? (
+                  <Button onClick={handleAddToCart}>ADD TO CART</Button>
+                ) : (
                   <Button>ADD TO CART</Button>
                 )}
+              </div>
             </AddToCart>
             {!addedTocart && (
               <span style={{ color: '#f00' }}>
@@ -204,8 +204,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             </Description>
           </ProductDetailContent>
         ) : (
-            <h1>Product Not Found</h1>
-          )}
+          <h1>Product Not Found</h1>
+        )}
       </Container>
     </>
   );
