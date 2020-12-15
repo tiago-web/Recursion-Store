@@ -23,6 +23,7 @@ import {
   AddToCart,
   Description,
 } from './styles';
+import ProductImagesCarousel from './ProductImagesCarousel';
 
 interface ProductDetailContainerProps {
   productId: string;
@@ -142,7 +143,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             navButtonsAlwaysVisible
           />
         </CarouselContent> */}
-        {/* <ProductImagesCarousel items={images}/> */}
+        <ProductImagesCarousel images={images} />
+
         {productId ? (
           <ProductDetailContent>
             <Title>
@@ -189,8 +191,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
                 {addedTocart ? (
                   <Button onClick={handleAddToCart}>ADD TO CART</Button>
                 ) : (
-                    <Button>ADD TO CART</Button>
-                  )}
+                  <Button>ADD TO CART</Button>
+                )}
               </div>
             </AddToCart>
             {!addedTocart && (
@@ -205,8 +207,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             </Description>
           </ProductDetailContent>
         ) : (
-            <h1>Product Not Found</h1>
-          )}
+          <h1>Product Not Found</h1>
+        )}
       </Container>
     </>
   );
