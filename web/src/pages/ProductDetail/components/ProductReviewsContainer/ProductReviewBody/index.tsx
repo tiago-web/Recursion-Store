@@ -1,61 +1,41 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
+import React, { useCallback, useState } from 'react';
 
-import { Container, ReviewContainer, Info, ReviewBody, Likes } from './styles';
-import { Review, User } from '../../..';
+import { Container } from './styles';
+import { Review as IReview } from '../../..';
+import Review from './Review';
 import Button from '../../../../../components/Button';
-import formatDateToOrderDate from '../../../../../utils/formatDateToOrderDate';
 
 interface ProductReviewBodyProps {
-  productId: string;
-  title: string;
   showAllReviews: boolean;
-  reviews: Review[];
-  users: User[];
+  reviews: IReview[];
   handleDeleteReview(reviewId: string): void;
+  productId: string;
 }
 
 const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
-  title,
   showAllReviews,
   reviews,
-  users,
   handleDeleteReview,
+  productId,
 }) => {
   const [loadMore, setLoadMore] = useState(3);
-  // const [reviewOwner, setReviewOwner] = useState();
-
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
 
   const handleLoadMoreReviews = useCallback(() => {
     setLoadMore(loadMore + 3);
   }, [loadMore]);
 
-  // useEffect(() => {
-  //   if (reviews) {
-  //   }
-  // }, []);
-
   return (
     <Container>
       {showAllReviews ? (
         <>
-          {reviews.slice(0, loadMore).map(review => {
-            <Review review={review} handleDeleteReview={handleDeleteReview} />;
-
-            // review.userInteractions.map(userInteraction =>
-            //   userInteraction.action === 'like'
-            //     ? setLikes(likes + 1)
-            //     : setLikes(likes),
-            // );
-
-            // review.userInteractions.map(userInteraction =>
-            //   userInteraction.action === 'dislike'
-            //     ? setLikes(likes + 1)
-            //     : setLikes(likes),
-            // );
-          })}
+          {reviews.slice(0, loadMore).map(review => (
+            <Review
+              key={review._id}
+              review={review}
+              handleDeleteReview={handleDeleteReview}
+              productId={productId}
+            />
+          ))}
           {reviews.length > loadMore && (
             <Button
               style={{ marginTop: '48px' }}
@@ -67,33 +47,12 @@ const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
         </>
       ) : (
           <>
-            <h1>{title}</h1>
-            <ReviewContainer key={reviews[0]._id}>
-              <Info>
-                {user ? (
-                  <span>
-                    {user.firstName} {user.lastName}
-                  </span>
-                ) : (
-                    <span>No Name</span>
-                  )}
-                <span>{formatDateToOrderDate(reviews[0].createdAt)}</span>
-              </Info>
-              <ReviewBody>
-                <strong>{reviews[0].title}</strong>
-                <p>{reviews[0].body}</p>
-                <Likes>
-                  <button type="button">
-                    <FiThumbsUp size={18} color="#909ea9" />
-                  </button>
-                  <span>3900</span>
-                  <button type="button">
-                    <FiThumbsDown size={18} color="#909ea9" />
-                  </button>
-                  <span>2</span>
-                </Likes>
-              </ReviewBody>
-            </ReviewContainer>
+            <h1>Most Relevant</h1>
+            <Review
+              review={reviews[0]}
+              handleDeleteReview={handleDeleteReview}
+              productId={productId}
+            />
           </>
         )}
     </Container>

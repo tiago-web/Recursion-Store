@@ -1,21 +1,20 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import ProductReviewHeader from './ProductReviewHeader';
 import ProductReviewBody from './ProductReviewBody';
-import { Product, User } from '../..';
+import { Review } from '../..';
 
 import { Container } from './styles';
 
-type ProductReviewContainerProps = Omit<Product, '_id'> & {
+interface ProductReviewContainerProps {
   productId: string;
-  users: User[];
+  reviews: Review[];
   handleDeleteReview(reviewId: string): void;
-};
+}
 
 const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
   productId,
   reviews,
-  users,
   handleDeleteReview,
 }) => {
   const [showAllReviews, setShowAllReviews] = useState(false);
@@ -36,12 +35,10 @@ const ProductReviewContainer: React.FC<ProductReviewContainerProps> = ({
           btnText={btnText}
         />
         <ProductReviewBody
-          productId={productId}
-          title="Most Relevant"
           showAllReviews={showAllReviews}
           reviews={reviews}
-          users={users}
           handleDeleteReview={handleDeleteReview}
+          productId={productId}
         />
       </Container>
     </>

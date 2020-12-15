@@ -48,26 +48,10 @@ export interface Product {
   description: string;
 }
 
-export interface User {
-  _id: string;
-  firstName: string;
-  lastName: string;
-}
-
 const ProductDetail: React.FC = () => {
   const { productId } = useParams<RouteParams>(); // THE PRODUCT ID IS ON THIS VARIABLE
-  const [product, setProduct] = useState<Product>();
-  const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    async function loadUsers(): Promise<void> {
-      const response = await api.get('users');
-
-      setUsers(response.data);
-    }
-
-    loadUsers();
-  }, []);
+  const [product, setProduct] = useState<Product>({} as Product);
+  // const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
     async function loadProduct(): Promise<void> {
@@ -80,46 +64,35 @@ const ProductDetail: React.FC = () => {
   }, [productId]);
 
   const handleDeleteReview = useCallback(
-    async (reviewId: string): Promise<void> => {
+    async (reviewId: string) => {
       try {
-        if (product) {
-          await api.delete(`reviews/${reviewId}`);
-          // const productReviewDeleted = product.reviews.filter(
-          //   r => r._id !== reviewId,
-          // );
-          //
-          // setProduct(product);
-        }
+        await api.delete(`reviews/${reviewId}`, { data: { productId } });
+
+        // Arrumei :)
+        setProduct(prevState => ({
+          ...prevState,
+          reviews: prevState.reviews.filter(
+            review => String(review._id) !== reviewId,
+          ),
+        }));
       } catch (err) {
         console.log(err);
       }
     },
-    [product],
+    [productId],
   );
 
   return (
     <>
-      {product ? (
+      {Object.keys(product).length > 0 ? (
         <>
           <Section>
-            <ProductDetailContainer
-              productId={productId}
-              name={product.name}
-              items={product.items}
-              price={product.price}
-              description={product.description}
-              reviews={product.reviews}
-            />
+            <ProductDetailContainer productId={productId} product={product} />
           </Section>
           <ProductReviewsContainer
             productId={productId}
-            name={product.name}
-            items={product.items}
-            price={product.price}
-            description={product.description}
             reviews={product.reviews}
             handleDeleteReview={handleDeleteReview}
-            users={users}
           />
         </>
       ) : (

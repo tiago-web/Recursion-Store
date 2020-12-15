@@ -1,5 +1,9 @@
-import { lighten } from 'polished';
+import { lighten, shade } from 'polished';
 import styled from 'styled-components';
+
+interface LikeButtonProps {
+  selected: boolean;
+}
 
 export const Container = styled.div`
   margin-top: 48px;
@@ -21,16 +25,17 @@ export const Container = styled.div`
   .deleteBtn {
     background: none;
     width: 24px;
-    color: #583874;
+    color: rgba(200, 34, 53, 1);
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     margin: 0 48px 0 0;
+    outline: none;
 
     transition: all 0.2s;
 
     &:hover {
-      color: ${lighten(0.2, '#69527e')};
+      color: ${lighten(0.2, 'rgba(200, 34, 53, 1)')};
     }
   }
 `;
@@ -40,6 +45,8 @@ export const Info = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+
+  width: 20%;
 
   @media screen and (max-width: 1120px) {
     flex-direction: row;
@@ -65,7 +72,7 @@ export const ReviewBody = styled.div`
   align-items: flex-start;
   justify-content: center;
 
-  width: 80%;
+  flex: 1;
 
   strong {
     font-weight: bold;
@@ -86,10 +93,24 @@ export const Likes = styled.div`
   justify-content: space-between;
 
   width: 15%;
+`;
 
-  button {
-    border: 0;
-    padding: 6px;
-    background: #f2f2f2;
+export const LikeButton = styled.button<LikeButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  width: 100%;
+
+  border: 0;
+  padding: 6px;
+  background: #f2f2f2;
+  color: ${props => (props.selected ? '#e06b50' : 'rgba(88, 56, 116, 0.8)')};
+  outline: none;
+
+  transition: all 0.2s;
+
+  &:hover {
+    color: ${props => (props.selected ? '#f35532' : '#462166')};
   }
 `;

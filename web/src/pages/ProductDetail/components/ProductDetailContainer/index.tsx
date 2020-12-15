@@ -24,26 +24,26 @@ import {
   Description,
 } from './styles';
 
-type ProductDetailContainerProps = Omit<Product, '_id'> & {
+interface ProductDetailContainerProps {
   productId: string;
-};
+  product: Product;
+}
 
 const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   productId,
-  name,
-  items,
-  price,
-  description,
+  product,
 }) => {
   const history = useHistory();
 
-  const [selectedColor, setSelectedColor] = useState(items[0].color);
-  const [itemSize, setItemSize] = useState<ItemProps>(items[0]);
+  const [selectedColor, setSelectedColor] = useState(product.items[0].color);
+  const [itemSize, setItemSize] = useState<ItemProps>(product.items[0]);
   const [selectedSizeTag, setSelectedSizeTag] = useState(
     itemSize.sizes[0].sizeTag,
   );
   const [item, setItem] = useState<ItemProps>();
-  const [images, setImages] = useState<ImagesProps[]>(items[0].productImages);
+  const [images, setImages] = useState<ImagesProps[]>(
+    product.items[0].productImages,
+  );
   const [updatedItem, setUpdatedItem] = useState<Item>();
   const [quantity, setQuantity] = useState('');
   const [sizeQuantity, setSizeQuantity] = useState<number>(0);
@@ -56,8 +56,8 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   }, []);
 
   useEffect(() => {
-    if (items) {
-      setItem(items.find(i => i.color === selectedColor));
+    if (product.items) {
+      setItem(product.items.find(i => i.color === selectedColor));
     }
 
     if (item) {
@@ -74,7 +74,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
         setSizeQuantity(availableQuantity);
       }
     }
-  }, [selectedColor, items, item, selectedSizeTag]);
+  }, [selectedColor, product.items, item, selectedSizeTag]);
 
   const availableSizeTags = useMemo(() => {
     const availableSizeTagsQty = itemSize.sizes.filter(s => s.quantity > 0);
@@ -102,7 +102,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
         setUpdatedItem(newUpdatedItem);
       }
     }
-  }, [item, quantity, selectedSizeTag, price, sizeQuantity]);
+  }, [item, quantity, selectedSizeTag, product.price, sizeQuantity]);
 
   const handleAddToCart = useCallback(() => {
     if (updatedItem && updatedItem.quantity <= sizeQuantity) {
@@ -145,13 +145,13 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
         {productId ? (
           <ProductDetailContent>
             <Title>
-              <h1>{name}</h1>
-              <span>{formatToDollars(price)}</span>
+              <h1>{product.name}</h1>
+              <span>{formatToDollars(product.price)}</span>
             </Title>
             <Colors>
               <strong>Colors</strong>
               <AvailableColors>
-                {items.map(i => (
+                {product.items.map(i => (
                   <Tooltip
                     key={i.color}
                     title={i.color}
@@ -200,7 +200,7 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
             <span>Quantity available: {sizeQuantity}</span>
             <Description>
               <strong>Description</strong>
-              <p>{description}</p>
+              <p>{product.description}</p>
             </Description>
           </ProductDetailContent>
         ) : (
