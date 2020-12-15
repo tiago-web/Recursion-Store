@@ -41,22 +41,24 @@ const registrationSchema = yup.object().shape({
   password: yup.string().min(6).required('You must provide a password.'),
 });
 
+enum resgistrationLabels {
+  firstName = 'First Name',
+  lastName = 'Last Name',
+  email = 'Email',
+  phone = 'Phone',
+  password = 'Password',
+}
+
 const SignUp: React.FC = () => {
   const [user, setUser] = useState<SignUpFormData>({} as SignUpFormData);
   const history = useHistory();
 
-  const handleSubmit = useCallback(async () => {
-    const data = user as SignUpFormData;
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(registrationSchema),
+  });
 
-    console.log('here');
-
-    history.push('/');
-
-    await api.post('users', data);
-  }, [history, user]);
-
-  const handleInputChange = useCallback(e => {
-    const { name, value } = e.target;
+  const handleInputChange = useCallback(({ target }) => {
+    const { name, value } = target;
 
     setUser(prevValue => {
       return {
@@ -66,13 +68,14 @@ const SignUp: React.FC = () => {
     });
   }, []);
 
-  // const onSubmit = useCallback(data => {
-  //   console.log(data);
-  // });
+  const onSubmit = useCallback(
+    async data => {
+      await api.post('users', data);
 
-  // const { register, handleSubmit, errors } = useForm({
-  //   resolver: yupResolver(productSchema),
-  // });
+      history.push('/');
+    },
+    [history, user],
+  );
 
   return (
     <Container>
@@ -80,51 +83,33 @@ const SignUp: React.FC = () => {
         <AccountCircleIcon style={{ fontSize: 62, color: '#341C49' }} />
         <SignUpTitle>Sign Up</SignUpTitle>
         <Form>
-          {/* <form noValidate onSubmit={handleSubmit(onSubmit)}> */}
-          <Input
-            type="text"
-            name="firstName"
-            onChange={handleInputChange}
-            label="First Name"
-            variant="outlined"
-            autoFocus
-          />
-          {/* {errors.firstName && (
-            <p style={{ color: 'red' }}>{errors.firstName}</p>
-          )} */}
-          <Input
-            type="text"
-            name="lastName"
-            onChange={handleInputChange}
-            label="Last Name"
-            variant="outlined"
-          />
-          <Input
-            type="text"
-            name="email"
-            onChange={handleInputChange}
-            label="E-mail"
-            variant="outlined"
-          />
-          <Input
-            type="text"
-            name="phone"
-            onChange={handleInputChange}
-            label="Phone"
-            variant="outlined"
-          />
-          <Input
-            type="password"
-            name="password"
-            onChange={handleInputChange}
-            label="Password"
-            variant="outlined"
-          />
-
-          <SubmitButton onClick={handleSubmit} type="submit">
-            Register
-          </SubmitButton>
-          {/* </form> */}
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            {Object.keys(resgistrationLabels).map(name => {
+              return (
+                <>
+                  <Input
+                    type={name === 'password' ? 'password' : 'text'}
+                    name={name}
+                    onChange={handleInputChange}
+                    label={
+                      resgistrationLabels[
+                        name as keyof typeof resgistrationLabels
+                      ]
+                    }
+                    variant="outlined"
+                    inputRef={register}
+                    autoFocus={name === 'firstName'}
+                  />
+                  {errors[name] && (
+                    <p style={{ color: 'red', paddingBottom: '1.2rem' }}>
+                      {errors[name].message}
+                    </p>
+                  )}
+                </>
+              );
+            })}
+            <SubmitButton type="submit">Register</SubmitButton>
+          </form>
         </Form>
       </FormWrapper>
     </Container>
