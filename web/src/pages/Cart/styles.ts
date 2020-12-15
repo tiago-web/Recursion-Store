@@ -12,4 +12,8 @@ export const CartSection = styled.section`
   width: 100%;
   max-width: 1200px;
   margin-bottom: 64px;
+
+  h1 {
+    margin-bottom: 32px;
+  }
 `;

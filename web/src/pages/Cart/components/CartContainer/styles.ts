@@ -5,13 +5,14 @@ export const Container = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
-  margin: 80px 64px;
+  margin: 64px 0;
 `;
 
 export const YourCartContainer = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
-  width: 80%;
+  /* width: 100%; */
 
   h1 {
     font-size: 32px;
@@ -42,45 +43,5 @@ export const YourCartContainer = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-  }
-`;
-
-export const CartTotalContainer = styled.div`
-  width: 40%;
-  margin: 0 80px;
-
-  display: flex;
-  flex-direction: column;
-
-  h1 {
-    margin-top: 24px;
-  }
-
-  button {
-    margin-top: 32px;
-    width: 300px;
-  }
-
-  form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 300px;
-    margin-top: 32px;
-
-    input {
-      padding: 16px 26px;
-      border: 0;
-      border-radius: 4px;
-
-      &::placeholder {
-        color: var(--placeholder-text);
-      }
-    }
-
-    button {
-      width: 100px;
-      margin: 0;
-    }
   }
 `;

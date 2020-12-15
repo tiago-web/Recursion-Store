@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { celebrate, Segments, Joi } from "celebrate";
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import uploadConfig from '@config/upload';
 
@@ -22,6 +22,8 @@ const upload = multer(uploadConfig.multer);
 
 usersRouter.get('/', userController.index);
 
+usersRouter.get('/:id', checkIsValidMongoId, userController.index);
+
 usersRouter.post(
   '/',
   celebrate({
@@ -42,10 +44,10 @@ usersRouter.put(
   ensureAdminUserAuthenticated,
   celebrate({
     [Segments.BODY]: {
-      permission: Joi.string().required()
+      permission: Joi.string().required(),
     },
   }),
-  userPermissionController.update
+  userPermissionController.update,
 );
 
 usersRouter.patch(
@@ -53,7 +55,7 @@ usersRouter.patch(
   ensureAuthenticated,
   // checkIsBodyEmpty,
   upload.single('avatar'),
-  userAvatarController.update
-)
+  userAvatarController.update,
+);
 
 export default usersRouter;

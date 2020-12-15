@@ -2,8 +2,8 @@ import { shade } from 'polished';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 40%;
-  margin: 0 80px;
+  width: 30%;
+  margin: 0 48px;
 
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@ export const Container = styled.div`
 
     button {
       height: 100%;
-      width: 100px;
+      width: 20%;
       border-radius: 0 5px 5px 0;
 
       margin: 0;
