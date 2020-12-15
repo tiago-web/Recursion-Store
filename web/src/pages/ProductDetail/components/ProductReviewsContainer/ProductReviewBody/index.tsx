@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FiThumbsDown, FiThumbsUp, FiX } from 'react-icons/fi';
+import { FiThumbsDown, FiThumbsUp } from 'react-icons/fi';
 
 import { Container, ReviewContainer, Info, ReviewBody, Likes } from './styles';
 import { Review, User } from '../../..';
-import { useAuth } from '../../../../../contexts/AuthContext';
 import Button from '../../../../../components/Button';
 import formatDateToOrderDate from '../../../../../utils/formatDateToOrderDate';
-import api from '../../../../../services/api';
 
 interface ProductReviewBodyProps {
   productId: string;
@@ -25,63 +23,38 @@ const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
   handleDeleteReview,
 }) => {
   const [loadMore, setLoadMore] = useState(3);
-  const [reviewOwner, setReviewOwner] = useState();
-  const { user } = useAuth();
-  const [isAdminUser, setIsAdminUser] = useState(false);
+  // const [reviewOwner, setReviewOwner] = useState();
+
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
 
   const handleLoadMoreReviews = useCallback(() => {
     setLoadMore(loadMore + 3);
   }, [loadMore]);
 
-  useEffect(() => {
-    setIsAdminUser(!user || user.permission === 'User' ? false : true);
-  }, []);
+  // useEffect(() => {
+  //   if (reviews) {
+  //   }
+  // }, []);
 
   return (
     <Container>
       {showAllReviews ? (
         <>
           {reviews.slice(0, loadMore).map(review => {
-            const user = users.find(u => u._id === review.createdBy);
+            <Review review={review} handleDeleteReview={handleDeleteReview} />;
 
-            return (
-              <ReviewContainer key={review._id}>
-                <Info>
-                  {user ? (
-                    <span>
-                      {user.firstName} {user.lastName}
-                    </span>
-                  ) : (
-                    <span>No Name</span>
-                  )}
+            // review.userInteractions.map(userInteraction =>
+            //   userInteraction.action === 'like'
+            //     ? setLikes(likes + 1)
+            //     : setLikes(likes),
+            // );
 
-                  <span>{formatDateToOrderDate(review.createdAt)}</span>
-                </Info>
-
-                <ReviewBody>
-                  <strong>{review.title}</strong>
-                  <p>{review.body}</p>
-                  <Likes>
-                    <button type="button">
-                      <FiThumbsUp size={18} color="#909ea9" />
-                    </button>
-                    <span>3900</span>
-                    <button type="button">
-                      <FiThumbsDown size={18} color="#909ea9" />
-                    </button>
-                    <span>2</span>
-                  </Likes>
-                </ReviewBody>
-                {isAdminUser && (
-                  <Button
-                    className="deleteBtn"
-                    onClick={() => handleDeleteReview(review._id)}
-                  >
-                    delete
-                  </Button>
-                )}
-              </ReviewContainer>
-            );
+            // review.userInteractions.map(userInteraction =>
+            //   userInteraction.action === 'dislike'
+            //     ? setLikes(likes + 1)
+            //     : setLikes(likes),
+            // );
           })}
           {reviews.length > loadMore && (
             <Button
@@ -93,42 +66,36 @@ const ProductReviewBody: React.FC<ProductReviewBodyProps> = ({
           )}
         </>
       ) : (
-        <>
-          <h1>{title}</h1>
-          {reviews.slice(0, 1).map(r => {
-            const user = users.find(u => u._id === r.createdBy);
-
-            return (
-              <ReviewContainer key={r._id}>
-                <Info>
-                  {user ? (
-                    <span>
-                      {user.firstName} {user.lastName}
-                    </span>
-                  ) : (
+          <>
+            <h1>{title}</h1>
+            <ReviewContainer key={reviews[0]._id}>
+              <Info>
+                {user ? (
+                  <span>
+                    {user.firstName} {user.lastName}
+                  </span>
+                ) : (
                     <span>No Name</span>
                   )}
-                  <span>{formatDateToOrderDate(r.createdAt)}</span>
-                </Info>
-                <ReviewBody>
-                  <strong>{r.title}</strong>
-                  <p>{r.body}</p>
-                  <Likes>
-                    <button type="button">
-                      <FiThumbsUp size={18} color="#909ea9" />
-                    </button>
-                    <span>3900</span>
-                    <button type="button">
-                      <FiThumbsDown size={18} color="#909ea9" />
-                    </button>
-                    <span>2</span>
-                  </Likes>
-                </ReviewBody>
-              </ReviewContainer>
-            );
-          })}
-        </>
-      )}
+                <span>{formatDateToOrderDate(reviews[0].createdAt)}</span>
+              </Info>
+              <ReviewBody>
+                <strong>{reviews[0].title}</strong>
+                <p>{reviews[0].body}</p>
+                <Likes>
+                  <button type="button">
+                    <FiThumbsUp size={18} color="#909ea9" />
+                  </button>
+                  <span>3900</span>
+                  <button type="button">
+                    <FiThumbsDown size={18} color="#909ea9" />
+                  </button>
+                  <span>2</span>
+                </Likes>
+              </ReviewBody>
+            </ReviewContainer>
+          </>
+        )}
     </Container>
   );
 };
