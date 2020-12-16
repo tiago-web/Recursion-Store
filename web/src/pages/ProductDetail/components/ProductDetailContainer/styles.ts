@@ -9,6 +9,7 @@ interface ProductColorProps {
 export const Container = styled.div`
   margin-left: 120px;
   display: flex;
+  justify-content: space-between;
   max-width: 1200px;
 
   @media screen and (max-width: 1120px) {

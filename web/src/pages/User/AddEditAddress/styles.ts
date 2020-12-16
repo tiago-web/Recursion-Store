@@ -1,7 +1,32 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+export const CustomInput = styled(TextField)`
+  margin-bottom: 20px;
+  width: 100%;
+
+  fieldset {
+    border-color: #583874 !important;
+  }
+
+  label {
+    color: #583874 !important;
+  }
+
+  .Mui-focused fieldset {
+    border-color: #583874 !important;
+  }
+
+  label.Mui-focused {
+    color: #583874 !important;
+  }
+
+  .Mui-focused .MuiSvgIcon-root {
+    color: #583874 !important;
+  }
+`;
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,21 +43,22 @@ export const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const PurpleSolidButton = styled(Button)`
-  background-color: #6060ab;
-  border: 2px solid #6060ab;
+  background-color: #583874;
+  border: 2px solid #583874;
   color: white;
+  transition: background 0.3s;
   &:hover {
-    background: ${shade(0.2, '#5454A0')};
+    background: ${shade(0.3, '#583874')};
   }
 `;
 
 export const RedOutlinedButton = styled(Button)`
-  background-color: white;
-  border: 2px solid var(--menu-logout-btn-bg);
-  color: var(--menu-logout-border-btn-bg);
+  background: #fff;
+  color: #0f0f0f;
+  transition: all 0.3s;
+
   &:hover {
     background: ${shade(0.1, '#d3455b')};
-    border: 2px solid var(--menu-logout-border-btn-bg);
     color: ${shade(0, '#FFFFFF')};
   }
 `;

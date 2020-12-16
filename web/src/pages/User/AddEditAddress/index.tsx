@@ -3,14 +3,20 @@ import { withStyles } from '@material-ui/core/styles';
 import { purple } from '@material-ui/core/colors';
 import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import { useLocation, useHistory, useParams, Link } from 'react-router-dom';
-import { Grid, TextField, FormControlLabel } from '@material-ui/core';
+import { Grid, FormControlLabel } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import UserLayout from '../components/UserLayout';
-import { useStyles, PurpleSolidButton, RedOutlinedButton } from './styles';
 import api from '../../../services/api';
 import { TUserAddress } from '../Addresses/Address';
+
+import {
+  useStyles,
+  CustomInput,
+  PurpleSolidButton,
+  RedOutlinedButton,
+} from './styles';
 
 const addressSchema = yup.object().shape({
   address: yup.string().min(6).required(),
@@ -32,9 +38,9 @@ enum addressLabels {
 
 const PurpleCheckbox = withStyles({
   root: {
-    color: purple[200],
+    color: '#e06b50',
     '&$checked': {
-      color: purple[600],
+      color: '#e06b50',
     },
   },
   checked: {},
@@ -136,13 +142,12 @@ const AddEditAddress: React.FC = () => {
                     />
                   </Grid>
                 ) : (
-
                   <Grid
                     key={name}
                     xs={name === 'address' ? 12 : 6}
                     className={classes.textFieldGrid}
                   >
-                    <TextField
+                    <CustomInput
                       name={name}
                       label={addressLabels[name as keyof typeof addressLabels]}
                       variant="outlined"
@@ -187,12 +192,12 @@ const AddEditAddress: React.FC = () => {
             </Grid>
           </form>
         ) : (
-            <Grid container alignItems="center">
-              <Grid item xs={12} className={classes.textFieldGrid}>
-                No Address Found
+          <Grid container alignItems="center">
+            <Grid item xs={12} className={classes.textFieldGrid}>
+              No Address Found
             </Grid>
-            </Grid>
-          )}
+          </Grid>
+        )}
       </Grid>
     </UserLayout>
   );

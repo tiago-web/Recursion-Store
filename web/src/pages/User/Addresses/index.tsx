@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 import UserLayout from '../components/UserLayout';
 import Address, { TUserAddress } from './Address';
-import { useStyles, PurpleSolidButton } from './styles';
+import { useStyles, PurpleSolidButton, NotFoundAddressMessage } from './styles';
 import api from '../../../services/api';
 import apiErrorHandler from '../../../services/apiErrorHandler';
 
@@ -51,7 +51,9 @@ const PreviousOrders: React.FC = () => {
           </Grid>
         ) : (
           <Grid container item>
-            No addresses were found
+            <NotFoundAddressMessage>
+              No addresses were found.
+            </NotFoundAddressMessage>
           </Grid>
         )}
         <Grid item>&nbsp;</Grid>

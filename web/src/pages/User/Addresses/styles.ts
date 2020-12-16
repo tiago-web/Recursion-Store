@@ -14,6 +14,13 @@ export const PurpleSolidButton = styled(Button)`
   }
 `;
 
+export const NotFoundAddressMessage = styled.p`
+  margin: -54px 0 0 28px;
+
+  font-weight: bold;
+  font-size: 1.1rem;
+`;
+
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
