@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import PreviousOrderCard, { TPreviousOrder } from './PreviousOrderCard';
 import api from '../../../../services/api';
 import apiErrorHandler from '../../../../services/apiErrorHandler';
-import { useStyles } from './styles';
+import { useStyles, NoOrdersFoundMessage } from './styles';
 
 const PreviousOrders: React.FC = () => {
   const classes = useStyles();
@@ -35,7 +35,7 @@ const PreviousOrders: React.FC = () => {
         </Grid>
       ) : (
         <Grid item justify="center" alignItems="center">
-          No orders were found
+          <NoOrdersFoundMessage>No orders were found.</NoOrdersFoundMessage>
         </Grid>
       )}
     </Grid>

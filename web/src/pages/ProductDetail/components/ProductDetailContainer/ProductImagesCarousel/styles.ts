@@ -16,6 +16,9 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
 
+  -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
   .carousel {
     width: 600px;
     height: 650px;
@@ -38,10 +41,6 @@ export const SlideImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: 600px 650px;
-
-  -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
-  -moz-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
-  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.07);
 `;
 
 export const CustomButtonBack = styled(ButtonBack)<ButtonBackProps>`

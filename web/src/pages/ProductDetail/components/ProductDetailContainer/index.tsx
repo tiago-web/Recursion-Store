@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Tooltip } from '@material-ui/core';
 
 import { useHistory } from 'react-router-dom';
-import Carousel from '../../../../components/Carousel';
 import Button from '../../../../components/Button';
 import formatToDollars from '../../../../utils/formatToDollars';
 import Sizes from './Sizes';
@@ -13,7 +12,6 @@ import { ImagesProps, ItemProps, Product } from '../..';
 
 import {
   Container,
-  CarouselContent,
   ProductDetailContent,
   Title,
   Colors,
@@ -134,15 +132,6 @@ const ProductDetailContainer: React.FC<ProductDetailContainerProps> = ({
   return (
     <>
       <Container>
-        {/* <CarouselContent>
-          <Carousel
-            items={images}
-            height={60}
-            autoPlay={false}
-            backgroundColor="#fafafa"
-            navButtonsAlwaysVisible
-          />
-        </CarouselContent> */}
         <ProductImagesCarousel images={images} />
 
         {productId ? (
